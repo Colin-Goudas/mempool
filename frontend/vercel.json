@@ -16,6 +16,18 @@
       "handle": "filesystem"
     },
     {
+      "src": "/mempool/api/(.*)",
+      "dest": "https://mempool.space/api/$1"
+    },
+    {
+      "src": "/mempool/resources/mining-pools/(.*)",
+      "dest": "https://mempool.space/resources/mining-pools/$1"
+    },
+    {
+      "src": "/mempool/(.*)",
+      "dest": "/$1"
+    },
+    {
       "src": "/api/explain",
       "status": 404
     },
