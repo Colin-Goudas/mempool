@@ -28,7 +28,7 @@ export class ApiService {
     private storageService: StorageService,
     private minersService: MinersService,
   ) {
-    this.apiBaseUrl = ''; // use relative URL by default
+    this.apiBaseUrl = stateService.isBrowser ? '/mempool' : ''; // namespace browser API calls to avoid Next.js route collisions
     if (!stateService.isBrowser) { // except when inside AU SSR process
       this.apiBaseUrl = this.stateService.env.NGINX_PROTOCOL + '://' + this.stateService.env.NGINX_HOSTNAME + ':' + this.stateService.env.NGINX_PORT;
     }
