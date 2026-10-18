@@ -77,7 +77,7 @@ const DUPLICATE_TX_BLOCKS: Record<string, [number, number]> = {
 export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   get pendingTrackerSnapshot() { return this.network === '' && !!this.stateService.env.PENDING_TRACKER_EXPLANATIONS; }
   get snapshotFacts() { return transactionSnapshot(this.tx, this.latestBlock?.height, this.transactionTime, !!this.replaced || !!this.rbfTransaction, this.pool?.name); }
-  get technicalFacts() { return transactionTechnicalFacts(this.tx); }
+  get technicalFacts() { return transactionTechnicalFacts(this.tx, this.pool?.name); }
   get snapshotSummary() { return transactionSummary(this.tx, !!this.replaced || !!this.rbfTransaction); }
   network = '';
   tx: Transaction;
