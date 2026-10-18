@@ -8,9 +8,9 @@
       </header>
       <div class="pt-snapshot-summary" [attr.role]="snapshot.reconnecting ? 'status' : null">{{ snapshot.summary }}</div>
       <div class="pt-snapshot-rows">
-        <div class="pt-snapshot-row" *ngFor="let row of snapshot.rows">
+        <div class="pt-snapshot-row" *ngFor="let row of snapshot.rows; let i = index">
           <div class="pt-snapshot-fact"><span>{{ row.label }}</span><strong>{{ row.value }}</strong></div>
-          <div class="pt-snapshot-meaning"><p>{{ row.meaning }}</p><details class="pt-row-more"><summary>Explore more<span class="visually-hidden"> about {{ row.label }}</span></summary><p>{{ row.details }}</p></details></div>
+          <div class="pt-snapshot-meaning"><p>{{ row.meaning }}</p><a class="pt-explore-more" [attr.href]="'#pt-network-detail-' + i">Explore more<span class="visually-hidden"> about {{ row.label }}</span> ↓</a></div>
         </div>
       </div>
     </section>
@@ -18,6 +18,14 @@
       <h2>Dive deeper</h2>
       <p>Explore fees, mining, recent blocks, and the transactions moving through Bitcoin.</p>
     </header>
+    <section class="pt-snapshot pt-deeper-snapshot" aria-label="Bitcoin network dive deeper" *ngIf="networkSnapshot$ | async as snapshot">
+      <div class="pt-snapshot-rows">
+        <div class="pt-snapshot-row" *ngFor="let row of snapshot.rows; let i = index" [attr.id]="'pt-network-detail-' + i">
+          <div class="pt-snapshot-fact"><span>{{ row.label }}</span><strong>{{ row.value }}</strong></div>
+          <p class="pt-snapshot-meaning">{{ row.details }}</p>
+        </div>
+      </div>
+    </section>
   </ng-container>
   <div class="row row-cols-1 row-cols-md-2" *ngIf="{ value: (mempoolInfoData$ | async) } as mempoolInfoData">
     <ng-container>

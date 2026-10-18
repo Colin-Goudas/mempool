@@ -53,10 +53,10 @@
 
   @if (pendingTrackerSnapshot && tx && !error) {
     <div class="pt-snapshot-rows">
-      @for (fact of snapshotFacts; track fact.label) {
+      @for (fact of snapshotFacts; track fact.label; let i = $index) {
         <div class="pt-snapshot-row">
           <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
-          <div class="pt-snapshot-meaning"><p>{{ fact.meaning }}</p><details class="pt-row-more"><summary>Explore more<span class="visually-hidden"> about {{ fact.label }}</span></summary><p>{{ fact.details }}</p></details></div>
+          <div class="pt-snapshot-meaning"><p>{{ fact.meaning }}</p><a class="pt-explore-more" [attr.href]="'#pt-transaction-detail-' + i">Explore more<span class="visually-hidden"> about {{ fact.label }}</span> ↓</a></div>
         </div>
       }
     </div>
@@ -66,6 +66,16 @@
   @if (!error) {
     @if (pendingTrackerSnapshot) {
       <header class="pt-deeper-heading"><h2>Dive deeper</h2><p>Explore the original transaction analysis, payment flow and technical details.</p></header>
+      <section class="pt-snapshot pt-deeper-snapshot" aria-label="Transaction dive deeper">
+        <div class="pt-snapshot-rows">
+          @for (fact of snapshotFacts; track fact.label; let i = $index) {
+            <div class="pt-snapshot-row" [attr.id]="'pt-transaction-detail-' + i">
+              <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
+              <p class="pt-snapshot-meaning">{{ fact.details }}</p>
+            </div>
+          }
+        </div>
+      </section>
       <details class="pt-deeper">
         <summary>Fees, timing &amp; technical analysis <span>Explore details</span></summary>
         <p class="pt-deeper-intro">Inspect fee calculations, transaction features and mining attribution. These are the underlying explorer readings.</p>
