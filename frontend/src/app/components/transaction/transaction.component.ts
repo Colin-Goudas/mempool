@@ -1,4 +1,4 @@
-import { transactionSnapshot, transactionSummary } from './transaction-snapshot';
+import { transactionSnapshot, transactionSummary, transactionTechnicalFacts } from './transaction-snapshot';
 import { Component, OnInit, AfterViewInit, OnDestroy, HostListener, ViewChild, ElementRef, Inject, ChangeDetectorRef } from '@angular/core';
 import { ElectrsApiService } from '@app/services/electrs-api.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -77,6 +77,7 @@ const DUPLICATE_TX_BLOCKS: Record<string, [number, number]> = {
 export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   get pendingTrackerSnapshot() { return this.network === '' && !!this.stateService.env.PENDING_TRACKER_EXPLANATIONS; }
   get snapshotFacts() { return transactionSnapshot(this.tx, this.latestBlock?.height, this.transactionTime, !!this.replaced || !!this.rbfTransaction, this.pool?.name); }
+  get technicalFacts() { return transactionTechnicalFacts(this.tx); }
   get snapshotSummary() { return transactionSummary(this.tx, !!this.replaced || !!this.rbfTransaction); }
   network = '';
   tx: Transaction;
