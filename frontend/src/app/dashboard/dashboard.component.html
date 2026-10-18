@@ -1,5 +1,24 @@
 
-<div class="container-xl dashboard-container" *ngIf="(network$ | async) !== 'liquid'; else liquidDashboard">
+<div class="container-xl dashboard-container" [class.pt-network-dashboard]="showPendingTrackerSnapshot" *ngIf="(network$ | async) !== 'liquid'; else liquidDashboard">
+  <ng-container *ngIf="showPendingTrackerSnapshot">
+    <section class="pt-snapshot" aria-label="Bitcoin network snapshot" *ngIf="networkSnapshot$ | async as snapshot">
+      <header class="pt-snapshot-heading">
+        <h2>Bitcoin network snapshot</h2>
+        <p>The latest network data, explained.</p>
+      </header>
+      <div class="pt-snapshot-summary" [attr.role]="snapshot.reconnecting ? 'status' : null">{{ snapshot.summary }}</div>
+      <div class="pt-snapshot-rows">
+        <div class="pt-snapshot-row" *ngFor="let row of snapshot.rows">
+          <div class="pt-snapshot-fact"><span>{{ row.label }}</span><strong>{{ row.value }}</strong></div>
+          <p class="pt-snapshot-meaning">{{ row.meaning }}</p>
+        </div>
+      </div>
+    </section>
+    <header class="pt-explore-heading">
+      <h2>Dive deeper</h2>
+      <p>Explore fees, mining, recent blocks, and the transactions moving through Bitcoin.</p>
+    </header>
+  </ng-container>
   <div class="row row-cols-1 row-cols-md-2" *ngIf="{ value: (mempoolInfoData$ | async) } as mempoolInfoData">
     <ng-container>
       <div class="col card-wrapper">

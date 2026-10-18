@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pending Tracker — narrow viewport check</title><style>
+body{margin:0;background:#090d16;color:#d7dbe4;font:14px system-ui}header{padding:14px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}a{color:#e3b367}iframe{display:block;width:390px;height:950px;border:1px solid #555;margin:0 auto 24px;background:#111622}p{margin:0;color:#aeb5c3}
+</style></head><body><header><strong>390px viewport check</strong><a href="?page=transaction">Transaction</a><a href="?page=wallet">Wallet</a><a href="?page=network">Network</a><p>Preview QA only · an embedded browser viewport, not a physical iPhone test</p></header><iframe title="Bitcoin page at 390px" src="/"></iframe><script>
+const pages={transaction:'/tx/c5908e04daea83ec38101692a0663130bcafa7d0ddaef1fd8821d179d1db1c8c',wallet:'/address/1J5VmAoXLfwsT4h18hJTLtFejsVV7gTSAK',network:'/'};
+document.querySelector('iframe').src=pages[new URLSearchParams(location.search).get('page')]||pages.transaction;
+</script></body></html>

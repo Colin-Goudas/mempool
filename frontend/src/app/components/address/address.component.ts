@@ -153,6 +153,34 @@ export class AddressComponent implements OnInit, OnDestroy {
     private formBuilder: UntypedFormBuilder,
   ) { }
 
+  get showWalletSnapshot(): boolean {
+    return !!this.stateService.env.PENDING_TRACKER_EXPLANATIONS && this.network === '';
+  }
+
+  get walletSnapshot(): {
+    balance: number | null; pending: number | null; received: number | null;
+    spent: number | null; utxos: number | null; confirmedTransactions: number | null;
+    pendingTransactions: number | null; pendingUtxos: number | null;
+  } {
+    // AddressStats is maintained by the existing live subscriptions. Fall back to
+    // the response stats only while those live wrappers are being initialized.
+    const confirmed = this.chainStats || this.address?.chain_stats;
+    const pending = this.mempoolStats || this.address?.mempool_stats;
+    const finite = (value: number | undefined): number | null => Number.isFinite(value) ? value : null;
+    const difference = (funded: number | undefined, spent: number | undefined): number | null =>
+      Number.isFinite(funded) && Number.isFinite(spent) ? funded - spent : null;
+    return {
+      balance: difference(confirmed?.funded_txo_sum, confirmed?.spent_txo_sum),
+      pending: difference(pending?.funded_txo_sum, pending?.spent_txo_sum),
+      received: finite(confirmed?.funded_txo_sum),
+      spent: finite(confirmed?.spent_txo_sum),
+      utxos: difference(confirmed?.funded_txo_count, confirmed?.spent_txo_count),
+      confirmedTransactions: finite(confirmed?.tx_count),
+      pendingTransactions: finite(pending?.tx_count),
+      pendingUtxos: difference(pending?.funded_txo_count, pending?.spent_txo_count),
+    };
+  }
+
   ngOnInit(): void {
     this.network = this.stateService.network;
     this.networkChangeSubscription = this.stateService.networkChanged$.subscribe((network) => {

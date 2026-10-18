@@ -1,7 +1,7 @@
 <div class="container-xl" [class.liquid-address]="network === 'liquid' || network === 'liquidtestnet'">
   <div class="title-address">
     <h1 i18n="shared.address">Address</h1>
-    <div class="tx-link">
+    <div class="tx-link" *ngIf="!showWalletSnapshot">
       <app-truncate [text]="addressString" [lastChars]="8" [link]="['/address/' | relativeUrl, addressString]">
         <span class="qrSpan" (mouseover)="showQR = true" (mouseout)="showQR = false" (pointerdown)="showQR = true">
           <fa-icon [icon]="['fas', 'qrcode']" [fixedWidth]="true" [style.font-size]="isMobile ? '18px' : '12px'"></fa-icon>
@@ -17,6 +17,80 @@
   <div class="clearfix"></div>
 
   <ng-template [ngIf]="!isLoadingAddress && !error">
+    @if (showWalletSnapshot) {
+      @let snapshot = walletSnapshot;
+      <section class="pt-snapshot" aria-label="Wallet snapshot">
+        <header class="pt-snapshot-heading">
+          <h2>Wallet snapshot</h2>
+          <p class="pt-wallet-identifier">
+            <app-truncate [text]="addressString" [lastChars]="8" [link]="['/address/' | relativeUrl, addressString]">
+              <span class="qrSpan" (mouseover)="showQR = true" (mouseout)="showQR = false" (pointerdown)="showQR = true">
+                <fa-icon [icon]="['fas', 'qrcode']" [fixedWidth]="true"></fa-icon>
+                <span class="qr-wrapper" [hidden]="!showQR"><app-qrcode [size]="200" [data]="addressString"></app-qrcode></span>
+              </span>
+              <app-clipboard [text]="addressString" [size]="isMobile ? 'large' : 'normal'"></app-clipboard>
+            </app-truncate>
+          </p>
+        </header>
+        <div class="pt-snapshot-summary">
+          @if (snapshot.balance !== null) {
+            This address has <app-amount [satoshis]="snapshot.balance" [noFiat]="true"></app-amount> in confirmed outputs.
+          } @else {
+            Confirmed balance is currently unavailable for this address.
+          }
+          @if (snapshot.pendingTransactions !== null) {
+            {{ snapshot.pendingTransactions | number }} unconfirmed {{ snapshot.pendingTransactions === 1 ? 'transaction is' : 'transactions are' }} currently recorded.
+          }
+          A wallet may use many addresses; this page does not necessarily show its full balance.
+        </div>
+        <div class="pt-snapshot-rows">
+          <div class="pt-snapshot-row">
+            <div class="pt-snapshot-fact"><span>Confirmed balance</span><strong>@if (snapshot.balance !== null) {<app-amount [satoshis]="snapshot.balance" [noFiat]="true"></app-amount>} @else {Unavailable}</strong><small class="pt-wallet-fiat" *ngIf="snapshot.balance !== null"><app-fiat [value]="snapshot.balance"></app-fiat></small></div>
+            <p class="pt-snapshot-meaning">The value received at this address that remains unspent in confirmed transactions. Pending spending can reduce what is available to spend now.</p>
+          </div>
+          <div class="pt-snapshot-row">
+            <div class="pt-snapshot-fact"><span>Pending balance change</span><strong>@if (snapshot.pending !== null) {<app-amount [satoshis]="snapshot.pending" [noFiat]="true" [addPlus]="true"></app-amount>} @else {Unavailable}</strong></div>
+            <p class="pt-snapshot-meaning">@if (snapshot.pending === null) {Pending balance data is unavailable.} @else if (snapshot.pending > 0) {Unconfirmed transactions currently add this net amount to this address. It is not confirmed yet.} @else if (snapshot.pending < 0) {Unconfirmed transactions currently spend more from this address than they return to it.} @else {There is no net unconfirmed balance change. This can still include transactions whose incoming and outgoing values cancel out.}</p>
+          </div>
+          @if (!address.electrum) {
+            <div class="pt-snapshot-row">
+              <div class="pt-snapshot-fact"><span>Confirmed unspent outputs</span><strong>{{ snapshot.utxos === null ? 'Unavailable' : (snapshot.utxos | number) }}</strong></div>
+              <p class="pt-snapshot-meaning">Separate pieces of bitcoin held by this address in the confirmed chain, called UTXOs. A transaction can combine several of them; this is not a count of coins or people.</p>
+            </div>
+          }
+          <div class="pt-snapshot-row">
+            <div class="pt-snapshot-fact"><span>Confirmed transactions</span><strong>{{ snapshot.confirmedTransactions === null ? 'Unavailable' : (snapshot.confirmedTransactions | number) }}</strong></div>
+            <p class="pt-snapshot-meaning">Confirmed transactions that involve this address. They may include receiving, spending and change; they are not all separate payments.</p>
+          </div>
+          @if (!address.electrum) {
+            <div class="pt-snapshot-row">
+              <div class="pt-snapshot-fact"><span>Total received · confirmed</span><strong>@if (snapshot.received !== null) {<app-amount [satoshis]="snapshot.received" [noFiat]="true"></app-amount>} @else {Unavailable}</strong></div>
+              <p class="pt-snapshot-meaning">The value of all confirmed outputs ever assigned to this address, including any change. This is a lifetime total, not the current balance or income.</p>
+            </div>
+            <div class="pt-snapshot-row">
+              <div class="pt-snapshot-fact"><span>Total spent · confirmed</span><strong>@if (snapshot.spent !== null) {<app-amount [satoshis]="snapshot.spent" [noFiat]="true"></app-amount>} @else {Unavailable}</strong></div>
+              <p class="pt-snapshot-meaning">The original value of this address's outputs that were later spent. Some value may have returned as change, so this does not mean that amount was paid to someone else.</p>
+            </div>
+          }
+          <div class="pt-snapshot-row">
+            <div class="pt-snapshot-fact"><span>Address type</span><strong><app-address-type [address]="addressTypeInfo"></app-address-type></strong>
+              <button *ngIf="showTaprootPsbtButton()" type="button" class="btn btn-sm taproot-psbt-btn" (click)="taprootPsbtExpanded = !taprootPsbtExpanded" aria-label="Add unpublished spending paths"><fa-icon [icon]="['fas', 'code-fork']" [fixedWidth]="true"></fa-icon></button>
+              <app-address-labels *ngIf="!addressTypeInfo?.tapscript" [channel]="exampleChannel" [address]="addressTypeInfo" class="ms-1"></app-address-labels>
+            </div>
+            <p class="pt-snapshot-meaning">The Bitcoin script format used by this address. It describes how outputs can be spent; it does not identify the owner or prove that an address is trustworthy.</p>
+          </div>
+        </div>
+      </section>
+      <details class="pt-deeper">
+        <summary>Understand this address and its history</summary>
+        <p>A wallet can control many addresses. This page only shows the address above, so its balance and history may represent a small part of that wallet.</p>
+        <p>Confirmed balance equals confirmed value received minus the original value of outputs spent. Pending balance change is separate and can change before confirmation.</p>
+        <p>UTXOs are unspent transaction outputs. The charts and transaction history below let you inspect them and follow the actual movements, including change.</p>
+        @if (!address.electrum && snapshot.pendingUtxos !== null) {
+          <p>Pending output-count change: <strong>{{ snapshot.pendingUtxos > 0 ? '+' : '' }}{{ snapshot.pendingUtxos | number }}</strong>. This is the net change to this address's unspent-output count from currently unconfirmed transactions.</p>
+        }
+      </details>
+    } @else {
     <div class="box">
 
       <div class="row">
@@ -72,6 +146,7 @@
         }
       </div>
     </div>
+    }
 
     <ng-container *ngIf="(addressTypeInfo?.tapscript && addressTypeInfo?.scripts?.size > 0) || taprootPsbtExpanded"> 
       <br>

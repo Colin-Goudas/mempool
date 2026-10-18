@@ -10,6 +10,18 @@ import { SeoService } from '@app/services/seo.service';
 import { ActiveFilter, FilterMode, GradientMode, toFlags } from '@app/shared/filters.utils';
 import { detectWebGL } from '@app/shared/graphs.utils';
 
+interface NetworkSnapshotRow {
+  label: string;
+  value: string;
+  meaning: string;
+}
+
+interface NetworkSnapshot {
+  summary: string;
+  rows: NetworkSnapshotRow[];
+  reconnecting: boolean;
+}
+
 interface MempoolBlocksData {
   blocks: number;
   size: number;
@@ -36,6 +48,11 @@ interface MempoolStatsData {
 })
 export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   network$: Observable<string>;
+  networkSnapshot$: Observable<NetworkSnapshot>;
+
+  get showPendingTrackerSnapshot(): boolean {
+    return this.stateService.env.PENDING_TRACKER_EXPLANATIONS && this.stateService.network === '';
+  }
   mempoolBlocksData$: Observable<MempoolBlocksData>;
   mempoolInfoData$: Observable<MempoolInfoData>;
   mempoolLoadingStatus$: Observable<number>;
@@ -120,6 +137,55 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.websocketService.want(['blocks', 'stats', 'mempool-blocks', 'live-2h-chart']);
     this.websocketService.startTrackRbfSummary();
     this.network$ = merge(of(''), this.stateService.networkChanged$);
+    // Reuse websocket state: the snapshot creates no additional API requests.
+    this.networkSnapshot$ = combineLatest([
+      this.stateService.mempoolInfo$.pipe(startWith(null)),
+      this.stateService.recommendedFees$.pipe(startWith(null)),
+      this.stateService.blocks$.pipe(startWith(null)),
+      this.stateService.difficultyAdjustment$.pipe(startWith(null)),
+      this.stateService.isLoadingWebSocket$.pipe(startWith(true)),
+    ]).pipe(
+      map(([mempool, fees, blocks, difficulty, reconnecting]) => {
+        const number = (value: number, digits = 0): string => Number.isFinite(value)
+          ? value.toLocaleString('en-US', { maximumFractionDigits: digits }) : 'Unavailable';
+        const pending = mempool && Number.isFinite(mempool.size) ? number(mempool.size) : null;
+        const highPriority = fees && Number.isFinite(fees.fastestFee) ? number(fees.fastestFee, 2) : null;
+        const economy = fees && Number.isFinite(fees.economyFee) ? number(fees.economyFee, 2) : null;
+        const latest = blocks?.[0];
+        const adjustment = difficulty && Number.isFinite(difficulty.difficultyChange)
+          ? `${difficulty.difficultyChange > 0 ? '+' : ''}${number(difficulty.difficultyChange, 2)}%` : null;
+        let summary = pending ? `${pending} transactions are awaiting confirmation in this provider's mempool.`
+          : 'Waiting for current Bitcoin network data from the provider.';
+        if (highPriority) {
+          summary += ` The current high-priority fee recommendation is ${highPriority} sat/vB; confirmation timing is not guaranteed.`;
+        }
+        if (mempool?.loaded === false) {
+          summary += ' The provider is still loading its mempool, so the transaction count may be incomplete.';
+        }
+        if (reconnecting) {
+          summary = 'Connecting to the live network feed. Any values shown are the last received data and may be out of date.';
+        }
+        const missing = reconnecting ? 'Loading…' : 'Unavailable';
+        return {
+          summary,
+          reconnecting,
+          rows: [
+            { label: 'Awaiting confirmation', value: pending ?? missing,
+              meaning: 'Transactions this provider has seen that are not yet included in a block. Other nodes can see a different mempool.' },
+            { label: 'High-priority fee', value: highPriority === null ? missing : `${highPriority} sat/vB`,
+              meaning: 'A fee-rate recommendation for targeting the next block. Miners choose which transactions to include, so this is not a promise.' },
+            { label: 'Economy fee', value: economy === null ? missing : `${economy} sat/vB`,
+              meaning: 'A lower-priority fee recommendation when you can wait. Your total fee also depends on the transaction’s virtual size.' },
+            { label: 'Latest confirmed block', value: latest ? number(latest.height) : missing,
+              meaning: latest ? `This block contains ${number(latest.tx_count)} transactions. A new block adds another confirmation to transactions already recorded.`
+                : 'The most recent block received from the provider. Its height is its position in the Bitcoin blockchain.' },
+            { label: 'Estimated difficulty change', value: adjustment ?? missing,
+              meaning: 'The projected change in mining difficulty at the next adjustment. This estimate can change as more blocks arrive.' },
+          ],
+        };
+      }),
+      shareReplay({ bufferSize: 1, refCount: true }),
+    );
     this.mempoolLoadingStatus$ = this.stateService.loadingIndicators$
       .pipe(
         map((indicators) => indicators.mempool !== undefined ? indicators.mempool : 100)

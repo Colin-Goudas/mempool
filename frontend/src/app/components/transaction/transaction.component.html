@@ -1,4 +1,5 @@
 <div class="container-xl">
+  <section [class.pt-snapshot]="pendingTrackerSnapshot" [attr.aria-label]="pendingTrackerSnapshot ? 'Transaction snapshot' : null">
 
   <div class="title-block">
     <div *ngIf="rbfTransaction && !tx?.status?.confirmed" class="alert alert-mempool" role="alert">
@@ -8,6 +9,7 @@
 
     <ng-container *ngIf="!rbfTransaction || rbfTransaction?.size || tx">
       <h1 i18n="shared.transaction">Transaction</h1>
+      @if (pendingTrackerSnapshot) { <span class="pt-snapshot-eyebrow">TRANSACTION SNAPSHOT</span> }
 
       <span class="tx-link">
         <span class="txid">
@@ -47,10 +49,34 @@
   }
 
   @if (tx && network === '' && stateService.env.PENDING_TRACKER_EXPLANATIONS) {
-    <app-transaction-explanation [txid]="tx.txid" [confirmed]="tx.status.confirmed"></app-transaction-explanation>
+    <div class="pt-snapshot-summary"><app-transaction-explanation [txid]="tx.txid" [confirmed]="tx.status.confirmed" [embedded]="true" [fallbackSummary]="snapshotSummary"></app-transaction-explanation></div>
   }
 
+  @if (pendingTrackerSnapshot && tx && !error) {
+    <div class="pt-snapshot-rows">
+      @for (fact of snapshotFacts; track fact.label) {
+        <div class="pt-snapshot-row">
+          <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
+          <p class="pt-snapshot-meaning">{{ fact.meaning }}</p>
+        </div>
+      }
+    </div>
+  }
+  </section>
+
   @if (!error) {
+    @if (pendingTrackerSnapshot) {
+      <header class="pt-deeper-heading"><h2>Dive deeper</h2><p>Explore the original transaction analysis, payment flow and technical details.</p></header>
+      <details class="pt-deeper">
+        <summary>Fees, timing &amp; technical analysis <span>Explore details</span></summary>
+        <p class="pt-deeper-intro">Inspect fee calculations, transaction features and mining attribution. These are the underlying explorer readings.</p>
+        <ng-container *ngTemplateOutlet="upstreamTransactionDetails"></ng-container>
+      </details>
+    } @else {
+      <ng-container *ngTemplateOutlet="upstreamTransactionDetails"></ng-container>
+    }
+  }
+  <ng-template #upstreamTransactionDetails>
     <app-transaction-details
       [network]="network"
       [tx]="tx"
@@ -80,7 +106,7 @@
       (accelerateClicked)="onAccelerateClicked()"
       (toggleCpfp$)="toggleCpfp()"
     ></app-transaction-details>
-  }
+  </ng-template>
 
   <ng-template [ngIf]="!isLoadingTx && !error">
 
