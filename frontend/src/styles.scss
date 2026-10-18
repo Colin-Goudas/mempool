@@ -1664,3 +1664,16 @@ form label:not(.form-check-label):not(.btn) {
 .ngb-dp-header, .ngb-dp-week {
   background-color: var(--bg) !important;
 }
+/* Pending Tracker: quiet gold hierarchy while preserving data/fee colors. */
+.pending-tracker-banner {
+  display: flex; align-items: center; gap: .75rem 1.25rem; flex-wrap: wrap;
+  padding: 1rem max(1rem, calc((100% - 1320px) / 2));
+  border-bottom: 1px solid #d5a04c1f; color: #939aa6; font-size: .8rem;
+  background: radial-gradient(ellipse at left top, #d5a04c0a, transparent 65%);
+}
+.pending-tracker-banner strong { color: #e8b45b; font-size: 1.05rem; letter-spacing: .035em; }
+.pending-tracker-banner a { margin-left: auto; }
+@media (max-width: 575px) {
+  .pending-tracker-banner { padding: .8rem 1rem; gap: .3rem .75rem; }
+  .pending-tracker-banner a { margin-left: 0; width: 100%; font-size: .7rem; }
+}

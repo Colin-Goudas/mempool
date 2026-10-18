@@ -136,7 +136,11 @@
   <div class="flex-grow-1 d-flex flex-column">
     <app-testnet-alert *ngIf="network.val === 'testnet' || network.val === 'testnet4' || network.val === 'signet'"></app-testnet-alert>
 
-    <main style="min-width: 375px; max-width: 100vw">
+    <main style="min-width: 0; max-width: 100vw">
+      <div *ngIf="env.PENDING_TRACKER_EXPLANATIONS" class="pending-tracker-banner">
+        <strong>Pending Tracker</strong><span>Bitcoin explorer · Test preview</span>
+        <a href="https://github.com/Colin-Goudas/mempool/tree/pending-tracker-explorer-test" target="_blank" rel="noopener">Open-source software based on Mempool</a>
+      </div>
       <router-outlet></router-outlet>
     </main>
 

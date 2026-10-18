@@ -62,6 +62,7 @@ export class WebsocketService {
         .pipe(take(1))
         .subscribe((response) => this.handleResponse(response));
     } else {
+      this.webSocketUrl = this.stateService.env.WEBSOCKET_URL || this.webSocketUrl;
       this.network = this.stateService.network === this.stateService.env.ROOT_NETWORK ? '' : this.stateService.network;
       this.websocketSubject = webSocket<WebsocketResponse>(this.webSocketUrl.replace('{network}', this.network ? '/' + this.network : ''));
 

@@ -1,3 +1,4 @@
+import { TransactionExplanationComponent } from '@components/transaction-explanation/transaction-explanation.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
@@ -53,6 +54,7 @@ export class TransactionRoutingModule { }
 @NgModule({
   imports: [
     CommonModule,
+    TransactionExplanationComponent,
     TransactionRoutingModule,
     SharedModule,
     GraphsModule,

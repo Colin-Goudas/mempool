@@ -46,6 +46,10 @@
     </div>
   }
 
+  @if (tx && network === '' && stateService.env.PENDING_TRACKER_EXPLANATIONS) {
+    <app-transaction-explanation [txid]="tx.txid" [confirmed]="tx.status.confirmed"></app-transaction-explanation>
+  }
+
   @if (!error) {
     <app-transaction-details
       [network]="network"

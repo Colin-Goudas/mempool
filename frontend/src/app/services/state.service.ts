@@ -46,6 +46,8 @@ export interface Customization {
 export type SignaturesMode = 'all' | 'interesting' | 'none' | null;
 
 export interface Env {
+  WEBSOCKET_URL?: string;
+  PENDING_TRACKER_EXPLANATIONS?: boolean;
   MAINNET_ENABLED: boolean;
   TESTNET_ENABLED: boolean;
   TESTNET4_ENABLED: boolean;
