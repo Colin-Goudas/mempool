@@ -1,12 +1,12 @@
 @use "sass:color";
 
 /* Theme */
-$bg: #11131f;
-$active-bg: #000000;
-$hover-bg: #12131e;
-$fg: #fff;
+$bg: #0a0d13;
+$active-bg: #101722;
+$hover-bg: #151b26;
+$fg: #e9edf3;
 $nav-bg: $bg;
-$title-fg: #2055e3;
+$title-fg: #e8b45b;
 
 $taproot: #eba814;
 $taproot-light: #d5a90a;
@@ -20,11 +20,11 @@ $gray-700: $fg;
 
 $nav-tabs-link-active-bg: $active-bg;
 
-$primary: #007cfa;
-$secondary: #272f4e;
-$tertiary: #6225b2;
+$primary: #d5a04c;
+$secondary: #242b37;
+$tertiary: #a77b36;
 $success: #0aab2f;
-$info: #00ddff;
+$info: #e8b45b;
 
 $h5-font-size: 1.15rem !default;
 
