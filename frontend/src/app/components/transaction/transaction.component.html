@@ -48,7 +48,7 @@
   }
 
   @if (tx && network === '' && stateService.env.PENDING_TRACKER_EXPLANATIONS) {
-    <div class="pt-snapshot-summary"><app-transaction-explanation [txid]="tx.txid" [confirmed]="tx.status.confirmed" [embedded]="true" [fallbackSummary]="snapshotSummary"></app-transaction-explanation></div>
+    <div class="pt-snapshot-summary"><app-transaction-explanation [txid]="tx.txid" [confirmed]="tx.status.confirmed" [embedded]="true" [fallbackSummary]="snapshotSummary" [replaced]="!!replaced || !!rbfTransaction"></app-transaction-explanation></div>
   }
 
   @if (pendingTrackerSnapshot && tx && !error) {

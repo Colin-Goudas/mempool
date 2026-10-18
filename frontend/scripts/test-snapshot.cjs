@@ -35,3 +35,16 @@ test('missing numeric data remains unavailable, invalid tip never gives negative
  assert.equal(fact(transactionSnapshot(base,899999),'Confirmations').value,'Checking latest block…');
  assert.deepEqual(transactionSnapshot(undefined),[]);
 });
+test('replacement transition cancels the pending summary and cannot fetch a stale one',()=>{
+ const componentSource=fs.readFileSync('src/app/components/transaction-explanation/transaction-explanation.component.ts','utf8');
+ const js=ts.transpileModule(componentSource,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,experimentalDecorators:true}}).outputText;
+ const c=new Module('explanation');
+ c.require=id=>id==='@angular/core'?{Component:()=>target=>target,Input:()=>()=>{}}:id==='@angular/common'?{CommonModule:class{}}:id==='@angular/common/http'?{}:require(id);
+ c._compile(js,'explanation.js');
+ let calls=0,cancelled=false;
+ const component=new c.exports.TransactionExplanationComponent({post:()=>{calls++;return{subscribe:()=>({unsubscribe:()=>{cancelled=true}})}}});
+ component.txid='a'.repeat(64);component.confirmed=false;component.ngOnChanges({txid:{}});
+ component.explanation='Still awaiting confirmation';component.replaced=true;component.ngOnChanges({replaced:{}});
+ assert.equal(cancelled,true);assert.equal(component.explanation,'');assert.equal(component.loading,false);
+ component.explain();assert.equal(calls,1);
+});

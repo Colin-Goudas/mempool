@@ -2,6 +2,18 @@
 
 This branch is an isolated experiment using the real Mempool Angular frontend. It does not replace the Next.js Pending Tracker site. Never merge it into `master`, change Ethereum, or attach `pendingtracker.com` without approval.
 
+## Product direction and snapshot layout (October 18 update)
+
+Angular is the intended stronger foundation for Pending Tracker's **Bitcoin explorer, transaction and wallet/address pages**. It is not limited to being an advanced side product. The existing homepage and Ethereum pages remain outside this migration. Keep all work on `pending-tracker-explorer-test` and the separate test project until approval to switch.
+
+The three mainnet pages now share a compact Mempool-style snapshot: identifier/title, short summary inside the same panel above the first fact, then vertically stacked fact/value rows on the left with one or two explanatory sentences on the right. Each explanation has its own native **Explore more** disclosure. Both columns remain side by side at narrow widths. Mempool's block visualization and original detailed explorer components remain available below/above their existing routes.
+
+The transaction page automatically requests its summary and can fall back to its displayed facts. Confirmed/pending/replaced/coinbase states, UTC timestamps, fee rate rounded using virtual size and missing data are handled explicitly. A full-detail mobile transaction route is preserved for the preview rather than automatically switching to Mempool's compact status tracker. An explicit `?mode=status` can still request the original tracker.
+
+Address summaries identify one address rather than claiming to show a whole wallet. Received/spent totals are confirmed-output totals rather than income/payment claims. Network summaries reuse live WebSocket state and label reconnecting or missing data.
+
+Focused tests: `cd frontend && node --test scripts/test-snapshot.cjs scripts/explain.test.js` (ten passing tests, including pending-to-replaced summary invalidation). Optimized Angular build passes; existing upstream style-budget warnings remain. The unlinked `resources/snapshot-mobile-check.html` page provides an embedded 390px viewport for preview QA; this is not a physical iPhone test.
+
 ## Verified on October 18, 2026
 
 - Installed the locked frontend dependencies and built the optimized Angular application successfully. The English-only build took about 40 seconds locally; initial JavaScript/CSS was about 1.86 MB raw / 412 KB estimated transfer. Existing upstream component-style budget warnings remain.

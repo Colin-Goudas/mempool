@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
     <section class="explanation" [class.embedded]="embedded" aria-label="Transaction summary">
       <div class="explanation-heading">
         <h2>{{ embedded ? 'IN PLAIN ENGLISH' : 'Your transaction, explained' }}</h2>
-        <button type="button" class="btn btn-outline-info btn-sm" (click)="explain()" [disabled]="loading">
+        <button type="button" class="btn btn-outline-info btn-sm" *ngIf="!replaced" (click)="explain()" [disabled]="loading">
           {{ loading ? 'Reading transaction…' : explanation ? 'Refresh summary' : 'Explain this transaction' }}
         </button>
       </div>
@@ -41,6 +41,7 @@ export class TransactionExplanationComponent implements OnChanges, OnDestroy {
   @Input() confirmed: boolean;
   @Input() embedded = false;
   @Input() fallbackSummary = '';
+  @Input() replaced = false;
   loading = false;
   explanation = '';
   error = '';
@@ -50,16 +51,16 @@ export class TransactionExplanationComponent implements OnChanges, OnDestroy {
   constructor(private http: HttpClient) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!changes.txid && !changes.confirmed) return;
+    if (!changes.txid && !changes.confirmed && !changes.replaced) return;
     this.request?.unsubscribe();
     this.loading = false;
     this.explanation = '';
     this.error = '';
-    if (this.txid) this.explain();
+    if (this.txid && !this.replaced) this.explain();
   }
 
   explain(): void {
-    if (this.loading) return;
+    if (this.loading || this.replaced) return;
     this.loading = true;
     this.error = '';
     this.request = this.http.post<{ explanation: string; source: string }>('/api/explain', { txid: this.txid }).subscribe({
