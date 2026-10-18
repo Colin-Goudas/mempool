@@ -345,3 +345,31 @@ h2 .cpfp-beta {
     color: var(--info);
   }
 }
+
+/* Expand explanations immediately beneath their snapshot summaries. */
+.pt-inline-explanation {
+  display: block;
+  margin-top: 8px;
+  max-width: 100%;
+
+  > summary.pt-explore-more {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    list-style: none;
+    color: #e6bc67;
+    font-weight: 600;
+    user-select: none;
+  }
+  > summary.pt-explore-more::-webkit-details-marker { display: none; }
+  > summary.pt-explore-more::after { content: ' ↓'; margin-left: 5px; }
+  &[open] > summary.pt-explore-more::after { content: ' ↑'; }
+  .pt-expanded-detail {
+    margin: 12px 0 4px;
+    padding: 12px 14px;
+    border-left: 2px solid rgba(230,188,103,.65);
+    background: rgba(230,188,103,.045);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+}
