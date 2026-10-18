@@ -43,3 +43,21 @@ export function transactionSummary(tx: Transaction | undefined, replaced = false
   if (tx.vin?.some(input => input.is_coinbase)) return 'This is a mining reward transaction. It creates the block subsidy and collects the block’s transaction fees.';
   return tx.status?.confirmed ? (finite(tx.status.block_height) ? 'Your transaction is included in block ' + number(tx.status.block_height) + '.' : 'Your transaction is confirmed.') + ' Review its confirmation status, network fee and recorded details below.' : 'Your transaction has not been confirmed yet. Its fee rate and competing network demand influence when it may be included; a confirmation time cannot be guaranteed.';
 }
+
+/** Additional protocol fields, deliberately separate from the quick snapshot. */
+export function transactionTechnicalFacts(tx: Transaction | undefined): SnapshotFact[] {
+  if (!tx) return [];
+  const rows: SnapshotFact[] = [];
+  const add = (label: string, value: string, meaning: string, details: string) => rows.push({label, value, meaning, details});
+  if (finite(tx.size)) add('Size', number(tx.size) + ' B', 'The full transaction size in bytes.', 'Size measures the serialized transaction data, including witness information when present. Bitcoin block capacity is accounted for using weight, rather than raw bytes alone.');
+  if (finite(tx.weight)) {
+    add('Virtual size', number(tx.weight / 4, 2) + ' vB', 'The fee-adjusted size used to compare transaction costs.', 'Virtual size equals transaction weight divided by four. Some wallet and fee calculations round this up to the next whole virtual byte.');
+    add('Adjusted vsize', number(tx.weight / 4, 2) + ' vB', 'The basic weight-derived virtual size; policy adjustments may differ.', 'This displays the weight-derived virtual size. The upstream explorer can show a different adjusted value for transactions with special signature-operation costs, so it should not be interpreted as a separately verified policy-adjusted measurement.');
+    add('Weight', number(tx.weight) + ' WU', 'The transaction’s weight in Bitcoin weight units.', 'Witness data is discounted under SegWit weight rules. Weight determines how much of a block’s permitted capacity a transaction consumes.');
+  }
+  if (finite(tx.version)) add('Version', number(tx.version), 'Identifies the transaction format version.', 'The version field helps signal how the transaction should be interpreted under Bitcoin consensus rules. It does not identify a wallet or exchange.');
+  if (finite(tx.locktime)) add('Locktime', number(tx.locktime), tx.locktime === 0 ? 'No absolute locktime is set.' : 'Specifies an earliest block height or time for finality.', 'A nonzero locktime may restrict when a transaction can be included, depending on input sequence values. Values below 500 million are interpreted as block heights; larger values are Unix timestamps.');
+  if (finite(tx.sigops)) add('Sigops', number(tx.sigops), 'Counts signature-checking operations attributed to this transaction.', 'Signature operations are a Bitcoin validation resource. Their accounting can affect policy-adjusted virtual size and transaction acceptance.');
+  add('Transaction hex', 'Raw transaction', 'The encoded transaction data for advanced inspection.', 'The raw hexadecimal representation contains the serialized transaction, not a plain-English explanation. Use the original technical details below to access the raw-transaction link.');
+  return rows;
+}
