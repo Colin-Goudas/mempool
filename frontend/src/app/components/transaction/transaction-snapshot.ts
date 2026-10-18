@@ -45,7 +45,7 @@ export function transactionSummary(tx: Transaction | undefined, replaced = false
 }
 
 /** Additional protocol fields, deliberately separate from the quick snapshot. */
-export function transactionTechnicalFacts(tx: Transaction | undefined): SnapshotFact[] {
+export function transactionTechnicalFacts(tx: Transaction | undefined, miner?: string): SnapshotFact[] {
   if (!tx) return [];
   const rows: SnapshotFact[] = [];
   const add = (label: string, value: string, meaning: string, details: string) => rows.push({label, value, meaning, details});
@@ -58,6 +58,12 @@ export function transactionTechnicalFacts(tx: Transaction | undefined): Snapshot
   if (finite(tx.version)) add('Version', number(tx.version), 'Identifies the transaction format version.', 'The version field helps signal how the transaction should be interpreted under Bitcoin consensus rules. It does not identify a wallet or exchange.');
   if (finite(tx.locktime)) add('Locktime', number(tx.locktime), tx.locktime === 0 ? 'No absolute locktime is set.' : 'Specifies an earliest block height or time for finality.', 'A nonzero locktime may restrict when a transaction can be included, depending on input sequence values. Values below 500 million are interpreted as block heights; larger values are Unix timestamps.');
   if (finite(tx.sigops)) add('Sigops', number(tx.sigops), 'Counts signature-checking operations attributed to this transaction.', 'Signature operations are a Bitcoin validation resource. Their accounting can affect policy-adjusted virtual size and transaction acceptance.');
+  if (tx.status?.confirmed && finite(tx.status.block_time)) add('Block timestamp', new Date(tx.status.block_time * 1000).toISOString().replace('T', ' ').replace('.000Z', ' UTC'), 'The timestamp recorded in the confirming block.', 'A block timestamp is chosen by the miner within Bitcoin consensus limits. It is not necessarily the precise moment the payment was sent or first broadcast.');
+  if (miner) add('Miner attribution', miner, 'The mining pool associated with the confirming block.', 'Pool attribution is inferred from block information and does not necessarily identify the individual miner.');
+  const hasWitness = tx.vin?.some(input => Array.isArray(input.witness) && input.witness.length > 0);
+  const signalsRbf = tx.vin?.some(input => typeof input.sequence === 'number' && input.sequence < 0xfffffffe);
+  const features = [hasWitness ? 'SegWit witness data' : '', signalsRbf ? 'Signals replaceability (RBF)' : ''].filter(Boolean);
+  if (features.length) add('Transaction features', features.join(' · '), 'Bitcoin transaction features detected from input data.', 'Witness data indicates SegWit-style serialization, but does not by itself establish that a transaction uses Taproot. An input sequence below 0xfffffffe signals opt-in replaceability under the original BIP125 rules; current node replacement policy can differ.');
   add('Transaction hex', 'Raw transaction', 'The encoded transaction data for advanced inspection.', 'The raw hexadecimal representation contains the serialized transaction, not a plain-English explanation. Use the original technical details below to access the raw-transaction link.');
   return rows;
 }
