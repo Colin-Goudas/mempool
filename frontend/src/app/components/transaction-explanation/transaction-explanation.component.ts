@@ -33,7 +33,7 @@ import { Subscription } from 'rxjs';
     .embedded p { font-size: .95rem; line-height: 1.55; margin-top: .5rem; }
     .embedded small { font-size: .72rem; }
     .embedded .btn { font-size: .7rem; padding: .2rem .55rem; }
-    @media (max-width: 575px) { .explanation { padding: 1rem; } .explanation-heading { gap: .75rem; } }
+    @media (max-width: 575px) { .explanation:not(.embedded) { padding: 1rem; } .explanation-heading { gap: .75rem; } }
   `],
 })
 export class TransactionExplanationComponent implements OnChanges, OnDestroy {

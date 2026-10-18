@@ -9,7 +9,6 @@
 
     <ng-container *ngIf="!rbfTransaction || rbfTransaction?.size || tx">
       <h1 i18n="shared.transaction">Transaction</h1>
-      @if (pendingTrackerSnapshot) { <span class="pt-snapshot-eyebrow">TRANSACTION SNAPSHOT</span> }
 
       <span class="tx-link">
         <span class="txid">
@@ -57,7 +56,7 @@
       @for (fact of snapshotFacts; track fact.label) {
         <div class="pt-snapshot-row">
           <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
-          <p class="pt-snapshot-meaning">{{ fact.meaning }}</p>
+          <div class="pt-snapshot-meaning"><p>{{ fact.meaning }}</p><details class="pt-row-more"><summary>Explore more<span class="visually-hidden"> about {{ fact.label }}</span></summary><p>{{ fact.details }}</p></details></div>
         </div>
       }
     </div>

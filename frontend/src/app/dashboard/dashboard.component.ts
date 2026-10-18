@@ -14,6 +14,7 @@ interface NetworkSnapshotRow {
   label: string;
   value: string;
   meaning: string;
+  details: string;
 }
 
 interface NetworkSnapshot {
@@ -181,7 +182,13 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
                 : 'The most recent block received from the provider. Its height is its position in the Bitcoin blockchain.' },
             { label: 'Estimated difficulty change', value: adjustment ?? missing,
               meaning: 'The projected change in mining difficulty at the next adjustment. This estimate can change as more blocks arrive.' },
-          ],
+          ].map(row => ({ ...row, details: ({
+            'Awaiting confirmation': 'Each Bitcoin node keeps its own collection of valid unconfirmed transactions. Counts can differ because of node policies, connectivity and eviction. A larger count alone does not determine your wait: transaction sizes, fee rates and incoming blocks also matter.',
+            'High-priority fee': 'This recommendation estimates a competitive fee rate based on the provider’s current mempool. A total transaction fee is the fee rate multiplied by virtual size. Bitcoin blocks arrive irregularly and demand can change, so paying this rate does not guarantee the next block.',
+            'Economy fee': 'This lower-priority recommendation is intended for transactions whose sender can tolerate a longer wait. The estimate can rise or fall with network demand. A transaction below miners’ or nodes’ minimum policies may not be relayed or selected.',
+            'Latest confirmed block': 'Blocks batch transactions and link to earlier blocks. A block’s height counts its position in the chain; each later block adds a confirmation to earlier transactions. Bitcoin targets roughly ten minutes per block over the long term, but individual intervals vary widely.',
+            'Estimated difficulty change': 'Bitcoin adjusts mining difficulty every 2,016 blocks to keep the long-term block interval near ten minutes. This projection uses progress in the current period. It remains an estimate until the adjustment boundary is reached.',
+          } as Record<string, string>)[row.label] })),
         };
       }),
       shareReplay({ bufferSize: 1, refCount: true }),

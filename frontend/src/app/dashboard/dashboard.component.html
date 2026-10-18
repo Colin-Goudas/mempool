@@ -10,7 +10,7 @@
       <div class="pt-snapshot-rows">
         <div class="pt-snapshot-row" *ngFor="let row of snapshot.rows">
           <div class="pt-snapshot-fact"><span>{{ row.label }}</span><strong>{{ row.value }}</strong></div>
-          <p class="pt-snapshot-meaning">{{ row.meaning }}</p>
+          <div class="pt-snapshot-meaning"><p>{{ row.meaning }}</p><details class="pt-row-more"><summary>Explore more<span class="visually-hidden"> about {{ row.label }}</span></summary><p>{{ row.details }}</p></details></div>
         </div>
       </div>
     </section>

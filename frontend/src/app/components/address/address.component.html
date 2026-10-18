@@ -46,30 +46,30 @@
         <div class="pt-snapshot-rows">
           <div class="pt-snapshot-row">
             <div class="pt-snapshot-fact"><span>Confirmed balance</span><strong>@if (snapshot.balance !== null) {<app-amount [satoshis]="snapshot.balance" [noFiat]="true"></app-amount>} @else {Unavailable}</strong><small class="pt-wallet-fiat" *ngIf="snapshot.balance !== null"><app-fiat [value]="snapshot.balance"></app-fiat></small></div>
-            <p class="pt-snapshot-meaning">The value received at this address that remains unspent in confirmed transactions. Pending spending can reduce what is available to spend now.</p>
+            <div class="pt-snapshot-meaning"><p>The value received at this address that remains unspent in confirmed transactions. Pending spending can reduce what is available to spend now.</p><details class="pt-row-more"><summary>Explore more</summary><p>Confirmed balance is calculated from the confirmed outputs received at this address minus outputs already spent in confirmed transactions. Pending spending is shown separately and can reduce the amount available now. A wallet can control many addresses, so this balance may be only one part of it.</p></details></div>
           </div>
           <div class="pt-snapshot-row">
             <div class="pt-snapshot-fact"><span>Pending balance change</span><strong>@if (snapshot.pending !== null) {<app-amount [satoshis]="snapshot.pending" [noFiat]="true" [addPlus]="true"></app-amount>} @else {Unavailable}</strong></div>
-            <p class="pt-snapshot-meaning">@if (snapshot.pending === null) {Pending balance data is unavailable.} @else if (snapshot.pending > 0) {Unconfirmed transactions currently add this net amount to this address. It is not confirmed yet.} @else if (snapshot.pending < 0) {Unconfirmed transactions currently spend more from this address than they return to it.} @else {There is no net unconfirmed balance change. This can still include transactions whose incoming and outgoing values cancel out.}</p>
+            <div class="pt-snapshot-meaning"><p>@if (snapshot.pending === null) {Pending balance data is unavailable.} @else if (snapshot.pending > 0) {Unconfirmed transactions currently add this net amount to this address. It is not confirmed yet.} @else if (snapshot.pending < 0) {Unconfirmed transactions currently spend more from this address than they return to it.} @else {There is no net unconfirmed balance change. This can still include transactions whose incoming and outgoing values cancel out.}</p><details class="pt-row-more"><summary>Explore more</summary><p>Unconfirmed inputs spending this address reduce its pending balance, while unconfirmed outputs to this address increase it. The displayed value is the net difference. Until transactions confirm, replacements, dropped transactions and new activity can change that net amount.</p></details></div>
           </div>
           @if (!address.electrum) {
             <div class="pt-snapshot-row">
               <div class="pt-snapshot-fact"><span>Confirmed unspent outputs</span><strong>{{ snapshot.utxos === null ? 'Unavailable' : (snapshot.utxos | number) }}</strong></div>
-              <p class="pt-snapshot-meaning">Separate pieces of bitcoin held by this address in the confirmed chain, called UTXOs. A transaction can combine several of them; this is not a count of coins or people.</p>
+              <div class="pt-snapshot-meaning"><p>Separate pieces of bitcoin held by this address in the confirmed chain, called UTXOs. A transaction can combine several of them; this is not a count of coins or people.</p><details class="pt-row-more"><summary>Explore more</summary><p>UTXOs are individual outputs that have not been spent in confirmed transactions. Your wallet selects outputs to fund a payment and may create change. Pending transactions may already be spending some of the outputs counted here.</p></details></div>
             </div>
           }
           <div class="pt-snapshot-row">
             <div class="pt-snapshot-fact"><span>Confirmed transactions</span><strong>{{ snapshot.confirmedTransactions === null ? 'Unavailable' : (snapshot.confirmedTransactions | number) }}</strong></div>
-            <p class="pt-snapshot-meaning">Confirmed transactions that involve this address. They may include receiving, spending and change; they are not all separate payments.</p>
+            <div class="pt-snapshot-meaning"><p>Confirmed transactions that involve this address. They may include receiving, spending and change; they are not all separate payments.</p><details class="pt-row-more"><summary>Explore more</summary><p>This is a count of confirmed transactions involving this address, not a count of purchases or people. One transaction can involve several inputs and outputs, including change. The transaction list below lets you inspect the actual entries.</p></details></div>
           </div>
           @if (!address.electrum) {
             <div class="pt-snapshot-row">
               <div class="pt-snapshot-fact"><span>Total received · confirmed</span><strong>@if (snapshot.received !== null) {<app-amount [satoshis]="snapshot.received" [noFiat]="true"></app-amount>} @else {Unavailable}</strong></div>
-              <p class="pt-snapshot-meaning">The value of all confirmed outputs ever assigned to this address, including any change. This is a lifetime total, not the current balance or income.</p>
+              <div class="pt-snapshot-meaning"><p>The value of all confirmed outputs ever assigned to this address, including any change. This is a lifetime total, not the current balance or income.</p><details class="pt-row-more"><summary>Explore more</summary><p>The lifetime received total includes all confirmed outputs assigned to this address, including change sent back to the same address. It can exceed the current balance because some outputs have since been spent. It does not establish income or the ownership of the address.</p></details></div>
             </div>
             <div class="pt-snapshot-row">
               <div class="pt-snapshot-fact"><span>Total spent · confirmed</span><strong>@if (snapshot.spent !== null) {<app-amount [satoshis]="snapshot.spent" [noFiat]="true"></app-amount>} @else {Unavailable}</strong></div>
-              <p class="pt-snapshot-meaning">The original value of this address's outputs that were later spent. Some value may have returned as change, so this does not mean that amount was paid to someone else.</p>
+              <div class="pt-snapshot-meaning"><p>The original value of this address's outputs that were later spent. Some value may have returned as change, so this does not mean that amount was paid to someone else.</p><details class="pt-row-more"><summary>Explore more</summary><p>When an output is spent, its entire original value is consumed as an input. A transaction can send part to a recipient, part back as change, and part to miners as a fee. As a result, this total is not a reliable total of payments sent to other people.</p></details></div>
             </div>
           }
           <div class="pt-snapshot-row">
@@ -77,10 +77,11 @@
               <button *ngIf="showTaprootPsbtButton()" type="button" class="btn btn-sm taproot-psbt-btn" (click)="taprootPsbtExpanded = !taprootPsbtExpanded" aria-label="Add unpublished spending paths"><fa-icon [icon]="['fas', 'code-fork']" [fixedWidth]="true"></fa-icon></button>
               <app-address-labels *ngIf="!addressTypeInfo?.tapscript" [channel]="exampleChannel" [address]="addressTypeInfo" class="ms-1"></app-address-labels>
             </div>
-            <p class="pt-snapshot-meaning">The Bitcoin script format used by this address. It describes how outputs can be spent; it does not identify the owner or prove that an address is trustworthy.</p>
+            <div class="pt-snapshot-meaning"><p>The Bitcoin script format used by this address. It describes how outputs can be spent; it does not identify the owner or prove that an address is trustworthy.</p><details class="pt-row-more"><summary>Explore more</summary><p>Address formats represent different Bitcoin spending conditions, such as legacy, SegWit or Taproot. They affect how an output can be spent and may affect transaction size. The format alone cannot verify who owns an address or whether a payment request is legitimate.</p></details></div>
           </div>
         </div>
       </section>
+      <header class="pt-deeper-heading"><h2>Dive deeper</h2><p>Explore this address’s balance, outputs and transaction history.</p></header>
       <details class="pt-deeper">
         <summary>Understand this address and its history</summary>
         <p>A wallet can control many addresses. This page only shows the address above, so its balance and history may represent a small part of that wallet.</p>
