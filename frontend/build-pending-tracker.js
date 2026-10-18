@@ -21,7 +21,7 @@ if (process.env.VERCEL_URL && /^[a-zA-Z0-9.-]+$/.test(process.env.VERCEL_URL)) {
 }
 fs.writeFileSync('src/index.html', index);
 
-execFileSync(process.execPath, ['node_modules/@angular/cli/bin/ng.js', 'build', '--configuration', 'production', '--localize=false'], { stdio: 'inherit' });
+execFileSync(process.execPath, ['node_modules/@angular/cli/bin/ng.js', 'build', '--configuration', 'production', '--localize=false', '--base-href=/mempool/'], { stdio: 'inherit' });
 const output = 'dist/mempool/browser';
 if (!fs.existsSync(`${output}/index.html`)) throw new Error('English browser output is missing');
 fs.cpSync('src/resources', `${output}/resources`, { recursive: true });
