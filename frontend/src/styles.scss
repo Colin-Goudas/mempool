@@ -109,8 +109,8 @@ $dropdown-link-active-bg: $active-bg;
   --link-color: #{$link-color};
   --link-hover-color: #{$link-hover-color};
   --icon: #f1f1f1;
-  --skeleton-bg: #2e324e;
-  --skeleton-bg-light: #5d6182;
+  --skeleton-bg: #242b37;
+  --skeleton-bg-light: #46505e;
 
   --box-bg: #171c2a;
   --stat-box-bg: #0b1018;
@@ -121,7 +121,7 @@ $dropdown-link-active-bg: $active-bg;
   --mempool-block-top: #403834;
   --mempool-block-side: #2d2825;
   --mempool-block-loading: #554b45;
-  --alert-bg: #3a1c61;
+  --alert-bg: #302619;
   --navbar-bg: #212121;
   --transparent-fg: #ffffffbb;
   --footer-fg: rgba(255, 255, 255, 0.4);
@@ -137,7 +137,7 @@ $dropdown-link-active-bg: $active-bg;
   --liquid: #116761;
   --liquidtestnet: #494a4a;
 
-  --mainnet-alt: #9339f4;
+  --mainnet-alt: #6d4c25;
   --testnet-alt: #183550;
   --signet-alt: #471850;
   --regtest-alt: #4a4a4a;
@@ -1677,3 +1677,7 @@ form label:not(.form-check-label):not(.btn) {
   .pending-tracker-banner { padding: .8rem 1rem; gap: .3rem .75rem; }
   .pending-tracker-banner a { margin-left: 0; width: 100%; font-size: .7rem; }
 }
+
+body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+.pending-tracker-wordmark { color: #e8b45b; font-size: 1.05rem; font-weight: 650; letter-spacing: .025em; white-space: nowrap; }

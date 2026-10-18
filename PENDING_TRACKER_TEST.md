@@ -1,27 +1,43 @@
 # Pending Tracker / Mempool Angular test
 
-This branch is an **isolated experiment** based on the real Mempool Angular frontend. It does not replace the Next.js Pending Tracker production site.
+This branch is an isolated experiment using the real Mempool Angular frontend. It does not replace the Next.js Pending Tracker site. Never merge it into `master`, change Ethereum, or attach `pendingtracker.com` without approval.
 
-## Current state
+## Verified on October 18, 2026
 
-- Started a dark/gold theme by changing Sass tokens in `frontend/src/styles.scss`.
-- No successful Angular build or public deployment has been verified yet.
-- The fork contains Mempool's backend source, but the backend is **not** deployed by this branch.
-- No claim of complete functionality is made without testing.
+- Installed the locked frontend dependencies and built the optimized Angular application successfully. The English-only build took about 40 seconds locally; initial JavaScript/CSS was about 1.86 MB raw / 412 KB estimated transfer. Existing upstream component-style budget warnings remain.
+- Commit `31afb57fa7f2c1d3bb3dea77f0f441da0983c025` deployed successfully to the separate Vercel project `pendingtracker-angular-test`, ID `prj_jnAw4my56tOFmaTJsB4JjDIt4kbk`.
+- Verified deployment: https://pendingtracker-angular-test-9symoq7mw-pending-tracker.vercel.app (Vercel Authentication may apply).
+- Deployed HTTP checks passed: runtime config JavaScript, proxied fee recommendations, tip height, mining hashrate, genesis address, genesis transaction, and a transaction deep-link returning the Angular HTML shell. `/api/explain` GET correctly returns 405 JSON from our own function.
+- Direct WSS handshake to `wss://mempool.space/api/v1/ws` with the preview's Origin succeeded. Sending `{"action":"init"}` returned eight blocks, eight projected mempool blocks, transactions, fees, difficulty adjustment, conversions, and mempool information.
+- Five automated server explanation tests pass: invalid request/method rejection, rounded virtual size, change-output caveat, coinbase reward handling, authoritative-data fetching and provider-free fallback, missing transaction, and upstream failures.
 
-## Important backend dependency
+- Browser checks also passed: live dashboard, transaction deep-link, and the explanation button's deployed POST. For transaction `c5908e04...db1c8c`, the summary matched block 900000, fee 3440 sats, fee rate 8.25 sats/vB and eight outputs with the change caveat. It was correctly labeled as a verified-data summary.
 
-Mempool's Angular frontend expects same-origin HTTP API paths and a WebSocket at `/api/v1/ws` (see `frontend/src/app/services/websocket.service.ts`). Merely pointing REST calls at the public Mempool API will not establish WebSocket support. Any separate static frontend deployment needs a compatible HTTPS and WSS routing strategy and permission to use the remote services. Full self-hosted backend requires Bitcoin Core RPC and a compatible Electrum/Esplora indexing service; it is not required to start testing frontend UI.
+These checks do not prove every explorer screen, wallet feature, or mobile interaction works.
 
-## Isolated deployment plan
+## Build and routing
 
-1. Build the Angular application from `frontend/`, using its actual package scripts and required build assets. Test the build locally or in CI first.
-2. Create a separate Vercel project for this fork, **never** reuse the production Pending Tracker Vercel project. Point it at this development branch only.
-3. Verify runtime REST calls, WebSocket connection, browser navigation/deep links, and CORS/proxy behavior. Do not publish a test URL as working until these checks pass.
-4. Check transaction, address, block, fee, and mempool views against known mainnet examples.
-5. Match Pending Tracker's established Bitcoin design and add the plain-English explanations without replacing Mempool's explorer capabilities.
-6. Review AGPL-3.0 obligations and preserve upstream notices and attribution.
+Use `cd frontend && npm ci --ignore-scripts && node build-pending-tracker.js`.
 
-## Safety
+`build-pending-tracker.js` preserves the upstream full localized build script. It generates a mainnet-only test config, builds an optimized English application, and copies checked-in resources/theme assets without requiring rsync or downloading upstream promotional videos. `frontend/vercel.json` assumes Vercel Root Directory `frontend` and serves `dist/mempool/browser`.
 
-Never merge this branch into `master` or into `gbahnan/pendingtracker` automatically. Do not alter `pendingtracker.com`, its production deployment, or Ethereum routes.
+REST paths are rewritten to the existing public Mempool Bitcoin backend. WSS connects directly to that backend using the optional `WEBSOCKET_URL` config. It does not use a Vercel WebSocket proxy. Unset `WEBSOCKET_URL` to restore upstream same-origin behavior. Mining pool logo resources are also routed to their upstream location when absent locally.
+
+No Bitcoin node or Mempool backend is deployed here. Public infrastructure is suitable for limited compatibility testing; do not assume permission, capacity guarantees, or commercial service terms for a launched product. Evaluate a compatible hosted service agreement or self-hosted backend before scaling.
+
+## Design and explanations
+
+The gold Sass theme, Pending Tracker test identity, system typography, compact responsive banner, and transaction explanation section preserve the upstream explorer components and fee/status colors. This is an initial adaptation, not design parity with the Next.js version. Upstream attribution, source link and license notices remain.
+
+On mainnet transaction pages, `Explain this transaction` calls our server function with only the transaction ID. The function fetches and validates current Bitcoin facts itself. With a server-only `GROQ_API_KEY`, it requests a short AI explanation (`GROQ_MODEL` is optional). Without that key, or if the provider fails, it returns a clearly labeled factual summary. No provider key was copied from production and live AI-provider output has not been verified. Summaries do not infer payment amounts from total outputs or promise confirmation times.
+
+Run focused tests with `node --test frontend/scripts/explain.test.js`.
+
+## Remaining validation
+
+- Broader browser interaction checks for address, block, mempool, mining and wallet screens; iPhone visual/interaction testing remains unverified.
+- AI-provider verification with an isolated preview credential (the deployed factual-summary POST is verified).
+- Remote backend feature/version compatibility and production hosting/service agreement.
+- Full Pending Tracker design adaptation and comparison against the original app.
+
+Preserve AGPL-3.0 licensing and upstream attribution. Never promote an experiment into the live website automatically.

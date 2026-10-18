@@ -24,6 +24,10 @@
       "dest": "https://mempool.space/api/$1"
     },
     {
+      "src": "/resources/mining-pools/(.*)",
+      "dest": "https://mempool.space/resources/mining-pools/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
