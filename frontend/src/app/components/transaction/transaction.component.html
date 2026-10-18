@@ -65,20 +65,20 @@
 
   @if (!error) {
     @if (pendingTrackerSnapshot) {
-      <header class="pt-deeper-heading"><h2>Dive deeper</h2><p>Explore the original transaction analysis, payment flow and technical details.</p></header>
+      <header class="pt-deeper-heading"><h2>Dive deeper</h2><p>Additional Bitcoin transaction data, explained one field at a time.</p></header>
       <section class="pt-snapshot pt-deeper-snapshot" aria-label="Transaction dive deeper">
         <div class="pt-snapshot-rows">
-          @for (fact of snapshotFacts; track fact.label; let i = $index) {
-            <div class="pt-snapshot-row" [attr.id]="'pt-transaction-detail-' + i">
+          @for (fact of technicalFacts; track fact.label) {
+            <div class="pt-snapshot-row">
               <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
-              <p class="pt-snapshot-meaning">{{ fact.details }}</p>
+              <div class="pt-snapshot-meaning"><p>{{ fact.meaning }}</p><details class="pt-inline-explanation"><summary class="pt-explore-more">Explore more<span class="visually-hidden"> about {{ fact.label }}</span></summary><p class="pt-expanded-detail">{{ fact.details }}</p></details></div>
             </div>
           }
         </div>
       </section>
       <details class="pt-deeper">
-        <summary>Fees, timing &amp; technical analysis <span>Explore details</span></summary>
-        <p class="pt-deeper-intro">Inspect fee calculations, transaction features and mining attribution. These are the underlying explorer readings.</p>
+        <summary>Original Mempool technical tools <span>Open advanced details</span></summary>
+        <p class="pt-deeper-intro">Access original explorer data, raw transaction links and advanced analysis.</p>
         <ng-container *ngTemplateOutlet="upstreamTransactionDetails"></ng-container>
       </details>
     } @else {
