@@ -56,7 +56,7 @@
       @for (fact of snapshotFacts; track fact.label; let i = $index) {
         <div class="pt-snapshot-row">
           <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
-          <div class="pt-snapshot-meaning"><p>{{ fact.meaning }}</p><a class="pt-explore-more" [attr.href]="'#pt-transaction-detail-' + i">Explore more<span class="visually-hidden"> about {{ fact.label }}</span> ↓</a></div>
+          <div class="pt-snapshot-meaning"><p>{{ fact.meaning }}</p><details class="pt-inline-explanation"><summary class="pt-explore-more">Explore more<span class="visually-hidden"> about {{ fact.label }}</span></summary><p class="pt-expanded-detail">{{ fact.details }}</p></details></div>
         </div>
       }
     </div>
