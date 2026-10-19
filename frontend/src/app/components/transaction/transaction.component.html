@@ -237,28 +237,15 @@
       <details class="pt-deeper pt-dive-deeper-toggle" open aria-label="Dive deeper transaction analysis">
         <summary>Dive Deeper <span>Collapse / expand section</span></summary>
         <p class="pt-deeper-intro">Additional Bitcoin transaction data, explained one field at a time.</p>
-      <section class="pt-deeper-groups" aria-label="Grouped technical transaction details">
-        @for (group of technicalGroups; track group.title) {
-          <div class="pt-technical-group">
-            <div class="pt-group-title">{{ group.title }}</div>
-            <div class="pt-group-value">{{ group.value }}</div>
-            <div class="pt-group-description">
-              <p>{{ group.description }}</p>
-              <details class="pt-inline-explanation">
-                <summary class="pt-explore-more">Explore more</summary>
-                <div class="pt-group-expanded">
-                  @for (fact of group.facts; track fact.label) {
-                    <div class="pt-group-fact">
-                      <div class="pt-group-fact-heading"><strong>{{ fact.label }}</strong><span>{{ fact.value }}</span></div>
-                      <p>{{ fact.meaning }}</p>
-                      <p>{{ fact.details }}</p>
-                    </div>
-                  }
-                </div>
-              </details>
+      <section class="pt-snapshot pt-deeper-snapshot" aria-label="Transaction dive deeper">
+        <div class="pt-snapshot-rows">
+          @for (fact of technicalFacts; track fact.label) {
+            <div class="pt-snapshot-row">
+              <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
+              <div class="pt-snapshot-meaning"><p>{{ fact.meaning }}</p><details class="pt-inline-explanation"><summary class="pt-explore-more">Explore more<span class="visually-hidden"> about {{ fact.label }}</span></summary><p class="pt-expanded-detail">{{ fact.details }}</p></details></div>
             </div>
-          </div>
-        }
+          }
+        </div>
       </section>
       </details>
       <details class="pt-deeper" aria-label="Advanced Bitcoin technical tools">
