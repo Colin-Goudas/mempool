@@ -2914,3 +2914,47 @@ body:has(app-transaction) app-transaction {
       linear-gradient(165deg,#0c1a29,#13283b 52%,#0a1725) !important;
   }
 }
+
+/* Premium atmosphere v6: restrained gold reflections, non-striped satin
+   canvas, legible card interiors and seamless footer transition.
+   Transaction page only. No layout or blockchain visualization changes. */
+html:has(app-transaction), body:has(app-transaction) {
+  background-color:#080d15 !important;
+  background-image:
+    radial-gradient(ellipse 58% 33% at 0% 28%,rgba(53,98,130,.32),transparent 84%),
+    radial-gradient(ellipse 54% 34% at 100% 57%,rgba(36,87,102,.22),transparent 86%),
+    radial-gradient(ellipse 60% 37% at 49% 39%,rgba(27,54,79,.19),transparent 88%),
+    radial-gradient(ellipse 32% 13% at 8% 35%,rgba(196,141,65,.075),transparent 92%),
+    radial-gradient(ellipse 35% 12% at 93% 65%,rgba(203,149,77,.065),transparent 93%),
+    linear-gradient(180deg,#0b1725 0%,#15283b 35%,#102334 63%,#080d15 100%) !important;
+  background-attachment:scroll !important;
+}
+body:has(app-transaction) app-transaction {
+  background:transparent !important;
+}
+/* Keep all highlights on edges, not through explanatory text. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card::after,
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card::after {
+  background:
+    radial-gradient(ellipse 19% 2px at 73% 0%,rgba(230,179,104,.34),transparent 100%),
+    linear-gradient(90deg,rgba(211,159,87,.055),transparent 7%,transparent 96%) !important;
+  opacity:.72 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card,
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+  box-shadow:inset 0 1px 0 rgba(226,242,253,.19),inset 1px 0 0 rgba(216,169,99,.15),0 7px 20px rgba(0,8,23,.25) !important;
+}
+/* Match the footer to the canvas and remove the abrupt color seam. */
+body:has(app-transaction) app-footer,
+body:has(app-transaction) footer {
+  background:linear-gradient(180deg,rgba(8,13,21,.78) 0%,#080c12 23%,#080c12 100%) !important;
+  border-top-color:transparent !important;
+}
+@media(max-width:700px){
+  html:has(app-transaction),body:has(app-transaction){
+    background-image:
+      radial-gradient(ellipse 100% 35% at -20% 24%,rgba(53,98,130,.27),transparent 84%),
+      radial-gradient(ellipse 90% 37% at 120% 64%,rgba(36,87,102,.18),transparent 86%),
+      linear-gradient(180deg,#0b1725,#15283b 40%,#102334 67%,#080d15) !important;
+  }
+}
