@@ -56,8 +56,8 @@
         @for (fact of snapshotFacts; track fact.label) {
             <div class="pt-snapshot-row pt-metric-card">
               <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
-              <div class="pt-snapshot-meaning"><p class="pt-meaning-preview">{{ fact.meaning }}</p> <button type="button" class="pt-explore-more pt-snapshot-popover-trigger" [attr.popovertarget]="'pt-snapshot-detail-' + $index">Explore more <span aria-hidden="true">▾</span><span class="visually-hidden"> about {{ fact.label }}</span></button></div>
-              <div class="pt-snapshot-detail-popover" [id]="'pt-snapshot-detail-' + $index" popover="auto">
+              <div class="pt-snapshot-meaning"><p class="pt-meaning-preview">{{ fact.meaning }}</p> <button type="button" class="pt-explore-more pt-snapshot-popover-trigger" [style.anchor-name]="'--pt-snapshot-anchor-' + $index" [attr.popovertarget]="'pt-snapshot-detail-' + $index">Explore more <span aria-hidden="true">▾</span><span class="visually-hidden"> about {{ fact.label }}</span></button></div>
+              <div class="pt-snapshot-detail-popover" [style.position-anchor]="'--pt-snapshot-anchor-' + $index" [id]="'pt-snapshot-detail-' + $index" popover="auto">
                 <div class="pt-snapshot-popover-heading"><strong>Understanding {{ fact.label }}</strong><button type="button" [attr.popovertarget]="'pt-snapshot-detail-' + $index" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
                 <p>{{ fact.details }}</p>
               </div>
