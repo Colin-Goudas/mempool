@@ -65,7 +65,9 @@
 
   @if (!error) {
     @if (pendingTrackerSnapshot) {
-      <header class="pt-deeper-heading"><h2>Dive deeper</h2><p>Additional Bitcoin transaction data, explained one field at a time.</p></header>
+      <details class="pt-deeper pt-dive-deeper-toggle" open aria-label="Dive deeper transaction analysis">
+        <summary>Dive Deeper <span>Collapse / expand section</span></summary>
+        <p class="pt-deeper-intro">Additional Bitcoin transaction data, explained one field at a time.</p>
       <section class="pt-snapshot pt-deeper-snapshot" aria-label="Transaction dive deeper">
         <div class="pt-snapshot-rows">
           @for (fact of technicalFacts; track fact.label) {
@@ -76,6 +78,7 @@
           }
         </div>
       </section>
+      </details>
       <details class="pt-deeper" aria-label="Advanced Bitcoin technical tools">
         <summary>Advanced Technical Tools <span>Open advanced details</span></summary>
         <p class="pt-deeper-intro">Optional original Mempool analysis for experienced users, including fee diagnostics, timing and transaction features.</p>
