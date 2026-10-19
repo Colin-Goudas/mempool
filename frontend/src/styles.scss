@@ -2544,3 +2544,19 @@ app-transaction .pt-snapshot-detail-popover::backdrop {
     }
   }
 }
+
+/* Each popover uses its own inline position-anchor set by the Angular loop.
+   This explicit layout overrides legacy centered-modal and mobile-sheet rules. */
+@supports (position-area: bottom) {
+  app-transaction .pt-eight-card-grid .pt-snapshot-detail-popover {
+    position: fixed !important;
+    position-area: bottom span-right !important;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline !important;
+    inset: auto !important;
+    margin: 6px 0 !important;
+    width: min(360px, calc(100vw - 24px)) !important;
+    max-height: min(50dvh, 360px) !important;
+    padding: 14px 16px !important;
+    border-radius: 8px !important;
+  }
+}
