@@ -168,7 +168,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   outputIndex: number;
   graphExpanded: boolean = false;
   graphWidth: number = 1068;
-  graphHeight: number = 360;
+  graphHeight: number = 230;
   inOutLimit: number = 150;
   maxInOut: number = 0;
   flowPrefSubscription: Subscription;
