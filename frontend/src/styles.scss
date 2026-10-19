@@ -2418,3 +2418,82 @@ app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact strong {
   font-weight: 500 !important;
   color: #bdc5ce !important;
 }
+
+/* Floating transaction snapshot explanations: native light-dismiss popovers
+   leave grid/card geometry unchanged. */
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact strong {
+  color: #e1e5ea !important;
+}
+app-transaction .pt-eight-card-grid .pt-snapshot-popover-trigger {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+  color: #ddb063;
+  font: inherit;
+  font-weight: 650;
+  line-height: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+app-transaction .pt-eight-card-grid .pt-snapshot-popover-trigger:hover {
+  color: #f3cd89;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+app-transaction .pt-eight-card-grid .pt-snapshot-popover-trigger:focus-visible {
+  outline: 2px solid #e0b66e;
+  outline-offset: 3px;
+}
+app-transaction .pt-snapshot-detail-popover {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(440px, calc(100vw - 28px));
+  max-height: min(75vh, 520px);
+  overflow-y: auto;
+  padding: 19px 21px;
+  color: #d6dde4;
+  background: #172332;
+  border: 1px solid rgba(209,162,87,.5);
+  border-radius: 11px;
+  box-shadow: 0 22px 75px rgba(0,0,0,.65);
+  font-size: .88rem;
+  line-height: 1.65;
+}
+app-transaction .pt-snapshot-detail-popover::backdrop {
+  background: rgba(5,11,19,.28);
+}
+app-transaction .pt-snapshot-popover-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding-bottom: 11px;
+  margin-bottom: 11px;
+  border-bottom: 1px solid rgba(192,205,218,.13);
+}
+app-transaction .pt-snapshot-popover-heading strong {
+  font-size: 1rem;
+  color: #f4f5f6;
+}
+app-transaction .pt-snapshot-popover-heading button {
+  border: 0;
+  background: transparent;
+  color: #d4dce5;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+}
+app-transaction .pt-snapshot-detail-popover p { margin: 0; }
+@media(max-width:700px) {
+  app-transaction .pt-snapshot-detail-popover {
+    inset: auto 0 0 0;
+    width: 100%;
+    max-height: min(70dvh, 520px);
+    margin: 0;
+    padding: 20px 18px 26px;
+    border-radius: 16px 16px 0 0;
+  }
+}
