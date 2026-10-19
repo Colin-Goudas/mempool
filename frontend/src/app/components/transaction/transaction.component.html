@@ -8,7 +8,7 @@
     </div>
 
     <ng-container *ngIf="!rbfTransaction || rbfTransaction?.size || tx">
-      <h1 i18n="shared.transaction">Transaction</h1>
+      <h1 i18n="shared.transaction">Transaction Snapshot</h1>
 
       <span class="tx-link">
         <span class="txid">
@@ -48,7 +48,7 @@
   }
 
   @if (tx && network === '' && stateService.env.PENDING_TRACKER_EXPLANATIONS) {
-    <div class="pt-snapshot-summary"><app-transaction-explanation [txid]="tx.txid" [confirmed]="tx.status.confirmed" [embedded]="true" [fallbackSummary]="snapshotSummary" [replaced]="!!replaced || !!rbfTransaction"></app-transaction-explanation></div>
+    <div class="pt-snapshot-summary"><div class="pt-summary-label">In Plain English</div><app-transaction-explanation [txid]="tx.txid" [confirmed]="tx.status.confirmed" [embedded]="true" [fallbackSummary]="snapshotSummary" [replaced]="!!replaced || !!rbfTransaction"></app-transaction-explanation></div>
   }
 
   @if (pendingTrackerSnapshot && tx && !error) {
@@ -63,31 +63,8 @@
   }
   </section>
 
-  @if (!error) {
-    @if (pendingTrackerSnapshot) {
-      <details class="pt-deeper pt-dive-deeper-toggle" open aria-label="Dive deeper transaction analysis">
-        <summary>Dive Deeper <span>Collapse / expand section</span></summary>
-        <p class="pt-deeper-intro">Additional Bitcoin transaction data, explained one field at a time.</p>
-      <section class="pt-snapshot pt-deeper-snapshot" aria-label="Transaction dive deeper">
-        <div class="pt-snapshot-rows">
-          @for (fact of technicalFacts; track fact.label) {
-            <div class="pt-snapshot-row">
-              <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
-              <div class="pt-snapshot-meaning"><p>{{ fact.meaning }}</p><details class="pt-inline-explanation"><summary class="pt-explore-more">Explore more<span class="visually-hidden"> about {{ fact.label }}</span></summary><p class="pt-expanded-detail">{{ fact.details }}</p></details></div>
-            </div>
-          }
-        </div>
-      </section>
-      </details>
-      <details class="pt-deeper" aria-label="Advanced Bitcoin technical tools">
-        <summary>Advanced Technical Tools <span>Open advanced details</span></summary>
-        <p class="pt-deeper-intro">Optional original Mempool analysis for experienced users, including fee diagnostics, timing and transaction features.</p>
-        <p class="pt-deeper-intro" *ngIf="tx"><a [href]="'/mempool/api/tx/' + tx.txid + '/hex'" target="_blank" rel="noopener noreferrer">View raw transaction hex ↗</a></p>
-        <ng-container *ngTemplateOutlet="upstreamTransactionDetails"></ng-container>
-      </details>
-    } @else {
-      <ng-container *ngTemplateOutlet="upstreamTransactionDetails"></ng-container>
-    }
+  @if (!error && !pendingTrackerSnapshot) {
+    <ng-container *ngTemplateOutlet="upstreamTransactionDetails"></ng-container>
   }
   <ng-template #upstreamTransactionDetails>
     <app-transaction-details
@@ -199,9 +176,10 @@
       <br>
     </ng-container>
 
+<section class="pt-flow-section" aria-label="Transaction Flow and Inputs and Outputs">
     <ng-container *ngIf="flowEnabled; else flowPlaceholder">
       <div class="title float-start">
-        <h2 id="flow" #flow class="anchor" i18n="transaction.flow|Transaction flow">Flow</h2>
+        <h2 id="flow" #flow class="anchor">Transaction Flow (Inputs &amp; Outputs)</h2>
       </div>
 
       <button type="button" class="btn btn-outline-info flow-toggle btn-sm float-end" (click)="toggleGraph()" i18n="hide-diagram">Hide diagram</button>
@@ -243,7 +221,7 @@
 
     <div class="subtitle-block">
       <div class="title">
-        <h2 i18n="transaction.inputs-and-outputs|Transaction inputs and outputs">Inputs & Outputs</h2>
+        <h2 class="pt-flow-subheading">Inputs &amp; Outputs</h2>
       </div>
 
       <div class="title-buttons">
@@ -254,6 +232,29 @@
 
 
     <app-transactions-list #txList [transactions]="[tx]" [cached]="isCached" [errorUnblinded]="errorUnblinded" [inputIndex]="inputIndex" [outputIndex]="outputIndex" [transactionPage]="true"></app-transactions-list>
+</section>
+    @if (pendingTrackerSnapshot) {
+      <details class="pt-deeper pt-dive-deeper-toggle" open aria-label="Dive deeper transaction analysis">
+        <summary>Dive Deeper <span>Collapse / expand section</span></summary>
+        <p class="pt-deeper-intro">Additional Bitcoin transaction data, explained one field at a time.</p>
+      <section class="pt-snapshot pt-deeper-snapshot" aria-label="Transaction dive deeper">
+        <div class="pt-snapshot-rows">
+          @for (fact of technicalFacts; track fact.label) {
+            <div class="pt-snapshot-row">
+              <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
+              <div class="pt-snapshot-meaning"><p>{{ fact.meaning }}</p><details class="pt-inline-explanation"><summary class="pt-explore-more">Explore more<span class="visually-hidden"> about {{ fact.label }}</span></summary><p class="pt-expanded-detail">{{ fact.details }}</p></details></div>
+            </div>
+          }
+        </div>
+      </section>
+      </details>
+      <details class="pt-deeper" aria-label="Advanced Bitcoin technical tools">
+        <summary>Advanced Technical Tools <span>Open advanced details</span></summary>
+        <p class="pt-deeper-intro">Optional original Mempool analysis for experienced users, including fee diagnostics, timing and transaction features.</p>
+        <p class="pt-deeper-intro" *ngIf="tx"><a [href]="'/mempool/api/tx/' + tx.txid + '/hex'" target="_blank" rel="noopener noreferrer">View raw transaction hex ↗</a></p>
+        <ng-container *ngTemplateOutlet="upstreamTransactionDetails"></ng-container>
+      </details>
+
 
   </ng-template>
 
