@@ -2329,3 +2329,77 @@ app-transaction .pt-eight-card-grid .pt-metric-card .pt-meaning-preview {
     padding: 11px !important;
   }
 }
+
+/* Compact snapshot: primary label and value share the first line;
+   explanatory copy starts flush left, with inline disclosure. */
+app-transaction .pt-eight-card-grid .pt-metric-card {
+  display: block !important;
+  min-height: 0 !important;
+  padding: 11px 13px !important;
+  border-color: rgba(167,186,204,.10) !important;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-start;
+  column-gap: 9px;
+  row-gap: 2px;
+  margin-bottom: 4px;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > span {
+  font-size: 1.04rem !important;
+  line-height: 1.3;
+  font-weight: 750 !important;
+  color: #f5f2ed !important;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact strong {
+  font-size: .92rem !important;
+  font-weight: 600 !important;
+  color: #e7bd75 !important;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-meaning {
+  display: block !important;
+  font-size: .76rem;
+  line-height: 1.45;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-meaning-preview {
+  display: inline !important;
+  -webkit-line-clamp: unset !important;
+  overflow: visible !important;
+  margin: 0 4px 0 0 !important;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-inline-explanation {
+  display: inline !important;
+  margin: 0 !important;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-inline-explanation > summary {
+  display: inline !important;
+  cursor: pointer;
+  color: #e5b768 !important;
+  white-space: nowrap;
+  font-size: inherit;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-inline-explanation > summary::marker,
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-inline-explanation > summary::-webkit-details-marker {
+  display: none;
+  content: '';
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-inline-explanation > summary::after {
+  content: ' ▾';
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-inline-explanation[open] > summary::after {
+  content: ' ▴';
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-expanded-detail {
+  display: block;
+  margin: 7px 0 0;
+}
+@media(max-width:700px) {
+  app-transaction .pt-eight-card-grid .pt-metric-card {
+    display: block !important;
+    min-height: 0 !important;
+    padding: 10px 11px !important;
+  }
+}
