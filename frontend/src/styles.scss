@@ -2497,3 +2497,50 @@ app-transaction .pt-snapshot-detail-popover p { margin: 0; }
     border-radius: 16px 16px 0 0;
   }
 }
+
+/* Snapshot final polish: equal white tone, typographic size differentiates data. */
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact strong {
+  color: #f3f3f4 !important;
+  font-size: .89rem !important;
+  font-weight: 500 !important;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card {
+  border-color: rgba(167,186,204,.075) !important;
+}
+/* The popovertarget establishes an implicit anchor. Place the popup below
+   its own Explore more button without reflowing neighboring cards. */
+@supports (position-area: bottom) {
+  app-transaction .pt-snapshot-detail-popover {
+    position: fixed;
+    position-anchor: auto;
+    position-area: bottom span-right;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+    inset: auto;
+    margin: 8px 0;
+    width: min(390px, calc(100vw - 32px));
+    max-height: min(55vh, 420px);
+    padding: 14px 16px;
+    border-color: rgba(209,162,87,.34);
+    border-radius: 8px;
+    box-shadow: 0 12px 32px rgba(0,0,0,.42);
+  }
+}
+app-transaction .pt-snapshot-detail-popover::backdrop {
+  background: transparent !important;
+}
+@media (max-width:700px) {
+  @supports (position-area: bottom) {
+    app-transaction .pt-snapshot-detail-popover {
+      position: fixed;
+      position-anchor: auto;
+      position-area: bottom span-right;
+      position-try-fallbacks: flip-block, flip-inline;
+      inset: auto;
+      margin: 6px 0;
+      width: min(340px, calc(100vw - 24px));
+      max-height: 55dvh;
+      padding: 13px 15px;
+      border-radius: 9px;
+    }
+  }
+}
