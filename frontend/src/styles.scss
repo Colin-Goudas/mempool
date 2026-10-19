@@ -2141,3 +2141,98 @@ app-transaction .pt-group-fact p { margin: .25rem 0; }
   app-transaction .pt-group-value { font-size: .78rem; }
   app-transaction .pt-group-description { grid-column: 1 / -1; font-size: .74rem; }
 }
+
+/* Approved October redesign: header flush above one English-summary + six-card panel.
+   Scoped to Angular transaction page, never the mempool block visualization. */
+app-transaction .pt-snapshot > .title-block { padding: .7rem 0 .85rem; }
+app-transaction .pt-snapshot-panel {
+  border: 1px solid rgba(225,166,66,.55);
+  border-radius: 13px;
+  padding: 14px;
+  background: linear-gradient(135deg,rgba(21,34,46,.84),rgba(9,19,30,.74));
+  box-shadow: 0 0 22px rgba(201,146,48,.07);
+}
+app-transaction .pt-snapshot-panel .pt-snapshot-summary {
+  margin: 0 0 12px;
+  border: 0;
+  border-bottom: 1px solid rgba(221,168,76,.22);
+  border-radius: 8px;
+  background: rgba(11,22,34,.55);
+  padding: 13px 15px;
+}
+app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-six-card-grid {
+  display: grid !important;
+  grid-template-columns: repeat(6,minmax(0,1fr)) !important;
+  gap: 10px;
+  padding: 0 !important;
+}
+app-transaction .pt-six-card-grid .pt-metric-card {
+  display: flex !important;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 9px;
+  padding: 14px 11px !important;
+  min-width: 0;
+  border: 1px solid rgba(183,201,215,.14) !important;
+  border-radius: 9px;
+  background: linear-gradient(160deg,rgba(27,43,59,.87),rgba(14,26,40,.9)) !important;
+}
+app-transaction .pt-six-card-grid .pt-metric-card .pt-snapshot-fact {
+  display: flex !important;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+app-transaction .pt-six-card-grid .pt-metric-card .pt-snapshot-fact > span {font-size:.81rem; color:#c4cbd3; line-height:1.25}
+app-transaction .pt-six-card-grid .pt-metric-card .pt-snapshot-fact strong {
+  font-size:clamp(.83rem,1.12vw,1.02rem);
+  color:#f6f6f7;
+  font-weight:700;
+  overflow-wrap:anywhere;
+}
+app-transaction .pt-six-card-grid .pt-metric-card .pt-snapshot-meaning {
+  display:flex;
+  flex:1;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:9px;
+  padding:0 !important;
+  font-size:.75rem;
+}
+app-transaction .pt-six-card-grid .pt-metric-card .pt-snapshot-meaning p {line-height:1.42}
+app-transaction .pt-eight-details .pt-snapshot-rows {
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  column-gap:16px;
+  row-gap:0;
+}
+app-transaction .pt-eight-details .pt-snapshot-row {
+  display:grid !important;
+  grid-template-columns:minmax(0,48fr) minmax(0,52fr);
+  gap:8px;
+  padding:12px 6px !important;
+}
+app-transaction .pt-eight-details .pt-snapshot-fact {
+  display:grid !important;
+  grid-template-columns:minmax(0,54fr) minmax(0,46fr);
+  gap:8px;
+}
+app-transaction .pt-eight-details .pt-snapshot-fact > span {font-size:.89rem}
+app-transaction .pt-eight-details .pt-snapshot-fact strong {font-size:.83rem;overflow-wrap:anywhere}
+app-transaction .pt-eight-details .pt-snapshot-meaning {font-size:.75rem}
+app-transaction .pt-additional-facts {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+app-transaction .pt-additional-fact {border-bottom:1px solid rgba(204,212,219,.14);padding:10px 4px;font-size:.82rem}
+app-transaction .pt-additional-fact strong {display:inline-block;min-width:40%;color:#f0f2f3}
+app-transaction .pt-additional-fact span {color:#e4bd77}
+app-transaction .pt-additional-fact p {margin:5px 0;color:#aab4be}
+app-transaction .pt-additional-fact summary {color:#e6b65d;cursor:pointer}
+@media(max-width:1150px) {
+  app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-six-card-grid {grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+}
+@media(max-width:650px) {
+  app-transaction .pt-snapshot-panel {padding:9px}
+  app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-six-card-grid {grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:7px}
+  app-transaction .pt-six-card-grid .pt-metric-card {padding:11px 9px !important}
+  app-transaction .pt-eight-details .pt-snapshot-rows {grid-template-columns:minmax(0,1fr) !important}
+  app-transaction .pt-additional-facts {grid-template-columns:minmax(0,1fr)}
+}
