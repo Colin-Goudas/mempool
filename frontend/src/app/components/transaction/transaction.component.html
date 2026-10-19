@@ -242,13 +242,17 @@
       <details class="pt-deeper pt-dive-deeper-toggle" open aria-label="Dive deeper transaction analysis">
         <summary>Dive Deeper <span>Collapse / expand section</span></summary>
         <p class="pt-deeper-intro">Additional Bitcoin transaction data, explained one field at a time.</p>
-      <section class="pt-snapshot pt-deeper-snapshot pt-eight-details" aria-label="Transaction dive deeper">
-        <div class="pt-snapshot-rows">
+      <section class="pt-snapshot pt-deeper-snapshot pt-eight-details pt-snapshot-panel" aria-label="Transaction dive deeper">
+        <div class="pt-snapshot-rows pt-eight-card-grid">
           @for (fact of technicalFacts; track fact.label) {
             @if (fact.label === 'Size' || fact.label === 'Virtual size' || fact.label === 'Adjusted vsize' || fact.label === 'Weight' || fact.label === 'Version' || fact.label === 'Locktime' || fact.label === 'Sigops' || fact.label === 'Transaction hex') {
-            <div class="pt-snapshot-row">
+            <div class="pt-snapshot-row pt-metric-card" [style.anchor-name]="'--pt-deeper-card-' + $index">
               <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
-              <div class="pt-snapshot-meaning"><p class="pt-meaning-preview">{{ fact.meaning }}</p><details class="pt-inline-explanation"><summary class="pt-explore-more">Explore more<span class="visually-hidden"> about {{ fact.label }}</span></summary><p class="pt-expanded-detail">{{ fact.meaning }}</p><p class="pt-expanded-detail">{{ fact.details }}</p></details></div>
+              <div class="pt-snapshot-meaning"><p class="pt-meaning-preview">{{ fact.meaning }}</p> <button type="button" class="pt-explore-more pt-snapshot-popover-trigger" [attr.popovertarget]="'pt-deeper-detail-' + $index">Explore more <span aria-hidden="true">▾</span><span class="visually-hidden"> about {{ fact.label }}</span></button></div>
+              <div class="pt-snapshot-detail-popover" [style.position-anchor]="'--pt-deeper-card-' + $index" [id]="'pt-deeper-detail-' + $index" popover="auto">
+                <div class="pt-snapshot-popover-heading"><strong>Understanding {{ fact.label }}</strong><button type="button" [attr.popovertarget]="'pt-deeper-detail-' + $index" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
+                <p>{{ fact.details }}</p>
+              </div>
             </div>
             }
           }
