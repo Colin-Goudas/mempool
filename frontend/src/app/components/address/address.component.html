@@ -46,7 +46,7 @@
         <div class="pt-snapshot-rows">
           <div class="pt-snapshot-row">
             <div class="pt-snapshot-fact"><span>Confirmed balance</span><strong>@if (snapshot.balance !== null) {<app-amount [satoshis]="snapshot.balance" [noFiat]="true"></app-amount>} @else {Unavailable}</strong><small class="pt-wallet-fiat" *ngIf="snapshot.balance !== null"><app-fiat [value]="snapshot.balance"></app-fiat></small></div>
-            <div class="pt-snapshot-meaning"><p>The value received at this address that remains unspent in confirmed transactions. Pending spending can reduce what is available to spend now.</p><a class="pt-explore-more" href="#pt-wallet-detail-0">Explore more ↓</a></div>
+            <div class="pt-snapshot-meaning"><p>@if (snapshot.balance === null) {The confirmed balance is not available yet.} @else if (snapshot.balance === 0) {This address currently has no confirmed unspent bitcoin. That does not mean it has never been used; check the received and spent totals below.} @else {This address currently holds {{ snapshot.balance | number }} sats in confirmed unspent outputs. @if (snapshot.pending !== null && snapshot.pending < 0) {Pending transactions show a net outgoing change, so some of this confirmed balance may already be committed to an unconfirmed spend.} @else if (snapshot.pending !== null && snapshot.pending > 0) {There is also a net incoming unconfirmed change, shown separately until it confirms.} @else {Its pending activity is shown separately below.}}</p><a class="pt-explore-more" href="#pt-wallet-detail-0">Explore more ↓</a></div>
           </div>
           <div class="pt-snapshot-row">
             <div class="pt-snapshot-fact"><span>Pending balance change</span><strong>@if (snapshot.pending !== null) {<app-amount [satoshis]="snapshot.pending" [noFiat]="true" [addPlus]="true"></app-amount>} @else {Unavailable}</strong></div>
@@ -55,21 +55,21 @@
           @if (!address.electrum) {
             <div class="pt-snapshot-row">
               <div class="pt-snapshot-fact"><span>Confirmed unspent outputs</span><strong>{{ snapshot.utxos === null ? 'Unavailable' : (snapshot.utxos | number) }}</strong></div>
-              <div class="pt-snapshot-meaning"><p>Separate pieces of bitcoin held by this address in the confirmed chain, called UTXOs. A transaction can combine several of them; this is not a count of coins or people.</p><a class="pt-explore-more" href="#pt-wallet-detail-2">Explore more ↓</a></div>
+              <div class="pt-snapshot-meaning"><p>@if (snapshot.utxos === null) {The confirmed UTXO count is unavailable.} @else if (snapshot.utxos === 0) {There are currently no confirmed unspent outputs for this address.} @else if (snapshot.utxos === 1) {This address has one confirmed unspent output, which a wallet could use as an input when spending.} @else {This address has {{ snapshot.utxos | number }} confirmed unspent outputs. A wallet may combine several when making a payment; this is not a count of owners or separate bitcoins.}</p><a class="pt-explore-more" href="#pt-wallet-detail-2">Explore more ↓</a></div>
             </div>
           }
           <div class="pt-snapshot-row">
             <div class="pt-snapshot-fact"><span>Confirmed transactions</span><strong>{{ snapshot.confirmedTransactions === null ? 'Unavailable' : (snapshot.confirmedTransactions | number) }}</strong></div>
-            <div class="pt-snapshot-meaning"><p>Confirmed transactions that involve this address. They may include receiving, spending and change; they are not all separate payments.</p><a class="pt-explore-more" href="#pt-wallet-detail-3">Explore more ↓</a></div>
+            <div class="pt-snapshot-meaning"><p>@if (snapshot.confirmedTransactions === null) {Confirmed transaction history is not available yet.} @else if (snapshot.confirmedTransactions === 0) {No confirmed transactions are currently recorded for this address. Unconfirmed activity, if any, appears separately.} @else {This address appears in {{ snapshot.confirmedTransactions | number }} confirmed {{ snapshot.confirmedTransactions === 1 ? 'transaction' : 'transactions' }}. These may represent receipts, spending or change—not necessarily separate purchases.}</p><a class="pt-explore-more" href="#pt-wallet-detail-3">Explore more ↓</a></div>
           </div>
           @if (!address.electrum) {
             <div class="pt-snapshot-row">
               <div class="pt-snapshot-fact"><span>Total received · confirmed</span><strong>@if (snapshot.received !== null) {<app-amount [satoshis]="snapshot.received" [noFiat]="true"></app-amount>} @else {Unavailable}</strong></div>
-              <div class="pt-snapshot-meaning"><p>The value of all confirmed outputs ever assigned to this address, including any change. This is a lifetime total, not the current balance or income.</p><a class="pt-explore-more" href="#pt-wallet-detail-4">Explore more ↓</a></div>
+              <div class="pt-snapshot-meaning"><p>@if (snapshot.received === null) {Lifetime received data is unavailable.} @else if (snapshot.received === 0) {No confirmed incoming output value is recorded for this address.} @else {This address has received {{ snapshot.received | number }} sats in confirmed outputs over its recorded history. This includes change and previously spent bitcoin; it is not its current balance or income.}</p><a class="pt-explore-more" href="#pt-wallet-detail-4">Explore more ↓</a></div>
             </div>
             <div class="pt-snapshot-row">
               <div class="pt-snapshot-fact"><span>Total spent · confirmed</span><strong>@if (snapshot.spent !== null) {<app-amount [satoshis]="snapshot.spent" [noFiat]="true"></app-amount>} @else {Unavailable}</strong></div>
-              <div class="pt-snapshot-meaning"><p>The original value of this address's outputs that were later spent. Some value may have returned as change, so this does not mean that amount was paid to someone else.</p><a class="pt-explore-more" href="#pt-wallet-detail-5">Explore more ↓</a></div>
+              <div class="pt-snapshot-meaning"><p>@if (snapshot.spent === null) {Confirmed spent-value data is unavailable.} @else if (snapshot.spent === 0) {No confirmed outputs previously assigned to this address are recorded as spent.} @else {Outputs originally assigned to this address totaling {{ snapshot.spent | number }} sats have been spent in confirmed transactions. Some value may have returned as change, so this is not necessarily money paid to another person.}</p><a class="pt-explore-more" href="#pt-wallet-detail-5">Explore more ↓</a></div>
             </div>
           }
           <div class="pt-snapshot-row">
