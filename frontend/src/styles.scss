@@ -1889,3 +1889,175 @@ app-transaction .btn-outline-info { border-radius: 8px; }
   app-transaction .pt-snapshot-fact strong { font-size: .84rem; }
   app-transaction .pt-snapshot-meaning { padding-left: .6rem; }
 }
+
+
+/* Pending Tracker approved transaction page refinement.
+   Scoped to transaction content: never modify the mempool block ribbon. */
+app-transaction {
+  --pt-text: #f0f2f3;
+  --pt-muted: #aab4be;
+  --pt-warm: #c9a15f;
+  --pt-hairline: rgba(204, 212, 219, .105);
+}
+app-transaction .pt-snapshot,
+app-transaction .pt-deeper,
+app-transaction .pt-deeper .pt-snapshot,
+app-transaction .pt-flow-section {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+app-transaction .pt-snapshot::before { display: none; }
+app-transaction .pt-snapshot > .title-block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem 1rem;
+  align-items: baseline;
+  padding: .8rem 0 1.05rem;
+  margin: 0;
+}
+app-transaction .pt-snapshot > .title-block h1 {
+  flex: none;
+  margin: 0;
+  font-size: clamp(1.28rem, 2.2vw, 1.5rem);
+  font-weight: 650;
+  letter-spacing: -.018em;
+  text-transform: none;
+  color: var(--pt-text);
+}
+app-transaction .pt-snapshot > .title-block h1::before {
+  content: '◇';
+  display: inline-block;
+  color: var(--pt-warm);
+  margin-right: .75rem;
+  font-size: 1.1em;
+}
+app-transaction .pt-snapshot > .title-block .tx-link {
+  flex: 1 1 300px;
+  width: auto;
+  margin: 0;
+  font-size: .83rem;
+  font-weight: 450;
+  color: #b7c1cc;
+  overflow-wrap: anywhere;
+}
+app-transaction .pt-snapshot > .title-block .container-buttons { margin-left: auto; }
+app-transaction .pt-snapshot-summary {
+  margin: 0 0 .55rem;
+  padding: 1.15rem 1.4rem 1.25rem;
+  border: 1px solid rgba(224, 190, 127, .12);
+  border-radius: 10px;
+  background: linear-gradient(115deg, rgba(32,41,49,.86), rgba(19,27,34,.78));
+  box-shadow: none;
+  line-height: 1.7;
+  font-size: .96rem;
+}
+app-transaction .pt-snapshot-summary::after { display: none; }
+app-transaction .pt-summary-label {
+  color: var(--pt-text);
+  font-size: 1rem;
+  font-weight: 650;
+  margin-bottom: .45rem;
+}
+app-transaction .pt-snapshot-rows { padding: .15rem 0 .5rem; }
+app-transaction .pt-snapshot-row {
+  grid-template-columns: minmax(0, 46fr) minmax(0, 54fr);
+  padding: 1.05rem .25rem;
+  gap: 1.25rem;
+  background: transparent !important;
+  border-bottom: 1px solid var(--pt-hairline);
+}
+app-transaction .pt-snapshot-fact {
+  display: grid;
+  grid-template-columns: minmax(0, 54fr) minmax(0, 46fr);
+  gap: .7rem;
+  align-items: baseline;
+  padding: 0;
+}
+app-transaction .pt-snapshot-fact::before { display: none !important; content: none !important; }
+app-transaction .pt-snapshot-fact > span {
+  font-size: 1.12rem;
+  font-weight: 680;
+  line-height: 1.35;
+  color: var(--pt-text);
+}
+app-transaction .pt-snapshot-fact strong,
+app-transaction .pt-snapshot-row:nth-child(5) .pt-snapshot-fact strong {
+  color: #dce2e7;
+  font-size: .98rem;
+  font-weight: 550;
+}
+app-transaction .pt-snapshot-meaning {
+  padding-left: 0;
+  border: 0;
+  color: var(--pt-muted);
+  font-size: .86rem;
+  line-height: 1.6;
+}
+app-transaction .pt-inline-explanation > summary.pt-explore-more,
+app-transaction .pt-explore-more {
+  color: var(--pt-warm);
+  font-weight: 550;
+}
+app-transaction .pt-flow-section,
+app-transaction .pt-dive-deeper-toggle,
+app-transaction .pt-deeper:not(.pt-dive-deeper-toggle) {
+  position: relative;
+  margin: 2.6rem 0 0;
+  padding: 1.5rem 0 .8rem;
+}
+app-transaction .pt-flow-section::before,
+app-transaction .pt-dive-deeper-toggle::before,
+app-transaction .pt-deeper:not(.pt-dive-deeper-toggle)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(213,163,80,.17) 12%, rgba(233,187,109,.62) 48%, rgba(213,163,80,.16) 85%, transparent);
+  box-shadow: 0 0 14px rgba(214,155,62,.11);
+  pointer-events: none;
+}
+app-transaction .pt-flow-section h2,
+app-transaction .pt-deeper > summary {
+  font-size: clamp(1.28rem, 2.2vw, 1.5rem);
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: -.018em;
+  color: var(--pt-text);
+}
+app-transaction .pt-flow-section h2#flow::before { content: '◇'; color: var(--pt-warm); margin-right: .75rem; }
+app-transaction .pt-deeper > summary {
+  padding: 0 0 1.1rem;
+  list-style: none;
+}
+app-transaction .pt-deeper > summary::-webkit-details-marker { display: none; }
+app-transaction .pt-deeper > summary::before { content: '◇'; color: var(--pt-warm); margin-right: .75rem; }
+app-transaction .pt-deeper > summary span { font-size: .77rem; color: #9da8b3; font-weight: 400; letter-spacing: 0; }
+app-transaction .pt-deeper .pt-deeper-intro { padding: 0 0 .8rem; margin: 0; }
+app-transaction .pt-deeper-snapshot { margin: 0; padding: 0; }
+app-transaction .pt-flow-section .pt-flow-subheading { font-size: 1.05rem; color: #dce2e7; }
+app-transaction .pt-flow-section .box,
+app-transaction .pt-flow-section .graph-container {
+  border: 0;
+  border-radius: 8px;
+  box-shadow: none;
+  background: rgba(17,25,32,.55);
+}
+app-transaction .pt-flow-section .graph-container { background: transparent; }
+app-transaction .pt-flow-section .subtitle-block { margin-top: .8rem; }
+app-transaction .pt-flow-section .title { margin-bottom: .7rem; }
+@media (max-width: 767px) {
+  app-transaction .pt-snapshot > .title-block { gap: .5rem; }
+  app-transaction .pt-snapshot > .title-block .tx-link { flex-basis: 100%; order: 3; }
+  app-transaction .pt-snapshot > .title-block .container-buttons { margin-left: auto; }
+  app-transaction .pt-snapshot-row { grid-template-columns: minmax(0, 43fr) minmax(0, 57fr); gap: .6rem; padding: .95rem 0; }
+  app-transaction .pt-snapshot-fact { display: flex; flex-direction: column; gap: .2rem; }
+  app-transaction .pt-snapshot-fact > span { font-size: .98rem; }
+  app-transaction .pt-snapshot-fact strong { font-size: .85rem; }
+  app-transaction .pt-snapshot-meaning { font-size: .78rem; }
+  app-transaction .pt-snapshot-summary { padding: 1rem; }
+}
