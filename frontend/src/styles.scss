@@ -1749,3 +1749,143 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
 .pt-deeper-snapshot .pt-snapshot-row { scroll-margin-top: 110px; }
 .pt-deeper-snapshot .pt-snapshot-meaning { line-height: 1.7; }
 @media (max-width: 575px) { .pt-explore-more { font-size: .71rem; } }
+
+
+/* Pending Tracker premium Bitcoin transaction skin — presentation only.
+   Preserve existing DOM order, transaction data, interactions, and responsive layout. */
+app-transaction {
+  --pt-gold: #e5ae4c;
+  --pt-gold-soft: #c99645;
+  --pt-line: rgba(187, 199, 218, .12);
+}
+app-transaction > .container-xl {
+  position: relative;
+}
+app-transaction .pt-snapshot,
+app-transaction .pt-deeper,
+app-transaction .box,
+app-transaction .graph-container {
+  background: radial-gradient(ellipse at 52% -15%, rgba(218, 160, 69, .065), transparent 53%), linear-gradient(145deg, #101923 0%, #0b131d 62%, #101822 100%);
+  border: 1px solid rgba(222, 173, 92, .19);
+  border-radius: 14px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, .16), inset 0 1px rgba(255,255,255,.035);
+}
+app-transaction .pt-snapshot {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(221, 172, 88, .25);
+}
+app-transaction .pt-snapshot::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 39%;
+  width: 22%;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, #f1c778, transparent);
+  box-shadow: 0 0 18px rgba(231, 175, 75, .42);
+}
+app-transaction .pt-snapshot > .title-block {
+  padding: 1.45rem 1.6rem 1.1rem;
+}
+app-transaction .pt-snapshot .title-block h1 {
+  color: var(--pt-gold);
+  font-size: .82rem;
+  font-weight: 750;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+app-transaction .pt-snapshot .tx-link {
+  margin-top: .55rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #f1f2f5;
+}
+app-transaction .pt-snapshot-summary {
+  position: relative;
+  margin: .15rem 1.3rem .5rem;
+  padding: 1.4rem 1.6rem;
+  background: radial-gradient(ellipse at 0% 0%, rgba(225, 163, 60, .16), transparent 45%), linear-gradient(120deg, #201e1b 0%, #101820 68%, #171a1c 100%);
+  border: 1px solid rgba(235, 172, 65, .62);
+  border-radius: 12px;
+  box-shadow: inset 0 0 22px rgba(218, 153, 49, .04);
+  color: #e2e4e9;
+  line-height: 1.7;
+}
+app-transaction .pt-snapshot-summary::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 26%;
+  height: 45%;
+  pointer-events: none;
+  opacity: .45;
+  background: repeating-radial-gradient(ellipse at 100% 120%, transparent 0 9px, rgba(220, 154, 50, .18) 10px, transparent 11px 17px);
+  mask-image: linear-gradient(90deg, transparent, black);
+}
+app-transaction .pt-snapshot-rows {
+  padding: .4rem 1.35rem .85rem;
+}
+app-transaction .pt-snapshot-row {
+  background: transparent !important;
+  border-bottom: 1px solid var(--pt-line);
+  padding: 1rem .55rem;
+  gap: 1.35rem;
+}
+app-transaction .pt-snapshot-row:last-child { border-bottom: 0; }
+app-transaction .pt-snapshot-fact { position: relative; padding-left: 3.45rem; }
+app-transaction .pt-snapshot-fact::before {
+  content: '⬡';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 2.55rem;
+  height: 2.55rem;
+  border-radius: 50%;
+  color: #e9b24e;
+  font-size: 1.45rem;
+  font-weight: 500;
+  background: radial-gradient(circle at 40% 25%, rgba(229, 172, 68, .26), rgba(143, 96, 29, .12) 70%);
+  box-shadow: 0 0 17px rgba(224, 161, 59, .11);
+}
+app-transaction .pt-snapshot-row:nth-child(2) .pt-snapshot-fact::before { content: '◇'; }
+app-transaction .pt-snapshot-row:nth-child(3) .pt-snapshot-fact::before { content: '◷'; }
+app-transaction .pt-snapshot-row:nth-child(4) .pt-snapshot-fact::before { content: '₿'; }
+app-transaction .pt-snapshot-row:nth-child(5) .pt-snapshot-fact::before { content: '◉'; }
+app-transaction .pt-snapshot-fact > span { color: #b7bfcc; font-size: .88rem; }
+app-transaction .pt-snapshot-fact strong { color: #f2f2f4; font-size: 1.03rem; font-weight: 650; }
+app-transaction .pt-snapshot-row:nth-child(5) .pt-snapshot-fact strong { color: #efba55; }
+app-transaction .pt-snapshot-meaning {
+  border-left: 1px solid rgba(221, 171, 87, .2);
+  color: #c0c7d2;
+  line-height: 1.65;
+}
+app-transaction .pt-inline-explanation > summary.pt-explore-more,
+app-transaction .pt-explore-more { color: #efbb5a; font-weight: 650; }
+app-transaction .pt-inline-explanation > summary.pt-explore-more::after { content: '⌄'; margin-left: .45rem; }
+app-transaction .pt-inline-explanation[open] > summary.pt-explore-more::after { content: '⌃'; }
+app-transaction .pt-inline-explanation .pt-expanded-detail {
+  border-left-color: rgba(228, 173, 80, .5);
+  background: rgba(219, 163, 71, .045);
+  border-radius: 0 8px 8px 0;
+}
+app-transaction .pt-deeper { border-color: rgba(224, 173, 83, .2); }
+app-transaction .pt-deeper > summary { color: #e8b65a; font-weight: 650; }
+app-transaction .pt-deeper .pt-snapshot { border-color: rgba(223, 171, 84, .12); }
+app-transaction .table tr { border-color: var(--pt-line); }
+app-transaction .btn-outline-info { border-radius: 8px; }
+@media (max-width: 575px) {
+  app-transaction .pt-snapshot > .title-block { padding: 1rem .8rem .7rem; }
+  app-transaction .pt-snapshot-summary { margin: .2rem .6rem .35rem; padding: .95rem .85rem; }
+  app-transaction .pt-snapshot-rows { padding: .2rem .45rem .55rem; }
+  app-transaction .pt-snapshot-row { gap: .55rem; padding: .85rem .25rem; }
+  app-transaction .pt-snapshot-fact { padding-left: 0; padding-top: 2.2rem; }
+  app-transaction .pt-snapshot-fact::before { top: 0; transform: none; width: 1.85rem; height: 1.85rem; font-size: 1.1rem; }
+  app-transaction .pt-snapshot-fact strong { font-size: .84rem; }
+  app-transaction .pt-snapshot-meaning { padding-left: .6rem; }
+}
