@@ -2832,3 +2832,78 @@ body:has(app-transaction) app-global-footer > * {
   background:#101e2d !important;
   border-top:0 !important;
 }
+
+
+/* Pending Tracker graphite-glass site theme (October 2026).
+   Presentation only: preserve Bitcoin block ribbon, chart mechanics,
+   page structure, transaction data, and interactive controls. */
+:root {
+  --box-bg: #111820;
+  --stat-box-bg: #0d131a;
+  --active-bg: #0b0e12;
+  --hover-bg: #1a2028;
+  --border-subtle: rgba(212,222,231,.17);
+  --fade-out-box-bg-start: rgba(17,24,32,0);
+  --fade-out-box-bg-end: rgba(17,24,32,1);
+}
+html, body {
+  background-color: #080b0f !important;
+  background-image:
+    radial-gradient(ellipse 62% 44% at 2% 39%,rgba(164,175,184,.095),transparent 78%),
+    radial-gradient(ellipse 65% 40% at 98% 63%,rgba(164,174,186,.075),transparent 79%),
+    radial-gradient(ellipse 75% 34% at 48% 94%,rgba(102,112,124,.055),transparent 82%),
+    linear-gradient(180deg,#080a0d 0%,#10151b 48%,#080b0f 100%) !important;
+  background-attachment: fixed !important;
+}
+body { color: #edf0f3; }
+body app-transaction { background: transparent !important; }
+body:has(app-transaction), html:has(app-transaction) {
+  background-color: #080b0f !important;
+  background-image:
+    radial-gradient(ellipse 62% 44% at 2% 39%,rgba(164,175,184,.095),transparent 78%),
+    radial-gradient(ellipse 65% 40% at 98% 63%,rgba(164,174,186,.075),transparent 79%),
+    radial-gradient(ellipse 75% 34% at 48% 94%,rgba(102,112,124,.055),transparent 82%),
+    linear-gradient(180deg,#080a0d 0%,#10151b 48%,#080b0f 100%) !important;
+}
+body app-global-footer, body app-global-footer footer, body app-global-footer > * {
+  background: linear-gradient(180deg,rgba(9,12,16,.68),#080a0d 44%,#080a0d) !important;
+  border-top-color: rgba(210,220,229,.08) !important;
+}
+body app-transaction .pt-snapshot-panel,
+body app-transaction .pt-eight-details.pt-snapshot-panel {
+  background: linear-gradient(145deg,rgba(24,31,39,.88),rgba(10,15,21,.94) 65%,rgba(13,19,26,.92)) !important;
+  border: 1px solid rgba(194,205,216,.22) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14),0 16px 42px rgba(0,0,0,.32) !important;
+}
+body app-transaction .pt-snapshot-panel .pt-snapshot-summary {
+  background: linear-gradient(112deg,rgba(43,50,59,.36),rgba(13,18,25,.45) 55%,rgba(82,88,97,.11)) !important;
+  border-color: rgba(202,211,220,.15) !important;
+}
+body app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card,
+body app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+  background:
+    radial-gradient(ellipse 65% 65% at 90% 0%,rgba(224,234,242,.10),transparent 85%),
+    linear-gradient(160deg,rgba(43,51,60,.90),rgba(18,25,33,.96) 47%,rgba(11,17,24,.98)) !important;
+  border: 1px solid rgba(185,198,210,.27) !important;
+  border-left-color: rgba(202,210,217,.30) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.19), inset 0 14px 25px rgba(255,255,255,.022),0 7px 20px rgba(0,0,0,.27) !important;
+}
+body app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card::after,
+body app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card::after {
+  background: radial-gradient(ellipse 34% 3px at 72% 0%,rgba(238,243,249,.18),transparent 100%) !important;
+  opacity: .65 !important;
+}
+body app-transaction .pt-eight-card-grid .pt-snapshot-fact > span,
+body app-transaction .pt-eight-card-grid .pt-snapshot-fact strong { color: #f2f4f6 !important; }
+body app-transaction .pt-eight-card-grid .pt-snapshot-meaning,
+body app-transaction .pt-eight-card-grid .pt-meaning-preview { color: #bdc5ce !important; }
+body app-transaction .pt-flow-section::before,
+body app-transaction .pt-dive-deeper-toggle::before,
+body app-transaction .pt-deeper:not(.pt-dive-deeper-toggle)::before {
+  background: linear-gradient(90deg,transparent,rgba(202,210,218,.22) 30%,rgba(202,210,218,.12) 72%,transparent) !important;
+}
+@media (max-width:700px) {
+  html,body,html:has(app-transaction),body:has(app-transaction) {
+    background-attachment: scroll !important;
+  }
+}
