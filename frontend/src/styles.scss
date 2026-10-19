@@ -2560,3 +2560,33 @@ app-transaction .pt-snapshot-detail-popover::backdrop {
     border-radius: 8px !important;
   }
 }
+
+/* Exact-card popovers: same width and left edge as their source card,
+   immediately underneath it. No grid reflow, no backdrop. */
+@supports (top: anchor(bottom)) {
+  app-transaction .pt-eight-card-grid .pt-snapshot-detail-popover {
+    position: fixed !important;
+    position-area: none !important;
+    position-try-fallbacks: none !important;
+    top: anchor(bottom) !important;
+    left: anchor(left) !important;
+    right: auto !important;
+    bottom: auto !important;
+    inset: auto !important;
+    inset-block-start: anchor(bottom) !important;
+    inset-inline-start: anchor(left) !important;
+    width: anchor-size(width) !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+    margin: 4px 0 0 !important;
+    max-height: min(48dvh, 350px) !important;
+    overflow: auto;
+    padding: 13px 15px !important;
+    border-radius: 7px !important;
+    z-index: 2000;
+  }
+}
+app-transaction .pt-eight-card-grid .pt-snapshot-detail-popover::backdrop {
+  background: transparent !important;
+}
