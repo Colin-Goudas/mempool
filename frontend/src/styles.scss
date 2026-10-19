@@ -2958,3 +2958,34 @@ body:has(app-transaction) footer {
       linear-gradient(180deg,#0b1725,#15283b 40%,#102334 67%,#080d15) !important;
   }
 }
+
+/* Transaction canvas correction: cover Angular's actual app shell and footer.
+   Remove legacy diagonal hatch even if shell paints above the body. */
+body:has(app-transaction) app-root,
+body:has(app-transaction) app-root > main,
+body:has(app-transaction) app-root > .container,
+body:has(app-transaction) app-transaction {
+  background-color:transparent !important;
+  background-image:none !important;
+}
+html:has(app-transaction),body:has(app-transaction) {
+  background-image:
+    radial-gradient(ellipse 48% 27% at 4% 30%,rgba(62,114,149,.36),transparent 85%),
+    radial-gradient(ellipse 44% 31% at 97% 59%,rgba(44,96,119,.27),transparent 87%),
+    radial-gradient(ellipse 28% 10% at 15% 47%,rgba(210,153,78,.12),transparent 90%),
+    radial-gradient(ellipse 30% 11% at 88% 70%,rgba(209,154,83,.10),transparent 90%),
+    linear-gradient(180deg,#0b1725 0%,#172e43 42%,#112538 68%,#090e16 100%) !important;
+  background-attachment:scroll !important;
+}
+body:has(app-transaction) app-global-footer,
+body:has(app-transaction) app-global-footer > *,
+body:has(app-transaction) app-global-footer .footer,
+body:has(app-transaction) app-global-footer footer {
+  background:linear-gradient(180deg,#090e16 0%,#090d14 35%,#090d14 100%) !important;
+  border-top:0 !important;
+}
+@media(max-width:700px) {
+ html:has(app-transaction),body:has(app-transaction) {
+  background-image:radial-gradient(ellipse 90% 25% at 0% 25%,rgba(62,114,149,.30),transparent 85%),linear-gradient(180deg,#0b1725,#172e43 43%,#112538 69%,#090e16) !important;
+ }
+}
