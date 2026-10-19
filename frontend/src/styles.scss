@@ -2730,3 +2730,34 @@ app-transaction .pt-eight-card-grid .pt-snapshot-detail-popover {
     transition: none !important;
   }
 }
+
+/* Dark Glass v2: apply atmosphere to the actual page canvas, not only
+   the Angular component's content box. No layout or blockchain graphics. */
+body:has(app-transaction) {
+  background-color: #0b121c !important;
+  background-image:
+    radial-gradient(ellipse 85% 38% at 54% 36%, rgba(33,57,81,.22), transparent 82%),
+    radial-gradient(ellipse 65% 30% at 18% 82%, rgba(24,43,62,.15), transparent 82%),
+    linear-gradient(180deg,#0b121c 0%,#101c2a 44%,#0b121c 100%) !important;
+  background-attachment: fixed !important;
+}
+body:has(app-transaction) app-transaction {
+  background: transparent !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel,
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel {
+  background: linear-gradient(165deg,rgba(25,43,62,.8),rgba(12,25,40,.9)) !important;
+  border: 1px solid rgba(165,188,210,.24) !important;
+  box-shadow: inset 0 1px 0 rgba(235,245,255,.12), 0 16px 48px rgba(0,5,13,.24) !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card,
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+  background: linear-gradient(168deg,rgba(56,82,108,.57) 0%,rgba(34,57,80,.68) 23%,rgba(15,32,51,.85) 100%) !important;
+  border: 1px solid rgba(179,204,226,.29) !important;
+  box-shadow: inset 0 1px 0 rgba(239,247,255,.22),
+              inset 0 12px 25px rgba(188,216,241,.025),
+              0 9px 24px rgba(0,7,16,.24) !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary {
+  background: linear-gradient(125deg,rgba(36,58,80,.35),rgba(12,26,41,.45)) !important;
+}
