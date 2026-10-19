@@ -2886,3 +2886,31 @@ body:has(app-transaction) app-transaction .pt-flow-section::before,
 body:has(app-transaction) app-transaction .pt-dive-deeper-toggle::before {
   background:linear-gradient(90deg,transparent,rgba(221,166,77,.67) 32%,rgba(221,166,77,.25) 70%,transparent) !important;
 }
+
+/* Pending Tracker atmospheric canvas v5 — intentionally stronger preview.
+   BACKGROUND ONLY. All cards, controls, text, flow, and block ribbon untouched. */
+html:has(app-transaction),
+body:has(app-transaction) {
+  background-color: #0d1c2c !important;
+  background-image:
+    radial-gradient(ellipse 68% 52% at -12% 22%, rgba(60,115,151,.48) 0%, rgba(34,79,115,.26) 39%, transparent 83%),
+    radial-gradient(ellipse 63% 57% at 112% 68%, rgba(51,112,145,.43) 0%, rgba(28,76,109,.24) 42%, transparent 83%),
+    radial-gradient(ellipse 60% 32% at 49% 47%, rgba(33,74,112,.27), transparent 85%),
+    radial-gradient(ellipse 47% 32% at 17% 91%, rgba(37,87,102,.23), transparent 88%),
+    repeating-linear-gradient(116deg, rgba(195,226,241,.018) 0px, rgba(195,226,241,.018) 1px, transparent 1px, transparent 9px),
+    linear-gradient(155deg,#0c1a29 0%,#14283c 40%,#102235 69%,#0a1725 100%) !important;
+  background-attachment: fixed !important;
+}
+body:has(app-transaction) app-transaction {
+  background: transparent !important;
+}
+@media (max-width: 700px) {
+  html:has(app-transaction),
+  body:has(app-transaction) {
+    background-image:
+      radial-gradient(ellipse 110% 35% at -30% 25%,rgba(56,108,143,.37),transparent 85%),
+      radial-gradient(ellipse 100% 40% at 130% 73%,rgba(47,99,132,.34),transparent 85%),
+      repeating-linear-gradient(116deg,rgba(195,226,241,.012) 0px,rgba(195,226,241,.012) 1px,transparent 1px,transparent 9px),
+      linear-gradient(165deg,#0c1a29,#13283b 52%,#0a1725) !important;
+  }
+}
