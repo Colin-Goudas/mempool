@@ -2403,3 +2403,18 @@ app-transaction .pt-eight-card-grid .pt-metric-card .pt-expanded-detail {
     padding: 10px 11px !important;
   }
 }
+
+/* Snapshot typography polish: label leads, subdued values follow. */
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > span {
+  font-size: 1.09rem !important;
+  font-weight: 760 !important;
+  color: #f3f3f4 !important;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > span::after {
+  content: ':';
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact strong {
+  font-size: .89rem !important;
+  font-weight: 500 !important;
+  color: #bdc5ce !important;
+}
