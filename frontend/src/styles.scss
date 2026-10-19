@@ -2236,3 +2236,35 @@ app-transaction .pt-additional-fact summary {color:#e6b65d;cursor:pointer}
   app-transaction .pt-eight-details .pt-snapshot-rows {grid-template-columns:minmax(0,1fr) !important}
   app-transaction .pt-additional-facts {grid-template-columns:minmax(0,1fr)}
 }
+
+/* Visual fidelity pass: concise dashboard cards, cohesive transaction flow and details. */
+app-transaction .pt-snapshot-panel {padding:12px 13px;border-color:rgba(205,154,67,.35);background:rgba(15,27,40,.66)}
+app-transaction .pt-snapshot-panel .pt-snapshot-summary {padding:10px 13px;margin-bottom:10px;background:rgba(17,29,42,.68);border-bottom-color:rgba(200,153,78,.13)}
+app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-six-card-grid {gap:8px}
+app-transaction .pt-six-card-grid .pt-metric-card {padding:12px 10px !important;gap:7px;min-height:136px;background:rgba(20,35,50,.76) !important;border-color:rgba(167,186,204,.13) !important}
+app-transaction .pt-six-card-grid .pt-metric-card .pt-snapshot-fact {gap:6px}
+app-transaction .pt-six-card-grid .pt-metric-card .pt-snapshot-fact strong {font-size:clamp(.88rem,1.15vw,1.06rem);line-height:1.35}
+app-transaction .pt-six-card-grid .pt-metric-card .pt-snapshot-meaning {gap:6px;font-size:.74rem}
+app-transaction .pt-six-card-grid .pt-metric-card .pt-meaning-preview {display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.4}
+app-transaction .pt-flow-section {margin-top:1.25rem;padding-top:.85rem;border-top:1px solid rgba(207,161,81,.25)}
+app-transaction .pt-flow-section .box {padding:0 .4rem !important;margin:0 !important;background:transparent !important;border:0 !important;box-shadow:none !important}
+app-transaction .pt-flow-section .graph-container {max-height:170px;overflow:hidden}
+app-transaction .pt-flow-section tx-bowtie-graph {display:block;max-height:170px}
+app-transaction .pt-flow-section .subtitle-block {margin-top:.15rem;margin-bottom:.25rem}
+app-transaction .pt-flow-section .pt-flow-subheading {font-size:.95rem}
+app-transaction .pt-dive-deeper-toggle {margin-top:1.1rem}
+app-transaction .pt-dive-deeper-toggle .pt-deeper-intro {margin-bottom:.35rem}
+app-transaction .pt-eight-details .pt-snapshot-rows {gap:0 13px}
+app-transaction .pt-eight-details .pt-snapshot-row {display:flex !important;flex-direction:column;align-items:stretch;gap:5px !important;min-height:86px;padding:10px 8px !important;border-bottom:1px solid rgba(175,193,210,.13)}
+app-transaction .pt-eight-details .pt-snapshot-fact {display:grid !important;grid-template-columns:minmax(0,48fr) minmax(0,52fr);align-items:baseline;gap:10px}
+app-transaction .pt-eight-details .pt-snapshot-fact > span {font-size:.91rem;font-weight:650}
+app-transaction .pt-eight-details .pt-snapshot-fact strong {font-size:.86rem}
+app-transaction .pt-eight-details .pt-snapshot-meaning {display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:0 !important;font-size:.74rem}
+app-transaction .pt-eight-details .pt-meaning-preview {display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;line-height:1.4;max-width:100%}
+app-transaction .pt-eight-details .pt-inline-explanation {margin:0}
+app-transaction .pt-expanded-detail {white-space:normal}
+@media(max-width:650px) {
+ app-transaction .pt-six-card-grid .pt-metric-card {min-height:132px}
+ app-transaction .pt-eight-details .pt-snapshot-row {min-height:82px}
+ app-transaction .pt-flow-section .graph-container {max-height:170px}
+}
