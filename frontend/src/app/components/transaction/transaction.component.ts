@@ -76,7 +76,7 @@ const DUPLICATE_TX_BLOCKS: Record<string, [number, number]> = {
 })
 export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   get pendingTrackerSnapshot() { return this.network === '' && !!this.stateService.env.PENDING_TRACKER_EXPLANATIONS; }
-  get snapshotFacts() { return transactionSnapshot(this.tx, this.latestBlock?.height, this.transactionTime, !!this.replaced || !!this.rbfTransaction, this.pool?.name); }
+  get snapshotFacts() { return transactionSnapshot(this.tx, this.latestBlock?.height, this.transactionTime, !!this.replaced || !!this.rbfTransaction, this.pool?.name, this.networkFeeFloor); }
   get technicalFacts() { return transactionTechnicalFacts(this.tx, this.pool?.name); }
   get snapshotSummary() { return transactionSummary(this.tx, !!this.replaced || !!this.rbfTransaction); }
   network = '';
@@ -93,6 +93,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   waitingForTransaction = false;
   latestBlock: BlockExtended;
   transactionTime = -1;
+  networkFeeFloor: number | undefined;
   subscription: Subscription;
   fetchCpfpSubscription: Subscription;
   transactionTimesSubscription: Subscription;
@@ -827,6 +828,8 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.mempoolBlocksSubscription = this.stateService.mempoolBlocks$.subscribe((mempoolBlocks) => {
       this.now = Date.now();
+      const firstFeeRange = mempoolBlocks?.[0]?.feeRange;
+      this.networkFeeFloor = firstFeeRange?.length && Number.isFinite(firstFeeRange[0]) ? firstFeeRange[0] : undefined;
 
       if (!this.tx || this.mempoolPosition) {
         return;
