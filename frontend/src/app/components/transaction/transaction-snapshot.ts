@@ -31,8 +31,9 @@ export function transactionSnapshot(tx: Transaction | undefined, tip?: number, f
       ? ' At the latest observed network snapshot, this rate meets or exceeds the lower edge of the first projected block (' + number(networkFeeFloor, 2) + ' sat/vB), but inclusion is not guaranteed.'
       : ' At the latest observed network snapshot, this rate is below the lower edge of the first projected block (' + number(networkFeeFloor, 2) + ' sat/vB), so it may have to wait for demand to ease or benefit from related fees.'
     : !confirmed ? ' Current network fee comparisons are unavailable; the rate alone cannot predict a confirmation time.' : '';
-  const observedWait = confirmed && finite(firstSeen) && firstSeen > 0 && finite(tx.status?.block_time) && tx.status.block_time >= firstSeen
-    ? ' The provider first observed it about ' + number(Math.round((tx.status.block_time - firstSeen) / 60)) + ' minutes before the block timestamp; this is an approximate observation-based interval, not a guaranteed broadcast-to-confirmation duration.'
+  const blockTime = tx.status?.block_time;
+  const observedWait = confirmed && finite(firstSeen) && firstSeen > 0 && finite(blockTime) && blockTime >= firstSeen
+    ? ' The provider first observed it about ' + number(Math.round((blockTime - firstSeen) / 60)) + ' minutes before the block timestamp; this is an approximate observation-based interval, not a guaranteed broadcast-to-confirmation duration.'
     : '';
   return [
     { label: 'Status', value: replaced && !confirmed ? 'Replaced' : confirmed ? 'Confirmed' : 'Unconfirmed', meaning: replaced && !confirmed ? 'A replacement transaction was observed. Follow the replacement link above for its current status.' : confirmed ? 'This transaction is included in a Bitcoin block.' : 'This transaction has not been confirmed. Inclusion and timing are not guaranteed.' },
