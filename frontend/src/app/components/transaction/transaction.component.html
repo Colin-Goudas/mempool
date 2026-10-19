@@ -57,7 +57,7 @@
           @if (fact.label !== 'Mining pool' && fact.label !== 'Inputs / outputs') {
             <div class="pt-snapshot-row pt-metric-card">
               <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
-              <div class="pt-snapshot-meaning"><p>{{ fact.meaning }}</p><details class="pt-inline-explanation"><summary class="pt-explore-more">Explore more<span class="visually-hidden"> about {{ fact.label }}</span></summary><p class="pt-expanded-detail">{{ fact.details }}</p></details></div>
+              <div class="pt-snapshot-meaning"><p class="pt-meaning-preview">{{ fact.meaning }}</p><details class="pt-inline-explanation"><summary class="pt-explore-more">Explore more<span class="visually-hidden"> about {{ fact.label }}</span></summary><p class="pt-expanded-detail">{{ fact.meaning }}</p><p class="pt-expanded-detail">{{ fact.details }}</p></details></div>
             </div>
           }
         }
@@ -246,7 +246,7 @@
             @if (fact.label === 'Size' || fact.label === 'Virtual size' || fact.label === 'Adjusted vsize' || fact.label === 'Weight' || fact.label === 'Version' || fact.label === 'Locktime' || fact.label === 'Sigops' || fact.label === 'Transaction hex') {
             <div class="pt-snapshot-row">
               <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
-              <div class="pt-snapshot-meaning"><p>{{ fact.meaning }}</p><details class="pt-inline-explanation"><summary class="pt-explore-more">Explore more<span class="visually-hidden"> about {{ fact.label }}</span></summary><p class="pt-expanded-detail">{{ fact.details }}</p></details></div>
+              <div class="pt-snapshot-meaning"><p class="pt-meaning-preview">{{ fact.meaning }}</p><details class="pt-inline-explanation"><summary class="pt-explore-more">Explore more<span class="visually-hidden"> about {{ fact.label }}</span></summary><p class="pt-expanded-detail">{{ fact.meaning }}</p><p class="pt-expanded-detail">{{ fact.details }}</p></details></div>
             </div>
             }
           }
