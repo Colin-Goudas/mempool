@@ -78,6 +78,28 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   get pendingTrackerSnapshot() { return this.network === '' && !!this.stateService.env.PENDING_TRACKER_EXPLANATIONS; }
   get snapshotFacts() { return transactionSnapshot(this.tx, this.latestBlock?.height, this.transactionTime, !!this.replaced || !!this.rbfTransaction, this.pool?.name, this.networkFeeFloor); }
   get technicalFacts() { return transactionTechnicalFacts(this.tx, this.pool?.name); }
+  get technicalGroups() {
+    const facts = this.technicalFacts || [];
+    const groups = [
+      { title: 'Size & Weight', description: 'Total size, virtual size, weight units, and related metrics.', matches: /size|weight|sigops|adjusted/i },
+      { title: 'Script & Signature Data', description: 'Scripts, signatures, sighash, and witness information.', matches: /script|signature|witness|taproot|segwit|sighash/i },
+      { title: 'Timing & Network Data', description: 'First seen, propagation, and network-level details.', matches: /time|seen|network|pool|relay|confirm|accelerat/i },
+      { title: 'Version & Locktime', description: 'Transaction version, locktime, and sequence information.', matches: /version|locktime|sequence|replace|rbf/i },
+      { title: 'Technical Hex Data', description: 'Raw transaction, hex, and other decoded technical data.', matches: /hex|raw|transaction|feature|flag/i }
+    ];
+    const assigned = new Set<number>();
+    const result = groups.map(group => {
+      const members = facts.filter((fact, index) => {
+        if (assigned.has(index) || !group.matches.test(fact.label)) return false;
+        assigned.add(index);
+        return true;
+      });
+      return { title: group.title, description: group.description, value: members.length ? members[0].value : '—', facts: members };
+    });
+    const remaining = facts.filter((_, index) => !assigned.has(index));
+    if (remaining.length) result[result.length - 1].facts.push(...remaining);
+    return result;
+  }
   get snapshotSummary() { return transactionSummary(this.tx, !!this.replaced || !!this.rbfTransaction); }
   network = '';
   tx: Transaction;
