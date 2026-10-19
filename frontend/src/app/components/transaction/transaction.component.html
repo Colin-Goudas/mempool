@@ -52,14 +52,12 @@
       <div class="pt-snapshot-summary"><app-transaction-explanation [txid]="tx.txid" [confirmed]="tx.status.confirmed" [embedded]="true" [fallbackSummary]="snapshotSummary" [replaced]="!!replaced || !!rbfTransaction"></app-transaction-explanation></div>
     }
     @if (pendingTrackerSnapshot && tx && !error) {
-      <div class="pt-snapshot-rows pt-six-card-grid">
+      <div class="pt-snapshot-rows pt-eight-card-grid">
         @for (fact of snapshotFacts; track fact.label) {
-          @if (fact.label !== 'Mining pool' && fact.label !== 'Inputs / outputs') {
             <div class="pt-snapshot-row pt-metric-card">
               <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
               <div class="pt-snapshot-meaning"><p class="pt-meaning-preview">{{ fact.meaning }}</p><details class="pt-inline-explanation"><summary class="pt-explore-more">Explore more<span class="visually-hidden"> about {{ fact.label }}</span></summary><p class="pt-expanded-detail">{{ fact.meaning }}</p><p class="pt-expanded-detail">{{ fact.details }}</p></details></div>
             </div>
-          }
         }
       </div>
     }
