@@ -76,17 +76,13 @@
           }
         </div>
       </section>
-      <details class="pt-deeper">
-        <summary>Original Mempool technical tools <span>Open advanced details</span></summary>
-        <p class="pt-deeper-intro">Access original explorer data, raw transaction links and advanced analysis.</p>
-        <ng-container *ngTemplateOutlet="upstreamTransactionDetails"></ng-container>
-      </details>
+      <ng-container *ngTemplateOutlet="upstreamTransactionDetails"></ng-container>
     } @else {
       <ng-container *ngTemplateOutlet="upstreamTransactionDetails"></ng-container>
     }
   }
   <ng-template #upstreamTransactionDetails>
-    <app-transaction-details
+    <app-transaction-details *ngIf="!pendingTrackerSnapshot"
       [network]="network"
       [tx]="tx"
       [isLoadingTx]="isLoadingTx"
@@ -250,66 +246,6 @@
 
 
     <app-transactions-list #txList [transactions]="[tx]" [cached]="isCached" [errorUnblinded]="errorUnblinded" [inputIndex]="inputIndex" [outputIndex]="outputIndex" [transactionPage]="true"></app-transactions-list>
-
-    <div class="title text-start">
-      <h2 i18n="transaction.details|Transaction Details">Details</h2>
-    </div>
-    <div class="box">
-      <div class="row">
-        <div class="col-sm">
-          <table class="table table-borderless table-striped">
-            <tbody>
-              <tr>
-                <td i18n="block.size">Size</td>
-                <td [innerHTML]="'&lrm;' + (tx.size | bytes: 2)"></td>
-              </tr>
-              <tr>
-                <td i18n="transaction.vsize|Transaction Virtual Size">Virtual size</td>
-                <td [innerHTML]="'&lrm;' + (tx.weight / 4 | vbytes: 2)"></td>
-              </tr>
-              <tr *ngIf="adjustedVsize != null">
-                <td><ng-container i18n="transaction.adjusted-vsize|Transaction Adjusted VSize">Adjusted vsize</ng-container>
-                  <a class="info-link" [routerLink]="['/docs/faq/' | relativeUrl]" fragment="what-is-adjusted-vsize">
-                    <fa-icon [icon]="['fas', 'info-circle']" [fixedWidth]="true"></fa-icon>
-                  </a>
-                </td>
-                <td [innerHTML]="'&lrm;' + (adjustedVsize | vbytes: 2)"></td>
-              </tr>
-              <tr>
-                <td i18n="block.weight">Weight</td>
-                <td [innerHTML]="'&lrm;' + (tx.weight | wuBytes: 2)"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="col-sm">
-          <table class="table table-borderless table-striped">
-            <tbody>
-              <tr>
-                <td i18n="transaction.version">Version</td>
-                <td [innerHTML]="'&lrm;' + (tx.version | number)"></td>
-              </tr>
-              <tr>
-                <td i18n="transaction.locktime">Locktime</td>
-                <td [innerHTML]="'&lrm;' + (tx.locktime | number)"></td>
-              </tr>
-              <tr *ngIf="sigops != null">
-                <td><ng-container i18n="transaction.sigops|Transaction Sigops">Sigops</ng-container>
-                  <a class="info-link" [routerLink]="['/docs/faq/' | relativeUrl]" fragment="what-are-sigops">
-                    <fa-icon [icon]="['fas', 'info-circle']" [fixedWidth]="true"></fa-icon>
-                  </a>
-                </td>
-                <td [innerHTML]="'&lrm;' + (sigops | number)"></td>
-              </tr>
-              <tr>
-                <td i18n="transaction.hex">Transaction hex</td>
-                <td><a target="_blank" href="{{ network === '' ? '' : '/' + network }}/api/tx/{{ txId }}/hex"><fa-icon [icon]="['fas', 'external-link-alt']" [fixedWidth]="true"></fa-icon></a></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
 
   </ng-template>
 
