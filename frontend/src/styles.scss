@@ -2814,3 +2814,23 @@ body:has(app-transaction) app-transaction .pt-flow-section {
     border-left-color:rgba(216,177,107,.54) !important;
   }
 }
+
+/* Dark Glass v4 — quiet, non-geometric atmospheric texture.
+   Fixed page background only; no new UI elements or changes to diagrams. */
+body:has(app-transaction) {
+  background-color:#0a131e !important;
+  background-image:
+    repeating-linear-gradient(108deg,
+      rgba(198,218,235,.012) 0px,
+      rgba(198,218,235,.012) 1px,
+      transparent 1px,
+      transparent 7px),
+    radial-gradient(ellipse 68% 39% at 7% 25%,rgba(41,67,88,.24),transparent 80%),
+    radial-gradient(ellipse 75% 42% at 94% 76%,rgba(31,55,78,.20),transparent 83%),
+    radial-gradient(ellipse 55% 28% at 50% 53%,rgba(32,49,69,.11),transparent 90%),
+    linear-gradient(180deg,#0a121c 0%,#101d2b 37%,#0e1926 68%,#09121c 100%) !important;
+  background-attachment:fixed !important;
+}
+body:has(app-transaction) app-transaction {
+  background:transparent !important;
+}
