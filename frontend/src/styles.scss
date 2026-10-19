@@ -2268,3 +2268,64 @@ app-transaction .pt-expanded-detail {white-space:normal}
  app-transaction .pt-eight-details .pt-snapshot-row {min-height:82px}
  app-transaction .pt-flow-section .graph-container {max-height:170px}
 }
+
+/* Eight-field transaction snapshot: two columns, four vertical rows.
+   Scoped to transaction details; block ribbon remains untouched. */
+app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 8px 14px;
+  padding: 0 !important;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card {
+  display: grid !important;
+  grid-template-columns: minmax(0, 42fr) minmax(0, 58fr) !important;
+  align-items: start !important;
+  min-height: 92px;
+  gap: 8px !important;
+  padding: 13px 14px !important;
+  border: 1px solid rgba(167,186,204,.13) !important;
+  border-radius: 7px;
+  background: rgba(20,35,50,.76) !important;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact {
+  display: flex !important;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > span {
+  font-size: .85rem;
+  color: #c4cbd3;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact strong {
+  font-size: 1rem;
+  color: #f6f6f7;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-meaning {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  font-size: .77rem;
+  line-height: 1.45;
+}
+app-transaction .pt-eight-card-grid .pt-metric-card .pt-meaning-preview {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+@media (max-width: 700px) {
+  app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 7px;
+  }
+  app-transaction .pt-eight-card-grid .pt-metric-card {
+    grid-template-columns: minmax(0, 42fr) minmax(0, 58fr) !important;
+    min-height: 82px;
+    padding: 11px !important;
+  }
+}
