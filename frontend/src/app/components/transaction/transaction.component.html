@@ -243,10 +243,12 @@
       <section class="pt-snapshot pt-deeper-snapshot pt-eight-details" aria-label="Transaction dive deeper">
         <div class="pt-snapshot-rows">
           @for (fact of technicalFacts; track fact.label) {
+            @if (fact.label === 'Size' || fact.label === 'Virtual size' || fact.label === 'Adjusted vsize' || fact.label === 'Weight' || fact.label === 'Version' || fact.label === 'Locktime' || fact.label === 'Sigops' || fact.label === 'Transaction hex') {
             <div class="pt-snapshot-row">
               <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
               <div class="pt-snapshot-meaning"><p>{{ fact.meaning }}</p><details class="pt-inline-explanation"><summary class="pt-explore-more">Explore more<span class="visually-hidden"> about {{ fact.label }}</span></summary><p class="pt-expanded-detail">{{ fact.details }}</p></details></div>
             </div>
+            }
           }
         </div>
       </section>
@@ -255,6 +257,18 @@
         <summary>Advanced Technical Tools <span>Open advanced details</span></summary>
         <p class="pt-deeper-intro">Optional original Mempool analysis for experienced users, including fee diagnostics, timing and transaction features.</p>
         <p class="pt-deeper-intro" *ngIf="tx"><a [href]="'/mempool/api/tx/' + tx.txid + '/hex'" target="_blank" rel="noopener noreferrer">View raw transaction hex ↗</a></p>
+        <div class="pt-additional-facts">
+          @for (fact of snapshotFacts; track fact.label) {
+            @if (fact.label === 'Mining pool' || fact.label === 'Inputs / outputs') {
+              <div class="pt-additional-fact"><strong>{{ fact.label }}</strong><span>{{ fact.value }}</span><p>{{ fact.meaning }}</p><details><summary>Explore more</summary><p>{{ fact.details }}</p></details></div>
+            }
+          }
+          @for (fact of technicalFacts; track fact.label) {
+            @if (fact.label !== 'Size' && fact.label !== 'Virtual size' && fact.label !== 'Adjusted vsize' && fact.label !== 'Weight' && fact.label !== 'Version' && fact.label !== 'Locktime' && fact.label !== 'Sigops' && fact.label !== 'Transaction hex') {
+              <div class="pt-additional-fact"><strong>{{ fact.label }}</strong><span>{{ fact.value }}</span><p>{{ fact.meaning }}</p><details><summary>Explore more</summary><p>{{ fact.details }}</p></details></div>
+            }
+          }
+        </div>
         <ng-container *ngTemplateOutlet="upstreamTransactionDetails"></ng-container>
       </details>
     }
