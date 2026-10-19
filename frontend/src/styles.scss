@@ -2761,3 +2761,56 @@ body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .p
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary {
   background: linear-gradient(125deg,rgba(36,58,80,.35),rgba(12,26,41,.45)) !important;
 }
+
+/* Dark Glass v3 — reference-inspired surface reflections; no layout changes. */
+body:has(app-transaction) {
+  background-image:
+    radial-gradient(ellipse 72% 48% at 3% 24%,rgba(38,67,91,.22),transparent 80%),
+    radial-gradient(ellipse 68% 45% at 96% 64%,rgba(28,56,82,.16),transparent 82%),
+    linear-gradient(180deg,#0b121c 0%,#101b29 48%,#0b121c 100%) !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card,
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+  background:
+    radial-gradient(ellipse 50% 45% at 94% 0%,rgba(111,155,193,.16),transparent 90%),
+    linear-gradient(112deg,rgba(42,70,94,.69),rgba(22,44,66,.79) 40%,rgba(10,28,47,.92)) !important;
+  border-color:rgba(171,200,226,.27) !important;
+  border-left-color:rgba(208,173,114,.40) !important;
+  box-shadow:inset 1px 0 0 rgba(240,192,111,.12),
+             inset 0 1px 0 rgba(231,242,252,.22),
+             inset 0 13px 22px rgba(187,220,246,.025),
+             0 9px 22px rgba(0,5,14,.22) !important;
+  position:relative;
+  isolation:isolate;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card::after,
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card::after {
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  pointer-events:none;
+  border-radius:inherit;
+  background:
+    radial-gradient(ellipse 20% 6px at 75% 0%,rgba(232,178,92,.39),transparent 100%),
+    radial-gradient(ellipse 25% 5px at 2% 100%,rgba(204,155,78,.17),transparent 100%);
+  opacity:.72;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel,
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel {
+  background:
+    linear-gradient(135deg,rgba(41,68,92,.19),transparent 40%),
+    linear-gradient(165deg,rgba(20,39,58,.87),rgba(9,23,38,.93)) !important;
+  border-color:rgba(171,197,220,.24) !important;
+  box-shadow:inset 0 1px 0 rgba(222,239,253,.11),0 18px 45px rgba(0,4,12,.23) !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section {
+  filter:none !important;
+}
+@media (hover:hover) and (pointer:fine) {
+  body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:hover,
+  body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:hover {
+    border-color:rgba(201,221,240,.42) !important;
+    border-left-color:rgba(216,177,107,.54) !important;
+  }
+}
