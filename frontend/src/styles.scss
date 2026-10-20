@@ -3920,8 +3920,8 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
   background:
     radial-gradient(ellipse 77% 83% at 30% 8%,
-      rgba(183,201,215,.0605) 0%,
-      rgba(119,142,162,.024) 48%,
+      rgba(183,201,215,.052) 0%,
+      rgba(119,142,162,.020) 48%,
       transparent 100%) !important;
 }
 /* Keep Dive Deeper's approved top hairline and restrained ambient lighting. */
@@ -3940,4 +3940,13 @@ body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > .pt-deeper-sn
   body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified::before {
     inset: -20px -5% -26px;
   }
+}
+
+/* Final targeted polish: the original bowtie's input connector fades from a
+   transparent stop, exposing a near-black wedge. Give only this transaction
+   diagram a dark-bronze starting stop; preserve its paths and hover behavior. */
+body:has(app-transaction) app-transaction .pt-flow-section .pt-original-graph
+  tx-bowtie-graph svg defs linearGradient#input-connector-gradient stop:first-child {
+  stop-color: #755332 !important;
+  stop-opacity: .92 !important;
 }
