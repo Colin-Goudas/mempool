@@ -3449,12 +3449,8 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-rows.p
   z-index: -1;
   pointer-events: none;
   inset: -2px -8px -15px;
-  background: linear-gradient(180deg,
-    rgba(43,52,61,.30) 0%,
-    rgba(43,52,61,.22) 43%,
-    rgba(34,43,52,.14) 73%,
-    transparent 100%);
-  border-radius: 9px 9px 0 0;
+  background: none;
+  border-radius: 0;
 }
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-fact > span {
   color: #f0f2f4 !important;
@@ -3491,4 +3487,15 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid
   body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:last-child::after {
     display: block !important;
   }
+}
+
+
+/* Per-metric top-to-bottom illumination: focus on label/value, fade through explanation.
+   Edge transparency prevents eight new visible boxes or horizontal bands. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+  background: radial-gradient(ellipse 115% 95% at 38% -10%,
+    rgba(106,118,128,.15) 0%,
+    rgba(82,94,105,.09) 29%,
+    rgba(61,73,84,.035) 58%,
+    transparent 88%) !important;
 }
