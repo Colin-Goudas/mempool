@@ -3675,3 +3675,15 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-detai
   font-size: inherit !important;
   margin-left: 0 !important;
 }
+
+
+/* Transaction-page ambient continuity: one seamless neutral background across
+   all sections, without modifying any component/card, text, or summary styles. */
+body:has(app-transaction) app-transaction {
+  display: block;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 94% 29% at 47% 14%, rgba(104,113,123,.065) 0%, rgba(74,84,95,.035) 46%, transparent 100%),
+    radial-gradient(ellipse 94% 29% at 49% 45%, rgba(107,116,126,.075) 0%, rgba(75,85,96,.034) 48%, transparent 100%),
+    radial-gradient(ellipse 94% 31% at 46% 76%, rgba(104,113,123,.064) 0%, rgba(74,84,95,.027) 48%, transparent 100%);
+}
