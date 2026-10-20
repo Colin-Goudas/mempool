@@ -3039,3 +3039,55 @@ body:has(app-transaction) app-transaction .pt-deeper:not(.pt-dive-deeper-toggle)
     font-size: 1.28rem !important;
   }
 }
+
+
+/* Pending Tracker unified transaction flow panel */
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified {
+  border: 1px solid rgba(198,205,212,.16);
+  border-radius: 10px;
+  background: linear-gradient(160deg,rgba(38,45,52,.45),rgba(22,29,36,.40));
+  overflow: hidden;
+  padding: 10px 11px 12px;
+}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-unified .pt-flow-visual,
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-unified .pt-flow-content {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-unified .pt-flow-content .subtitle-block {
+  border-top: 1px solid rgba(198,205,212,.13);
+  margin-top: 6px !important;
+  padding-top: 10px;
+}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-heading-copy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 5px 14px;
+  margin: 0 !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-heading-copy h2 {
+  margin: 0 !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-description {
+  font-size: .83rem;
+  font-weight: 400;
+  color: #aeb7c0;
+  letter-spacing: 0;
+}
+body:has(app-transaction) app-transaction .pt-flow-section > .flow-toggle {
+  margin-top: 0 !important;
+}
+@media(max-width:767px) {
+  body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-heading-copy {
+    gap: 2px 8px;
+  }
+  body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-description {
+    flex-basis: 100%;
+    font-size: .76rem;
+  }
+}
