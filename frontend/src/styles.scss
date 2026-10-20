@@ -3212,3 +3212,38 @@ app-transaction .pt-flow-schematic-note { display: block; font-size: .65rem; mar
  app-transaction .pt-flow-field-label { font-size: .6rem; }
  app-transaction .pt-flow-schematic-note { font-size: .55rem; }
 }
+
+
+/* Restore the original interactive Mempool bowtie graph within Pending Tracker's panel. */
+app-transaction .pt-flow-section .pt-original-graph {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 8px 0 4px;
+  overflow: visible;
+  background: transparent;
+}
+app-transaction .pt-flow-section .pt-original-graph tx-bowtie-graph {
+  display: block;
+  max-width: 100%;
+}
+app-transaction .pt-flow-section .pt-flow-table-headings {
+  display: grid;
+  grid-template-columns: minmax(0,1.4fr) minmax(100px,.6fr) minmax(0,1.4fr) minmax(100px,.6fr);
+  gap: 8px;
+  padding: 8px 13px 7px;
+  margin: 4px 0 0;
+  color: #cbd4dd;
+  font-size: .81rem;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(198,205,212,.16);
+}
+app-transaction .pt-flow-section .pt-flow-table-headings span:nth-child(2),
+app-transaction .pt-flow-section .pt-flow-table-headings span:nth-child(4) { text-align: right; }
+@media(max-width:767px) {
+  app-transaction .pt-flow-section .pt-flow-table-headings {
+    grid-template-columns: minmax(0,1fr) minmax(60px,.65fr) minmax(0,1fr) minmax(60px,.65fr);
+    gap: 4px; padding: 7px 3px; font-size: .66rem;
+  }
+}
