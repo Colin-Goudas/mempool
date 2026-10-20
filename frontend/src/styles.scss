@@ -2656,21 +2656,21 @@ app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-mean
    All original transaction geometry, interactions, and mempool ribbon styles
    remain above this section untouched. */
 :root {
-  --pt-canvas: #10171e;
-  --pt-canvas-edge: #0b1117;
-  --pt-panel: #1b242d;
-  --pt-card-top: #303a44;
-  --pt-card-bottom: #151d25;
-  --pt-silver-border: rgba(196,210,223,.20);
-  --pt-silver-top: rgba(227,235,243,.31);
+  --pt-canvas: #13191f;
+  --pt-canvas-edge: #0d1217;
+  --pt-panel: #20272e;
+  --pt-card-top: #343a40;
+  --pt-card-bottom: #1b2229;
+  --pt-silver-border: rgba(198,205,212,.16);
+  --pt-silver-top: rgba(227,232,237,.26);
   --pt-gold: #c99a4a;
   --pt-foreground: #edf0f2;
   --pt-secondary-text: #c2cbd3;
-  --box-bg: #1b242d;
-  --stat-box-bg: #151d25;
+  --box-bg: #20272e;
+  --stat-box-bg: #1b2229;
   --border-subtle: rgba(196,210,223,.16);
-  --fade-out-box-bg-start: rgba(27,36,45,0);
-  --fade-out-box-bg-end: rgba(27,36,45,1);
+  --fade-out-box-bg-start: rgba(32,39,46,0);
+  --fade-out-box-bg-end: rgba(32,39,46,1);
 }
 
 /* One uninterrupted background. Fixed, diffuse illumination belongs to
@@ -2678,8 +2678,8 @@ app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-mean
 html, body, html:has(app-transaction), body:has(app-transaction) {
   background-color: var(--pt-canvas-edge) !important;
   background-image:
-    radial-gradient(ellipse 110% 75% at 48% 48%,rgba(109,125,141,.105) 0%,rgba(75,91,106,.055) 48%,transparent 83%),
-    linear-gradient(180deg,#10171e 0%,#151d25 46%,#111820 76%,#0b1117 100%) !important;
+    radial-gradient(ellipse 110% 75% at 48% 48%,rgba(123,127,132,.085) 0%,rgba(110,116,123,.042) 48%,transparent 83%),
+    linear-gradient(180deg,#13191f 0%,#1a2128 46%,#151c23 76%,#0d1217 100%) !important;
   background-attachment: fixed !important;
 }
 body:has(app-transaction) app-transaction,
@@ -2699,21 +2699,21 @@ body:has(app-transaction) app-transaction .pt-deeper::after {
 }
 body:has(app-transaction) app-transaction .pt-snapshot-panel,
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel {
-  background: linear-gradient(150deg,rgba(34,45,56,.83),rgba(17,25,33,.88)) !important;
+  background: linear-gradient(150deg,rgba(40,47,54,.83),rgba(23,30,37,.88)) !important;
   border: 1px solid rgba(194,208,221,.17) !important;
   box-shadow: inset 0 1px 0 rgba(236,242,248,.10),0 12px 35px rgba(0,0,0,.18) !important;
 }
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary {
-  background: linear-gradient(110deg,rgba(43,56,68,.66),rgba(23,33,43,.57)) !important;
+  background: linear-gradient(110deg,rgba(49,56,63,.66),rgba(29,37,44,.57)) !important;
   border-color: rgba(198,212,225,.14) !important;
   box-shadow: inset 0 1px 0 rgba(235,242,248,.06) !important;
 }
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card,
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
-  background: linear-gradient(164deg,#303a44 0%,#242f39 29%,#19232d 75%,#151d25 100%) !important;
+  background: linear-gradient(164deg,#343a40 0%,#2b3239 29%,#20272e 75%,#1b2229 100%) !important;
   border: 1px solid var(--pt-silver-border) !important;
   border-top-color: var(--pt-silver-top) !important;
-  border-left-color: rgba(196,210,223,.20) !important;
+  border-left-color: rgba(198,205,212,.16) !important;
   box-shadow: inset 0 1px 0 rgba(242,247,251,.12),0 6px 17px rgba(0,0,0,.15) !important;
 }
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card::after,
@@ -2733,14 +2733,14 @@ body:has(app-transaction) app-transaction .pt-eight-card-grid .pt-snapshot-popov
   color: var(--pt-gold) !important;
 }
 body:has(app-transaction) app-transaction .pt-eight-card-grid .pt-snapshot-detail-popover {
-  background: #202b36 !important;
+  background: #252c33 !important;
   border-color: var(--pt-silver-border) !important;
   box-shadow: 0 12px 30px rgba(0,0,0,.32) !important;
 }
 body:has(app-transaction) app-transaction .pt-flow-section::before,
 body:has(app-transaction) app-transaction .pt-dive-deeper-toggle::before,
 body:has(app-transaction) app-transaction .pt-deeper:not(.pt-dive-deeper-toggle)::before {
-  background: linear-gradient(90deg,transparent,rgba(200,211,221,.18) 28%,rgba(200,211,221,.10) 72%,transparent) !important;
+  background: linear-gradient(90deg,transparent,rgba(200,207,214,.13) 28%,rgba(200,207,214,.075) 72%,transparent) !important;
   box-shadow: none !important;
 }
 /* The footer is part of the same canvas, not a separate navy rectangle. */
