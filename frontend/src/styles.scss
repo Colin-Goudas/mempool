@@ -3600,42 +3600,37 @@ body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .p
 }
 
 
-/* Snapshot and Dive Deeper: directional light originates at the heading/value,
-   fading immediately rightward and downward into the explanations. */
-body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
-  background: transparent !important;
+/* Snapshot-only focal lighting. Preserve original text colors and the plain-English summary.
+   Texture is attached to the existing metric content, not an overlay on the page. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card {
+  position: relative !important;
+  isolation: isolate !important;
+  background: linear-gradient(118deg, rgba(117,130,143,.075) 0%, rgba(63,77,89,.045) 40%, transparent 85%),
+              linear-gradient(180deg, rgba(135,149,161,.045), transparent 92%) !important;
 }
-body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact {
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact {
   position: relative !important;
   display: inline-flex !important;
   width: fit-content !important;
   max-width: 100% !important;
   align-items: baseline !important;
-  justify-content: flex-start !important;
   flex-wrap: wrap !important;
   gap: .45rem !important;
-  isolation: isolate !important;
+  isolation: auto !important;
+  z-index: 0 !important;
 }
-body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact::before {
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact::before {
   content: "" !important;
   position: absolute !important;
-  z-index: -1 !important;
   pointer-events: none !important;
-  left: -5px !important;
-  top: -4px !important;
-  width: calc(100% + 10px) !important;
-  height: calc(100% + 15px) !important;
+  z-index: -1 !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: calc(100% + 32px) !important;
   border-radius: 0 !important;
-  background: linear-gradient(112deg,
-    rgba(156,171,183,.23) 0%,
-    rgba(119,135,149,.14) 36%,
-    rgba(74,90,105,.055) 68%,
-    transparent 100%) !important;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.72) 30%, transparent 100%) !important;
-  mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.72) 30%, transparent 100%) !important;
-  filter: blur(6px) !important;
-}
-body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > span,
-body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > strong {
-  position: relative !important;
+  background: linear-gradient(105deg, rgba(227,235,241,.22) 0%, rgba(183,196,208,.14) 42%, rgba(118,136,151,.045) 75%, transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(180deg,#000 0%,rgba(0,0,0,.8) 24%,rgba(0,0,0,.23) 62%,transparent 100%) !important;
+  mask-image: linear-gradient(180deg,#000 0%,rgba(0,0,0,.8) 24%,rgba(0,0,0,.23) 62%,transparent 100%) !important;
+  filter: blur(9px) !important;
 }
