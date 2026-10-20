@@ -3936,3 +3936,65 @@ body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified {
   border: 0 !important;
   box-shadow: none !important;
 }
+
+
+/* Studio-graphite v3: intentionally stronger satin depth, still no panel edges.
+   Elliptical reflection, feathered vignette, micro-grain, and sculpted metrics. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) {
+  background-image:
+    radial-gradient(ellipse 65% 49% at 37% 6%,
+      rgba(170,188,204,.14),rgba(121,143,163,.072) 43%,transparent 100%),
+    radial-gradient(ellipse 73% 91% at 47% 49%,
+      rgba(100,121,141,.11),rgba(61,79,96,.045) 58%,transparent 100%),
+    repeating-linear-gradient(105deg,
+      rgba(192,210,226,.006) 0px,rgba(192,210,226,.006) 1px,
+      transparent 1px,transparent 5px) !important;
+  background-color: transparent !important;
+  background-size: 100% 100%,100% 100%,100% 100% !important;
+}
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > .pt-deeper-snapshot {
+  background-image:
+    linear-gradient(90deg,transparent 0%,rgba(193,205,215,.14) 13%,rgba(193,205,215,.34) 48%,rgba(193,205,215,.16) 85%,transparent 100%),
+    radial-gradient(ellipse 65% 49% at 37% 6%,
+      rgba(170,188,204,.105),rgba(121,143,163,.055) 43%,transparent 100%),
+    radial-gradient(ellipse 73% 91% at 47% 49%,
+      rgba(100,121,141,.075),rgba(61,79,96,.032) 58%,transparent 100%),
+    repeating-linear-gradient(105deg,
+      rgba(192,210,226,.004) 0px,rgba(192,210,226,.004) 1px,
+      transparent 1px,transparent 5px) !important;
+  background-size: 100% 1px,100% 100%,100% 100%,100% 100% !important;
+  background-position: center top,center,center,center !important;
+  background-repeat: no-repeat !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card {
+  background:
+    radial-gradient(ellipse 95% 78% at 29% 0%,
+      rgba(179,197,211,.115),rgba(123,143,161,.058) 43%,transparent 92%),
+    linear-gradient(180deg,rgba(155,173,188,.018),transparent 76%) !important;
+}
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+  background:
+    radial-gradient(ellipse 95% 78% at 29% 0%,
+      rgba(179,197,211,.084),rgba(123,143,161,.042) 43%,transparent 92%),
+    linear-gradient(180deg,rgba(155,173,188,.013),transparent 76%) !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified {
+  background:
+    radial-gradient(ellipse 70% 48% at 47% 24%,
+      rgba(154,175,193,.125),rgba(103,126,147,.068) 50%,transparent 100%),
+    radial-gradient(ellipse 77% 90% at 49% 52%,
+      rgba(88,111,133,.27),rgba(51,69,86,.12) 56%,transparent 100%),
+    repeating-linear-gradient(105deg,
+      rgba(192,210,226,.004) 0px,rgba(192,210,226,.004) 1px,
+      transparent 1px,transparent 5px) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+@media (max-width:700px) {
+  body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details),
+  body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > .pt-deeper-snapshot,
+  body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified {
+    /* On narrow screens, omit directional micro-grain to keep small text crisp. */
+    background-blend-mode: normal !important;
+  }
+}
