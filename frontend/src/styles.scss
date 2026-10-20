@@ -3160,3 +3160,39 @@ app-transaction .pt-flow-section > .pt-flow-unified .pt-flow-content .subtitle-b
   app-transaction .pt-flow-section > .pt-flow-header .pt-flow-heading-copy { gap: 2px 8px; }
   app-transaction .pt-flow-section > .pt-flow-header .pt-flow-description { flex-basis: 100%; }
 }
+
+
+/* Transaction flow schematic: exactly two representative output branches. */
+app-transaction .pt-flow-graph-measure { height: 0 !important; min-height: 0 !important; overflow: hidden !important; }
+app-transaction .pt-flow-preview {
+ display: grid; grid-template-columns: minmax(0,1fr) minmax(130px,1.05fr) minmax(0,1fr);
+ gap: 16px; align-items: center; padding: 17px 13px 19px; min-height: 190px;
+}
+app-transaction .pt-flow-preview-input, app-transaction .pt-flow-preview-outputs {
+ min-width: 0; display: flex; flex-direction: column; gap: 8px;
+}
+app-transaction .pt-flow-preview-input strong, app-transaction .pt-flow-preview-outputs > strong {
+ font-size: 1rem; color: #f1f3f6;
+}
+app-transaction .pt-flow-preview-outputs > strong { text-align: right; }
+app-transaction .pt-flow-amount { color: #e7edf4; font-size: .9rem; }
+app-transaction .pt-flow-address {
+ color: #e6aa44; font-size: .82rem; overflow: hidden; text-overflow: ellipsis;
+ white-space: nowrap; display: block; max-width: 100%;
+}
+app-transaction .pt-flow-preview small { color: #aab5c0; font-size: .72rem; }
+app-transaction .pt-flow-preview-stream { width: 100%; min-width: 0; }
+app-transaction .pt-flow-preview-stream svg { display: block; width: 100%; height: 164px; }
+app-transaction .pt-flow-preview-output {
+ display: flex; flex-direction: column; gap: 5px; padding: 10px 12px;
+ border: 1px solid rgba(197,207,217,.16); border-radius: 9px;
+ background: rgba(21,29,38,.30);
+}
+@media(max-width:767px) {
+ app-transaction .pt-flow-preview { grid-template-columns: minmax(0,1fr) 68px minmax(0,1fr); gap: 6px; padding: 12px 0; min-height: 155px; }
+ app-transaction .pt-flow-preview-stream svg { height: 145px; }
+ app-transaction .pt-flow-preview-output { padding: 7px 5px; }
+ app-transaction .pt-flow-preview .pt-flow-amount { font-size: .7rem; }
+ app-transaction .pt-flow-preview .pt-flow-address { font-size: .67rem; }
+ app-transaction .pt-flow-preview strong { font-size: .78rem; }
+}
