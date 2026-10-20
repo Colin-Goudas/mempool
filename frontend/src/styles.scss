@@ -3884,13 +3884,13 @@ body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified::b
   inset: -55px -9% -58px;
   background:
     radial-gradient(ellipse 60% 55% at 47% 30%,
-      rgba(163,183,200,.17) 0%,
-      rgba(113,137,157,.095) 37%,
-      rgba(74,97,116,.035) 67%,
+      rgba(163,183,200,.187) 0%,
+      rgba(113,137,157,.105) 37%,
+      rgba(74,97,116,.039) 67%,
       transparent 100%),
     radial-gradient(ellipse 65% 70% at 53% 67%,
-      rgba(82,106,127,.11) 0%,
-      rgba(58,77,95,.04) 52%,
+      rgba(82,106,127,.121) 0%,
+      rgba(58,77,95,.044) 52%,
       transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 76% 83% at 50% 48%,
     #000 0%,rgba(0,0,0,.9) 38%,rgba(0,0,0,.38) 70%,transparent 100%);
@@ -3901,10 +3901,10 @@ body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified::b
   inset: -72px -11% -76px;
   background:
     radial-gradient(ellipse 64% 58% at 50% 40%,
-      rgba(160,180,198,.18) 0%,rgba(104,128,149,.10) 39%,
-      rgba(67,88,107,.03) 73%,transparent 100%),
+      rgba(160,180,198,.198) 0%,rgba(104,128,149,.11) 39%,
+      rgba(67,88,107,.033) 73%,transparent 100%),
     radial-gradient(ellipse 68% 74% at 50% 68%,
-      rgba(75,100,121,.15),rgba(51,70,88,.04) 62%,transparent 100%);
+      rgba(75,100,121,.165),rgba(51,70,88,.044) 62%,transparent 100%);
 }
 /* The Snapshot and Dive Deeper metrics share a glass highlight without a
    rectangular base fill. A tiny top sheen adds depth while remaining invisible
@@ -3912,16 +3912,16 @@ body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified::b
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
   background:
     radial-gradient(ellipse 77% 83% at 30% 8%,
-      rgba(183,201,215,.075) 0%,
-      rgba(119,142,162,.032) 48%,
+      rgba(183,201,215,.0825) 0%,
+      rgba(119,142,162,.035) 48%,
       transparent 100%) !important;
   box-shadow: none !important;
 }
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
   background:
     radial-gradient(ellipse 77% 83% at 30% 8%,
-      rgba(183,201,215,.055) 0%,
-      rgba(119,142,162,.022) 48%,
+      rgba(183,201,215,.0605) 0%,
+      rgba(119,142,162,.024) 48%,
       transparent 100%) !important;
 }
 /* Keep Dive Deeper's approved top hairline and restrained ambient lighting. */
@@ -3930,7 +3930,7 @@ body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > .pt-deeper-sn
     linear-gradient(90deg,transparent 0%,rgba(193,205,215,.14) 13%,
       rgba(193,205,215,.34) 48%,rgba(193,205,215,.16) 85%,transparent 100%),
     radial-gradient(ellipse 70% 70% at 43% 29%,
-      rgba(141,163,181,.09),rgba(87,109,129,.035) 55%,transparent 100%) !important;
+      rgba(141,163,181,.099),rgba(87,109,129,.0385) 55%,transparent 100%) !important;
   background-size: 100% 1px,100% 100% !important;
   background-position: center top,center !important;
   background-repeat: no-repeat !important;
