@@ -3513,92 +3513,62 @@ body:has(app-transaction) app-transaction .pt-snapshot + .pt-flow-section {
 }
 
 
-/* Dive Deeper: exact Snapshot metric treatment, scoped to expanded detail grid.
-   No transaction logic, copy, disclosures, flow, or block ribbon changes. */
+/* Dive Deeper uses the exact Snapshot metric surface and typography. */
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel {
-  border: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  background: transparent !important;
-  padding: 0 !important;
+  border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+  background: transparent !important; padding: 0 !important;
 }
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid {
-  display: grid !important;
-  grid-template-columns: repeat(2,minmax(0,1fr)) !important;
-  gap: 0 !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  background: transparent !important;
-  overflow: visible !important;
+  display: grid !important; grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+  gap: 0 14px !important;
 }
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
-  position: relative !important;
-  display: block !important;
-  min-width: 0 !important;
-  min-height: 0 !important;
-  padding: 9px 11px !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  background: radial-gradient(ellipse 205px 76px at 31% 13px,
-    rgba(150,165,177,.56) 0%,
-    rgba(132,147,159,.45) 12%,
-    rgba(108,123,136,.24) 30%,
-    rgba(70,84,96,.075) 51%,
-    transparent 76%) !important;
+  position: relative !important; display: block !important; min-width: 0 !important;
+  min-height: 0 !important; padding: 9px 11px !important;
+  border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+  background: radial-gradient(ellipse 78% 82% at 29% 27%,
+    rgba(128,128,128,.15) 0%, rgba(115,115,115,.105) 29%,
+    rgba(99,99,99,.052) 55%, rgba(85,85,85,.016) 76%, transparent 100%) !important;
 }
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card::after {
-  content: "";
-  display: block !important;
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 0;
-  height: 1px;
-  pointer-events: none;
-  background: linear-gradient(90deg,transparent,rgba(193,205,215,.18) 12%,rgba(193,205,215,.18) 88%,transparent) !important;
+  content: "" !important; display: block !important; position: absolute !important;
+  left: 10px !important; right: 10px !important; bottom: 0 !important; height: 1px !important;
+  pointer-events: none !important;
+  background: linear-gradient(90deg,transparent,rgba(193,205,215,.16) 13%,rgba(193,205,215,.16) 87%,transparent) !important;
 }
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:nth-child(odd)::before {
-  content: "";
-  display: block !important;
-  position: absolute;
-  width: 1px;
-  top: 10px;
-  bottom: 10px;
-  right: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg,transparent,rgba(193,205,215,.13) 20%,rgba(193,205,215,.13) 80%,transparent) !important;
+  content: "" !important; display: block !important; position: absolute !important;
+  width: 1px !important; top: 10px !important; bottom: 10px !important; right: 0 !important;
+  pointer-events: none !important;
+  background: linear-gradient(180deg,transparent,rgba(193,205,215,.12) 22%,rgba(193,205,215,.12) 78%,transparent) !important;
 }
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-fact {
-  margin-bottom: 2px !important;
+  position: relative !important; display: block !important; width: auto !important;
+  max-width: 100% !important; margin-bottom: 2px !important;
+  font-size: 1.125rem !important; line-height: 1.3 !important;
+  text-shadow: none !important; filter: none !important;
+}
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-fact::before {
+  content: none !important; display: none !important;
 }
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-fact > span {
-  color: #fff !important;
+  font-size: inherit !important; margin-right: .4rem !important;
+  color: #fff !important; text-shadow: none !important; filter: none !important;
 }
-body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-fact strong {
-  color: #e8edf1 !important;
-  font-weight: 500 !important;
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-fact > strong {
+  font-size: inherit !important; margin-left: 0 !important;
+  color: #e8edf1 !important; font-weight: 500 !important;
+  text-shadow: none !important; filter: none !important;
 }
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-meaning,
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-meaning-preview {
   color: #a3adb7 !important;
 }
-body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-popover-trigger {
-  color: #bc975f !important;
-}
-body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-popover-trigger:hover,
-body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-popover-trigger:focus-visible {
-  color: #e0b66e !important;
-}
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-popover-trigger { color: #bc975f !important; }
 @media(max-width:700px) {
-  body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid {
-    grid-template-columns: minmax(0,1fr) !important;
-  }
-  body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:nth-child(odd)::before {
-    display: none !important;
-  }
+  body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid { grid-template-columns: minmax(0,1fr) !important; }
+  body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:nth-child(odd)::before { display: none !important; }
 }
-
 
 /* Snapshot only: softly feathered neutral-charcoal surface per metric.
    All existing text/accent colors, typography, summary and fading dividers preserved. */
@@ -3677,13 +3647,19 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-detai
 }
 
 
-/* Transaction-page ambient continuity: one seamless neutral background across
-   all sections, without modifying any component/card, text, or summary styles. */
+/* Unified transaction-page lighting: replace the previous three isolated spots
+   with one continuous, edge-darkened surface shared by all sections. */
 body:has(app-transaction) app-transaction {
-  display: block;
-  min-height: 100vh;
-  background:
-    radial-gradient(ellipse 94% 29% at 47% 14%, rgba(104,113,123,.065) 0%, rgba(74,84,95,.035) 46%, transparent 100%),
-    radial-gradient(ellipse 94% 29% at 49% 45%, rgba(107,116,126,.075) 0%, rgba(75,85,96,.034) 48%, transparent 100%),
-    radial-gradient(ellipse 94% 31% at 46% 76%, rgba(104,113,123,.064) 0%, rgba(74,84,95,.027) 48%, transparent 100%);
+  display: block; min-height: 100vh;
+  background: radial-gradient(ellipse 76% 92% at 50% 46%,
+    rgba(112,121,132,.115) 0%, rgba(83,94,105,.075) 36%,
+    rgba(58,70,83,.025) 68%, transparent 100%);
+}
+/* Transaction Flow: retain the content and inner separators, feather only
+   the outer panel into the common page surface. */
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified {
+  border: 0 !important; border-radius: 10px !important; box-shadow: none !important;
+  background: radial-gradient(ellipse 94% 92% at 48% 39%,
+    rgba(42,51,62,.46) 0%, rgba(34,43,54,.33) 44%,
+    rgba(26,35,45,.12) 76%, transparent 100%) !important;
 }
