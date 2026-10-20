@@ -193,6 +193,7 @@
     <ng-container *ngIf="flowEnabled; else ptFlowPlaceholder">
       <div class="pt-original-graph" #graphContainer>
         <div class="pt-graph-direction-labels" aria-hidden="true"><span>Inputs</span><span>Outputs</span></div>
+        <div class="pt-flow-label-rule" aria-hidden="true"></div>
         <tx-bowtie-graph
           [tx]="tx"
           [cached]="isCached"
@@ -225,6 +226,7 @@
         </div>
       </div>
     <app-transactions-list #txList [transactions]="[tx]" [cached]="isCached" [errorUnblinded]="errorUnblinded" [inputIndex]="inputIndex" [outputIndex]="outputIndex" [transactionPage]="true"></app-transactions-list>
+      <div class="pt-flow-bottom-rule" aria-hidden="true"></div>
     </div>
     </div>
 </section>
