@@ -3361,9 +3361,9 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-rows.p
   padding: 0 !important;
   margin: 0 !important;
   overflow: hidden;
-  background: linear-gradient(160deg,#30373e 0%,#272f36 40%,#20272e 100%) !important;
+  background: transparent !important;
   border: 0 !important;
-  border-radius: 7px !important;
+  border-radius: 0 !important;
   box-shadow: none !important;
 }
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
