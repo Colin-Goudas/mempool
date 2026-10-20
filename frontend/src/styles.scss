@@ -3598,3 +3598,40 @@ body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .p
     display: none !important;
   }
 }
+
+
+/* Text-anchored illumination for Snapshot and Dive Deeper.
+   The highlight sizes to the fact line, rather than a fixed point in the card. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+  background: transparent !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact {
+  position: relative !important;
+  display: inline-flex !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  justify-content: flex-start !important;
+  align-items: baseline !important;
+  gap: .45rem !important;
+  flex-wrap: wrap !important;
+  isolation: isolate !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact::before {
+  content: "" !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  left: -9px !important;
+  top: -9px !important;
+  width: calc(100% + 18px) !important;
+  height: 44px !important;
+  background: radial-gradient(ellipse 78% 65% at 25% 27%,
+    rgba(151,167,180,.57) 0%,
+    rgba(125,142,156,.40) 24%,
+    rgba(88,106,121,.16) 49%,
+    transparent 77%) !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > span,
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > strong {
+  position: relative !important;
+}
