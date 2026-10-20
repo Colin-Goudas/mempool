@@ -190,40 +190,36 @@
       <button *ngIf="flowEnabled" type="button" class="btn btn-outline-info flow-toggle btn-sm" (click)="toggleGraph()" i18n="hide-diagram">Hide diagram</button>
     </div>
     <div class="pt-flow-unified">
-    <ng-container *ngIf="flowEnabled; else flowPlaceholder">
-
-      <div class="box pt-flow-visual">
-        <div class="graph-container" #graphContainer>
-          <tx-bowtie-graph
-            [tx]="tx"
-            [cached]="isCached"
-            [width]="graphWidth"
-            [height]="graphHeight"
-            [lineLimit]="inOutLimit"
-            [maxStrands]="graphExpanded ? maxInOut : 24"
-            [network]="network"
-            [tooltip]="true"
-            [connectors]="true"
-            [inputIndex]="inputIndex" [outputIndex]="outputIndex"
-          >
-          </tx-bowtie-graph>
+    <ng-container *ngIf="flowEnabled">
+      <div class="pt-flow-preview" *ngIf="tx">
+        <div class="pt-flow-preview-input">
+          <strong>{{ tx.vin.length }} {{ tx.vin.length === 1 ? 'Input' : 'Inputs' }}</strong>
+          <span class="pt-flow-amount" *ngIf="tx.vin.length === 1 && tx.vin[0].prevout">{{ (tx.vin[0].prevout.value / 100000000).toFixed(8) }} BTC</span>
+          <span class="pt-flow-amount" *ngIf="tx.vin.length > 1">Combined inputs</span>
+          <a *ngIf="tx.vin.length && tx.vin[0].prevout?.scriptpubkey_address" [routerLink]="['/address', tx.vin[0].prevout.scriptpubkey_address]" class="pt-flow-address">{{ tx.vin[0].prevout.scriptpubkey_address }}</a>
+          <span *ngIf="tx.vin.length && !tx.vin[0].prevout?.scriptpubkey_address" class="pt-flow-address">{{ tx.vin[0].is_coinbase ? 'Newly mined Bitcoin' : 'Input address unavailable' }}</span>
+          <small *ngIf="tx.vin.length > 1">First input shown · all listed below</small>
         </div>
-        <div class="toggle-wrapper" *ngIf="maxInOut > 24">
-          <button class="btn btn-sm btn-primary graph-toggle" (click)="expandGraph();" *ngIf="!graphExpanded; else collapseBtn"><span i18n="show-more">Show more</span></button>
-          <ng-template #collapseBtn>
-            <button class="btn btn-sm btn-primary graph-toggle" (click)="collapseGraph();"><span i18n="show-less">Show less</span></button>
-          </ng-template>
+        <div class="pt-flow-preview-stream" aria-hidden="true">
+          <svg viewBox="0 0 420 180" preserveAspectRatio="none" role="img">
+            <defs><linearGradient id="pt-flow-gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#8b581e"/><stop offset="52%" stop-color="#d8a44d"/><stop offset="100%" stop-color="#9a672d"/></linearGradient></defs>
+            <path d="M 0 80 L 165 80 C 230 80 252 26 335 26 L 420 26" stroke="url(#pt-flow-gold)" stroke-width="10" fill="none" stroke-linecap="round"/>
+            <path *ngIf="tx.vout.length > 1" d="M 0 100 L 165 100 C 230 100 252 154 335 154 L 420 154" stroke="url(#pt-flow-gold)" stroke-width="10" fill="none" stroke-linecap="round"/>
+            <path *ngIf="tx.vout.length === 1" d="M 0 100 L 420 100" stroke="url(#pt-flow-gold)" stroke-width="10" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="pt-flow-preview-outputs">
+          <strong>{{ tx.vout.length }} {{ tx.vout.length === 1 ? 'Output' : 'Outputs' }}</strong>
+          <div class="pt-flow-preview-output" *ngFor="let output of tx.vout.slice(0, 2); let idx = index">
+            <span class="pt-flow-amount">{{ (output.value / 100000000).toFixed(8) }} BTC</span>
+            <a *ngIf="output.scriptpubkey_address" [routerLink]="['/address', output.scriptpubkey_address]" class="pt-flow-address">{{ output.scriptpubkey_address }}</a>
+            <span *ngIf="!output.scriptpubkey_address" class="pt-flow-address">{{ output.scriptpubkey_type === 'op_return' ? 'OP_RETURN · Data output' : 'Non-address output' }}</span>
+          </div>
+          <small *ngIf="tx.vout.length > 2">+ {{ tx.vout.length - 2 }} more outputs listed below</small>
         </div>
       </div>
-
     </ng-container>
-    <ng-template #flowPlaceholder>
-      <div class="box hidden">
-        <div class="graph-container" #graphContainer>
-        </div>
-      </div>
-    </ng-template>
-
+    <div class="graph-container pt-flow-graph-measure" #graphContainer aria-hidden="true"></div>
     <div class="pt-flow-content">
     <div class="subtitle-block">
       <div class="title">
