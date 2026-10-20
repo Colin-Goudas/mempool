@@ -3818,3 +3818,45 @@ body:has(app-transaction) app-transaction .pt-dive-deeper-toggle {
     margin-bottom: 15px !important;
   }
 }
+
+
+/* Transaction footer finish: continuous graphite-to-near-black fade, no box edge.
+   Scoped to the transaction page; preserve Mempool footer content and controls. */
+body:has(app-transaction) app-global-footer {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(180deg,
+    rgba(23,31,40,0) 0%,
+    rgba(17,24,32,.38) 17%,
+    rgba(12,18,25,.75) 49%,
+    #0a0f15 100%) !important;
+}
+body:has(app-transaction) app-global-footer footer {
+  position: relative;
+  z-index: 1;
+  margin-top: 14px !important;
+  background: transparent !important;
+}
+body:has(app-transaction) app-global-footer footer .row.main {
+  padding-top: 16px !important;
+}
+body:has(app-transaction) app-transaction .pt-deeper:last-of-type {
+  margin-bottom: 6px !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section {
+  margin-bottom: 16px !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-header {
+  margin-bottom: 9px !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-label-rule {
+  margin-bottom: 11px !important;
+}
+@media(max-width:700px) {
+  body:has(app-transaction) app-global-footer footer {
+    margin-top: 10px !important;
+  }
+  body:has(app-transaction) app-global-footer footer .row.main {
+    padding-top: 13px !important;
+  }
+}
