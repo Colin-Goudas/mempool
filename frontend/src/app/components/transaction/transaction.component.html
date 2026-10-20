@@ -218,10 +218,11 @@
     <div class="pt-flow-content">
       <div class="pt-flow-table-divider" aria-hidden="true"></div>
       <div class="pt-flow-table-header-row">
-        <div class="pt-flow-table-headings" aria-label="Transaction input and output columns">
-          <span>Inputs</span><span>Value (BTC)</span><span>Outputs</span><span>Value (BTC)</span>
-        </div>
         <button type="button" class="btn btn-outline-info btn-sm pt-flow-details-button" (click)="toggleDetailsFromTxPage()" i18n="transaction.details|Transaction Details">Details</button>
+        <div class="pt-flow-table-headings" aria-label="Transaction input and output columns">
+          <div class="pt-flow-heading-half"><span>Inputs</span><span>Value (BTC)</span></div>
+          <div class="pt-flow-heading-half"><span>Outputs</span><span>Value (BTC)</span></div>
+        </div>
       </div>
     <app-transactions-list #txList [transactions]="[tx]" [cached]="isCached" [errorUnblinded]="errorUnblinded" [inputIndex]="inputIndex" [outputIndex]="outputIndex" [transactionPage]="true"></app-transactions-list>
     </div>
