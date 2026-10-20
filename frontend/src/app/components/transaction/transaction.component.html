@@ -191,7 +191,7 @@
 
       <div class="clearfix"></div>
 
-      <div class="box">
+      <div class="box pt-flow-visual">
         <div class="graph-container" #graphContainer>
           <tx-bowtie-graph
             [tx]="tx"
@@ -215,7 +215,6 @@
         </div>
       </div>
 
-      <br>
     </ng-container>
     <ng-template #flowPlaceholder>
       <div class="box hidden">
@@ -224,6 +223,7 @@
       </div>
     </ng-template>
 
+    <div class="pt-flow-content">
     <div class="subtitle-block">
       <div class="title">
         <h2 class="pt-flow-subheading">Inputs &amp; Outputs</h2>
@@ -237,11 +237,11 @@
 
 
     <app-transactions-list #txList [transactions]="[tx]" [cached]="isCached" [errorUnblinded]="errorUnblinded" [inputIndex]="inputIndex" [outputIndex]="outputIndex" [transactionPage]="true"></app-transactions-list>
+    </div>
 </section>
     @if (pendingTrackerSnapshot) {
       <details class="pt-deeper pt-dive-deeper-toggle" open aria-label="Dive deeper transaction analysis">
-        <summary>Dive Deeper <span>Collapse / expand section</span></summary>
-        <p class="pt-deeper-intro">Additional Bitcoin transaction data, explained one field at a time.</p>
+        <summary><span class="pt-heading-title">Dive Deeper</span><span class="pt-heading-description">Additional Bitcoin transaction data, explained one field at a time.</span><span class="pt-heading-chevron" aria-hidden="true"></span></summary>
       <section class="pt-snapshot pt-deeper-snapshot pt-eight-details pt-snapshot-panel" aria-label="Transaction dive deeper">
         <div class="pt-snapshot-rows pt-eight-card-grid">
           @for (fact of technicalFacts; track fact.label) {
@@ -260,7 +260,7 @@
       </section>
       </details>
       <details class="pt-deeper" aria-label="Advanced Bitcoin technical tools">
-        <summary>Advanced Technical Tools <span>Open advanced details</span></summary>
+        <summary><span class="pt-heading-title">Advanced Technical Tools</span><span class="pt-heading-chevron" aria-hidden="true"></span></summary>
         <p class="pt-deeper-intro">Optional original Mempool analysis for experienced users, including fee diagnostics, timing and transaction features.</p>
         <p class="pt-deeper-intro" *ngIf="tx"><a [href]="'/mempool/api/tx/' + tx.txid + '/hex'" target="_blank" rel="noopener noreferrer">View raw transaction hex ↗</a></p>
         <div class="pt-additional-facts">
