@@ -76,7 +76,18 @@ const DUPLICATE_TX_BLOCKS: Record<string, [number, number]> = {
 })
 export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   get pendingTrackerSnapshot() { return this.network === '' && !!this.stateService.env.PENDING_TRACKER_EXPLANATIONS; }
-  get snapshotFacts() { return transactionSnapshot(this.tx, this.latestBlock?.height, this.transactionTime, !!this.replaced || !!this.rbfTransaction, this.pool?.name, this.networkFeeFloor); }
+  get snapshotFacts() {
+    const facts = transactionSnapshot(this.tx, this.latestBlock?.height, this.transactionTime, !!this.replaced || !!this.rbfTransaction, this.pool?.name, this.networkFeeFloor);
+    // Read in pairs: outcome, cost, confirmation details, then technical context.
+    const order = ['status', 'confirmations', 'network fee', 'fee rate', 'confirmed at', 'included in block', 'inputs / outputs', 'mining pool'];
+    return [...facts].sort((a, b) => {
+      const rank = (label: string) => {
+        const index = order.findIndex(key => label.toLowerCase().replace(/:$/, '').trim() === key);
+        return index < 0 ? order.length : index;
+      };
+      return rank(a.label) - rank(b.label);
+    });
+  }
   get technicalFacts() { return transactionTechnicalFacts(this.tx, this.pool?.name); }
   get technicalGroups() {
     const facts = this.technicalFacts || [];
