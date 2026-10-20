@@ -3511,3 +3511,90 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid
 body:has(app-transaction) app-transaction .pt-snapshot + .pt-flow-section {
   margin-top: .05rem !important;
 }
+
+
+/* Dive Deeper: exact Snapshot metric treatment, scoped to expanded detail grid.
+   No transaction logic, copy, disclosures, flow, or block ribbon changes. */
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel {
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+  position: relative !important;
+  display: block !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 9px 11px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: radial-gradient(ellipse 205px 76px at 31% 13px,
+    rgba(150,165,177,.56) 0%,
+    rgba(132,147,159,.45) 12%,
+    rgba(108,123,136,.24) 30%,
+    rgba(70,84,96,.075) 51%,
+    transparent 76%) !important;
+}
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card::after {
+  content: "";
+  display: block !important;
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg,transparent,rgba(193,205,215,.18) 12%,rgba(193,205,215,.18) 88%,transparent) !important;
+}
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:nth-child(odd)::before {
+  content: "";
+  display: block !important;
+  position: absolute;
+  width: 1px;
+  top: 10px;
+  bottom: 10px;
+  right: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg,transparent,rgba(193,205,215,.13) 20%,rgba(193,205,215,.13) 80%,transparent) !important;
+}
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-fact {
+  margin-bottom: 2px !important;
+}
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-fact > span {
+  color: #fff !important;
+}
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-fact strong {
+  color: #e8edf1 !important;
+  font-weight: 500 !important;
+}
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-meaning,
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-meaning-preview {
+  color: #a3adb7 !important;
+}
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-popover-trigger {
+  color: #bc975f !important;
+}
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-popover-trigger:hover,
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-popover-trigger:focus-visible {
+  color: #e0b66e !important;
+}
+@media(max-width:700px) {
+  body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid {
+    grid-template-columns: minmax(0,1fr) !important;
+  }
+  body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:nth-child(odd)::before {
+    display: none !important;
+  }
+}
