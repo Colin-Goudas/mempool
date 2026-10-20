@@ -3260,7 +3260,7 @@ app-transaction .pt-flow-section .pt-graph-direction-labels {
 }
 
 
-/* PT final transaction flow: one continuous panel, compact diagram-to-table transition. */
+/* PT final transaction flow: one cohesive panel with aligned original Mempool columns. */
 app-transaction .pt-flow-section > .pt-flow-unified {
   padding: 13px 12px 12px !important;
   background: linear-gradient(145deg, rgba(32,40,49,.65), rgba(19,27,35,.58)) !important;
@@ -3272,6 +3272,10 @@ app-transaction .pt-flow-section .pt-original-graph {
   padding: 4px 0 0 !important;
   margin: 0 !important;
   background: transparent !important;
+}
+app-transaction .pt-flow-section .pt-original-graph tx-bowtie-graph {
+  display: block;
+  max-height: none !important;
 }
 app-transaction .pt-flow-section .pt-graph-direction-labels {
   color: #e1aa52 !important;
@@ -3289,46 +3293,48 @@ app-transaction .pt-flow-section .pt-flow-content {
 }
 app-transaction .pt-flow-section .pt-flow-table-divider {
   height: 1px;
-  margin: 3px 0 10px;
+  margin: 9px 0 4px;
   background: linear-gradient(90deg, transparent 0%, rgba(190,203,213,.22) 15%, rgba(190,203,213,.22) 85%, transparent 100%);
 }
 app-transaction .pt-flow-section .pt-flow-table-header-row {
-  position: relative;
   display: flex;
-  align-items: end;
-  gap: 12px;
-  padding-right: 75px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  padding: 0 !important;
+}
+app-transaction .pt-flow-section .pt-flow-details-button {
+  position: static !important;
+  align-self: flex-end;
+  margin: 0 0 1px;
 }
 app-transaction .pt-flow-section .pt-flow-table-headings {
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0,1.4fr) minmax(100px,.6fr) minmax(0,1.4fr) minmax(100px,.6fr);
-  gap: 8px;
-  align-items: end;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 0;
   margin: 0 !important;
-  padding: 9px 13px 10px !important;
+  padding: 6px 0 9px !important;
   font-size: clamp(.87rem,1.2vw,1.04rem) !important;
   font-weight: 700 !important;
   color: #edf1f5 !important;
   border-bottom: 1px solid rgba(190,203,213,.15) !important;
 }
-app-transaction .pt-flow-section .pt-flow-table-headings span:nth-child(2),
-app-transaction .pt-flow-section .pt-flow-table-headings span:nth-child(4) {
-  text-align: right;
+app-transaction .pt-flow-section .pt-flow-heading-half {
+  display: grid;
+  grid-template-columns: minmax(0,64fr) minmax(0,36fr);
+  align-items: end;
+  gap: 0;
+  padding-left: 13px;
+  padding-right: 13px;
+  min-width: 0;
 }
-app-transaction .pt-flow-section .pt-flow-details-button {
-  position: absolute;
-  right: 0;
-  top: 2px;
+app-transaction .pt-flow-section .pt-flow-heading-half span:first-child { text-align: left; }
+app-transaction .pt-flow-section .pt-flow-heading-half span:last-child { text-align: right; white-space: nowrap; }
+@media(max-width:991px) {
+  app-transaction .pt-flow-section .pt-flow-table-headings { grid-template-columns: minmax(0,1fr); gap: 5px; }
 }
-@media (max-width:767px) {
-  app-transaction .pt-flow-section .pt-flow-table-header-row { padding-right: 0; padding-top: 29px; }
-  app-transaction .pt-flow-section .pt-flow-details-button { top: 0; }
-  app-transaction .pt-flow-section .pt-flow-table-headings {
-    grid-template-columns: minmax(0,1fr) minmax(56px,.65fr) minmax(0,1fr) minmax(56px,.65fr);
-    gap: 4px;
-    padding: 6px 2px 8px !important;
-    font-size: .7rem !important;
-  }
+@media(max-width:767px) {
   app-transaction .pt-flow-section .pt-graph-direction-labels { font-size: .95rem !important; }
+  app-transaction .pt-flow-section .pt-flow-table-headings { font-size: .78rem !important; }
 }
