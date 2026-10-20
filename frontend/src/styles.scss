@@ -3645,3 +3645,39 @@ body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified {
     rgba(42,51,62,.46) 0%, rgba(34,43,54,.33) 44%,
     rgba(26,35,45,.12) 76%, transparent 100%) !important;
 }
+
+
+/* PT final precision polish — shared rhythm and feathered dividers; no palette or content changes. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+  padding: 10px 11px 11px !important;
+  min-width: 0 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-fact {
+  margin: 0 0 3px !important;
+  line-height: 1.32 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-meaning {
+  line-height: 1.43 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card::after {
+  left: 8px !important;
+  right: 8px !important;
+  background: linear-gradient(90deg, transparent 0%, rgba(193,205,215,.075) 9%, rgba(193,205,215,.16) 28%, rgba(193,205,215,.16) 68%, rgba(193,205,215,.06) 91%, transparent 100%) !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:nth-child(odd)::before {
+  background: linear-gradient(180deg, transparent 0%, rgba(193,205,215,.055) 18%, rgba(193,205,215,.115) 45%, rgba(193,205,215,.06) 82%, transparent 100%) !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-table-divider {
+  background: linear-gradient(90deg, transparent 0%, rgba(190,203,213,.12) 18%, rgba(190,203,213,.16) 55%, rgba(190,203,213,.07) 84%, transparent 100%) !important;
+}
+@media (max-width:700px) {
+  body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid {
+    grid-template-columns: minmax(0,1fr) !important;
+  }
+  body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:nth-child(odd)::before {
+    display: none !important;
+  }
+  body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:nth-last-child(2)::after {
+    display: block !important;
+  }
+}
