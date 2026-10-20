@@ -207,7 +207,7 @@
               <linearGradient id="pt-flow-gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#a46d2a"/><stop offset="55%" stop-color="#d9a54e"/><stop offset="100%" stop-color="#bd8536"/></linearGradient>
             </defs>
             <path class="pt-flow-main" d="M 0 90 L 164 90" stroke="url(#pt-flow-gold)" stroke-width="20" fill="none" stroke-linecap="butt"/>
-            <path class="pt-flow-branch" d="M 160 90 C 220 90 244 48 306 48 L 420 48" stroke="url(#pt-flow-gold)" stroke-width="12" fill="none" stroke-linecap="butt" tabindex="0">
+            <path *ngIf="tx.vout.length > 1" class="pt-flow-branch" d="M 160 90 C 220 90 244 48 306 48 L 420 48" stroke="url(#pt-flow-gold)" stroke-width="12" fill="none" stroke-linecap="butt" tabindex="0">
               <title>{{ tx.vout.length ? 'Output 1: ' + (tx.vout[0].value / 100000000).toFixed(8) + ' BTC' : 'No outputs' }}</title>
             </path>
             <path *ngIf="tx.vout.length > 1" class="pt-flow-branch" d="M 160 90 C 220 90 244 132 306 132 L 420 132" stroke="url(#pt-flow-gold)" stroke-width="12" fill="none" stroke-linecap="butt" tabindex="0">
