@@ -3620,11 +3620,31 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-detai
       transparent 90%),
     linear-gradient(135deg, rgba(128,145,160,.075), transparent 75%) !important;
 }
-body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card::before,
+/* Restore the fine fading row/column dividers without boxing the cards. */
 body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card::after {
-  content: none !important;
-  display: none !important;
-  background: none !important;
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  left: 10px !important;
+  right: 10px !important;
+  bottom: 0 !important;
+  height: 1px !important;
+  pointer-events: none !important;
+  background: linear-gradient(90deg,transparent,rgba(193,205,215,.16) 13%,rgba(193,205,215,.16) 87%,transparent) !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card:nth-child(odd)::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  width: 1px !important;
+  top: 10px !important;
+  bottom: 10px !important;
+  right: 0 !important;
+  pointer-events: none !important;
+  background: linear-gradient(180deg,transparent,rgba(193,205,215,.12) 22%,rgba(193,205,215,.12) 78%,transparent) !important;
+}
+@media(max-width:575px) {
+  body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card:nth-child(odd)::before { display:none !important; }
 }
 body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact {
   position: relative !important;
