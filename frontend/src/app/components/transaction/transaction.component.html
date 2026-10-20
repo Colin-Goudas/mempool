@@ -183,8 +183,9 @@
 
 <section class="pt-flow-section" aria-label="Transaction Flow and Inputs and Outputs">
     <ng-container *ngIf="flowEnabled; else flowPlaceholder">
-      <div class="title float-start">
+      <div class="title float-start pt-flow-heading-copy">
         <h2 id="flow" #flow class="anchor">Transaction Flow (Inputs &amp; Outputs)</h2>
+        <span class="pt-flow-description">See where your Bitcoin came from and where it went.</span>
       </div>
 
       <button type="button" class="btn btn-outline-info flow-toggle btn-sm float-end" (click)="toggleGraph()" i18n="hide-diagram">Hide diagram</button>
