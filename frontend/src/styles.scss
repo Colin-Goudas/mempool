@@ -3728,3 +3728,47 @@ body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary .pt-h
     margin-bottom: 15px !important;
   }
 }
+
+
+/* Final three section rules: neutral, full-width and softly feathered.
+   The Dive Deeper line sits between the introduction and the Size row. */
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > .pt-deeper-snapshot::before {
+  content: none !important;
+  display: none !important;
+}
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > .pt-deeper-snapshot {
+  border-top: 0 !important;
+  background-image: linear-gradient(90deg, transparent 0%, rgba(193,205,215,.14) 13%, rgba(193,205,215,.34) 48%, rgba(193,205,215,.16) 85%, transparent 100%) !important;
+  background-size: 100% 1px !important;
+  background-position: center top !important;
+  background-repeat: no-repeat !important;
+  padding-top: 16px !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-header {
+  border-bottom: 0 !important;
+  background: none !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-graph-direction-labels {
+  border-bottom: 0 !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-label-rule,
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-bottom-rule {
+  display: block !important;
+  width: 100% !important;
+  height: 1px !important;
+  min-height: 1px !important;
+  border: 0 !important;
+  background: linear-gradient(90deg, transparent 0%, rgba(193,205,215,.12) 12%, rgba(193,205,215,.28) 48%, rgba(193,205,215,.14) 85%, transparent 100%) !important;
+  pointer-events: none !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-label-rule {
+  margin: 3px 0 10px !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-bottom-rule {
+  margin: 14px 0 0 !important;
+}
+@media(max-width:700px) {
+  body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > .pt-deeper-snapshot {
+    padding-top: 12px !important;
+  }
+}
