@@ -2650,6 +2650,44 @@ app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-mean
   }
 }
 
+/* Compact desktop transaction layout: keep content and block ribbon intact.
+   All dimensions below apply only to transaction details, never the mempool
+   projection ribbon, shared header, or other explorer pages. */
+@media (min-width: 768px) {
+  app-transaction .pt-snapshot > .title-block { padding: .42rem 0 .55rem; }
+  app-transaction .pt-snapshot-panel,
+  app-transaction .pt-eight-details.pt-snapshot-panel { padding: 10px 11px; }
+  app-transaction .pt-snapshot-panel .pt-snapshot-summary {
+    padding: 9px 11px;
+    margin-bottom: 8px;
+    line-height: 1.48;
+  }
+  app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid,
+  app-transaction .pt-eight-details.pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid {
+    gap: 7px 11px !important;
+  }
+  app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card,
+  app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+    padding: 9px 11px !important;
+  }
+  app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact { margin-bottom: 3px; }
+  app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-meaning { line-height: 1.36; }
+  app-transaction .pt-flow-section {
+    margin-top: .8rem;
+    padding-top: .6rem;
+    padding-bottom: .1rem;
+  }
+  app-transaction .pt-dive-deeper-toggle,
+  app-transaction .pt-deeper:not(.pt-dive-deeper-toggle) {
+    margin-top: .75rem;
+    padding-top: .6rem;
+    padding-bottom: .1rem;
+  }
+  app-transaction .pt-flow-section h2,
+  app-transaction .pt-deeper > summary { font-size: 1.3rem; }
+  app-transaction .pt-deeper .pt-deeper-intro { margin-bottom: .25rem; }
+}
+
 /* Pending Tracker unified graphite finish.
    Single source of truth for visual surfaces, replacing the accumulated
    Dark Glass v1/v2/v3, navy, graphite and spotlight overrides.
