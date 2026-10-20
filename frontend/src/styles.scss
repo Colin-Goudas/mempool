@@ -3861,3 +3861,35 @@ body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-label-rule
     padding-top: 13px !important;
   }
 }
+
+
+/* PT layered depth: low-contrast, borderless lighting on the three transaction
+   sections and their individual data fields. No text, layout or divider changes. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details),
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > .pt-deeper-snapshot {
+  background-color: transparent !important;
+  background-image:
+    radial-gradient(ellipse 78% 74% at 49% 38%, rgba(105,121,139,.065) 0%, rgba(75,91,109,.035) 52%, transparent 100%) !important;
+}
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > .pt-deeper-snapshot {
+  /* Keep the existing hairline separating its introduction from Size / Virtual size. */
+  background-image:
+    linear-gradient(90deg,transparent 0%,rgba(193,205,215,.14) 13%,rgba(193,205,215,.34) 48%,rgba(193,205,215,.16) 85%,transparent 100%),
+    radial-gradient(ellipse 78% 74% at 49% 38%, rgba(105,121,139,.043) 0%, rgba(75,91,109,.022) 52%, transparent 100%) !important;
+  background-size: 100% 1px, 100% 100% !important;
+  background-position: center top, center center !important;
+  background-repeat: no-repeat !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+  background: radial-gradient(ellipse 105% 92% at 28% 18%,
+    rgba(123,139,155,.047) 0%, rgba(91,109,127,.022) 48%, transparent 90%) !important;
+}
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+  background: radial-gradient(ellipse 105% 92% at 28% 18%,
+    rgba(123,139,155,.032) 0%, rgba(91,109,127,.014) 48%, transparent 90%) !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified {
+  background: radial-gradient(ellipse 94% 92% at 48% 39%,
+    rgba(51,62,74,.49) 0%, rgba(38,48,59,.32) 44%,
+    rgba(26,35,45,.11) 76%, transparent 100%) !important;
+}
