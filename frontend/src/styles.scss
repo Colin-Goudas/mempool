@@ -3433,3 +3433,49 @@ body:has(app-transaction) app-transaction .pt-snapshot + .pt-flow-section {
     padding-bottom: 9px !important;
   }
 }
+
+
+/* Snapshot visual hierarchy and page-depth refinement (scope: snapshot metrics only).
+   Preserve text, values, sizing, responsive grid and all existing controls. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid {
+  position: relative;
+  isolation: isolate;
+  overflow: visible !important;
+  background: transparent !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  inset: -2px -8px -15px;
+  background: linear-gradient(180deg,
+    rgba(43,52,61,.30) 0%,
+    rgba(43,52,61,.22) 43%,
+    rgba(34,43,52,.14) 73%,
+    transparent 100%);
+  border-radius: 9px 9px 0 0;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-fact > span {
+  color: #f0f2f4 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-fact strong {
+  color: #d3dae0 !important;
+  font-weight: 500 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-meaning,
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-meaning-preview {
+  color: #a3adb7 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-popover-trigger {
+  color: #bc975f !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-popover-trigger:hover,
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-popover-trigger:focus-visible {
+  color: #e0b66e !important;
+}
+@media(max-width:575px) {
+  body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid::before {
+    inset: -2px -4px -12px;
+  }
+}
