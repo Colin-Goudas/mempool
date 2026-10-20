@@ -4091,3 +4091,44 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-detai
     inset: -12px -12px -20px !important;
   }
 }
+
+/* Dive Deeper lighting parity — snapshot and flow only.
+   Match the approved diffuse finish; no new rectangular surfaces. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) {
+  background: transparent !important;
+  isolation: isolate;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details)::before {
+  inset: -22px -38px -30px !important;
+  background:
+    radial-gradient(ellipse 64% 58% at 43% 33%,
+      rgba(143,163,180,.115) 0%,rgba(91,112,130,.052) 48%,transparent 100%),
+    radial-gradient(ellipse 72% 78% at 49% 66%,
+      rgba(78,98,116,.065),transparent 100%) !important;
+  -webkit-mask-image: radial-gradient(ellipse 73% 76% at 49% 47%,#000 20%,rgba(0,0,0,.65) 47%,transparent 91%) !important;
+  mask-image: radial-gradient(ellipse 73% 76% at 49% 47%,#000 20%,rgba(0,0,0,.65) 47%,transparent 91%) !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card {
+  background: radial-gradient(ellipse 79% 78% at 30% 4%,
+    rgba(170,191,208,.05),rgba(112,133,151,.019) 52%,transparent 100%) !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified {
+  background: transparent !important;
+  isolation: isolate;
+}
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified::before {
+  inset: -44px -70px -54px !important;
+  background:
+    radial-gradient(ellipse 61% 54% at 50% 38%,
+      rgba(151,172,190,.16),rgba(103,127,148,.072) 52%,transparent 100%),
+    radial-gradient(ellipse 72% 77% at 50% 61%,
+      rgba(75,96,115,.16),rgba(46,64,81,.05) 56%,transparent 100%) !important;
+  -webkit-mask-image: radial-gradient(ellipse 73% 77% at 50% 50%,#000 21%,rgba(0,0,0,.62) 48%,transparent 91%) !important;
+  mask-image: radial-gradient(ellipse 73% 77% at 50% 50%,#000 21%,rgba(0,0,0,.62) 48%,transparent 91%) !important;
+}
+@media(max-width:700px) {
+  body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified::before,
+  body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details)::before {
+    inset: -12px -12px -20px !important;
+  }
+}
