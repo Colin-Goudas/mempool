@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
       <p *ngIf="explanation" aria-live="polite">{{ explanation }}</p>
       <p *ngIf="error && fallbackSummary">{{ fallbackSummary }}</p>
       <small *ngIf="error" role="status">{{ error }}</small>
-      <small *ngIf="explanation">{{ source === 'ai' ? 'AI explanation based on current Bitcoin data. Check the details below.' : 'Summary from verified transaction data.' }}</small>
+      <small *ngIf="explanation && !embedded">{{ source === 'ai' ? 'AI explanation based on current Bitcoin data. Check the details below.' : 'Summary from verified transaction data.' }}</small>
     </section>
   `,
   styles: [`
@@ -30,7 +30,7 @@ import { Subscription } from 'rxjs';
     small { display: block; color: #939aa6; margin-top: .75rem; }
     .embedded { margin: 0; padding: 0; border: 0; border-radius: 0; background: none; }
     .embedded h2 { font-size: .7rem; letter-spacing: .1em; font-weight: 600; }
-    .embedded p { font-size: .95rem; line-height: 1.55; margin-top: .5rem; }
+    .embedded p { font-size: .95rem; line-height: 1.48; margin-top: .32rem; }
     .embedded small { font-size: .72rem; }
     .embedded .btn { font-size: .7rem; padding: .2rem .55rem; }
     @media (max-width: 575px) { .explanation:not(.embedded) { padding: 1rem; } .explanation-heading { gap: .75rem; } }
