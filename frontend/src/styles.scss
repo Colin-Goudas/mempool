@@ -3449,7 +3449,7 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-rows.p
   z-index: -1;
   pointer-events: none;
   inset: -2px -8px -15px;
-  background: none;
+  background: radial-gradient(ellipse 82% 110% at 49% 40%, rgba(101,112,124,.115) 0%, rgba(75,87,99,.068) 40%, rgba(50,62,75,.022) 72%, transparent 100%);
   border-radius: 0;
 }
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-fact > span {
@@ -3490,17 +3490,6 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid
 }
 
 
-/* Per-metric top-to-bottom illumination: focus on label/value, fade through explanation.
-   Edge transparency prevents eight new visible boxes or horizontal bands. */
-body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
-  background: radial-gradient(ellipse 205px 76px at 31% 13px,
-    rgba(150,165,177,.56) 0%,
-    rgba(132,147,159,.45) 12%,
-    rgba(108,123,136,.24) 30%,
-    rgba(70,84,96,.075) 51%,
-    transparent 76%) !important;
-}
-
 /* Final snapshot polish: emphasize labels, quiet center seam, preserve row rules. */
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-fact > span {
   color: #fff !important;
@@ -3526,9 +3515,7 @@ body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .p
   position: relative !important; display: block !important; min-width: 0 !important;
   min-height: 0 !important; padding: 9px 11px !important;
   border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
-  background: radial-gradient(ellipse 78% 82% at 29% 27%,
-    rgba(128,128,128,.15) 0%, rgba(115,115,115,.105) 29%,
-    rgba(99,99,99,.052) 55%, rgba(85,85,85,.016) 76%, transparent 100%) !important;
+  background: transparent !important;
 }
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card::after {
   content: "" !important; display: block !important; position: absolute !important;
@@ -3581,12 +3568,7 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-detai
   border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  background: radial-gradient(ellipse 78% 82% at 29% 27%,
-    rgba(128,128,128,.15) 0%,
-    rgba(115,115,115,.105) 29%,
-    rgba(99,99,99,.052) 55%,
-    rgba(85,85,85,.016) 76%,
-    transparent 100%) !important;
+  background: transparent !important;
 }
 /* Restore the fine fading row/column dividers without boxing the cards. */
 body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card::after {
