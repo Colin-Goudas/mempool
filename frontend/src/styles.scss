@@ -3659,3 +3659,17 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-detai
     display: none !important;
   }
 }
+
+/* Snapshot typography only: modest emphasis, original colors and all backgrounds untouched. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact {
+  font-size: 1.125rem !important;
+  line-height: 1.3 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > span {
+  font-size: inherit !important;
+  margin-right: .4rem !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > strong {
+  font-size: inherit !important;
+  margin-left: 0 !important;
+}
