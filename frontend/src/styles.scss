@@ -2650,42 +2650,63 @@ app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-mean
   }
 }
 
-/* Compact desktop transaction layout: keep content and block ribbon intact.
-   All dimensions below apply only to transaction details, never the mempool
-   projection ribbon, shared header, or other explorer pages. */
+/* Desktop density tuning for transaction details only.
+   Keep block projection ribbon, typography, colors, and mobile unchanged.
+   Consolidated here rather than accumulating competing CSS overlays. */
 @media (min-width: 768px) {
-  app-transaction .pt-snapshot > .title-block { padding: .42rem 0 .55rem; }
+  app-transaction .pt-snapshot > .title-block {
+    padding: .36rem 0 .45rem;
+    gap: .2rem .6rem;
+  }
   app-transaction .pt-snapshot-panel,
-  app-transaction .pt-eight-details.pt-snapshot-panel { padding: 10px 11px; }
+  app-transaction .pt-eight-details.pt-snapshot-panel {
+    padding: 9px 10px;
+  }
   app-transaction .pt-snapshot-panel .pt-snapshot-summary {
-    padding: 9px 11px;
-    margin-bottom: 8px;
-    line-height: 1.48;
+    padding: 8px 10px;
+    margin-bottom: 7px;
+    line-height: 1.46;
   }
   app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid,
   app-transaction .pt-eight-details.pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid {
-    gap: 7px 11px !important;
+    gap: 6px 10px !important;
   }
   app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card,
   app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
-    padding: 9px 11px !important;
+    padding: 8px 10px !important;
   }
-  app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact { margin-bottom: 3px; }
-  app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-meaning { line-height: 1.36; }
-  app-transaction .pt-flow-section {
-    margin-top: .8rem;
-    padding-top: .6rem;
-    padding-bottom: .1rem;
+  app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact {
+    margin-bottom: 2px;
   }
+  app-transaction .pt-eight-card-grid .pt-metric-card .pt-snapshot-meaning {
+    line-height: 1.36;
+  }
+  app-transaction .pt-flow-section,
   app-transaction .pt-dive-deeper-toggle,
   app-transaction .pt-deeper:not(.pt-dive-deeper-toggle) {
-    margin-top: .75rem;
-    padding-top: .6rem;
-    padding-bottom: .1rem;
+    margin-top: .6rem;
+    padding-top: .48rem;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  app-transaction .pt-flow-section .title { margin-bottom: .1rem; }
+  app-transaction .pt-flow-section .subtitle-block { margin: .05rem 0 .1rem; }
+  app-transaction .pt-flow-section .box { margin: 0 !important; }
+  app-transaction .pt-flow-section .graph-container { margin: 0; padding: 0; }
+  app-transaction .pt-deeper > summary { padding-bottom: .22rem; }
+  app-transaction .pt-deeper .pt-deeper-intro {
+    padding-bottom: .22rem;
+    margin-bottom: .18rem;
   }
   app-transaction .pt-flow-section h2,
   app-transaction .pt-deeper > summary { font-size: 1.3rem; }
-  app-transaction .pt-deeper .pt-deeper-intro { margin-bottom: .25rem; }
+  /* Bring the global footer closer to the final collapsed tools section.
+     Footer remains full-featured and its links/controls are untouched. */
+  body:has(app-transaction) app-global-footer footer { margin-top: 10px; }
+  body:has(app-transaction) app-global-footer footer .row.main {
+    padding-top: 20px;
+    padding-bottom: 16px;
+  }
 }
 
 /* Pending Tracker unified graphite finish.
