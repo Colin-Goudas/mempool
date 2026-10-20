@@ -3479,3 +3479,16 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid
     inset: -2px -4px -12px;
   }
 }
+
+
+/* Finish the last snapshot row with the same softly faded dividers as the rows above. */
+@media(min-width:576px) {
+  body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:nth-last-child(-n+2)::after {
+    display: block !important;
+  }
+}
+@media(max-width:575px) {
+  body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:last-child::after {
+    display: block !important;
+  }
+}
