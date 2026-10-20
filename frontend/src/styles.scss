@@ -3196,3 +3196,19 @@ app-transaction .pt-flow-preview-output {
  app-transaction .pt-flow-preview .pt-flow-address { font-size: .67rem; }
  app-transaction .pt-flow-preview strong { font-size: .78rem; }
 }
+
+
+/* Transaction flow value labels and informative branch hover. */
+app-transaction .pt-flow-field-label { font-size: .7rem; color: #9daab7; letter-spacing: .025em; }
+app-transaction .pt-flow-preview-input, app-transaction .pt-flow-preview-output { gap: 4px; }
+app-transaction .pt-flow-preview-stream { text-align: center; }
+app-transaction .pt-flow-preview-stream svg { height: 148px; }
+app-transaction .pt-flow-preview-stream .pt-flow-branch { cursor: help; transition: stroke-width .18s ease, filter .18s ease; }
+app-transaction .pt-flow-preview-stream .pt-flow-branch:hover,
+app-transaction .pt-flow-preview-stream .pt-flow-branch:focus { stroke-width: 17; filter: drop-shadow(0 0 4px rgba(230,172,78,.55)); outline: none; }
+app-transaction .pt-flow-schematic-note { display: block; font-size: .65rem; margin-top: -3px; color: #9caab8; }
+@media(max-width:767px) {
+ app-transaction .pt-flow-preview-stream svg { height: 128px; }
+ app-transaction .pt-flow-field-label { font-size: .6rem; }
+ app-transaction .pt-flow-schematic-note { font-size: .55rem; }
+}
