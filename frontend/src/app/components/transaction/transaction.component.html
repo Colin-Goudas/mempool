@@ -190,47 +190,30 @@
       <button *ngIf="flowEnabled" type="button" class="btn btn-outline-info flow-toggle btn-sm" (click)="toggleGraph()" i18n="hide-diagram">Hide diagram</button>
     </div>
     <div class="pt-flow-unified">
-    <ng-container *ngIf="flowEnabled">
-      <div class="pt-flow-preview" *ngIf="tx">
-        <div class="pt-flow-preview-input">
-          <strong>Inputs <span>({{ tx.vin.length }})</span></strong>
-          <span class="pt-flow-field-label">Value (BTC)</span>
-          <span class="pt-flow-amount" *ngIf="tx.vin.length && tx.vin[0].prevout">{{ (tx.vin[0].prevout.value / 100000000).toFixed(8) }}</span>
-          <span class="pt-flow-amount" *ngIf="tx.vin.length && !tx.vin[0].prevout">Value unavailable</span>
-          <a *ngIf="tx.vin.length && tx.vin[0].prevout?.scriptpubkey_address" [routerLink]="['/address', tx.vin[0].prevout.scriptpubkey_address]" class="pt-flow-address">{{ tx.vin[0].prevout.scriptpubkey_address }}</a>
-          <span *ngIf="tx.vin.length && !tx.vin[0].prevout?.scriptpubkey_address" class="pt-flow-address">{{ tx.vin[0].is_coinbase ? 'Newly mined Bitcoin' : 'Input address unavailable' }}</span>
-          <small *ngIf="tx.vin.length > 1">First input shown · all listed below</small>
-        </div>
-        <div class="pt-flow-preview-stream">
-          <svg viewBox="0 0 420 180" preserveAspectRatio="none" role="img" aria-label="Illustrative transaction flow. Hover or focus on a gold branch to see the corresponding output value.">
-            <defs>
-              <linearGradient id="pt-flow-gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#a46d2a"/><stop offset="55%" stop-color="#d9a54e"/><stop offset="100%" stop-color="#bd8536"/></linearGradient>
-            </defs>
-            <path class="pt-flow-main" d="M 0 90 L 164 90" stroke="url(#pt-flow-gold)" stroke-width="20" fill="none" stroke-linecap="butt"/>
-            <path *ngIf="tx.vout.length > 1" class="pt-flow-branch" d="M 160 90 C 220 90 244 48 306 48 L 420 48" stroke="url(#pt-flow-gold)" stroke-width="12" fill="none" stroke-linecap="butt" tabindex="0">
-              <title>{{ tx.vout.length ? 'Output 1: ' + (tx.vout[0].value / 100000000).toFixed(8) + ' BTC' : 'No outputs' }}</title>
-            </path>
-            <path *ngIf="tx.vout.length > 1" class="pt-flow-branch" d="M 160 90 C 220 90 244 132 306 132 L 420 132" stroke="url(#pt-flow-gold)" stroke-width="12" fill="none" stroke-linecap="butt" tabindex="0">
-              <title>Output 2: {{ (tx.vout[1].value / 100000000).toFixed(8) }} BTC</title>
-            </path>
-            <path *ngIf="tx.vout.length === 1" class="pt-flow-branch" d="M 160 90 L 420 90" stroke="url(#pt-flow-gold)" stroke-width="12" fill="none" stroke-linecap="butt" tabindex="0">
-              <title>Output 1: {{ (tx.vout[0].value / 100000000).toFixed(8) }} BTC</title>
-            </path>
-          </svg>
-          <small class="pt-flow-schematic-note">Illustrative flow · hover over branches</small>
-        </div>
-        <div class="pt-flow-preview-outputs">
-          <strong>Outputs <span>({{ tx.vout.length }})</span></strong>
-          <div class="pt-flow-preview-output" *ngFor="let output of tx.vout.slice(0, 2); let idx = index">
-            <span class="pt-flow-field-label">Value (BTC)</span><span class="pt-flow-amount">{{ (output.value / 100000000).toFixed(8) }}</span>
-            <a *ngIf="output.scriptpubkey_address" [routerLink]="['/address', output.scriptpubkey_address]" class="pt-flow-address">{{ output.scriptpubkey_address }}</a>
-            <span *ngIf="!output.scriptpubkey_address" class="pt-flow-address">{{ output.scriptpubkey_type === 'op_return' ? 'OP_RETURN · Data output' : 'Non-address output' }}</span>
-          </div>
-          <small *ngIf="tx.vout.length > 2">+ {{ tx.vout.length - 2 }} more outputs listed below</small>
-        </div>
+    <ng-container *ngIf="flowEnabled; else ptFlowPlaceholder">
+      <div class="pt-original-graph" #graphContainer>
+        <tx-bowtie-graph
+          [tx]="tx"
+          [cached]="isCached"
+          [width]="graphWidth"
+          [height]="graphHeight"
+          [lineLimit]="inOutLimit"
+          [maxStrands]="graphExpanded ? maxInOut : 24"
+          [network]="network"
+          [tooltip]="true"
+          [connectors]="true"
+          [inputIndex]="inputIndex"
+          [outputIndex]="outputIndex">
+        </tx-bowtie-graph>
+      </div>
+      <div class="toggle-wrapper" *ngIf="maxInOut > 24">
+        <button class="btn btn-sm btn-primary graph-toggle" (click)="expandGraph()" *ngIf="!graphExpanded; else ptCollapseGraph">Show more</button>
+        <ng-template #ptCollapseGraph><button class="btn btn-sm btn-primary graph-toggle" (click)="collapseGraph()">Show less</button></ng-template>
       </div>
     </ng-container>
-    <div class="graph-container pt-flow-graph-measure" #graphContainer aria-hidden="true"></div>
+    <ng-template #ptFlowPlaceholder>
+      <div class="graph-container pt-flow-graph-measure" #graphContainer></div>
+    </ng-template>
     <div class="pt-flow-content">
     <div class="subtitle-block">
       <div class="title">
@@ -243,6 +226,9 @@
     </div>
 
 
+    <div class="pt-flow-table-headings" aria-label="Transaction input and output columns">
+      <span>Inputs</span><span>Value (BTC)</span><span>Outputs</span><span>Value (BTC)</span>
+    </div>
     <app-transactions-list #txList [transactions]="[tx]" [cached]="isCached" [errorUnblinded]="errorUnblinded" [inputIndex]="inputIndex" [outputIndex]="outputIndex" [transactionPage]="true"></app-transactions-list>
     </div>
     </div>
