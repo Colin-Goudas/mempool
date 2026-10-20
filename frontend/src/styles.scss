@@ -2936,3 +2936,61 @@ body:has(app-transaction) app-transaction .pt-eight-card-grid .pt-snapshot-fact 
 body:has(app-transaction) app-transaction .pt-eight-card-grid .pt-snapshot-fact strong {color:#f4f5f7 !important;}
 body:has(app-transaction) app-transaction .pt-eight-card-grid .pt-snapshot-meaning,
 body:has(app-transaction) app-transaction .pt-eight-card-grid .pt-meaning-preview {color:#c3c9d0 !important;}
+
+
+/* Pending Tracker / soft silver section illumination, 2026-10-20.
+   Atmosphere and surfaces only; do not alter block ribbon or flow diagram. */
+body:has(app-transaction) {
+  background-color:#080a0d !important;
+  background-image:linear-gradient(180deg,#080a0d,#0d1116 52%,#080a0d) !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot,
+body:has(app-transaction) app-transaction .pt-flow-section,
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle,
+body:has(app-transaction) app-transaction .pt-deeper:not(.pt-dive-deeper-toggle) {
+  position:relative;
+  isolation:isolate;
+}
+body:has(app-transaction) app-transaction .pt-snapshot::before,
+body:has(app-transaction) app-transaction .pt-flow-section::after,
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle::after,
+body:has(app-transaction) app-transaction .pt-deeper:not(.pt-dive-deeper-toggle)::after {
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  z-index:-1;
+  inset:-55px -8vw;
+  background:
+    radial-gradient(ellipse 56% 65% at 23% 30%,rgba(170,182,195,.095),transparent 80%),
+    radial-gradient(ellipse 60% 70% at 83% 55%,rgba(156,168,181,.075),transparent 83%);
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel,
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel {
+  border-color:rgba(202,213,223,.15) !important;
+  box-shadow:inset 0 1px 0 rgba(246,249,252,.11),0 14px 40px rgba(0,0,0,.23) !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card,
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+  background:
+    radial-gradient(ellipse 68% 72% at 17% -12%,rgba(230,237,243,.09),transparent 76%),
+    linear-gradient(163deg,#2b3036 0%,#1c2229 32%,#0d131a 100%) !important;
+  border-color:rgba(197,208,219,.22) !important;
+  border-top-color:rgba(225,232,239,.31) !important;
+  border-left-color:rgba(197,208,219,.22) !important;
+  box-shadow:inset 0 1px 0 rgba(245,248,251,.14),0 5px 17px rgba(0,0,0,.19) !important;
+}
+body:has(app-transaction) app-global-footer,
+body:has(app-transaction) app-global-footer footer,
+body:has(app-transaction) app-global-footer > *,
+body:has(app-transaction) app-global-footer .container-xl {
+  background:#080a0d !important;
+  border-top-color:rgba(203,214,225,.07) !important;
+}
+@media(max-width:700px){
+  body:has(app-transaction) app-transaction .pt-snapshot::before,
+  body:has(app-transaction) app-transaction .pt-flow-section::after,
+  body:has(app-transaction) app-transaction .pt-dive-deeper-toggle::after,
+  body:has(app-transaction) app-transaction .pt-deeper:not(.pt-dive-deeper-toggle)::after {
+    inset:-24px -12px;
+  }
+}
