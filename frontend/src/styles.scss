@@ -3772,3 +3772,49 @@ body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-bottom-rule 
     padding-top: 12px !important;
   }
 }
+
+
+/* Correct Flow hierarchy: title, neutral separator, gold direction labels, graph.
+   Remove inherited gold top border; maintain bottom closing separator. */
+body:has(app-transaction) app-transaction .pt-flow-section {
+  border-top: 0 !important;
+  padding-top: 0 !important;
+  margin-top: 22px !important;
+  margin-bottom: 18px !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-header {
+  margin: 0 0 10px !important;
+  padding: 0 !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-label-rule {
+  margin: 0 0 13px !important;
+  width: 100% !important;
+  background: linear-gradient(90deg,transparent 0%,rgba(193,205,215,.14) 13%,rgba(193,205,215,.29) 48%,rgba(193,205,215,.14) 85%,transparent 100%) !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-graph-direction-labels {
+  padding-top: 2px !important;
+  padding-bottom: 8px !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-bottom-rule {
+  margin-top: 13px !important;
+}
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle {
+  margin-top: 16px !important;
+  margin-bottom: 18px !important;
+}
+@media(max-width:700px) {
+  body:has(app-transaction) app-transaction .pt-flow-section {
+    margin-top: 17px !important;
+    margin-bottom: 14px !important;
+  }
+  body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-header {
+    margin-bottom: 9px !important;
+  }
+  body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-label-rule {
+    margin-bottom: 9px !important;
+  }
+  body:has(app-transaction) app-transaction .pt-dive-deeper-toggle {
+    margin-top: 13px !important;
+    margin-bottom: 15px !important;
+  }
+}
