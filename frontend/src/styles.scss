@@ -3493,9 +3493,10 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid
 /* Per-metric top-to-bottom illumination: focus on label/value, fade through explanation.
    Edge transparency prevents eight new visible boxes or horizontal bands. */
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
-  background: radial-gradient(ellipse 115% 95% at 38% -10%,
-    rgba(106,118,128,.15) 0%,
-    rgba(82,94,105,.09) 29%,
-    rgba(61,73,84,.035) 58%,
-    transparent 88%) !important;
+  background: radial-gradient(ellipse 90% 110% at 48% -12%,
+    rgba(126,140,153,.40) 0%,
+    rgba(104,118,130,.27) 23%,
+    rgba(76,89,101,.15) 50%,
+    rgba(49,61,73,.055) 72%,
+    transparent 100%) !important;
 }
