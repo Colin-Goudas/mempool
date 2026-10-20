@@ -3338,3 +3338,71 @@ app-transaction .pt-flow-section .pt-flow-heading-half span:last-child { text-al
   app-transaction .pt-flow-section .pt-graph-direction-labels { font-size: .95rem !important; }
   app-transaction .pt-flow-section .pt-flow-table-headings { font-size: .78rem !important; }
 }
+
+
+/* Snapshot seamless dashboard — visual treatment only; retain all existing text and controls. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary {
+  border: 1px solid rgba(180,194,205,.18) !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  margin: 0 0 8px !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden;
+  background: linear-gradient(160deg,#30373e 0%,#272f36 40%,#20272e 100%) !important;
+  border: 1px solid rgba(190,203,213,.17) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 8px 22px rgba(0,0,0,.10) !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+  position: relative;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  min-width: 0;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute;
+  height: 1px;
+  left: 12px;
+  right: 12px;
+  bottom: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg,transparent,rgba(193,205,215,.18) 12%,rgba(193,205,215,.18) 88%,transparent) !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:nth-last-child(-n+2)::after {
+  display: none !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:nth-child(odd)::before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  top: 10px;
+  bottom: 10px;
+  right: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg,transparent,rgba(193,205,215,.17) 20%,rgba(193,205,215,.17) 80%,transparent);
+}
+@media(max-width:575px) {
+  body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid {
+    grid-template-columns: minmax(0,1fr) !important;
+  }
+  body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:nth-child(odd)::before { display:none; }
+  body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card:nth-last-child(2)::after { display:block !important; }
+}
