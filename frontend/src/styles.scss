@@ -3660,6 +3660,17 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-detai
   }
 }
 
+/* Remove Snapshot metric spotlight/glow only; retain subtle dividers and typography. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card {
+  background: transparent !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact,
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > span,
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > strong {
+  text-shadow: none !important;
+  filter: none !important;
+}
+
 /* Snapshot typography only: modest emphasis, original colors and all backgrounds untouched. */
 body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact {
   font-size: 1.125rem !important;
