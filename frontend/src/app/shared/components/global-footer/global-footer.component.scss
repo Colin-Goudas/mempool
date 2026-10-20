@@ -1,5 +1,6 @@
 footer {
-  background-color: var(--bg);
+  // Let the page canvas continue uninterrupted through the footer.
+  background-color: transparent;
   margin-top: 30px;
   &.services {
     @media (min-width: 768px) {
@@ -119,7 +120,8 @@ footer .row.social-links svg {
 footer .row.version {
   padding-top: 20px !important;
   padding-bottom: 20px !important;
-  background-color: var(--bg);
+  // The version/copyright row must not paint a separate black strip.
+  background-color: transparent;
 }
 
 footer .row.version p {
