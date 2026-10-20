@@ -3415,14 +3415,14 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summar
 }
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
   align-self: stretch;
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
 }
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-snapshot-fact {
   margin-bottom: 2px !important;
 }
 body:has(app-transaction) app-transaction .pt-snapshot {
-  margin-bottom: .65rem !important;
+  margin-bottom: .25rem !important;
 }
 body:has(app-transaction) app-transaction .pt-snapshot + .pt-flow-section {
   margin-top: .2rem !important;
