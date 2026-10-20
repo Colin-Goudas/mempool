@@ -3247,3 +3247,14 @@ app-transaction .pt-flow-section .pt-flow-table-headings span:nth-child(4) { tex
     gap: 4px; padding: 7px 3px; font-size: .66rem;
   }
 }
+
+
+/* Direction labels sit above Mempool's unchanged interactive graph. */
+app-transaction .pt-flow-section .pt-graph-direction-labels {
+ display: flex; align-items: center; justify-content: space-between;
+ gap: 12px; padding: 1px 12px 9px;
+ color: #e3e8ee; font-weight: 700; font-size: .93rem;
+}
+@media(max-width:767px) {
+ app-transaction .pt-flow-section .pt-graph-direction-labels { padding: 1px 4px 7px; font-size: .8rem; }
+}
