@@ -192,6 +192,7 @@
     <div class="pt-flow-unified">
     <ng-container *ngIf="flowEnabled; else ptFlowPlaceholder">
       <div class="pt-original-graph" #graphContainer>
+        <div class="pt-graph-direction-labels" aria-hidden="true"><span>Inputs</span><span>Outputs</span></div>
         <tx-bowtie-graph
           [tx]="tx"
           [cached]="isCached"
