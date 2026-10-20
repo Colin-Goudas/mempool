@@ -3681,3 +3681,50 @@ body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-table-divide
     display: block !important;
   }
 }
+
+
+/* PT controlled finish: Dive Deeper heading rests over the top rule of its data.
+   Preserve original Angular interactions, visualizations, colors and content. */
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > .pt-deeper-snapshot {
+  position: relative;
+  padding-top: 14px !important;
+}
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > .pt-deeper-snapshot::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 0%, rgba(193,205,215,.10) 12%, rgba(193,205,215,.26) 48%, rgba(193,205,215,.15) 80%, transparent 100%);
+}
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary {
+  position: relative;
+  margin-bottom: 0 !important;
+  padding-bottom: 9px !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section,
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle {
+  margin-bottom: 20px !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-heading-copy,
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary {
+  min-width: 0;
+}
+body:has(app-transaction) app-transaction .pt-flow-heading-copy h2,
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary .pt-heading-title {
+  letter-spacing: -.025em;
+}
+@media (max-width: 700px) {
+  body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary {
+    padding-bottom: 8px !important;
+  }
+  body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > .pt-deeper-snapshot {
+    padding-top: 10px !important;
+  }
+  body:has(app-transaction) app-transaction .pt-flow-section,
+  body:has(app-transaction) app-transaction .pt-dive-deeper-toggle {
+    margin-bottom: 15px !important;
+  }
+}
