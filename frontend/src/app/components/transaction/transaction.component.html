@@ -182,6 +182,7 @@
     </ng-container>
 
 <section class="pt-flow-section" aria-label="Transaction Flow and Inputs and Outputs">
+    <div class="pt-flow-unified">
     <ng-container *ngIf="flowEnabled; else flowPlaceholder">
       <div class="title float-start pt-flow-heading-copy">
         <h2 id="flow" #flow class="anchor">Transaction Flow (Inputs &amp; Outputs)</h2>
@@ -231,13 +232,13 @@
       </div>
 
       <div class="title-buttons">
-        <button *ngIf="!flowEnabled" type="button" class="btn btn-outline-info flow-toggle btn-sm" (click)="toggleGraph()" i18n="show-diagram">Show diagram</button>
         <button type="button" class="btn btn-outline-info btn-sm" (click)="toggleDetailsFromTxPage()" i18n="transaction.details|Transaction Details">Details</button>
       </div>
     </div>
 
 
     <app-transactions-list #txList [transactions]="[tx]" [cached]="isCached" [errorUnblinded]="errorUnblinded" [inputIndex]="inputIndex" [outputIndex]="outputIndex" [transactionPage]="true"></app-transactions-list>
+    </div>
     </div>
 </section>
     @if (pendingTrackerSnapshot) {
