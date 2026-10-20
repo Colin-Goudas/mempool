@@ -2833,3 +2833,64 @@ body app-global-footer .container-xl {
     background-attachment: scroll !important;
   }
 }
+
+/* Transaction-page density and header alignment, desktop only.
+   Preserve block ribbon, transaction flow SVG and responsive mobile rules. */
+@media (min-width: 768px) {
+  body:has(app-transaction) app-transaction .pt-snapshot-panel,
+  body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel {
+    padding: 8px 9px !important;
+  }
+  body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary {
+    padding: 7px 10px !important;
+    margin-bottom: 6px !important;
+  }
+  body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card,
+  body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+    padding: 7px 10px !important;
+  }
+  body:has(app-transaction) app-transaction .pt-eight-card-grid .pt-snapshot-fact {
+    margin-bottom: 1px !important;
+  }
+  body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid,
+  body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-snapshot-rows.pt-eight-card-grid {
+    gap: 6px 10px !important;
+  }
+  body:has(app-transaction) app-transaction .pt-flow-section,
+  body:has(app-transaction) app-transaction .pt-dive-deeper-toggle,
+  body:has(app-transaction) app-transaction .pt-deeper:not(.pt-dive-deeper-toggle) {
+    margin-top: .45rem !important;
+    padding-top: .4rem !important;
+  }
+  body:has(app-transaction) app-transaction .pt-snapshot > .title-block {
+    padding-top: .18rem !important;
+    padding-bottom: .3rem !important;
+    align-items: center;
+  }
+  body:has(app-transaction) app-transaction .pt-snapshot > .title-block h1::before {
+    font-size: .78em !important;
+    margin-right: .4rem !important;
+    vertical-align: .045em;
+  }
+  body:has(app-transaction) app-transaction .pt-deeper > summary::before {
+    font-size: .78em !important;
+    margin-right: .4rem !important;
+    vertical-align: .045em;
+  }
+  body:has(app-transaction) app-transaction .pt-flow-section .title {
+    margin-bottom: 0 !important;
+  }
+  body:has(app-transaction) app-transaction .pt-deeper > summary {
+    padding-bottom: .12rem !important;
+  }
+  body:has(app-transaction) app-transaction .pt-deeper .pt-deeper-intro {
+    padding-bottom: .12rem !important;
+    margin-bottom: .14rem !important;
+  }
+  body:has(app-transaction) app-global-footer footer {
+    margin-top: 0 !important;
+  }
+  body:has(app-transaction) app-global-footer footer .row.main {
+    padding-top: 12px !important;
+  }
+}
