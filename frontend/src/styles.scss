@@ -3600,8 +3600,8 @@ body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .p
 }
 
 
-/* Transaction Snapshot: strong seamless graphite falloff, no cards, no lines.
-   Leave summary, metric typography and all other sections untouched. */
+/* Snapshot only: softly feathered neutral-charcoal surface per metric.
+   All existing text/accent colors, typography, summary and fading dividers preserved. */
 body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card {
   position: relative !important;
   display: block !important;
@@ -3611,14 +3611,12 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-detai
   border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  background:
-    radial-gradient(ellipse 125% 135% at 4% 0%,
-      rgba(154,169,183,.31) 0%,
-      rgba(122,139,154,.21) 22%,
-      rgba(87,104,119,.095) 49%,
-      rgba(56,72,86,.025) 70%,
-      transparent 90%),
-    linear-gradient(135deg, rgba(128,145,160,.075), transparent 75%) !important;
+  background: radial-gradient(ellipse 78% 82% at 29% 27%,
+    rgba(128,128,128,.15) 0%,
+    rgba(115,115,115,.105) 29%,
+    rgba(99,99,99,.052) 55%,
+    rgba(85,85,85,.016) 76%,
+    transparent 100%) !important;
 }
 /* Restore the fine fading row/column dividers without boxing the cards. */
 body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card::after {
