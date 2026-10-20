@@ -3666,8 +3666,6 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-detai
   background:
     radial-gradient(ellipse 92% 105% at 18% 8%, rgba(132,147,159,.095) 0%, rgba(105,121,135,.052) 30%, rgba(77,91,104,.018) 56%, transparent 79%),
     linear-gradient(125deg, rgba(115,130,144,.035) 0%, rgba(85,100,113,.015) 42%, transparent 83%) !important;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 3%, #000 92%, transparent 100%) !important;
-  mask-image: linear-gradient(90deg, transparent 0%, #000 3%, #000 92%, transparent 100%) !important;
 }
 body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact,
 body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > span,
