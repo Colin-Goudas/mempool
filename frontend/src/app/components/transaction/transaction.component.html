@@ -216,20 +216,13 @@
       <div class="graph-container pt-flow-graph-measure" #graphContainer></div>
     </ng-template>
     <div class="pt-flow-content">
-    <div class="subtitle-block">
-      <div class="title">
-        <h2 class="pt-flow-subheading">Inputs &amp; Outputs</h2>
+      <div class="pt-flow-table-divider" aria-hidden="true"></div>
+      <div class="pt-flow-table-header-row">
+        <div class="pt-flow-table-headings" aria-label="Transaction input and output columns">
+          <span>Inputs</span><span>Value (BTC)</span><span>Outputs</span><span>Value (BTC)</span>
+        </div>
+        <button type="button" class="btn btn-outline-info btn-sm pt-flow-details-button" (click)="toggleDetailsFromTxPage()" i18n="transaction.details|Transaction Details">Details</button>
       </div>
-
-      <div class="title-buttons">
-        <button type="button" class="btn btn-outline-info btn-sm" (click)="toggleDetailsFromTxPage()" i18n="transaction.details|Transaction Details">Details</button>
-      </div>
-    </div>
-
-
-    <div class="pt-flow-table-headings" aria-label="Transaction input and output columns">
-      <span>Inputs</span><span>Value (BTC)</span><span>Outputs</span><span>Value (BTC)</span>
-    </div>
     <app-transactions-list #txList [transactions]="[tx]" [cached]="isCached" [errorUnblinded]="errorUnblinded" [inputIndex]="inputIndex" [outputIndex]="outputIndex" [transactionPage]="true"></app-transactions-list>
     </div>
     </div>
