@@ -3493,13 +3493,12 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid
 /* Per-metric top-to-bottom illumination: focus on label/value, fade through explanation.
    Edge transparency prevents eight new visible boxes or horizontal bands. */
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
-  background: radial-gradient(ellipse 270px 140px at 43% 0px,
+  background: radial-gradient(ellipse 205px 76px at 31% 13px,
     rgba(150,165,177,.56) 0%,
-    rgba(132,147,159,.48) 13%,
-    rgba(108,123,136,.32) 30%,
-    rgba(82,97,110,.17) 50%,
-    rgba(58,72,84,.065) 70%,
-    transparent 100%) !important;
+    rgba(132,147,159,.45) 12%,
+    rgba(108,123,136,.24) 30%,
+    rgba(70,84,96,.075) 51%,
+    transparent 76%) !important;
 }
 
 /* Final snapshot polish: emphasize labels, quiet center seam, preserve row rules. */
