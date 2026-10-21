@@ -126,7 +126,7 @@
         </a>
       </li>
     </ul>
-    <app-search-form [hamburgerOpen]="enterpriseInfo === null && user != null" class="search-form-container" location="top" (searchTriggered)="collapse()"></app-search-form>
+    <app-search-form [placeholder]="env.PENDING_TRACKER_EXPLANATIONS && stateService.network === '' ? 'Search transaction ID or wallet address' : 'Explore the full Bitcoin ecosystem'" [buttonLabel]="env.PENDING_TRACKER_EXPLANATIONS && stateService.network === '' ? 'Search' : ''" [hamburgerOpen]="enterpriseInfo === null && user != null" class="search-form-container" location="top" (searchTriggered)="collapse()"></app-search-form>
   </div>
 </nav>
 <app-menu *ngIf="servicesEnabled" [navOpen]="menuOpen" (loggedOut)="onLoggedOut()" (menuToggled)="menuToggled($event)"></app-menu>
