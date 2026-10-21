@@ -28,6 +28,9 @@ export function walletView(chain: ChainStats | null, pending: ChainStats | null)
     row('pending-outputs','Pending output change',difference(pending?.funded_txo_count,pending?.spent_txo_count),'Net change to output count if current pending activity confirms.','Unconfirmed outputs added to this address minus existing outputs used as inputs. This is an output count, not an amount of bitcoin.',false,true),
     row('format','Address type','format','The script format, not an owner or trust rating.','Legacy, SegWit and Taproot formats describe spending conditions and influence transaction size. They do not establish ownership or safety. Revealed scripts and available Taproot tools remain below.')
   ];
+  // Put pending-payment questions ahead of lifetime accounting totals.
+  const snapshotRows = [rows[0], rows[2], rows[4], rows[3], rows[1], deeper[1]];
+  const deeperRows = [rows[6], rows[7], rows[5], deeper[0], deeper[2], deeper[3], deeper[4], deeper[5]];
   let summary = balance === null ? 'Confirmed balance is currently unavailable.' : balance === 0 ? 'This address currently has no confirmed balance.' : 'This address has ' + btc(balance) + ' in confirmed outputs.';
   if (pendingCount !== null) summary += pendingCount === 0 ? ' No pending transactions are currently observed.' : ' ' + count(pendingCount) + ' pending ' + (pendingCount === 1 ? 'transaction' : 'transactions') + (net === null ? ' currently involve this address.' : net > 0 ? ' would add a net ' + btc(net) + ' if confirmed unchanged.' : net < 0 ? ' would reduce its balance by a net ' + btc(-net) + ' if confirmed unchanged.' : ' currently have no net effect on its balance.');
   summary += ' This is one address, not necessarily your whole wallet; change may be held at other addresses.';
@@ -38,7 +41,9 @@ export function walletView(chain: ChainStats | null, pending: ChainStats | null)
     {id:'change',label:'Why did bitcoin move elsewhere?',text:'Bitcoin spends whole outputs and usually sends the remainder to a change address in the same wallet. A movement to a new address does not by itself prove loss or theft. Compare your wallet’s transaction details; this explorer cannot prove which other addresses you control.'},
     {id:'unexpected',label:'What about tiny unexpected payments?',text:'An unsolicited small receipt does not by itself grant anyone access to your wallet. It can be ordinary activity or an attempt to link addresses. Do not treat a recent sender as a trusted payment destination: verify the full destination from its original source. Review unfamiliar activity in your wallet before spending.'}
   ];
-  return {balance,net,pendingCount,rows,deeper,summary,questions};
+  questions.push({id:'owner',label:'Who owns this address?',text:'This preview has no verified owner-attribution source for this address. Bitcoin records addresses and transactions, not account names. Public labels need external evidence, can be incomplete, and do not prove current control. Never infer ownership from an address’s balance, activity or format.'});
+  questions.unshift(questions.splice(1,1)[0]);
+  return {balance,net,pendingCount,rows:snapshotRows,deeper:deeperRows,summary,questions};
 }
 /** Address-specific net change, never a transaction-wide output total. */
 export function addressTransactionChange(tx: Transaction, address: string): number | null {
