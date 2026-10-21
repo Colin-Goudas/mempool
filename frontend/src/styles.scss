@@ -4589,3 +4589,16 @@ body:has(app-transaction) app-transaction .pt-summary-questions > span > button:
 .pt-network-dashboard .pt-network-questions > span > button:hover,.pt-wallet-page .pt-wallet-questions > span > button:hover {
  background:#ffffff0d !important;border-color:#ffffff50 !important;color:#fafafa !important;
 }
+
+/* Transaction-only open snapshot: identity, explanation and facts form one section. */
+body:has(app-transaction) app-transaction .pt-snapshot > .title-block {
+ background:transparent !important;border:0 !important;border-bottom:1px solid #ffffff20 !important;
+ border-radius:0 !important;box-shadow:none !important;padding:0 0 11px !important;margin:0 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact {
+ background:transparent !important;border:0 !important;border-radius:0 !important;
+ box-shadow:none !important;padding:12px 0 0 !important;margin:0 0 10px !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact .pt-summary-heading {margin-bottom:7px !important;}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact .pt-summary-questions {margin-top:10px !important;}
+body:has(app-transaction) app-transaction .pt-snapshot + .pt-flow-section {margin-top:30px !important;}
