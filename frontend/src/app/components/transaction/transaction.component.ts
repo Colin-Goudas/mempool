@@ -155,8 +155,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.rbfInfo?.mined && !this.tx?.status?.confirmed) return 'A conflicting transaction has confirmed.';
     if (this.tx?.vin?.some(v => v.is_coinbase)) return 'This is a Bitcoin mining reward transaction.';
     if (!this.tx?.status?.confirmed) return 'This Bitcoin transaction is waiting for its first confirmation.';
-    const count = this.latestBlock?.height >= this.tx.status.block_height ? this.latestBlock.height - this.tx.status.block_height + 1 : null;
-    return count ? 'This Bitcoin transaction is confirmed with ' + count + (count === 1 ? ' confirmation.' : ' confirmations.') : 'This Bitcoin transaction is confirmed.';
+    return 'This Bitcoin transaction is confirmed.';
   }
   nextStep(connected: boolean): string {
     return transactionNextStep({confirmed:!!this.tx?.status?.confirmed, confirmations:this.confirmationCount,
