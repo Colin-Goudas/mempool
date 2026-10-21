@@ -233,7 +233,6 @@
     <div class="pt-flow-header">
       <div class="pt-flow-heading-copy">
         <h2 id="flow" #flow class="anchor">Transaction Flow (Inputs &amp; Outputs)</h2>
-        <span class="pt-flow-description">See where your Bitcoin came from and where it went.</span>
       </div>
       <button type="button" class="btn btn-outline-info flow-toggle btn-sm" (click)="toggleGraph()" [attr.aria-expanded]="flowEnabled">{{ flowEnabled ? 'Hide diagram' : 'Show diagram' }}</button>
     </div>
@@ -282,7 +281,7 @@
 </section>
     @if (pendingTrackerSnapshot) {
       <details class="pt-deeper pt-dive-deeper-toggle" open aria-label="Dive deeper transaction analysis">
-        <summary><span class="pt-heading-title">Dive Deeper</span><span class="pt-heading-description">Additional Bitcoin transaction data, explained one field at a time.</span><span class="pt-heading-chevron" aria-hidden="true"></span></summary>
+        <summary><span class="pt-heading-title">Dive Deeper</span><span class="pt-heading-chevron" aria-hidden="true"></span></summary>
       <section class="pt-snapshot pt-deeper-snapshot pt-eight-details pt-snapshot-panel" aria-label="Transaction dive deeper">
         <div class="pt-snapshot-rows pt-eight-card-grid">
           @for (fact of technicalFacts; track fact.label) {
