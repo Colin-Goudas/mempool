@@ -76,9 +76,50 @@ const DUPLICATE_TX_BLOCKS: Record<string, [number, number]> = {
 })
 export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   get pendingTrackerSnapshot() { return this.network === '' && !!this.stateService.env.PENDING_TRACKER_EXPLANATIONS; }
+  showUsd = true;
+  selectedAddress = '';
+  addressFeedback = '';
+  helpRole = '';
+  fastFeeRate?: number;
+  feeUpdatedAt = '';
+  estimateChanged = false;
+  private previousEta?: {txid: string; blocks: number};
+  alertTxid = '';
+  alertMessage = '';
+  get addressMatches() { return this.selectedAddress ? [this.selectedAddress] : []; }
+  get matchedInputIndex() { const i = this.tx?.vin?.findIndex(v => v.prevout?.scriptpubkey_address === this.selectedAddress); return this.selectedAddress && i >= 0 ? i : this.inputIndex; }
+  get matchedOutputIndex() { const i = this.tx?.vout?.findIndex(v => v.scriptpubkey_address === this.selectedAddress); return this.selectedAddress && i >= 0 ? i : this.outputIndex; }
+  get selectedOutputSats() { return this.selectedAddress ? this.tx?.vout?.filter(v => v.scriptpubkey_address === this.selectedAddress).reduce((sum,v) => sum + v.value, 0) || 0 : 0; }
+  get totalOutputSats() { return this.tx?.vout?.reduce((sum,v) => sum + v.value, 0) || 0; }
+  get displayAmountSats() { return this.selectedAddress ? this.selectedOutputSats : this.totalOutputSats; }
+  get ownFeeRate() { return this.tx?.weight > 0 ? this.tx.fee / Math.ceil(this.tx.weight / 4) : undefined; }
+  get feeInterpretation() {
+    if (this.tx?.status?.confirmed) return 'Confirmed on Bitcoin. No fee increase is needed.';
+    if (this.replaced || this.rbfTransaction) return 'A replacement was observed. Follow its current status above.';
+    if (!this.fastFeeRate || this.ownFeeRate === undefined) return 'Waiting for confirmation. A reliable fee comparison is currently unavailable.';
+    return this.ownFeeRate < this.fastFeeRate ? 'Your rate is below the first projected block’s median rate. Waiting remains an option; check fee-increase options if timing matters.' : 'Your rate meets or exceeds the first projected block’s median rate. Waiting is reasonable; inclusion is not guaranteed.';
+  }
+  findTransactionAddress(value: string): void {
+    const address = value.trim();
+    const normalized = /^bc1/i.test(address) ? address.toLowerCase() : address;
+    const found = this.tx?.vin?.some(v => v.prevout?.scriptpubkey_address === normalized) || this.tx?.vout?.some(v => v.scriptpubkey_address === normalized);
+    this.selectedAddress = found ? normalized : '';
+    this.addressFeedback = found ? 'Matching rows are highlighted. The diagram selects the first matching input/output; combined strands may group others.' : 'No matching address in this transaction. Check the full address and Bitcoin network.';
+  }
+  async toggleConfirmationAlert(): Promise<void> {
+    if (this.alertTxid === this.tx?.txid) { this.alertTxid = ''; this.alertMessage = 'Confirmation alert turned off.'; return; }
+    if (typeof window === 'undefined' || !('Notification' in window)) { this.alertMessage = 'Desktop alerts are not supported in this browser. Keep this page open to track confirmation.'; return; }
+    const permission = await Notification.requestPermission();
+    if (permission === 'granted') { this.alertTxid = this.tx.txid; this.alertMessage = 'Alert enabled for this transaction while this page stays open and connected.'; }
+    else this.alertMessage = 'Desktop alert permission was not granted. You can continue tracking here.';
+  }
   get snapshotFacts() { return this.snapshotFactsFor(null); }
   snapshotFactsFor(eta: ETA | null) {
-    return transactionSnapshot(this.tx, this.latestBlock?.height, this.transactionTime, !!this.replaced || !!this.rbfTransaction, this.pool?.name, this.networkFeeFloor, eta?.wait);
+    return transactionSnapshot(this.tx, this.latestBlock?.height, this.transactionTime, !!this.replaced || !!this.rbfTransaction, this.pool?.name, this.networkFeeFloor, eta?.wait).map(fact => {
+      if (fact.label === 'Total output' && this.selectedAddress) return {...fact, label:'To selected address', value:(this.selectedOutputSats / 100000000).toFixed(8) + ' BTC', fiatSats:this.selectedOutputSats, meaning:'Total of outputs to the address you selected.', details:'This amount includes every output to the selected address. Selecting an address does not establish who owns it.'};
+      if (fact.label === 'Fee rate' && !this.tx?.status?.confirmed) return {...fact, meaning:this.fastFeeRate && this.ownFeeRate !== undefined ? (this.ownFeeRate < this.fastFeeRate ? 'Below' : 'At or above') + ' the first projected block’s median rate.' : 'Current queue comparison unavailable.', details:fact.details + (this.fastFeeRate ? ' First projected block median: ' + this.fastFeeRate.toFixed(2) + ' sat/vB. This is an observed queue benchmark, not a guaranteed recommended fee.' : '')};
+      return fact;
+    });
   }
   get technicalFacts() { return transactionTechnicalFacts(this.tx, this.pool?.name, this.transactionTime); }
   get technicalGroups() {
@@ -806,6 +847,13 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
           block_time: block.timestamp,
         };
         this.pool = block.extras.pool;
+        if (this.alertTxid === this.tx.txid) {
+          this.alertTxid = '';
+          this.alertMessage = 'This transaction is now confirmed.';
+          if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+            try { new Notification('Bitcoin transaction confirmed', {body:'Your tracked transaction was included in block ' + block.height + '.', tag:this.tx.txid}); } catch { /* The in-page confirmation remains available. */ }
+          }
+        }
         this.txChanged$.next(true);
         this.stateService.markBlock$.next({ blockHeight: block.height });
         if (this.tx.acceleration || (this.accelerationInfo && ['accelerating', 'completed_provisional', 'completed'].includes(this.accelerationInfo.status))) {
@@ -854,6 +902,8 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     this.mempoolBlocksSubscription = this.stateService.mempoolBlocks$.subscribe((mempoolBlocks) => {
       this.now = Date.now();
       const firstFeeRange = mempoolBlocks?.[0]?.feeRange;
+      this.fastFeeRate = Number.isFinite(mempoolBlocks?.[0]?.medianFee) ? mempoolBlocks[0].medianFee : undefined;
+      this.feeUpdatedAt = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
       this.networkFeeFloor = firstFeeRange?.length && Number.isFinite(firstFeeRange[0]) ? firstFeeRange[0] : undefined;
 
       if (!this.tx || this.mempoolPosition) {
@@ -905,6 +955,13 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       }),
       distinctUntilChanged((prev: ETA | null, curr: ETA | null) => {
         return prev === curr || (prev && curr && prev.time === curr.time && prev.blocks === curr.blocks);
+      }),
+      tap(eta => {
+        if (eta && this.tx) {
+          if (this.previousEta?.txid !== this.tx.txid) this.estimateChanged = false;
+          else if (this.previousEta.blocks !== eta.blocks) this.estimateChanged = true;
+          this.previousEta = {txid:this.tx.txid, blocks:eta.blocks};
+        }
       })
     );
   }
@@ -1111,6 +1168,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   resetTransaction() {
+    this.selectedAddress = ''; this.addressFeedback = ''; this.helpRole = ''; this.estimateChanged = false; this.alertMessage = ''; this.alertTxid = '';
     this.firstLoad = false;
     this.firstFragmentScroll = this.fragmentAnchor !== null;
     this.scrolledFragmentAnchor = null;
