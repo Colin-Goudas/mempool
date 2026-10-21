@@ -3930,3 +3930,25 @@ body:has(app-transaction) app-transaction .pt-snapshot-summary {
  backdrop-filter:none;
  -webkit-backdrop-filter:none;
 }
+
+/* Visual browser audit: explicit neutral paints prevent user-agent and Bootstrap
+   surfaces leaking through after legacy decorative declarations were removed.
+   Only paint properties change; text, geometry, focus outlines and SVG stay intact. */
+body:has(app-transaction) app-transaction .pt-snapshot-popover-trigger,
+body:has(app-transaction) app-transaction .pt-snapshot-popover-heading button {
+  background: transparent !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-detail-popover {
+  background: #0a0d13 !important;
+}
+body:has(app-transaction) app-transaction .header-bg,
+body:has(app-transaction) app-transaction .box,
+body:has(app-transaction) app-transaction .table tr {
+  background: transparent !important;
+}
+body:has(app-transaction) app-transaction *,
+body:has(app-transaction) app-transaction *::before,
+body:has(app-transaction) app-transaction *::after {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
