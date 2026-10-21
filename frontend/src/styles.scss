@@ -4602,3 +4602,12 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summar
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact .pt-summary-heading {margin-bottom:7px !important;}
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact .pt-summary-questions {margin-top:10px !important;}
 body:has(app-transaction) app-transaction .pt-snapshot + .pt-flow-section {margin-top:30px !important;}
+
+/* Transaction trial: one flowing explanation with an inline editorial lead-in. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact {
+ padding-top:10px !important;
+ > p.pt-summary-narrative, > p.pt-next-step {font-size:14px !important;font-weight:400 !important;line-height:1.6 !important;color:#c4c4cc !important;}
+ > p.pt-summary-narrative {max-width:none !important;margin:0 !important;}
+ > p.pt-summary-narrative .pt-summary-inline-label {display:inline !important;font-size:16px !important;font-weight:600 !important;color:#f4f4f5 !important;letter-spacing:normal !important;line-height:inherit !important;}
+ > p.pt-next-step {margin:8px 0 0 !important;}
+}
