@@ -203,7 +203,7 @@
       ></app-accelerate-checkout>
     </ng-container>
 
-    <br>
+    <br *ngIf="!pendingTrackerSnapshot">
 
     <ng-container *ngIf="rbfInfo">
       <div class="title float-start">
