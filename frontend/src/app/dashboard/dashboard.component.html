@@ -9,8 +9,9 @@
       <small>No wallet connection needed.</small>
     </section>
     <section class="pt-network-snapshot" aria-label="Bitcoin network snapshot" *ngIf="networkSnapshot$ | async as snapshot">
-      <header class="pt-network-heading"><h1>Bitcoin Network Snapshot</h1><span>Bitcoin mainnet</span><label><input type="checkbox" [checked]="showNetworkFiat" (change)="showNetworkFiat = !showNetworkFiat"> Fiat values</label><small [class.pt-feed-warning]="snapshot.reconnecting">{{ snapshot.reconnecting ? 'Reconnecting · values may be stale' : 'Live feed · updated ' + snapshot.updatedAt }}</small></header>
       <div class="pt-snapshot-body">
+      <div class="pt-snapshot-intro">
+      <header class="pt-network-heading"><h1>Bitcoin Network Snapshot</h1><span>Bitcoin mainnet</span><label><input type="checkbox" [checked]="showNetworkFiat" (change)="showNetworkFiat = !showNetworkFiat"> Fiat values</label><small [class.pt-feed-warning]="snapshot.reconnecting">{{ snapshot.reconnecting ? 'Reconnecting · values may be stale' : 'Live feed · updated ' + snapshot.updatedAt }}</small></header>
       <div class="pt-network-summary"><p class="pt-summary-narrative"><strong class="pt-summary-inline-label">In plain English —</strong> {{ snapshot.summary }}</p>
         <div class="pt-network-questions">
           <span><button type="button" class="pt-send-trigger" style="anchor-name:--pt-network-send" popovertarget="pt-network-send">Sending Bitcoin?</button><div id="pt-network-send" class="pt-network-popover" style="position-anchor:--pt-network-send" popover="auto"><div class="pt-network-popup-heading"><strong>Plan your Bitcoin fee</strong><button type="button" popovertarget="pt-network-send" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
@@ -28,6 +29,7 @@
             <span><button type="button" [style.anchor-name]="'--pt-network-question-' + question.id" [attr.popovertarget]="'pt-network-question-' + question.id">{{ question.label }}</button><div class="pt-network-popover" [style.position-anchor]="'--pt-network-question-' + question.id" [id]="'pt-network-question-' + question.id" popover="auto"><div class="pt-network-popup-heading"><strong>{{ question.label }}</strong><button type="button" [attr.popovertarget]="'pt-network-question-' + question.id" popovertargetaction="hide" aria-label="Close explanation">×</button></div><p>{{ question.text }}</p></div></span>
           }
         </div>
+      </div>
       </div>
       <div class="pt-network-facts">
         @for (row of snapshot.rows; track row.label) {
