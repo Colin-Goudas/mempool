@@ -4356,10 +4356,10 @@ body:has(app-address .pt-wallet-page) app-address .pt-wallet-fact-line app-amoun
 }
 body:has(app-address .pt-wallet-page) app-address section[aria-label="Wallet snapshot"],
 body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-network-snapshot {
-  .pt-wallet-facts,.pt-network-facts {gap:8px;}
-  .pt-wallet-fact,.pt-network-fact {min-height:70px;padding:9px 14px;border-radius:14px;}
-  .pt-wallet-fact-line > span,.pt-network-fact-line > span {margin-right:4px;}
-  .pt-wallet-meaning > button,.pt-network-meaning > button {min-height:20px;}
+  .pt-wallet-facts,.pt-network-facts {gap:8px !important;}
+  .pt-wallet-fact,.pt-network-fact {min-height:70px !important;padding:9px 14px !important;border-radius:14px !important;}
+  .pt-wallet-fact-line > span,.pt-network-fact-line > span {margin-right:4px !important;}
+  .pt-wallet-meaning > button,.pt-network-meaning > button {min-height:20px !important;}
 }
 /* Use a 26px section interval and 10px title-to-content interval on all Bitcoin pages. */
 .pt-wallet-page .pt-wallet-history {margin-top:0;}
