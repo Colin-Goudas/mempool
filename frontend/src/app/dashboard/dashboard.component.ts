@@ -39,6 +39,17 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   network$: Observable<string>;
   networkSnapshot$: Observable<NetworkSnapshot>;
   showNetworkFiat = true;
+  paymentVbytes = 140;
+  paymentSizePreset = '140';
+  setPaymentSize(value: string): void {
+    this.paymentSizePreset = value;
+    if (value !== 'custom') this.paymentVbytes = Number(value);
+  }
+  setCustomPaymentSize(value: string): void {
+    const size = Number(value);
+    this.paymentVbytes = Number.isFinite(size) && size >= 1 && size <= 100000 ? Math.ceil(size) : 0;
+  }
+  paymentFee(rate: number): number { return Math.ceil(rate * this.paymentVbytes); }
 
   get showPendingTrackerSnapshot(): boolean {
     return this.stateService.env.PENDING_TRACKER_EXPLANATIONS && this.stateService.network === '';
