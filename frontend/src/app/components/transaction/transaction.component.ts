@@ -338,6 +338,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   partnerCode: string | undefined;
 
   graphContainer: ElementRef;
+  private flowResizeObserver?: ResizeObserver;
   private txList: TransactionsListComponent;
   private fragmentAnchor: string | null = null;
   private scrolledFragmentAnchor: string | null = null;
@@ -353,8 +354,13 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('graphContainer')
   set flowAnchor(element: ElementRef | null | undefined) {
+    this.flowResizeObserver?.disconnect();
     if (element) {
       this.graphContainer = element;
+      if (this.stateService.isBrowser && typeof ResizeObserver !== 'undefined') {
+        this.flowResizeObserver = new ResizeObserver(() => this.setGraphSize());
+        this.flowResizeObserver.observe(element.nativeElement);
+      }
       setTimeout(() => { this.setGraphSize(); this.applyFragment(); }, 0);
     }
   }
@@ -1418,7 +1424,11 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.graphContainer?.nativeElement && this.stateService.isBrowser) {
       setTimeout(() => {
         if (this.graphContainer?.nativeElement?.clientWidth) {
-          this.graphWidth = this.graphContainer.nativeElement.clientWidth;
+          const width = this.graphContainer.nativeElement.clientWidth;
+          if (width !== this.graphWidth) {
+            this.graphWidth = width;
+            this.cd.markForCheck();
+          }
         } else {
           setTimeout(() => { this.setGraphSize(); }, 1);
         }
@@ -1467,6 +1477,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.flowResizeObserver?.disconnect();
     this.subscription.unsubscribe();
     this.fetchCpfpSubscription.unsubscribe();
     this.transactionTimesSubscription.unsubscribe();
