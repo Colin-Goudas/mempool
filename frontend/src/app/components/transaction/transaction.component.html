@@ -187,7 +187,7 @@
         <h2 id="flow" #flow class="anchor">Transaction Flow (Inputs &amp; Outputs)</h2>
         <span class="pt-flow-description">See where your Bitcoin came from and where it went.</span>
       </div>
-      <button *ngIf="flowEnabled" type="button" class="btn btn-outline-info flow-toggle btn-sm" (click)="toggleGraph()" i18n="hide-diagram">Hide diagram</button>
+      <button type="button" class="btn btn-outline-info flow-toggle btn-sm" (click)="toggleGraph()" [attr.aria-expanded]="flowEnabled">{{ flowEnabled ? 'Hide diagram' : 'Show diagram' }}</button>
     </div>
     <div class="pt-flow-label-rule" aria-hidden="true"></div>
     <div class="pt-flow-unified">
