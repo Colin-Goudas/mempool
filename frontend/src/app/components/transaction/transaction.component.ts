@@ -202,7 +202,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.tx?.status?.confirmed) compact['Fee rate'] = 'Fee per virtual byte of block space.';
       }
       const meaning = compact[fact.label];
-      return meaning ? {...fact, meaning, details:fact.meaning + ' ' + fact.details} : fact;
+      return meaning ? {...fact, meaning, details:meaning === fact.meaning ? fact.details : fact.meaning + ' ' + fact.details} : fact;
     });
   }
   get technicalFacts() { return transactionTechnicalFacts(this.tx, this.pool?.name, this.transactionTime); }
