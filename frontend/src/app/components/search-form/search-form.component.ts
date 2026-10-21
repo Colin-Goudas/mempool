@@ -25,6 +25,7 @@ export class SearchFormComponent implements OnInit {
   env: Env;
   network = '';
   pools: object[] = [];
+  searchError = '';
   isSearching = false;
   isTypeaheading$ = new BehaviorSubject<boolean>(false);
   typeAhead$: Observable<any>;
@@ -103,6 +104,7 @@ export class SearchFormComponent implements OnInit {
         return text.trim();
       }),
       tap((text) => {
+        this.searchError = '';
         this.stateService.searchText$.next(text);
       }),
       distinctUntilChanged(),
@@ -263,7 +265,8 @@ export class SearchFormComponent implements OnInit {
   }
 
   search(result?: string): void {
-    const searchText = result || this.searchForm.value.searchText.trim();
+    this.searchError = '';
+    const searchText = (result || this.searchForm.value.searchText).trim();
     if (searchText) {
       this.isSearching = true;
 
@@ -311,6 +314,7 @@ export class SearchFormComponent implements OnInit {
         );
       } else {
         this.isSearching = false;
+        this.searchError = 'Not recognized. Paste a full transaction ID or wallet address for the selected Bitcoin network. Find the transaction ID in your wallet or exchange payment details.';
       }
     }
   }
