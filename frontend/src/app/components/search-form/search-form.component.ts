@@ -20,6 +20,8 @@ import { Network, findOtherNetworks, getRegex, getTargetUrl, needBaseModuleChang
 })
 export class SearchFormComponent implements OnInit {
   @Input() hamburgerOpen = false;
+  @Input() placeholder = 'Explore the full Bitcoin ecosystem';
+  @Input() buttonLabel = '';
   env: Env;
   network = '';
   pools: object[] = [];
