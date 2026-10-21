@@ -212,7 +212,7 @@ h1 {
 .pt-wallet-page {
   .pt-wallet-heading h1 {float:none;padding:0;}
   .pt-wallet-address {display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 14px;font-size:12px;color:#a1a1aa;}
-  .pt-wallet-address code {color:#d4d4d8;overflow-wrap:anywhere;}
+  .pt-wallet-address code {font-size:12px;color:#d4d4d8;overflow-wrap:anywhere;}
   .pt-wallet-address > button {border:1px solid #ffffff20;background:#ffffff05;color:#d4d4d8;border-radius:6px;font-size:10px;}
   .pt-wallet-summary > small {display:block;font-size:11px;color:#a1a1aa;margin-top:5px;}
   .pt-wallet-summary .pt-wallet-feed {color:#d6b773;font-size:12px;margin-top:7px;}
