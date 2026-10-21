@@ -4679,3 +4679,29 @@ body:has(app-transaction) app-transaction .pt-snapshot-popover-trigger:focus-vis
 .pt-network-dashboard .pt-network-meaning > button:focus-visible,.pt-wallet-page .pt-wallet-meaning > button:focus-visible {
  outline:2px solid #bc975f;outline-offset:3px;border-radius:3px;
 }
+
+/* A continuous, softly tapered rail connects each briefing and its snapshot facts. */
+body:has(app-transaction) app-transaction .pt-snapshot-body,
+.pt-network-dashboard .pt-snapshot-body,.pt-wallet-page .pt-snapshot-body {position:relative;}
+body:has(app-transaction) app-transaction .pt-snapshot-body::before,
+.pt-network-dashboard .pt-snapshot-body::before,.pt-wallet-page .pt-snapshot-body::before {
+ content:'' !important;display:block !important;position:absolute;left:-9px;top:0;bottom:-16px;width:2px;
+ background:linear-gradient(180deg,transparent 0%,rgba(188,151,95,.65) 8%,rgba(188,151,95,.65) 82%,transparent 100%) !important;
+ pointer-events:none;border:0 !important;box-shadow:none !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact,
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-network-summary,
+body:has(app-address) app-address .pt-wallet-page .pt-wallet-summary {border-left-color:transparent !important;}
+body:has(app-transaction) app-transaction .pt-summary-questions > span > button,
+.pt-network-dashboard .pt-network-questions > span > button,.pt-wallet-page .pt-wallet-questions > span > button {
+ color:#e4e4e7 !important;border-color:#ffffff40 !important;background:#ffffff09 !important;font-weight:500 !important;
+}
+body:has(app-transaction) app-transaction .pt-summary-questions > span > button.pt-notification-action,
+.pt-wallet-page .pt-wallet-questions > span > button.pt-wallet-track,
+.pt-network-dashboard .pt-network-questions > span > button.pt-send-trigger {
+ color:#e8cf9e !important;border-color:#bc975f99 !important;background:#bc975f16 !important;
+}
+body:has(app-transaction) app-transaction .pt-summary-questions > span > button:hover,
+.pt-network-dashboard .pt-network-questions > span > button:hover,.pt-wallet-page .pt-wallet-questions > span > button:hover {
+ color:#fafafa !important;border-color:#ffffff70 !important;background:#ffffff12 !important;
+}
