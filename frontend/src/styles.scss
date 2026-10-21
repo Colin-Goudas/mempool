@@ -4576,3 +4576,16 @@ body:has(app-transaction) app-transaction .pt-summary-questions button:focus-vis
 .pt-network-dashboard .pt-network-questions button:focus-visible,.pt-wallet-page .pt-wallet-questions button:focus-visible {
  outline:2px solid #bc975f;outline-offset:3px;
 }
+
+/* Outcome leads use the same hierarchy on all three briefing surfaces. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact > p.pt-summary-outcome,
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-network-summary > p.pt-summary-outcome,
+body:has(app-address) app-address .pt-wallet-page .pt-wallet-summary > p.pt-summary-outcome {
+ font-size:17px !important;font-weight:600 !important;color:#f4f4f5 !important;
+ line-height:1.45 !important;margin:0 0 6px !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact > p.pt-next-step {max-width:none !important;}
+body:has(app-transaction) app-transaction .pt-summary-questions > span > button:hover,
+.pt-network-dashboard .pt-network-questions > span > button:hover,.pt-wallet-page .pt-wallet-questions > span > button:hover {
+ background:#ffffff0d !important;border-color:#ffffff50 !important;color:#fafafa !important;
+}
