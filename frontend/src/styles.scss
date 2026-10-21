@@ -4435,3 +4435,19 @@ body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-difficulty-widge
 body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-fee-widget .main-title {margin:0 0 10px !important;}
 /* Override the legacy adjacent-section rule after removing its spacer. */
 body:has(app-transaction) app-transaction .pt-snapshot + .pt-flow-section {margin-top:24px !important;}
+
+/* Research-led usability: outcome guidance, readable help and clear search recovery. */
+body:has(app-transaction) app-transaction .pt-snapshot-summary .pt-next-step {
+  margin:9px 0 0 !important;font-size:13px !important;line-height:1.5 !important;color:#d4d4d8 !important;
+  > span {display:inline-block;color:#d6b773;font-weight:600;margin-right:7px;}
+}
+body:has(app-transaction) .pt-not-found-help {max-width:640px;margin:14px auto;color:#b4b4bc;font-size:14px;line-height:1.6;}
+app-search-form form {position:relative;}
+app-search-form .pt-search-error {font-size:13px;line-height:1.5;color:#e0c58a;background:#18181b;border:1px solid #bc975f66;border-radius:10px;padding:10px 12px;margin:8px 0 0;}
+.navbar app-search-form .pt-search-error {position:absolute;left:0;right:0;top:100%;z-index:2100;box-shadow:0 10px 30px #000a;}
+body:has(app-transaction) app-transaction .pt-snapshot-popover-trigger,
+.pt-wallet-page .pt-wallet-meaning > button,.pt-network-dashboard .pt-network-meaning > button {color:#b4b4bc !important;position:relative;}
+body:has(app-transaction) app-transaction .pt-snapshot-popover-trigger::after,
+.pt-wallet-page .pt-wallet-meaning > button::after,.pt-network-dashboard .pt-network-meaning > button::after {content:'';position:absolute;inset:-3px -5px;}
+.pt-wallet-page .pt-wallet-questions > span > button,.pt-network-dashboard .pt-network-questions > span > button,
+body:has(app-transaction) app-transaction .pt-summary-questions > span > button {min-height:30px;}
