@@ -4362,6 +4362,6 @@ body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-network-snapshot
   .pt-wallet-meaning > button,.pt-network-meaning > button {min-height:20px !important;}
 }
 /* Use a 26px section interval and 10px title-to-content interval on all Bitcoin pages. */
-.pt-wallet-page .pt-wallet-history {margin-top:0;}
-.pt-wallet-page .pt-wallet-deeper,.pt-network-dashboard .pt-network-deeper {margin-bottom:0;}
+.pt-wallet-page .pt-wallet-history {margin-top:0 !important;}
+.pt-wallet-page .pt-wallet-deeper,.pt-network-dashboard .pt-network-deeper {margin-bottom:0 !important;}
 .pt-wallet-page .pt-wallet-section-heading,.pt-network-dashboard .pt-network-section-heading {margin-top:26px;margin-bottom:10px;}
