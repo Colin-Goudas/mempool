@@ -18,7 +18,7 @@ function explainFacts(facts) {
     ? `This Bitcoin transaction is confirmed in block ${facts.blockHeight.toLocaleString('en-US')}.`
     : 'This Bitcoin transaction is unconfirmed and waiting for a miner to include it in a block. Its confirmation time is not guaranteed.';
   if (facts.coinbase) return `${status} It creates a miner's block reward, so it is different from a normal payment and has no transaction fee.`;
-  return `${status} It paid a network fee of ${facts.feeSats.toLocaleString('en-US')} sats (${facts.feeRate} sats per virtual byte). Its ${facts.outputs} outputs can include change returned to the sender; adding them together does not tell you the payment amount.`;
+  return `${status} It paid a network fee of ${facts.feeSats.toLocaleString('en-US')} sats (${facts.feeRate} sats per virtual byte). It spends ${facts.inputs} previous ${facts.inputs === 1 ? 'output' : 'outputs'} and creates ${facts.outputs} new ${facts.outputs === 1 ? 'output' : 'outputs'}.${facts.outputs > 1 ? ' Outputs may include change returned to the sender.' : ''}`;
 }
 
 module.exports = async function handler(req, res) {
