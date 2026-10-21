@@ -86,6 +86,9 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   private previousEta?: {txid: string; blocks: number};
   alertTxid = '';
   alertMessage = '';
+  selectedAlertTarget = 0;
+  activeAlertTarget = 1;
+  alertRequestPending = false;
   get addressMatches() { return this.selectedAddress ? [this.selectedAddress] : []; }
   get matchedInputIndex() { const i = this.tx?.vin?.findIndex(v => v.prevout?.scriptpubkey_address === this.selectedAddress); return this.selectedAddress && i >= 0 ? i : this.inputIndex; }
   get matchedOutputIndex() { const i = this.tx?.vout?.findIndex(v => v.scriptpubkey_address === this.selectedAddress); return this.selectedAddress && i >= 0 ? i : this.outputIndex; }
@@ -106,12 +109,45 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedAddress = found ? normalized : '';
     this.addressFeedback = found ? 'Matching rows are highlighted. The diagram selects the first matching input/output; combined strands may group others.' : 'No matching address in this transaction. Check the full address and Bitcoin network.';
   }
-  async toggleConfirmationAlert(): Promise<void> {
-    if (this.alertTxid === this.tx?.txid) { this.alertTxid = ''; this.alertMessage = 'Confirmation alert turned off.'; return; }
-    if (typeof window === 'undefined' || !('Notification' in window)) { this.alertMessage = 'Desktop alerts are not supported in this browser. Keep this page open to track confirmation.'; return; }
-    const permission = await Notification.requestPermission();
-    if (permission === 'granted') { this.alertTxid = this.tx.txid; this.alertMessage = 'Alert enabled for this transaction while this page stays open and connected.'; }
-    else this.alertMessage = 'Desktop alert permission was not granted. You can continue tracking here.';
+  get confirmationCount(): number {
+    if (!this.tx?.status?.confirmed) return 0;
+    const height = this.tx.status.block_height;
+    return Number.isFinite(height) && Number.isFinite(this.latestBlock?.height) ? Math.max(1, this.latestBlock.height - height + 1) : 1;
+  }
+  get confirmationTarget(): number { return this.selectedAlertTarget || (this.tx?.status?.confirmed ? 6 : 1); }
+  get confirmationAlertLabel(): string {
+    if (this.alertTxid === this.tx?.txid) return 'Alert set: ' + this.confirmationCount + ' of ' + this.activeAlertTarget;
+    if (!this.tx?.status?.confirmed) return 'Notify when confirmed';
+    return this.confirmationCount >= this.confirmationTarget ? 'Track confirmations' : 'Notify at ' + this.confirmationTarget + ' confirmations';
+  }
+  cancelConfirmationAlert(): void { this.alertTxid = ''; this.alertMessage = 'Confirmation alert turned off.'; }
+  async enableConfirmationAlert(): Promise<void> {
+    const txid = this.tx?.txid;
+    const target = this.confirmationTarget;
+    if (!txid || this.alertRequestPending) return;
+    if (this.confirmationCount >= target) { this.alertMessage = 'This target has already been reached. Choose a higher target to set an alert.'; return; }
+    if (typeof window === 'undefined' || !('Notification' in window)) { this.alertMessage = 'Desktop alerts are not supported in this browser. Keep this page open to track confirmations.'; return; }
+    this.alertRequestPending = true;
+    try {
+      const permission = await Notification.requestPermission();
+      if (this.tx?.txid !== txid) return;
+      if (permission === 'granted') {
+        this.alertTxid = txid; this.activeAlertTarget = target;
+        this.alertMessage = 'Alert set for ' + target + (target === 1 ? ' confirmation' : ' confirmations') + ' while this page stays open and connected.';
+        this.checkConfirmationAlert();
+      } else this.alertMessage = 'Desktop alert permission was not granted. You can continue tracking here.';
+    } catch { if (this.tx?.txid === txid) this.alertMessage = 'The browser could not enable desktop alerts. You can continue tracking here.'; }
+    finally { this.alertRequestPending = false; }
+  }
+  private checkConfirmationAlert(): void {
+    if (!this.tx || this.alertTxid !== this.tx.txid || this.confirmationCount < this.activeAlertTarget) return;
+    const target = this.activeAlertTarget;
+    this.alertTxid = '';
+    this.alertMessage = 'Your tracking target of ' + target + (target === 1 ? ' confirmation has' : ' confirmations has') + ' been reached.';
+    if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+      try { new Notification('Bitcoin confirmation target reached', {body:'Your tracked transaction has reached ' + target + (target === 1 ? ' confirmation.' : ' confirmations.'), tag:this.tx.txid}); }
+      catch { this.alertMessage += ' Desktop delivery was unavailable; the target is shown here.'; }
+    }
   }
   summaryStatus(): string {
     if (!this.tx?.status?.confirmed && (this.replaced || this.rbfTransaction)) return 'A replacement was observed for this transaction.';
@@ -132,7 +168,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   get summaryQuestions() {
     if (this.tx?.status?.confirmed) return [
-      {id:'confirmations', label:'What do confirmations mean?', text:'The containing block is the first confirmation. Each later block adds another, making a reversal through a chain reorganization progressively less likely. Wallets and exchanges set their own acceptance requirements; confirmation does not prove the recipient is correct or a payment is legitimate.'},
+      {id:'confirmations', label:'What do confirmations mean?', text:'The containing block is the first confirmation. Each later block adds another, making a reversal through a chain reorganization progressively less likely. The transaction is already confirmed at one confirmation. Six is a common example tracking target, not a universal requirement: receiving platforms may require fewer or more confirmations before crediting a deposit. You can set your own alert target with the notification button beside these questions. Confirmation does not prove the recipient is correct or a payment is legitimate.'},
       {id:'missing', label:'Why aren’t my funds showing?', text:'A confirmed transaction is recorded on Bitcoin, but the receiving service may still be processing the deposit. Check the receiving address, supported network and its confirmation requirements. If those match, contact the receiving service through official support. We cannot see its internal account status.'},
       {id:'amount', label:'Which amount is mine?', text:'A Bitcoin transaction can pay several addresses and return change to the sender. The total output is not necessarily your payment. Use Find an address in this transaction below to highlight an address and total its matching outputs. Selecting an address does not establish ownership. Fiat values use the current price.'}
     ];
@@ -378,6 +414,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.blocksSubscription = this.stateService.blocks$.subscribe((blocks) => {
       this.latestBlock = blocks[0];
+      this.checkConfirmationAlert();
     });
 
     this.transactionTimesSubscription = this.transactionTimes$.pipe(
@@ -877,13 +914,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
           block_time: block.timestamp,
         };
         this.pool = block.extras.pool;
-        if (this.alertTxid === this.tx.txid) {
-          this.alertTxid = '';
-          this.alertMessage = 'This transaction is now confirmed.';
-          if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
-            try { new Notification('Bitcoin transaction confirmed', {body:'Your tracked transaction was included in block ' + block.height + '.', tag:this.tx.txid}); } catch { /* The in-page confirmation remains available. */ }
-          }
-        }
+        this.checkConfirmationAlert();
         this.txChanged$.next(true);
         this.stateService.markBlock$.next({ blockHeight: block.height });
         if (this.tx.acceleration || (this.accelerationInfo && ['accelerating', 'completed_provisional', 'completed'].includes(this.accelerationInfo.status))) {
@@ -1198,7 +1229,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   resetTransaction() {
-    this.selectedAddress = ''; this.addressFeedback = ''; this.helpRole = ''; this.estimateChanged = false; this.alertMessage = ''; this.alertTxid = '';
+    this.selectedAddress = ''; this.addressFeedback = ''; this.helpRole = ''; this.estimateChanged = false; this.alertMessage = ''; this.alertTxid = ''; this.selectedAlertTarget = 0; this.alertRequestPending = false;
     this.firstLoad = false;
     this.firstFragmentScroll = this.fragmentAnchor !== null;
     this.scrolledFragmentAnchor = null;
