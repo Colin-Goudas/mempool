@@ -28,7 +28,7 @@ export function walletView(chain: ChainStats | null, pending: ChainStats | null)
     row('pending-outputs','Pending output change',difference(pending?.funded_txo_count,pending?.spent_txo_count),'Net change to output count if current pending activity confirms.','Unconfirmed outputs added to this address minus existing outputs used as inputs. This is an output count, not an amount of bitcoin.',false,true),
     row('format','Address type','format','The script format, not an owner or trust rating.','Legacy, SegWit and Taproot formats describe spending conditions and influence transaction size. They do not establish ownership or safety. Revealed scripts and available Taproot tools remain below.')
   ];
-  let summary = balance === null ? 'Confirmed balance is currently unavailable.' : balance === 0 ? 'This address has no confirmed bitcoin remaining.' : 'This address has ' + btc(balance) + ' in confirmed outputs.';
+  let summary = balance === null ? 'Confirmed balance is currently unavailable.' : balance === 0 ? 'This address currently has no confirmed balance.' : 'This address has ' + btc(balance) + ' in confirmed outputs.';
   if (pendingCount !== null) summary += pendingCount === 0 ? ' No pending transactions are currently observed.' : ' ' + count(pendingCount) + ' pending ' + (pendingCount === 1 ? 'transaction' : 'transactions') + (net === null ? ' currently involve this address.' : net > 0 ? ' would add a net ' + btc(net) + ' if confirmed unchanged.' : net < 0 ? ' would reduce its balance by a net ' + btc(-net) + ' if confirmed unchanged.' : ' currently have no net effect on its balance.');
   summary += ' This is one address, not necessarily your whole wallet; change may be held at other addresses.';
   const questions = [
