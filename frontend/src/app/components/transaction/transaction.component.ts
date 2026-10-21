@@ -1,3 +1,4 @@
+import { transactionNextStep } from './transaction-guidance';
 import { transactionSnapshot, transactionSummary, transactionTechnicalFacts } from './transaction-snapshot';
 import { Component, OnInit, AfterViewInit, OnDestroy, HostListener, ViewChild, ElementRef, Inject, ChangeDetectorRef } from '@angular/core';
 import { ElectrsApiService } from '@app/services/electrs-api.service';
@@ -153,9 +154,15 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.tx?.status?.confirmed && (this.replaced || this.rbfTransaction)) return 'A replacement was observed for this transaction.';
     if (this.rbfInfo?.mined && !this.tx?.status?.confirmed) return 'A conflicting transaction has confirmed.';
     if (this.tx?.vin?.some(v => v.is_coinbase)) return 'This is a Bitcoin mining reward transaction.';
-    if (!this.tx?.status?.confirmed) return 'Your Bitcoin transaction is waiting for its first confirmation.';
+    if (!this.tx?.status?.confirmed) return 'This Bitcoin transaction is waiting for its first confirmation.';
     const count = this.latestBlock?.height >= this.tx.status.block_height ? this.latestBlock.height - this.tx.status.block_height + 1 : null;
-    return count ? 'Your Bitcoin transaction is confirmed with ' + count + (count === 1 ? ' confirmation.' : ' confirmations.') : 'Your Bitcoin transaction is confirmed.';
+    return count ? 'This Bitcoin transaction is confirmed with ' + count + (count === 1 ? ' confirmation.' : ' confirmations.') : 'This Bitcoin transaction is confirmed.';
+  }
+  nextStep(connected: boolean): string {
+    return transactionNextStep({confirmed:!!this.tx?.status?.confirmed, confirmations:this.confirmationCount,
+      coinbase:!!this.tx?.vin?.some(v=>v.is_coinbase), replaced:!!(this.replaced || this.rbfTransaction),
+      conflict:!!this.rbfInfo?.mined && !this.tx?.status?.confirmed, cached:!!this.isCached,
+      connected});
   }
   summaryContext(eta: ETA | null): string {
     if (!this.tx) return '';
@@ -176,7 +183,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       {id:'pending', label:'Why is it pending?', text:this.feeInterpretation + ' Miners choose which transactions to include. Transactions that spend unconfirmed outputs also depend on their parents, and related package fees can affect priority. The comparison shown uses the first projected block’s median rate, not a guaranteed fee recommendation.'},
       {id:'time', label:'How long could it take?', text:'The Snapshot estimate reflects the observed queue and mining conditions. New transactions and irregular block times can move it earlier or later; it is not a countdown or deadline. If an estimate is unavailable, that does not by itself mean failure. Queue data was last updated at ' + (this.feeUpdatedAt || 'an unavailable time') + '.' + (this.estimateChanged ? ' The projected block estimate has changed with new network data.' : '')},
       {id:'speed', label:'Can I speed it up?', text:'Waiting remains an option. If timing matters, choose the situation that matches you for relevant fee-increase guidance. Pending Tracker does not control your wallet or change transaction fees.'},
-      {id:'lost', label:'Is my money lost?', text:this.replaced || this.rbfTransaction ? 'A replacement has been observed. Follow its link above and verify the receiving outputs; do not assume the original will confirm.' : this.rbfInfo?.mined ? 'A conflicting transaction was mined. Review the linked transaction and contact the sender if needed; this original record is not a confirmed payment.' : this.isCached ? 'This is a cached record. Current network presence has not been verified, so we cannot establish its current state from this record alone.' : 'Our data source currently shows this transaction waiting for confirmation. Pending does not by itself mean your money is lost, and disappearance from one provider does not prove cancellation. Verify the intended receiving address. We cannot guarantee eventual confirmation, correct ownership or recovery.'}
+      {id:'lost', label:'Is my money lost?', text:this.replaced || this.rbfTransaction ? 'A replacement has been observed. Follow its link above and verify the receiving outputs; do not assume the original will confirm.' : this.rbfInfo?.mined ? 'A conflicting transaction was mined. Review the linked transaction and contact the sender if needed; this original record is not a confirmed payment.' : this.isCached ? 'This is a cached record. Current network presence has not been verified, so we cannot establish its current state from this record alone.' : 'Our data source currently shows this transaction waiting for confirmation. Pending does not by itself mean your money is lost, and disappearance from one provider does not prove cancellation. Do not send a duplicate payment just because this one is delayed. Verify the intended receiving address. We cannot guarantee eventual confirmation, correct ownership or recovery.'}
     ];
   }
   get snapshotFacts() { return this.snapshotFactsFor(null); }
