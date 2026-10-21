@@ -1166,7 +1166,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setupGraph() {
     this.maxInOut = Math.min(this.inOutLimit, Math.max(this.tx?.vin?.length || 1, this.tx?.vout?.length + 1 || 1));
-    this.graphHeight = this.graphExpanded ? this.maxInOut * 15 : Math.min(360, Math.max(150, this.maxInOut * 55));
+    this.graphHeight = this.graphExpanded ? this.maxInOut * 15 : Math.min(270, Math.max(150, this.maxInOut * 55));
   }
 
   toggleCpfp() {
@@ -1215,7 +1215,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
 
   collapseGraph() {
     this.graphExpanded = false;
-    this.graphHeight = Math.min(360, this.maxInOut * 80);
+    this.graphHeight = Math.min(270, Math.max(150, this.maxInOut * 55));
   }
 
   // simulate normal anchor fragment behavior
