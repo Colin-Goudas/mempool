@@ -4705,3 +4705,11 @@ body:has(app-transaction) app-transaction .pt-summary-questions > span > button:
 .pt-network-dashboard .pt-network-questions > span > button:hover,.pt-wallet-page .pt-wallet-questions > span > button:hover {
  color:#fafafa !important;border-color:#ffffff70 !important;background:#ffffff12 !important;
 }
+
+/* Retire inherited transaction frame coordinates for the shared snapshot rail. */
+body:has(app-transaction) app-transaction .pt-snapshot > .pt-snapshot-panel.pt-snapshot-body::before,
+.pt-network-dashboard .pt-snapshot-body::before,.pt-wallet-page .pt-snapshot-body::before {
+ left:-9px !important;right:auto !important;top:0 !important;bottom:-16px !important;
+ width:2px !important;height:auto !important;min-height:0 !important;margin:0 !important;
+ transform:none !important;border-radius:0 !important;
+}
