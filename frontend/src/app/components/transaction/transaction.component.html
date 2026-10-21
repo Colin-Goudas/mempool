@@ -18,9 +18,9 @@
         </span>
       </span>
 
-      <div class="container-buttons">
+      <div class="container-buttons"><span *ngIf="pendingTrackerSnapshot && tx && !tx.status.confirmed" class="pt-pending-badge">{{ replaced || rbfTransaction ? 'Replaced' : 'Pending' }}</span>
         <app-confirmations
-          *ngIf="tx"
+          *ngIf="tx && (!pendingTrackerSnapshot || tx.status.confirmed)"
           [chainTip]="latestBlock?.height"
           [height]="tx?.status?.block_height"
           [replaced]="replaced"
