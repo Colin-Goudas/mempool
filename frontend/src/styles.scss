@@ -4410,3 +4410,20 @@ body:has(app-address .pt-wallet-page) .navbar app-search-form.search-form-contai
 .navbar .pt-lookup-button {border:0;background:transparent;cursor:pointer;}
 .navbar .pt-lookup-button:disabled {opacity:.5;cursor:wait;}
 .pt-lookup-error {margin:0;padding:10px 20px;background:#18181b;color:#e0c58a;font-size:13px;}
+
+/* Desktop polish: explicit navigation help and a consistent section rhythm. */
+.pt-nav-tooltip {z-index:2200;pointer-events:none;}
+.pt-nav-tooltip .tooltip-inner {background:#242426;color:#fafafa;border:1px solid #ffffff26;border-radius:7px;font-size:12px;padding:7px 10px;box-shadow:0 5px 18px #0007;}
+.pt-nav-tooltip .tooltip-arrow::before {border-bottom-color:#242426;}
+.navbar .pt-lookup-nav .nav-link {height:42px;}
+body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-explorer-intro {padding-top:8px;padding-bottom:18px;margin-bottom:24px;}
+body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-explorer-intro > p {margin-bottom:16px;}
+body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-network-section-heading,
+body:has(app-address .pt-wallet-page) app-address .pt-wallet-section-heading {margin-top:24px !important;margin-bottom:10px !important;align-items:baseline;}
+body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-fee-widget,
+body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-difficulty-widget {margin-top:24px !important;}
+body:has(app-address .pt-wallet-page) app-address .pt-wallet-page .title-tx {margin-top:24px;margin-bottom:10px;}
+body:has(app-address .pt-wallet-page) app-address .pt-wallet-page .title-tx h2 {margin-bottom:6px;}
+body:has(app-address .pt-wallet-page) app-address .pt-wallet-page .title-tx .pt-wallet-caption {margin-bottom:0;}
+body:has(app-transaction) app-transaction .pt-flow-section,
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle {margin-top:24px !important;}
