@@ -46,7 +46,14 @@ export function networkSnapshot(mempool: MempoolInfo | null, fees: Recommendedfe
   summary += ' These are estimates: new demand and irregular block times can change your wait.';
   if (mempool?.loaded === false) summary += ' The provider is still loading its queue, so counts may be incomplete.';
   if (reconnecting) summary = 'Connecting to the live Bitcoin feed. Any retained values may be out of date; current network conditions cannot yet be assessed.';
-  return {summary, rows, deeper, reconnecting, sending:[{label:"Need it soon",rate:fee,target:"Targets the next block; timing is not guaranteed."},{label:"Can wait",rate:economy,target:"Economy priority; no fixed confirmation deadline."}], exampleFee:example, updatedAt:receivedAt ? new Date(receivedAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : 'Waiting for data', questions:[
+  const compactMeanings: Record<string,string> = {
+    'Fee conditions':'Compare faster and slower fee tiers.', 'Next-block fee':'Suggested rate; next block is not guaranteed.',
+    'Example payment fee':'140-vB example at the next-block rate.', 'Confirmation targets':'About 10–60 minutes on average; timing varies.',
+    'Awaiting confirmation':'Pending transactions seen by this provider.', 'Waiting data':'Virtual space occupied by the queue.',
+    'Latest block':'Newest block received from this provider.', 'Last block':'Age of the latest block’s reported timestamp.'
+  };
+  const compactRows = rows.map(fact => ({...fact, meaning:compactMeanings[fact.label], details:fact.meaning + ' ' + fact.details}));
+  return {summary, rows:compactRows, deeper, reconnecting, sending:[{label:"Need it soon",rate:fee,target:"Targets the next block; timing is not guaranteed."},{label:"Can wait",rate:economy,target:"Economy priority; no fixed confirmation deadline."}], exampleFee:example, updatedAt:receivedAt ? new Date(receivedAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : 'Waiting for data', questions:[
     {id:'busy',label:'How busy is Bitcoin?',text:'Use fee tiers, waiting data and incoming activity together. A large low-fee backlog can coexist with inexpensive fast payments. A mempool is one provider’s observed queue, not a single worldwide waiting list or a network-health score.'},
     {id:'fees',label:'What fee should I choose?',text:'Choose a target based on urgency, then use your wallet’s size estimate to calculate total cost. Next-block targets favor speed; economy favors cost if you can wait. The example shown assumes 140 virtual bytes, not your transaction’s actual size. No fee guarantees a specific block.'},
     {id:'timing',label:'How long could a payment take?',text:'Fee recommendations target blocks, not fixed deadlines. Bitcoin targets about ten minutes per block over the long term, but gaps vary. Your fee rate, related transactions and new arrivals influence the wait. Look up your transaction ID for its specific status and estimate.'},
