@@ -4401,3 +4401,8 @@ body:has(app-address .pt-wallet-page) .navbar app-search-form.search-form-contai
   .search-submit {height:44px !important;min-width:100px;width:100px;border-radius:0 12px 12px 0 !important;font-size:13px;font-weight:600;}
   @media(max-width:991px) {.search-submit {min-width:85px;width:85px;}input.form-control {font-size:12px !important;}}
 }
+
+/* Lookup shortcuts share the existing navigation icon rhythm. */
+.navbar .pt-lookup-nav .nav-link {display:flex;align-items:center;justify-content:center;min-width:54px;height:62px;}
+.navbar .pt-lookup-nav fa-icon {font-size:21px;line-height:1;}
+.navbar .nav-link:focus-visible {outline:2px solid #bc975f;outline-offset:-4px;}
