@@ -9,8 +9,8 @@
       <small>No wallet connection needed.</small>
     </section>
     <section class="pt-network-snapshot" aria-label="Bitcoin network snapshot" *ngIf="networkSnapshot$ | async as snapshot">
-      <header class="pt-network-heading"><h1>◇ Bitcoin Network Snapshot</h1><span>Bitcoin mainnet</span><label><input type="checkbox" [checked]="showNetworkFiat" (change)="showNetworkFiat = !showNetworkFiat"> Fiat values</label><small [class.pt-feed-warning]="snapshot.reconnecting">{{ snapshot.reconnecting ? 'Reconnecting · values may be stale' : 'Live feed · updated ' + snapshot.updatedAt }}</small></header>
-      <div class="pt-network-summary"><h2>◇ IN PLAIN ENGLISH</h2><p>{{ snapshot.summary }}</p>
+      <header class="pt-network-heading"><h1>Bitcoin Network Snapshot</h1><span>Bitcoin mainnet</span><label><input type="checkbox" [checked]="showNetworkFiat" (change)="showNetworkFiat = !showNetworkFiat"> Fiat values</label><small [class.pt-feed-warning]="snapshot.reconnecting">{{ snapshot.reconnecting ? 'Reconnecting · values may be stale' : 'Live feed · updated ' + snapshot.updatedAt }}</small></header>
+      <div class="pt-network-summary"><h2>IN PLAIN ENGLISH</h2><p>{{ snapshot.summary }}</p>
         <div class="pt-network-questions">
           <span><button type="button" class="pt-send-trigger" style="anchor-name:--pt-network-send" popovertarget="pt-network-send">Sending Bitcoin?</button><div id="pt-network-send" class="pt-network-popover" style="position-anchor:--pt-network-send" popover="auto"><div class="pt-network-popup-heading"><strong>Plan your Bitcoin fee</strong><button type="button" popovertarget="pt-network-send" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
             <p>Choose your urgency, then use your wallet’s actual transaction size for the most useful estimate.</p>
@@ -37,7 +37,7 @@
   </ng-container>
   <div class="row row-cols-1 row-cols-md-2" *ngIf="{ value: (mempoolInfoData$ | async) } as mempoolInfoData">
 
-    <header *ngIf="showPendingTrackerSnapshot" class="pt-network-section-heading"><h2>◇ Live Network Visuals</h2></header>
+    <header *ngIf="showPendingTrackerSnapshot" class="pt-network-section-heading"><h2>Live Network Visuals</h2></header>
     <div class="col">
       <div class="card graph-card">
         <div class="card-body ps-lg-3 pe-lg-3 ps-2 pe-2">
@@ -86,7 +86,7 @@
         </div>
       </div>
     </div>
-    <header *ngIf="showPendingTrackerSnapshot" class="pt-network-section-heading"><h2>◇ Recent Activity</h2></header>
+    <header *ngIf="showPendingTrackerSnapshot" class="pt-network-section-heading"><h2>Recent Activity</h2></header>
     <div class="col" style="max-height: 410px">
       <div class="card" *ngIf="(network$ | async) !== 'liquidtestnet'; else latestBlocks">
         <div class="card-body">
@@ -168,7 +168,7 @@
       </div>
     </div>
     <section *ngIf="showPendingTrackerSnapshot" class="pt-network-deeper" aria-label="Bitcoin network dive deeper">
-      <header class="pt-network-section-heading"><h2>◇ Dive Deeper</h2></header>
+      <header class="pt-network-section-heading"><h2>Dive Deeper</h2></header>
       <div class="pt-network-facts" *ngIf="networkSnapshot$ | async as snapshot">
         @for (row of snapshot.deeper; track row.label) {
           <div class="pt-network-fact" [style.anchor-name]="'--pt-network-deeper-' + $index"><div class="pt-network-fact-line"><span>{{ row.label }}:</span><strong>{{ row.value }}</strong></div><div class="pt-network-meaning"><p>{{ row.meaning }}</p><button type="button" [attr.popovertarget]="'pt-network-deeper-' + $index">Explore more <span aria-hidden="true">▾</span><span class="visually-hidden"> about {{ row.label }}</span></button></div><div class="pt-network-popover" [style.position-anchor]="'--pt-network-deeper-' + $index" [id]="'pt-network-deeper-' + $index" popover="auto"><div class="pt-network-popup-heading"><strong>Understanding {{ row.label }}</strong><button type="button" [attr.popovertarget]="'pt-network-deeper-' + $index" popovertargetaction="hide" aria-label="Close explanation">×</button></div><p>{{ row.meaning }}</p><p>{{ row.details }}</p></div></div>
