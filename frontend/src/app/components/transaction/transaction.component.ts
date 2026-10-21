@@ -240,7 +240,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   set flowAnchor(element: ElementRef | null | undefined) {
     if (element) {
       this.graphContainer = element;
-      setTimeout(() => { this.applyFragment(); }, 0);
+      setTimeout(() => { this.setGraphSize(); this.applyFragment(); }, 0);
     }
   }
 
