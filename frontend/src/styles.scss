@@ -4064,3 +4064,18 @@ body:has(app-transaction) footer {background:#09090b !important;border-top:1px s
     .pt-flow-section .pt-flow-unified {padding:16px 8px !important;border-radius:24px !important;}
   }
 }
+/* Browser QA: consistent action placement and complete chrome/type parity. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel:is(.pt-snapshot-panel,.pt-eight-details) .pt-eight-card-grid .pt-metric-card {
+  .pt-meaning-preview {display:block !important;margin:0 !important;}
+  .pt-snapshot-popover-trigger {display:inline-flex !important;align-items:center;gap:4px;}
+}
+body:has(app-transaction) app-transaction .pt-deeper > summary {
+  color:#f4f4f5 !important;font-size:27px !important;font-weight:600 !important;letter-spacing:-.035em !important;
+  .pt-heading-title {color:#f4f4f5 !important;font-size:27px !important;font-weight:600 !important;}
+  .pt-heading-description {color:#a1a1aa !important;font-size:13px !important;}
+  &::before {color:#a1a1aa !important;}
+}
+body:has(app-transaction) .navbar .pending-tracker-wordmark {color:#f4f4f5 !important;font-size:17px;letter-spacing:-.015em;}
+@media(prefers-reduced-motion:reduce) {
+  body:has(app-transaction) app-transaction .pt-metric-card {transition:none !important;}
+}
