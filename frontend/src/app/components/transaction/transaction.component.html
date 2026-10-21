@@ -8,7 +8,7 @@
     </div>
 
     <ng-container *ngIf="!rbfTransaction || rbfTransaction?.size || tx">
-      <h1 i18n="shared.transaction">Transaction Snapshot</h1><span *ngIf="pendingTrackerSnapshot" class="pt-network-label">Bitcoin mainnet</span><label *ngIf="pendingTrackerSnapshot" class="pt-display-fiat"><input type="checkbox" [checked]="showUsd" (change)="showUsd = !showUsd"> Fiat values</label>
+      <h1 i18n="shared.transaction">Transaction Snapshot</h1>
 
       <span class="tx-link">
         <span class="txid">
@@ -18,6 +18,7 @@
         </span>
       </span>
 
+      <div class="pt-title-utilities"><span *ngIf="pendingTrackerSnapshot" class="pt-network-label">Bitcoin mainnet</span><label *ngIf="pendingTrackerSnapshot" class="pt-display-fiat"><input type="checkbox" [checked]="showUsd" (change)="showUsd = !showUsd"> Fiat values</label>
       <div class="container-buttons"><span *ngIf="pendingTrackerSnapshot && tx && !tx.status.confirmed" class="pt-pending-badge">{{ replaced || rbfTransaction ? 'Replaced' : 'Pending' }}</span>
         <app-confirmations
           *ngIf="tx && (!pendingTrackerSnapshot || tx.status.confirmed)"
@@ -27,6 +28,7 @@
           [removed]="this.rbfInfo?.mined && !this.tx?.status?.confirmed"
           [cached]="isCached"
         ></app-confirmations>
+      </div>
       </div>
     </ng-container>
   </div>
@@ -237,9 +239,10 @@
       </div>
       <button type="button" class="btn btn-outline-info flow-toggle btn-sm" (click)="toggleGraph()" [attr.aria-expanded]="flowEnabled">{{ flowEnabled ? 'Hide diagram' : 'Show diagram' }}</button>
     </div>
-    <form *ngIf="pendingTrackerSnapshot" class="pt-address-find" (submit)="$event.preventDefault(); findTransactionAddress(addressLookup.value)"><label for="pt-address-find">Find an address in this transaction</label><div><input #addressLookup id="pt-address-find" type="text" placeholder="Paste the full Bitcoin address" autocomplete="off"><button type="submit">Find address</button><button type="button" *ngIf="selectedAddress" (click)="selectedAddress = ''; addressFeedback = ''; addressLookup.value = ''">Clear</button></div><small role="status">{{ addressFeedback }}</small></form>
+
     <div class="pt-flow-label-rule" aria-hidden="true"></div>
     <div class="pt-flow-unified">
+    <form *ngIf="pendingTrackerSnapshot" class="pt-address-find" (submit)="$event.preventDefault(); findTransactionAddress(addressLookup.value)"><label for="pt-address-find">Find an address</label><div><input #addressLookup id="pt-address-find" type="text" placeholder="Paste an address from this transaction" autocomplete="off"><button type="submit">Find address</button><button type="button" *ngIf="selectedAddress" (click)="selectedAddress = ''; addressFeedback = ''; addressLookup.value = ''">Clear</button></div><small role="status">{{ addressFeedback }}</small></form>
     <ng-container *ngIf="flowEnabled; else ptFlowPlaceholder">
       <div class="pt-original-graph" #graphContainer>
         <div class="pt-graph-direction-labels" aria-hidden="true"><span>Inputs</span><span>Outputs</span></div>
