@@ -4503,3 +4503,12 @@ body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-unified .pt-
 @media(max-width:767px) {
  body:has(app-transaction) app-transaction .pt-snapshot > .title-block {grid-template-columns:minmax(0,1fr);.tx-link {grid-column:1 !important;grid-row:2 !important;}.pt-title-utilities {grid-row:3;justify-content:flex-start;flex-wrap:wrap;}}
 }
+/* Keep headings attached to their content; remove the superseded Flow divider. */
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-label-rule {display:none !important;}
+body:has(app-transaction) app-transaction .pt-deeper.pt-dive-deeper-toggle > summary {padding-bottom:8px !important;}
+@media(min-width:1200px) {
+ body:has(app-transaction) app-transaction .pt-snapshot > .title-block {
+  grid-template-columns:auto minmax(200px,1fr) auto;
+  .pt-title-utilities {grid-column:3;grid-row:1;gap:10px;}
+ }
+}
