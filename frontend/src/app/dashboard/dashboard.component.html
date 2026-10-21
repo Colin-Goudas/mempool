@@ -2,6 +2,13 @@
 <div class="container-xl dashboard-container" [class.pt-network-dashboard]="showPendingTrackerSnapshot" *ngIf="(network$ | async) !== 'liquid'; else liquidDashboard">
   <ng-container *ngIf="showPendingTrackerSnapshot">
     <aside class="pt-ribbon-guide" aria-label="Understanding the block ribbon"><span><strong>Waiting blocks</strong> · projections that can change</span><span><strong>Recently confirmed blocks</strong> · already mined</span><small>Select a block above to see its transactions. Use the ribbon’s direction control to reverse the order.</small></aside>
+    <section class="pt-explorer-intro" aria-labelledby="pt-explorer-intro-title">
+      <h2 id="pt-explorer-intro-title">Bitcoin activity, explained in plain English.</h2>
+      <p>Understand your transaction or wallet address—status, amounts, fees, and what happens next.</p>
+      <app-search-form placeholder="Enter a transaction ID or wallet address" buttonLabel="Search"></app-search-form>
+      <div class="pt-explorer-examples"><a [routerLink]="['/tx' | relativeUrl, '00079568fd91c81ecb530a15225e8590f4bb9c0c37eb5b3160d6daf064352d08']">Try a transaction example →</a><a [routerLink]="['/address' | relativeUrl, '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa']">Try a wallet example →</a></div>
+      <small>No wallet connection needed.</small>
+    </section>
     <section class="pt-network-snapshot" aria-label="Bitcoin network snapshot" *ngIf="networkSnapshot$ | async as snapshot">
       <header class="pt-network-heading"><h1>◇ Bitcoin Network Snapshot</h1><span>Bitcoin mainnet</span><label><input type="checkbox" [checked]="showNetworkFiat" (change)="showNetworkFiat = !showNetworkFiat"> Fiat values</label><small [class.pt-feed-warning]="snapshot.reconnecting">{{ snapshot.reconnecting ? 'Reconnecting · values may be stale' : 'Live feed · updated ' + snapshot.updatedAt }}</small></header>
       <div class="pt-network-summary"><h2>◇ IN PLAIN ENGLISH</h2><p>{{ snapshot.summary }}</p>
