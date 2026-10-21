@@ -4314,3 +4314,11 @@ body:has(app-address .pt-wallet-page) app-address .pt-wallet-page {
 body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > span {
   color:#f3ead8 !important;
 }
+
+/* Supporting timestamps and fiat stay beside the main fact across Bitcoin cards. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-metric-card .pt-snapshot-fact > .pt-inline-card-context,
+body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-network-fact-line > .pt-inline-card-context,
+body:has(app-address .pt-wallet-page) app-address .pt-wallet-fact-line > .pt-inline-card-context {
+  display:inline !important;font-size:11px !important;font-weight:400 !important;
+  line-height:1.3 !important;color:#a1a1aa !important;margin:0 !important;
+}
