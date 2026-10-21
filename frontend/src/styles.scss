@@ -4611,3 +4611,24 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summar
  > p.pt-summary-narrative .pt-summary-inline-label {display:inline !important;font-size:16px !important;font-weight:600 !important;color:#f4f4f5 !important;letter-spacing:normal !important;line-height:inherit !important;}
  > p.pt-next-step {margin:8px 0 0 !important;}
 }
+
+/* Final transaction section alignment: remove legacy floating rules and attach titles. */
+body:has(app-transaction) app-transaction .pt-flow-section::before,
+body:has(app-transaction) app-transaction .pt-flow-section::after,
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified::before,
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle::before {content:none !important;display:none !important;}
+body:has(app-transaction) app-transaction .pt-snapshot > .title-block {
+ padding-bottom:8px !important;border-bottom-color:#bc975f55 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact {
+ border-left:2px solid #bc975f !important;padding:0 0 0 12px !important;margin:10px 0 10px !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot + .pt-flow-section {margin-top:24px !important;}
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified {border-top:1px solid #bc975f55 !important;}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-unified > .pt-flow-header {
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ margin:0 0 12px !important;padding:0 0 10px !important;border-bottom:1px solid #bc975f33;
+}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-unified > .pt-flow-header .pt-flow-heading-copy {margin:0 !important;padding:0 !important;}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-unified > .pt-flow-header h2 {margin:0 !important;}
+body:has(app-transaction) app-transaction .pt-deeper.pt-dive-deeper-toggle > summary {padding-bottom:6px !important;}
