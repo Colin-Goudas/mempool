@@ -156,7 +156,7 @@
         </tbody></table></div>
         <p *ngIf="!isLoadingTransactions && !transactions?.length" class="pt-wallet-caption">No transactions are currently recorded for this address.</p>
         <div class="pt-wallet-history-actions"><button type="button" *ngIf="!fullyLoaded || visibleWalletTransactions < transactions?.length" (click)="expandWalletHistory()" [disabled]="isLoadingTransactions">{{ isLoadingTransactions ? 'Loading…' : retryLoadMore ? 'Retry loading transactions' : 'Show 10 more transactions' }}</button><button type="button" *ngIf="visibleWalletTransactions > 10" (click)="visibleWalletTransactions = 10">Show first 10</button></div>
-        <details class="pt-wallet-raw"><summary>Inspect inputs and outputs for these {{ visibleWalletHistory.length }} transactions</summary><app-transactions-list [transactions]="visibleWalletHistory" [showConfirmations]="true" [addresses]="[address.address]" [acceleratedTxids]="acceleratedTxids"></app-transactions-list></details>
+        <details class="pt-wallet-raw" (toggle)="showWalletRaw = $any($event.target).open"><summary>Inspect inputs and outputs for these {{ visibleWalletHistory.length }} transactions</summary><app-transactions-list *ngIf="showWalletRaw" [transactions]="visibleWalletHistory" [showConfirmations]="true" [addresses]="[address.address]" [acceleratedTxids]="acceleratedTxids"></app-transactions-list></details>
       </section>
     } @else {
     <br>
