@@ -102,24 +102,72 @@ export class AddressComponent implements OnInit, OnDestroy {
   network = '';
   showWalletFiat = true;
   visibleWalletTransactions = 10;
+  walletHistoryPage = 0;
+  walletWatching = false;
+  walletWatchIncoming = true;
+  walletWatchOutgoing = true;
+  walletWatchConfirmed = true;
+  walletWatchMessage = '';
+  walletWatchTxid = '';
+  private walletNotified = new Set<string>();
+  get pendingWalletTransactions(): Transaction[] { return (this.transactions || []).filter(tx => !tx.status.confirmed).slice(0,5); }
+  setWalletPageSize(value: string): void {
+    const size = Number(value);
+    this.visibleWalletTransactions = [10,25,50].includes(size) ? size : 10;
+    this.walletHistoryPage = 0; this.showWalletRaw = false; this.goWalletPage(0);
+  }
+  private goWalletPage(page: number): void {
+    const loaded = this.transactions?.length || 0;
+    const start = page * this.visibleWalletTransactions;
+    const end = start + this.visibleWalletTransactions;
+    const total = (this.chainStats?.tx_count || 0) + (this.mempoolStats?.tx_count || 0);
+    if (!this.fullyLoaded && loaded < end && loaded < total && !this.isLoadingTransactions) {
+      this.loadMore(() => this.goWalletPage(page));
+    } else if (start < loaded || page === 0) { this.walletHistoryPage = page; this.showWalletRaw = false; }
+  }
+  nextWalletPage(): void { this.goWalletPage(this.walletHistoryPage+1); }
+  previousWalletPage(): void { this.walletHistoryPage = Math.max(0,this.walletHistoryPage-1); this.showWalletRaw = false; }
+  startWalletWatch(): void { this.walletWatching = true; this.walletNotified.clear(); this.walletWatchMessage = 'Watching new activity while this address page is open and connected.'; }
+  stopWalletWatch(): void { this.walletWatching = false; this.walletWatchMessage = 'Address tracking stopped.'; }
+  async enableWalletDesktopAlerts(): Promise<void> {
+    if (typeof Notification === 'undefined') { this.walletWatchMessage = 'Desktop alerts are unavailable here. In-page tracking remains available.'; return; }
+    try { const permission = await Notification.requestPermission(); this.walletWatchMessage = permission === 'granted' ? 'Desktop alerts enabled while this address page stays open and connected.' : 'Desktop permission was not granted. In-page tracking remains available.'; }
+    catch { this.walletWatchMessage = 'Desktop alerts could not be enabled. In-page tracking remains available.'; }
+  }
+  private walletActivityAlert(tx: Transaction, confirmed: boolean): void {
+    if (!this.walletWatching || !this.showWalletSnapshot) return;
+    const spent = tx.vin?.some(v => v.prevout?.scriptpubkey_address === this.addressString);
+    const received = tx.vout?.some(v => v.scriptpubkey_address === this.addressString);
+    if (!spent && !received) return;
+    if (confirmed ? !this.walletWatchConfirmed : spent ? !this.walletWatchOutgoing : !this.walletWatchIncoming) return;
+    const key = tx.txid + (confirmed ? ':confirmed' : ':pending');
+    if (this.walletNotified.has(key)) return;
+    this.walletNotified.add(key); if (this.walletNotified.size > 100) this.walletNotified.delete(this.walletNotified.values().next().value);
+    this.walletWatchTxid = tx.txid;
+    this.walletWatchMessage = confirmed ? 'A transaction involving this address has confirmed. Open it to check confirmations and receiving-platform requirements.' : spent ? 'New pending spending from this address was observed. Open the transaction to inspect recipients, change and fees.' : 'New pending outputs to this address were observed. Open the transaction to check its amount and confirmation status.';
+    if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+      try { new Notification('Bitcoin address activity', {body:this.walletWatchMessage,tag:key}); } catch { /* The in-page alert remains visible. */ }
+    }
+  }
+
   showWalletRaw = false;
   private walletHistorySource: Transaction[];
   private walletHistoryLimit = 0;
+  private walletHistoryPageCache = -1;
   private walletHistoryCache: Transaction[] = [];
   get walletView() { return walletView(this.chainStats || this.address?.chain_stats, this.mempoolStats || this.address?.mempool_stats); }
   walletTxChange(tx: Transaction): number | null { return addressTransactionChange(tx, this.addressString); }
   get visibleWalletHistory(): Transaction[] {
-    if (this.walletHistorySource !== this.transactions || this.walletHistoryLimit !== this.visibleWalletTransactions) {
+    if (this.walletHistorySource !== this.transactions || this.walletHistoryLimit !== this.visibleWalletTransactions || this.walletHistoryPageCache !== this.walletHistoryPage) {
       this.walletHistorySource = this.transactions;
       this.walletHistoryLimit = this.visibleWalletTransactions;
-      this.walletHistoryCache = (this.transactions || []).slice(0,this.visibleWalletTransactions);
+      this.walletHistoryPageCache = this.walletHistoryPage;
+      const start = this.walletHistoryPage * this.visibleWalletTransactions;
+      this.walletHistoryCache = (this.transactions || []).slice(start,start+this.visibleWalletTransactions);
     }
     return this.walletHistoryCache;
   }
-  expandWalletHistory(): void {
-    if ((this.transactions?.length || 0) > this.visibleWalletTransactions) this.visibleWalletTransactions += 10;
-    else if (!this.fullyLoaded && !this.isLoadingTransactions) { this.visibleWalletTransactions += 10; this.loadMore(); }
-  }
+
 
 
   isMobile: boolean;
@@ -210,6 +258,10 @@ export class AddressComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap((params: ParamMap) => {
           this.visibleWalletTransactions = 10;
+          this.walletHistoryPage = 0;
+          this.walletWatching = false;
+          this.walletWatchMessage = '';
+          this.walletWatchTxid = '';
           this.showWalletRaw = false;
           this.chainStats = undefined;
           this.mempoolStats = undefined;
@@ -377,6 +429,7 @@ export class AddressComponent implements OnInit, OnDestroy {
 
     this.mempoolTxSubscription = this.stateService.mempoolTransactions$
       .subscribe(tx => {
+        this.walletActivityAlert(tx,false);
         this.addTransaction(tx);
         this.mempoolStats.addTx(tx);
       });
@@ -389,6 +442,7 @@ export class AddressComponent implements OnInit, OnDestroy {
 
     this.blockTxSubscription = this.stateService.blockTransactions$
       .subscribe((transaction) => {
+        this.walletActivityAlert(transaction,true);
         const tx = this.transactions.find((t) => t.txid === transaction.txid);
         if (tx) {
           tx.status = transaction.status;
@@ -517,7 +571,7 @@ export class AddressComponent implements OnInit, OnDestroy {
     }
   }
 
-  loadMore(): void {
+  loadMore(afterLoad?: () => void): void {
     if (this.isLoadingTransactions || this.fullyLoaded) {
       return;
     }
@@ -534,6 +588,7 @@ export class AddressComponent implements OnInit, OnDestroy {
           this.fullyLoaded = true;
         }
         this.isLoadingTransactions = false;
+        if (afterLoad) afterLoad();
       },
       (error) => {
         this.isLoadingTransactions = false;
