@@ -1,0 +1,37 @@
+<div class="pt-home">
+  <header class="home-nav">
+    <a class="wordmark" routerLink="/welcome" aria-label="Pending Tracker home"><span class="brand-mark" aria-hidden="true"></span>Pending Tracker</a>
+    <nav aria-label="Main navigation"><a routerLink="/">Bitcoin explorer <span aria-hidden="true">↗</span></a><span class="unavailable" aria-disabled="true">Ethereum <small>Coming soon</small></span></nav>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="home-title">
+      <p class="eyebrow">TRACK <span>·</span> EXPLORE <span>·</span> UNDERSTAND</p>
+      <h1 id="home-title">Your transaction.<br>Your wallet. <em>Explained.</em></h1>
+      <p class="hero-description">Understand Bitcoin activity in plain English.<br>See what happened, what it means, and what comes next.</p>
+      <div class="lookup">
+        <div class="lookup-tabs" role="group" aria-label="Choose what to look up">
+          <button type="button" [attr.aria-pressed]="mode === 'transaction'" (click)="mode = 'transaction'">Transaction search <span aria-hidden="true">↗</span></button>
+          <button type="button" [attr.aria-pressed]="mode === 'wallet'" (click)="mode = 'wallet'">Wallet search <span aria-hidden="true">↗</span></button>
+        </div>
+        <label class="visually-hidden">Bitcoin lookup</label>
+        <app-search-form [placeholder]="mode === 'transaction' ? 'Paste your Bitcoin transaction ID' : 'Paste your Bitcoin wallet address'" buttonLabel="Search"></app-search-form>
+        <div class="lookup-support"><span>No wallet connection needed.</span><a [routerLink]="mode === 'transaction' ? ['/tx', transaction] : ['/address', address]">{{ mode === 'transaction' ? 'View a real transaction' : 'View a public wallet address' }} <span aria-hidden="true">→</span></a></div>
+      </div>
+    </section>
+    <section class="product" aria-labelledby="product-title">
+      <header class="product-heading"><div><p class="eyebrow">A CLEARER PICTURE</p><h2 id="product-title">The facts. And what they mean.</h2></div><div class="preview-tabs" role="group" aria-label="Choose product preview"><button type="button" [attr.aria-pressed]="preview === 'transaction'" (click)="preview = 'transaction'">Transaction</button><button type="button" [attr.aria-pressed]="preview === 'wallet'" (click)="preview = 'wallet'">Wallet</button></div></header>
+      <div class="preview-panel">
+        <div class="preview-title"><h3>{{ preview === 'transaction' ? 'Transaction Snapshot' : 'Wallet Snapshot' }}</h3><span>Illustrative preview</span></div>
+        <div class="preview-summary"><p><strong>In plain English —</strong> {{ preview === 'transaction' ? 'This Bitcoin transaction is confirmed. Its network fee was 920 sats at 2 sat/vB. A receiving service may need more confirmations before showing your deposit.' : 'This address has confirmed funds and an incoming payment awaiting confirmation. Pending funds can change before they are confirmed. One address may be only part of a wallet.' }}</p></div>
+        <div class="preview-facts" *ngIf="preview === 'transaction'; else walletPreview">
+          <div><p><strong>Status:</strong> <span class="confirmed">✓ Confirmed</span></p><small>Recorded in a Bitcoin block.</small></div>
+          <div><p><strong>Network fee:</strong> <span>920 sats</span></p><small>The miner fee, explained alongside the facts.</small></div>
+        </div>
+        <ng-template #walletPreview><div class="preview-facts"><div><p><strong>Confirmed balance:</strong> <span>0.025 BTC</span></p><small>Confirmed funds before pending activity.</small></div><div><p><strong>Pending received:</strong> <span class="pending">0.001 BTC</span></p><small>An incoming payment awaiting a block.</small></div></div></ng-template>
+        <a class="preview-link" [routerLink]="preview === 'transaction' ? ['/tx', transaction] : ['/address', address]">{{ preview === 'transaction' ? 'Open a real transaction' : 'Open a public wallet address' }} <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+    <div class="explore-row"><span>Looking at the bigger picture?</span><a routerLink="/">Explore the Bitcoin network <span aria-hidden="true">→</span></a></div>
+  </main>
+  <footer><span>Pending Tracker <span class="footer-dot">·</span> Track. Explore. Understand.</span><span>Public data. Clear explanations.</span></footer>
+</div>
