@@ -76,52 +76,58 @@
     <ul class="navbar-nav {{ network.val }}">
 
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="btn-home">
-        <a class="nav-link" [routerLink]="['/' | relativeUrl]" (click)="collapse()">
+        <a class="nav-link" title="Home" aria-label="Home" [routerLink]="['/' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-tachometer" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
+      <li class="nav-item pt-lookup-nav" id="btn-transaction-search" *ngIf="env.PENDING_TRACKER_EXPLANATIONS && network.val === ''">
+        <a class="nav-link" title="Transaction search" aria-label="Transaction search" [routerLink]="['/tx' | relativeUrl, '00079568fd91c81ecb530a15225e8590f4bb9c0c37eb5b3160d6daf064352d08']" (click)="collapse()"><fa-icon [icon]="['fas','exchange-alt']" [fixedWidth]="true" aria-hidden="true"></fa-icon></a>
+      </li>
+      <li class="nav-item pt-lookup-nav" id="btn-wallet-search" *ngIf="env.PENDING_TRACKER_EXPLANATIONS && network.val === ''">
+        <a class="nav-link" title="Wallet search" aria-label="Wallet search" [routerLink]="['/address' | relativeUrl, '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa']" (click)="collapse()"><fa-icon [icon]="['fas','wallet']" [fixedWidth]="true" aria-hidden="true"></fa-icon></a>
+      </li>
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="btn-home" *ngIf="network.val === '' && stateService.env.ACCELERATOR">
-        <a class="nav-link" [routerLink]="['/acceleration' | relativeUrl]" (click)="collapse()">
+        <a class="nav-link" title="Transaction acceleration" aria-label="Transaction acceleration" [routerLink]="['/acceleration' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-rocket" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item mining" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="btn-pools" *ngIf="stateService.env.MINING_DASHBOARD">
-        <a class="nav-link" [routerLink]="['/mining' | relativeUrl]" (click)="collapse()">
+        <a class="nav-link" title="Mining dashboard" aria-label="Mining dashboard" [routerLink]="['/mining' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-pickaxe" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="btn-lightning" *ngIf="stateService.networkSupportsLightning()">
-        <a class="nav-link" [routerLink]="['/lightning' | relativeUrl]" (click)="collapse()">
+        <a class="nav-link" title="Lightning explorer" aria-label="Lightning explorer" [routerLink]="['/lightning' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-bolt" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active" id="btn-blocks" *ngIf="!stateService.env.MINING_DASHBOARD">
-        <a class="nav-link" [routerLink]="['/blocks' | relativeUrl]" (click)="collapse()">
+        <a class="nav-link" title="Blocks" aria-label="Blocks" [routerLink]="['/blocks' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-cubes" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active" id="btn-graphs">
-        <a class="nav-link" [routerLink]="['/graphs' | relativeUrl]" (click)="collapse()">
+        <a class="nav-link" title="Network charts" aria-label="Network charts" [routerLink]="['/graphs' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-chart-area" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active" id="btn-faucet" *ngIf="stateService.isMempoolSpaceBuild && stateService.env.OFFICIAL_MEMPOOL_SPACE && stateService.network === 'testnet4'">
-        <a class="nav-link" [routerLink]="['/faucet' | relativeUrl]" (click)="collapse()">
+        <a class="nav-link" title="Testnet faucet" aria-label="Testnet faucet" [routerLink]="['/faucet' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-faucet-drip" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active" id="btn-docs" *ngIf="!officialMempoolSpaceBuild">
-        <a class="nav-link" [routerLink]="['/docs' | relativeUrl ]" (click)="collapse()">
+        <a class="nav-link" title="API documentation" aria-label="API documentation" [routerLink]="['/docs' | relativeUrl ]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-book" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active" id="btn-enterprise" *ngIf="officialMempoolSpaceBuild">
-        <a class="nav-link" [routerLink]="['/enterprise']" [queryParams]="{network: network.val.length ? network.val : null}" (click)="collapse()">
+        <a class="nav-link" title="Enterprise" aria-label="Enterprise" [routerLink]="['/enterprise']" [queryParams]="{network: network.val.length ? network.val : null}" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-enterprise" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active" id="btn-about">
-        <a class="nav-link" [routerLink]="['/about']" (click)="collapse()">
+        <a class="nav-link" title="About" aria-label="About" [routerLink]="['/about']" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-info-circle" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
