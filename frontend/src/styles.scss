@@ -4309,3 +4309,8 @@ body:has(app-address .pt-wallet-page) app-address .pt-wallet-page {
   .pt-wallet-address .clipboard-btn {color:#a1a1aa;}
   app-transactions-list .box {border-radius:20px;}
 }
+
+/* Isolated hierarchy trial: warm ivory labels in Transaction Snapshot only. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > span {
+  color:#f3ead8 !important;
+}
