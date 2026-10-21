@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Env, StateService } from '@app/services/state.service';
-import { Observable, merge, of, Subscription } from 'rxjs';
+import { Observable, merge, of, Subscription, firstValueFrom, timeout } from 'rxjs';
+import { ElectrsApiService } from '@app/services/electrs-api.service';
 import { LanguageService } from '@app/services/language.service';
 import { EnterpriseService } from '@app/services/enterprise.service';
 import { NavigationService } from '@app/services/navigation.service';
@@ -18,6 +19,51 @@ import { AuthServiceMempool } from '@app/services/auth.service';
 export class MasterPageComponent implements OnInit, OnDestroy {
   @Input() headerVisible = true;
   @Input() footerVisibleOverride: boolean | null = null;
+
+  lookupLoading = false;
+  lookupError = '';
+  // Public large-address selection: ChainQuery rich-list snapshot, 2026-10-18.
+  // https://chainquery.com/lists/rich-list — addresses only; no ownership claims.
+  private readonly lookupAddresses = [
+    '34xp4vRoCGJym3xR7yCVPFHoCNxv4Twseo',
+    '3M219KR5vEneNb47ewrPfWyb5jQ2DjxRP6',
+    'bc1ql49ydapnjafl5t2cp9zqpjwe6pdgmxy98859v2',
+    'bc1qgdjqv0av3q56jvd82tkdjpy7gdp9ut8tlqmgrpmv24sq90ecnvqqjwvw97',
+    'bc1qjasf9z3h7w3jspkhtgatgpyvvzgpa2wwd2lr0eh5tx44reyn2k7sfc27a4',
+    'bc1qazcm763858nkj2dj986etajv6wquslv8uxwczt',
+    'bc1qd4ysezhmypwty5dnw7c8nqy5h5nxg0xqsvaefd0qn5kq32vwnwqqgv4rzr',
+    '1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF',
+    'bc1q8yj0herd4r4yxszw3nkfvt53433thk0f5qst4g',
+    '1Ay8vMC7R1UbyCCZRVULMV7iQpHSAbguJP'
+  ];
+  private lookupAddressIndex = -1;
+  async openRecentTransaction(): Promise<void> {
+    if (this.lookupLoading) return;
+    this.lookupLoading = true;
+    this.lookupError = '';
+    try {
+      const recent = await firstValueFrom(this.electrsApiService.getRecentTransaction$().pipe(timeout(8000)));
+      for (const candidate of recent.slice(0, 5)) {
+        try {
+          const tx = await firstValueFrom(this.electrsApiService.getTransaction$(candidate.txid).pipe(timeout(4000)));
+          if (!tx.status.confirmed) {
+            await this.router.navigate(['/tx', tx.txid]);
+            this.collapse();
+            return;
+          }
+        } catch { /* A recent transaction may have been replaced or dropped. */ }
+      }
+      this.lookupError = 'No recent pending transaction is available. Paste your transaction ID into search or try again.';
+    } catch {
+      this.lookupError = 'Recent transactions are unavailable. Paste your transaction ID into search or try again.';
+    } finally { this.lookupLoading = false; }
+  }
+  openPublicWallet(): void {
+    this.lookupError = '';
+    this.lookupAddressIndex = this.lookupAddressIndex < 0 ? Math.floor(Math.random() * this.lookupAddresses.length) : (this.lookupAddressIndex + 1) % this.lookupAddresses.length;
+    this.router.navigate(['/address', this.lookupAddresses[this.lookupAddressIndex]]);
+    this.collapse();
+  }
 
   env: Env;
   network$: Observable<string>;
@@ -51,6 +97,7 @@ export class MasterPageComponent implements OnInit, OnDestroy {
     private storageService: StorageService,
     private authService: AuthServiceMempool,
     private router: Router,
+    private electrsApiService: ElectrsApiService,
   ) { }
 
   ngOnInit(): void {
