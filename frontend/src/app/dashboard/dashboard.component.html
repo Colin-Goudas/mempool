@@ -1,10 +1,22 @@
 
 <div class="container-xl dashboard-container" [class.pt-network-dashboard]="showPendingTrackerSnapshot" *ngIf="(network$ | async) !== 'liquid'; else liquidDashboard">
   <ng-container *ngIf="showPendingTrackerSnapshot">
+    <aside class="pt-ribbon-guide" aria-label="Understanding the block ribbon"><span><strong>Waiting blocks</strong> · projections that can change</span><span><strong>Recently confirmed blocks</strong> · already mined</span><small>Select a block above to see its transactions. Use the ribbon’s direction control to reverse the order.</small></aside>
     <section class="pt-network-snapshot" aria-label="Bitcoin network snapshot" *ngIf="networkSnapshot$ | async as snapshot">
       <header class="pt-network-heading"><h1>◇ Bitcoin Network Snapshot</h1><span>Bitcoin mainnet</span><label><input type="checkbox" [checked]="showNetworkFiat" (change)="showNetworkFiat = !showNetworkFiat"> Fiat values</label><small [class.pt-feed-warning]="snapshot.reconnecting">{{ snapshot.reconnecting ? 'Reconnecting · values may be stale' : 'Live feed · updated ' + snapshot.updatedAt }}</small></header>
-      <div class="pt-network-summary"><h2>◇ IN PLAIN ENGLISH</h2><p>{{ snapshot.summary }}<span *ngIf="showNetworkFiat && snapshot.exampleFee !== undefined"> A 140-vB example payment at the next-block rate would cost approximately <app-fiat [value]="snapshot.exampleFee" colorClass=""></app-fiat> at the current price; actual fees depend on transaction size.</span></p>
+      <div class="pt-network-summary"><h2>◇ IN PLAIN ENGLISH</h2><p>{{ snapshot.summary }}</p>
         <div class="pt-network-questions">
+          <span><button type="button" class="pt-send-trigger" style="anchor-name:--pt-network-send" popovertarget="pt-network-send">Sending Bitcoin?</button><div id="pt-network-send" class="pt-network-popover" style="position-anchor:--pt-network-send" popover="auto"><div class="pt-network-popup-heading"><strong>Plan your Bitcoin fee</strong><button type="button" popovertarget="pt-network-send" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
+            <p>Choose your urgency, then use your wallet’s actual transaction size for the most useful estimate.</p>
+            <label class="pt-fee-size">Payment size <select aria-label="Payment size" [value]="paymentSizePreset" (change)="setPaymentSize($any($event.target).value)"><option value="140">Simple example · 140 vB</option><option value="250">Larger example · 250 vB</option><option value="custom">Custom size</option></select></label>
+            <label *ngIf="paymentSizePreset === 'custom'" class="pt-fee-size">Virtual bytes <input aria-label="Custom virtual bytes" type="number" min="1" max="100000" [value]="paymentVbytes || ''" (input)="setCustomPaymentSize($any($event.target).value)"></label>
+            <p *ngIf="!paymentVbytes">Enter a size from 1 to 100,000 virtual bytes.</p>
+            <p *ngIf="snapshot.reconnecting" role="status">Reconnecting: retained recommendations may be out of date.</p>
+            @for (choice of snapshot.sending; track choice.label) {
+              <div class="pt-fee-choice"><strong>{{ choice.label }}</strong><span *ngIf="choice.rate !== null; else feeUnavailable">{{ choice.rate | number:'1.0-2' }} sat/vB<span *ngIf="paymentVbytes"> · {{ paymentFee(choice.rate) | number }} sats <span *ngIf="showNetworkFiat">≈ <app-fiat [value]="paymentFee(choice.rate)" colorClass=""></app-fiat></span></span></span><ng-template #feeUnavailable><span>Recommendation unavailable</span></ng-template><small>{{ choice.target }}</small></div>
+            }
+            <p>Size presets are illustrations, not measured averages. Actual fees depend on inputs, outputs and script types. USD uses the current price; wallet or exchange charges may differ. Check your wallet before sending.</p>
+          </div></span>
           @for (question of snapshot.questions; track question.id) {
             <span><button type="button" [style.anchor-name]="'--pt-network-question-' + question.id" [attr.popovertarget]="'pt-network-question-' + question.id">{{ question.label }}</button><div class="pt-network-popover" [style.position-anchor]="'--pt-network-question-' + question.id" [id]="'pt-network-question-' + question.id" popover="auto"><div class="pt-network-popup-heading"><strong>{{ question.label }}</strong><button type="button" [attr.popovertarget]="'pt-network-question-' + question.id" popovertargetaction="hide" aria-label="Close explanation">×</button></div><p>{{ question.text }}</p></div></span>
           }
