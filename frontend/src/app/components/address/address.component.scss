@@ -260,3 +260,27 @@ h1 {
   .pt-wallet-history-actions select {border:1px solid #ffffff26;border-radius:8px;background:#202024;color:#f4f4f5;padding:6px;}
   @media(max-width:600px) {.pt-wallet-pending-list > div {grid-template-columns:minmax(0,1fr) auto;}.pt-wallet-pending-list > div > a:last-child {grid-column:1/-1;}}
 }
+
+/* One horizontal identifier row and one concise summary with anchored details. */
+.pt-wallet-page {
+  .pt-wallet-heading {gap:10px 16px;align-items:baseline;margin:10px 0 14px;}
+  .pt-wallet-heading h1 {flex:0 0 auto;}
+  .pt-wallet-heading .pt-wallet-address {display:inline-flex;align-items:center;margin:0;gap:8px;min-width:0;}
+  .pt-wallet-heading .pt-wallet-fiat-toggle {margin-left:auto;align-self:center;}
+  .pt-wallet-questions {align-items:center;gap:7px;margin-top:12px;}
+  .pt-wallet-track-action {margin-left:auto;}
+  .pt-wallet-questions > .pt-wallet-track-action > .pt-wallet-track {background:var(--pt-facetry-metal);border-color:#ffffff30;color:#111113;font-weight:600;padding:6px 13px;}
+  .pt-wallet-questions .pt-wallet-pending-action {color:#d4d4d8;border-color:#ffffff26;}
+  .pt-wallet-summary .pt-wallet-watch-status {margin:9px 0 0;font-size:11px;}
+  .pt-wallet-popover.pt-wallet-pending-list {width:min(640px,calc(100vw - 32px));margin:8px 0;padding:16px;border:1px solid #ffffff26;background:#111113;}
+  .pt-wallet-pending-list > .pt-wallet-popup-heading {display:flex;grid-template-columns:none;padding:0 0 9px;}
+  .pt-wallet-pending-list > .pt-wallet-popup-heading > strong {font-size:15px;}
+  .pt-wallet-pending-list > .pt-wallet-popup-heading > button {background:transparent;border:0;color:#d4d4d8;font-size:22px;}
+  .pt-wallet-pending-list > div:not(.pt-wallet-popup-heading) {grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;}
+  .pt-wallet-pending-list > div:not(.pt-wallet-popup-heading) > a:last-child {grid-column:1/-1;justify-self:end;}
+  .pt-wallet-pending-list > p {font-size:13px;margin:11px 0;}
+  @media(max-width:767px) {
+    .pt-wallet-heading .pt-wallet-address {flex:1 1 100%;order:3;}
+    .pt-wallet-track-action {margin-left:0;}
+  }
+}
