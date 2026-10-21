@@ -4512,3 +4512,8 @@ body:has(app-transaction) app-transaction .pt-deeper.pt-dive-deeper-toggle > sum
   .pt-title-utilities {grid-column:3;grid-row:1;gap:10px;}
  }
 }
+body:has(app-transaction) app-transaction .pt-snapshot > .title-block .tx-link {
+ .truncate,.truncate-link,.first,.last-four {white-space:nowrap !important;overflow-wrap:normal !important;}
+ .truncate-link {min-width:0;}
+ .first {min-width:0;}
+}
