@@ -408,7 +408,7 @@
                     </ng-template>
                   </ng-template>
                   <ng-template #defaultOutput>
-                    <app-amount [blockConversion]="tx.price" [satoshis]="vout.value"></app-amount>
+                    <app-amount [blockConversion]="tx.price" [satoshis]="vout.value"></app-amount><small *ngIf="compactFlow && showCurrentFiat" class="pt-output-fiat">≈ <app-fiat [value]="vout.value" colorClass=""></app-fiat></small>
                   </ng-template>
                 </td>
                 <td class="arrow-td">
