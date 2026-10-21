@@ -4346,7 +4346,7 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-detai
 }
 
 /* Shared Bitcoin card hierarchy; deep explanations and card dimensions are retained. */
-body:has(app-transaction) app-transaction .pt-eight-details .pt-metric-card .pt-snapshot-fact > strong,
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > strong,
 body:has(app-address .pt-wallet-page) app-address .pt-wallet-fact-line > strong,
 body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-network-fact-line > strong {
   font-size:16px !important;font-weight:500 !important;color:#e4e4e7 !important;
