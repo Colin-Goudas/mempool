@@ -81,10 +81,10 @@
         </a>
       </li>
       <li class="nav-item pt-lookup-nav" id="btn-transaction-search" *ngIf="env.PENDING_TRACKER_EXPLANATIONS && network.val === ''">
-        <a class="nav-link" title="Transaction search" aria-label="Transaction search" [routerLink]="['/tx' | relativeUrl, '00079568fd91c81ecb530a15225e8590f4bb9c0c37eb5b3160d6daf064352d08']" (click)="collapse()"><fa-icon [icon]="['fas','exchange-alt']" [fixedWidth]="true" aria-hidden="true"></fa-icon></a>
+        <button type="button" class="nav-link pt-lookup-button" title="Transaction search" aria-label="Transaction search" [disabled]="lookupLoading" [attr.aria-busy]="lookupLoading" (click)="openRecentTransaction()"><fa-icon [icon]="['fas','exchange-alt']" [fixedWidth]="true" aria-hidden="true"></fa-icon></button>
       </li>
       <li class="nav-item pt-lookup-nav" id="btn-wallet-search" *ngIf="env.PENDING_TRACKER_EXPLANATIONS && network.val === ''">
-        <a class="nav-link" title="Wallet search" aria-label="Wallet search" [routerLink]="['/address' | relativeUrl, '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa']" (click)="collapse()"><fa-icon [icon]="['fas','wallet']" [fixedWidth]="true" aria-hidden="true"></fa-icon></a>
+        <button type="button" class="nav-link pt-lookup-button" title="Wallet search" aria-label="Wallet search" (click)="openPublicWallet()"><fa-icon [icon]="['fas','wallet']" [fixedWidth]="true" aria-hidden="true"></fa-icon></button>
       </li>
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="btn-home" *ngIf="network.val === '' && stateService.env.ACCELERATOR">
         <a class="nav-link" title="Transaction acceleration" aria-label="Transaction acceleration" [routerLink]="['/acceleration' | relativeUrl]" (click)="collapse()">
@@ -135,6 +135,7 @@
     <app-search-form [placeholder]="env.PENDING_TRACKER_EXPLANATIONS && stateService.network === '' ? 'Paste transaction ID or wallet address' : 'Explore the full Bitcoin ecosystem'" [buttonLabel]="env.PENDING_TRACKER_EXPLANATIONS && stateService.network === '' ? 'Search' : ''" [hamburgerOpen]="enterpriseInfo === null && user != null" class="search-form-container" location="top" (searchTriggered)="collapse()"></app-search-form>
   </div>
 </nav>
+<p *ngIf="lookupError" role="status" class="pt-lookup-error">{{ lookupError }}</p>
 <app-menu *ngIf="servicesEnabled" [navOpen]="menuOpen" (loggedOut)="onLoggedOut()" (menuToggled)="menuToggled($event)"></app-menu>
 </header>
 
