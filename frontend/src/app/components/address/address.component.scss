@@ -240,3 +240,23 @@ h1 {
   > br {display:none;}
   a:focus-visible,button:focus-visible,summary:focus-visible {outline:2px solid #d4d4d8;outline-offset:3px;}
 }
+
+.pt-wallet-page {
+  .pt-wallet-questions > span > .pt-wallet-track {color:#f4f4f5;border-color:#bc975f77;}
+  #pt-wallet-track > label {display:flex;align-items:center;gap:8px;font-size:13px;margin:10px 0;}
+  .pt-wallet-watch-actions {display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+  .pt-wallet-watch-actions button {border:1px solid #ffffff22;border-radius:8px;background:#ffffff08;color:#d4d4d8;font-size:12px;padding:7px 12px;}
+  .pt-wallet-watch-status {font-size:12px;line-height:1.5;color:#d6b773;margin:10px 0;}
+  .pt-wallet-pending-list {border:1px solid #bc975f30;border-radius:20px;background:var(--pt-facetry-surface);padding:12px 16px;margin:0 0 12px;}
+  .pt-wallet-pending-list header {display:flex;gap:12px;align-items:baseline;justify-content:space-between;}
+  .pt-wallet-pending-list header strong {font-size:17px;font-weight:700;color:#fafafa;}
+  .pt-wallet-pending-list small,.pt-wallet-pending-list p {font-size:11px;color:#a1a1aa;margin:5px 0;line-height:1.5;}
+  .pt-wallet-pending-list > div {display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:16px;align-items:center;border-top:1px solid #ffffff10;padding:9px 0;font-size:12px;}
+  .pt-wallet-pending-list > div > a:first-child {max-width:330px;min-width:0;}
+  .pt-wallet-pending-list > div > span small {display:block;}
+  .pt-wallet-pending-list > small {display:block;}
+  .pt-wallet-history-actions {align-items:center;flex-wrap:wrap;font-size:12px;color:#a1a1aa;}
+  .pt-wallet-history-actions label {display:flex;gap:8px;align-items:center;margin:0;}
+  .pt-wallet-history-actions select {border:1px solid #ffffff26;border-radius:8px;background:#202024;color:#f4f4f5;padding:6px;}
+  @media(max-width:600px) {.pt-wallet-pending-list > div {grid-template-columns:minmax(0,1fr) auto;}.pt-wallet-pending-list > div > a:last-child {grid-column:1/-1;}}
+}
