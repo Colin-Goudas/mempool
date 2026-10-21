@@ -1698,7 +1698,7 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
 .pt-snapshot-heading { padding: 1.1rem 1.25rem .75rem; }
 .pt-snapshot-heading h2 { margin: 0; font-size: 1.5rem; font-weight: 500; }
 .pt-snapshot-heading p { margin: .35rem 0 0; font-size: .85rem; color: var(--grey); }
-.pt-snapshot-summary { padding: 1rem 1.25rem; border-top: 1px solid #ffffff08; border-bottom: 1px solid #ffffff0d; background: #d5a04c06; line-height: 1.6; }
+.pt-snapshot-summary { padding: 1rem 1.25rem; border-top: 1px solid transparent; border-bottom: 1px solid transparent; background: transparent; line-height: 1.6; }
 .pt-snapshot-summary p { margin: 0; }
 .pt-snapshot-rows { padding: .25rem 1.25rem .5rem; }
 .pt-snapshot-row { display: grid; grid-template-columns: minmax(0, 43fr) minmax(0, 57fr); gap: 1.25rem; align-items: center; padding: .85rem .6rem; border-bottom: 1px solid #ffffff0b; }
@@ -1711,7 +1711,7 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
 .pt-deeper-heading { margin: 2rem 0 1rem; }
 .pt-deeper-heading h2 { font-size: 1.5rem; margin-bottom: .4rem; }
 .pt-deeper-heading p, .pt-deeper-intro { color: #a7aebb; font-size: .9rem; line-height: 1.6; }
-.pt-deeper { margin: .8rem 0 1.5rem; border: 1px solid #ffffff12; border-radius: 5px; background: #181d2b; }
+.pt-deeper { margin: .8rem 0 1.5rem; border: 1px solid transparent; border-radius: 5px; background: transparent; }
 .pt-deeper > summary { cursor: pointer; padding: 1rem 1.25rem; font-size: 1rem; color: #e2bc78; }
 .pt-deeper > summary span { float: right; font-size: .75rem; color: #a7aebb; margin-top: .2rem; }
 .pt-deeper > summary:focus-visible { outline: 2px solid #d5a04c; outline-offset: 2px; }
@@ -2238,10 +2238,10 @@ app-transaction .pt-additional-fact summary {color:#e6b65d;cursor:pointer}
 }
 
 /* Visual fidelity pass: concise dashboard cards, cohesive transaction flow and details. */
-app-transaction .pt-snapshot-panel {padding:12px 13px;border-color:rgba(205,154,67,.35);background:rgba(15,27,40,.66)}
+app-transaction .pt-snapshot-panel {padding:12px 13px;border-color:transparent;background:transparent}
 app-transaction .pt-snapshot-panel .pt-snapshot-summary {padding:10px 13px;margin-bottom:10px;/* baseline: removed background */border-bottom-color:rgba(200,153,78,.13)}
 app-transaction .pt-snapshot-panel .pt-snapshot-rows.pt-six-card-grid {gap:8px}
-app-transaction .pt-six-card-grid .pt-metric-card {padding:12px 10px !important;gap:7px;min-height:136px;background:rgba(20,35,50,.76) !important;border-color:rgba(167,186,204,.13) !important}
+app-transaction .pt-six-card-grid .pt-metric-card {padding:12px 10px !important;gap:7px;min-height:136px;background:transparent !important;border-color:rgba(167,186,204,.13) !important}
 app-transaction .pt-six-card-grid .pt-metric-card .pt-snapshot-fact {gap:6px}
 app-transaction .pt-six-card-grid .pt-metric-card .pt-snapshot-fact strong {font-size:clamp(.88rem,1.15vw,1.06rem);line-height:1.35}
 app-transaction .pt-six-card-grid .pt-metric-card .pt-snapshot-meaning {gap:6px;font-size:.74rem}
