@@ -420,46 +420,66 @@
 
 
 // Keep the existing explorer tools intact below the mainnet summary.
+
+/* The approved transaction template, applied to network-level content. */
 .pt-network-dashboard {
-  .pt-snapshot,
-  .pt-explore-heading {
-    text-align: left;
+  text-align:left;margin-top:10px;padding-bottom:56px;color:#f4f4f5;
+  .pt-network-heading {display:flex;gap:12px 20px;align-items:center;flex-wrap:wrap;margin:10px 0;}
+  .pt-network-heading h1,.pt-network-section-heading h2 {font-size:24px;line-height:1.12;font-weight:600;letter-spacing:-.035em;color:#f4f4f5;margin:0;}
+  .pt-network-heading > span {font-size:10px;color:#bc975f;}
+  .pt-network-heading label {display:flex;align-items:center;gap:5px;font-size:10px;color:#a1a1aa;margin:0;}
+  .pt-network-heading small {font-size:10px;color:#a1a1aa;margin-left:auto;}
+  .pt-network-heading small.pt-feed-warning {color:#d6b773;}
+  .pt-network-summary {border:1px solid #ffffff12;border-left:2px solid #bc975f;border-radius:20px;background:radial-gradient(100% 180% at 0% 0%,rgba(188,151,95,.08),rgba(255,255,255,.015) 70%);padding:14px 18px;margin-bottom:12px;}
+  .pt-network-summary h2 {font-size:12px;font-weight:650;letter-spacing:.09em;color:#f4f4f5;margin:0 0 7px;}
+  .pt-network-summary p {font-size:14px;line-height:1.55;color:#d4d4d8;margin:0;}
+  .pt-network-questions {display:flex;flex-wrap:wrap;gap:7px;margin-top:11px;}
+  .pt-network-questions > span > button {border:1px solid #ffffff20;border-radius:999px;background:#ffffff05;color:#c7b18a;padding:5px 11px;font-size:11px;line-height:1.4;}
+  .pt-network-questions > span > button:hover,.pt-network-questions > span > button:has(+ :popover-open) {color:#f0cf92;border-color:#bc975f88;background:#bc975f16;}
+  .pt-network-facts {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+  .pt-network-fact {min-height:90px;min-width:0;padding:12px 16px;border-radius:20px;border:1px solid rgba(255,255,255,.045);background:var(--pt-facetry-surface);box-shadow:var(--pt-facetry-shadow);}
+  .pt-network-fact-line {display:flex;flex-wrap:wrap;gap:0 6px;align-items:baseline;margin-bottom:5px;}
+  .pt-network-fact-line > span {font-size:17px;font-weight:700;line-height:1.2;color:#fafafa;}
+  .pt-network-fact-line > strong {font-size:15px;font-weight:500;line-height:1.25;color:#d4d4d8;}
+  .pt-network-fact > small {display:block;font-size:11px;color:#a1a1aa;margin:2px 0;}
+  .pt-network-meaning {display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end;}
+  .pt-network-meaning p {font-size:12.5px;line-height:1.45;color:#a1a1aa;margin:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;max-height:2.9em;overflow:hidden;}
+  .pt-network-meaning > button {border:0;background:transparent;color:#a1a1aa;font-size:11px;padding:0;min-height:24px;white-space:nowrap;}
+  .pt-network-fact:hover {border-color:#ffffff20;background-color:#ffffff04;}
+  .pt-network-popover {position:fixed;inset:0;margin:auto;width:min(480px,calc(100vw - 32px));max-height:min(65dvh,480px);overflow:auto;padding:16px;border:1px solid #ffffff26;border-radius:16px;background:#111113;color:#d4d4d8;box-shadow:0 14px 50px #000a;z-index:2100;}
+  .pt-network-popup-heading {display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid #ffffff14;padding-bottom:9px;}
+  .pt-network-popup-heading strong {font-size:15px;color:#f4f4f5;}
+  .pt-network-popup-heading button {border:0;background:transparent;color:#d4d4d8;font-size:22px;line-height:1;}
+  .pt-network-popover p {font-size:13px;line-height:1.6;color:#d4d4d8;margin:11px 0;}
+  .pt-network-popover::backdrop {background:transparent;}
+  .pt-network-section-heading {width:100%;flex:0 0 100%;margin:26px 0 10px;padding:0 12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 12px;}
+  .pt-network-section-heading p {font-size:13px;color:#a1a1aa;margin:0;}
+  > .row > .col {width:50%;flex:0 0 50%;max-height:none !important;margin-bottom:10px;min-width:0;}
+  .pt-network-deeper {width:100%;flex:0 0 100%;padding:0 12px;margin-bottom:12px;}
+  .pt-network-deeper .pt-network-section-heading {padding:0;}
+  .graph-card {height:420px;min-height:0;}
+  .card {border-radius:24px;border:1px solid #ffffff12;background:var(--pt-facetry-surface);box-shadow:var(--pt-facetry-shadow);overflow:hidden;}
+  .card-body {padding:16px !important;}
+  .main-title,.card-title {font-size:17px;font-weight:700;color:#fafafa;text-align:left;}
+  .main-title {margin:0 0 10px;}
+  .pt-widget-explanation {font-size:12px;color:#a1a1aa;line-height:1.5;margin:6px 0 10px;text-align:left;}
+  .mempool-block-wrapper {width:min(270px,100%);max-width:270px;max-height:270px;margin:0 auto;}
+  .mempool-info-data {text-align:center;}
+  .mempool-info-data .card-title {font-size:12px;text-align:center;}
+  .mempool-info-data .card-text {font-size:14px;}
+  table {font-size:12px;margin-bottom:0;}
+  .pt-fee-widget,.pt-difficulty-widget {margin-top:8px;}
+  @media(max-width:767px) {
+    > .row > .col {width:100%;flex:0 0 100%;}
+    .pt-network-facts {grid-template-columns:minmax(0,1fr);}
+    .graph-card {height:auto;min-height:380px;}
+    .pt-network-heading small {margin-left:0;}
+    .pt-network-heading h1,.pt-network-section-heading h2 {font-size:22px;}
   }
-
-  .pt-explore-heading {
-    margin: 2.25rem 0 1.5rem;
-    h2 {
-      color: var(--title-fg);
-      font-size: 1.35rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
-    p {
-      color: var(--transparent-fg);
-      font-size: 0.9rem;
-      line-height: 1.6;
-      margin: 0;
-    }
-  }
-
-  > .row > .col {
-    width: 100%;
-    flex: 0 0 100%;
-    max-height: none !important;
-  }
-
-  .graph-card {
-    height: auto;
-    min-height: 0;
-  }
-
-  .card {
-    border-color: rgba(195, 159, 87, 0.12);
-  }
-
-  @media (max-width: 575px) {
-    .pt-explore-heading {
-      margin-top: 1.75rem;
-    }
-  }
+}
+@supports(position-area:bottom) {
+  .pt-network-dashboard .pt-network-popover {inset:auto;margin:8px 0;position-area:bottom span-right;position-try-fallbacks:flip-inline,flip-block;}
+}
+.dashboard-container:not(.pt-network-dashboard) {
+  .pt-fee-widget,.pt-difficulty-widget {order:-1;}
 }
