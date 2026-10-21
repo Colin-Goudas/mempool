@@ -56,7 +56,8 @@
     @if (tx && network === '' && stateService.env.PENDING_TRACKER_EXPLANATIONS) {
       <div class="pt-snapshot-summary pt-summary-compact">
         <h2 class="pt-summary-heading">IN PLAIN ENGLISH</h2>
-        <p class="pt-summary-narrative"><strong>{{ summaryStatus() }}</strong> {{ summaryContext(ETA$ | async) }}
+        <p class="pt-summary-outcome">{{ summaryStatus() }}</p>
+        <p class="pt-summary-narrative">{{ summaryContext(ETA$ | async) }}
           {{ selectedAddress ? 'Outputs to the selected address total' : 'Its outputs total' }} <strong>{{ displayAmountSats / 100000000 | number:'1.8-8' }} BTC</strong><span *ngIf="showUsd"> (approximately <app-fiat [value]="displayAmountSats" colorClass=""></app-fiat> at the current price)</span>{{ selectedAddress ? '.' : ', which may include change returned to the sender.' }}
         </p>
         <p class="pt-next-step"><span>Next step</span> {{ nextStep((stateService.connectionState$ | async) === 2) }}</p>
