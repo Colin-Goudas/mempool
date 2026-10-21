@@ -4732,3 +4732,9 @@ body:has(app-address) app-address .pt-wallet-page .pt-wallet-heading {
  h1 {align-self:end !important;margin:0 !important;padding:0 !important;line-height:1.05 !important;}
 }
 body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block .tx-link {align-self:end !important;}
+
+/* Align snapshot identity text to the same 15px inset as briefing and facts. */
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block,
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-network-heading,
+body:has(app-address) app-address .pt-wallet-page .pt-wallet-heading {padding-left:15px !important;}
+body:has(app-transaction) app-transaction .pt-snapshot-summary .pt-summary-btc-amount {white-space:nowrap;}
