@@ -187,6 +187,10 @@ const regtestRoutes: Routes = browserWindowEnv.REGTEST_ENABLED ? [
 ] : [];
 
 let routes: Routes = [
+  {
+    path: 'welcome',
+    loadComponent: () => import('@components/pending-home/pending-home.component').then(m => m.PendingHomeComponent),
+  },
   ...testnetRoutes,
   ...testnet4Routes,
   ...signetRoutes,
