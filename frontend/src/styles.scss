@@ -1668,7 +1668,7 @@ form label:not(.form-check-label):not(.btn) {
 .pending-tracker-banner {
   display: flex; align-items: center; gap: .75rem 1.25rem; flex-wrap: wrap;
   padding: 1rem max(1rem, calc((100% - 1320px) / 2));
-  border-bottom: 1px solid #d5a04c1f; color: #939aa6; font-size: .8rem;
+  border-bottom: 1px solid transparent; color: #939aa6; font-size: .8rem;
   /* baseline: removed background */
 }
 .pending-tracker-banner strong { color: #e8b45b; font-size: 1.05rem; letter-spacing: .035em; }
@@ -1685,7 +1685,7 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
 /* Pending Tracker snapshots: the same paired, stacked rows at every width. */
 .pt-snapshot {
   /* baseline: removed background */
-  border: 1px solid #d5a04c26;
+  border: 1px solid transparent;
   border-radius: 6px;
   margin: 0 0 1.5rem;
   overflow: hidden;
@@ -1701,13 +1701,13 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
 .pt-snapshot-summary { padding: 1rem 1.25rem; border-top: 1px solid transparent; border-bottom: 1px solid transparent; background: transparent; line-height: 1.6; }
 .pt-snapshot-summary p { margin: 0; }
 .pt-snapshot-rows { padding: .25rem 1.25rem .5rem; }
-.pt-snapshot-row { display: grid; grid-template-columns: minmax(0, 43fr) minmax(0, 57fr); gap: 1.25rem; align-items: center; padding: .85rem .6rem; border-bottom: 1px solid #ffffff0b; }
+.pt-snapshot-row { display: grid; grid-template-columns: minmax(0, 43fr) minmax(0, 57fr); gap: 1.25rem; align-items: center; padding: .85rem .6rem; border-bottom: 1px solid transparent; }
 .pt-snapshot-row:nth-child(odd) { /* baseline: removed background */ }
 .pt-snapshot-row:last-child { border-bottom: 0; }
 .pt-snapshot-fact { min-width: 0; display: flex; justify-content: space-between; align-items: baseline; gap: .65rem; flex-wrap: wrap; }
 .pt-snapshot-fact > span { font-size: .86rem; color: #b8bdc8; }
 .pt-snapshot-fact strong { font-size: .95rem; font-weight: 550; color: #edeef2; overflow-wrap: anywhere; }
-.pt-snapshot-meaning { min-width: 0; margin: 0; padding-left: 1.25rem; border-left: 1px solid #d5a04c29; color: #b1b7c2; font-size: .86rem; line-height: 1.55; overflow-wrap: anywhere; }
+.pt-snapshot-meaning { min-width: 0; margin: 0; padding-left: 1.25rem; border-left: 1px solid transparent; color: #b1b7c2; font-size: .86rem; line-height: 1.55; overflow-wrap: anywhere; }
 .pt-deeper-heading { margin: 2rem 0 1rem; }
 .pt-deeper-heading h2 { font-size: 1.5rem; margin-bottom: .4rem; }
 .pt-deeper-heading p, .pt-deeper-intro { color: #a7aebb; font-size: .9rem; line-height: 1.6; }
@@ -1739,7 +1739,7 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
 .pt-snapshot-meaning > p { margin: 0; }
 .pt-row-more { margin-top: .35rem; }
 .pt-row-more > summary { color: #d8b779; cursor: pointer; font-size: .75rem; list-style-position: inside; }
-.pt-row-more > p { margin: .55rem 0 0; padding: .6rem 0 .15rem; border-top: 1px solid #ffffff0c; color: #c3c8d1; font-size: .84rem; line-height: 1.65; }
+.pt-row-more > p { margin: .55rem 0 0; padding: .6rem 0 .15rem; border-top: 1px solid transparent; color: #c3c8d1; font-size: .84rem; line-height: 1.65; }
 .pt-row-more > summary:focus-visible { outline: 2px solid #d5a04c; outline-offset: 3px; }
 .pt-deeper > p { padding: .25rem 1.25rem; line-height: 1.65; color: #b1b7c2; }
 @media (max-width: 575px) { .pt-row-more > p { font-size: .76rem; } .pt-row-more > summary { font-size: .71rem; } }
@@ -1766,7 +1766,7 @@ app-transaction .pt-deeper,
 app-transaction .box,
 app-transaction .graph-container {
   /* baseline: removed background */
-  border: 1px solid rgba(222, 173, 92, .19);
+  border: 1px solid transparent;
   border-radius: 14px;
   /* baseline: removed box-shadow */
 }
@@ -1807,7 +1807,7 @@ app-transaction .pt-snapshot-summary {
   margin: .15rem 1.3rem .5rem;
   padding: 1.4rem 1.6rem;
   /* baseline: removed background */
-  border: 1px solid rgba(235, 172, 65, .62);
+  border: 1px solid transparent;
   border-radius: 12px;
   /* baseline: removed box-shadow */
   color: #e2e4e9;
@@ -1830,7 +1830,7 @@ app-transaction .pt-snapshot-rows {
 }
 app-transaction .pt-snapshot-row {
   /* baseline: removed background */
-  border-bottom: 1px solid var(--pt-line);
+  border-bottom: 1px solid transparent;
   padding: 1rem .55rem;
   gap: 1.35rem;
 }
@@ -1861,7 +1861,7 @@ app-transaction .pt-snapshot-fact > span { color: #b7bfcc; font-size: .88rem; }
 app-transaction .pt-snapshot-fact strong { color: #f2f2f4; font-size: 1.03rem; font-weight: 650; }
 app-transaction .pt-snapshot-row:nth-child(5) .pt-snapshot-fact strong { color: #efba55; }
 app-transaction .pt-snapshot-meaning {
-  border-left: 1px solid rgba(221, 171, 87, .2);
+  border-left: 1px solid transparent;
   color: #c0c7d2;
   line-height: 1.65;
 }
@@ -1947,7 +1947,7 @@ app-transaction .pt-snapshot > .title-block .container-buttons { margin-left: au
 app-transaction .pt-snapshot-summary {
   margin: 0 0 .55rem;
   padding: 1.15rem 1.4rem 1.25rem;
-  border: 1px solid rgba(224, 190, 127, .12);
+  border: 1px solid transparent;
   border-radius: 10px;
   /* baseline: removed background */
   /* baseline: removed box-shadow */
@@ -2114,7 +2114,7 @@ app-transaction .pt-technical-group {
   gap: .85rem;
   align-items: start;
   padding: .62rem .2rem;
-  border-bottom: 1px solid rgba(204,212,219,.105);
+  border-bottom: 1px solid transparent;
 }
 app-transaction .pt-technical-group:last-child { border-bottom: 0; }
 app-transaction .pt-group-title { color: #f0f2f3; font-size: 1rem; font-weight: 660; }
@@ -2124,10 +2124,10 @@ app-transaction .pt-group-description > p { margin: 0; }
 app-transaction .pt-group-expanded {
   margin: .5rem 0 .25rem;
   padding: .45rem .7rem;
-  border-left: 1px solid rgba(201,161,95,.35);
+  border-left: 1px solid transparent;
   /* baseline: removed background */
 }
-app-transaction .pt-group-fact { padding: .5rem 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+app-transaction .pt-group-fact { padding: .5rem 0; border-bottom: 1px solid transparent; }
 app-transaction .pt-group-fact:last-child { border-bottom: 0; }
 app-transaction .pt-group-fact-heading { display: flex; gap: .75rem; justify-content: space-between; color: #e4e8ed; }
 app-transaction .pt-group-fact p { margin: .25rem 0; }
@@ -2146,7 +2146,7 @@ app-transaction .pt-group-fact p { margin: .25rem 0; }
    Scoped to Angular transaction page, never the mempool block visualization. */
 app-transaction .pt-snapshot > .title-block { padding: .7rem 0 .85rem; }
 app-transaction .pt-snapshot-panel {
-  border: 1px solid rgba(225,166,66,.55);
+  border: 1px solid transparent;
   border-radius: 13px;
   padding: 14px;
   /* baseline: removed background */
@@ -2155,7 +2155,7 @@ app-transaction .pt-snapshot-panel {
 app-transaction .pt-snapshot-panel .pt-snapshot-summary {
   margin: 0 0 12px;
   border: 0;
-  border-bottom: 1px solid rgba(221,168,76,.22);
+  border-bottom: 1px solid transparent;
   border-radius: 8px;
   /* baseline: removed background */
   padding: 13px 15px;
@@ -2173,7 +2173,7 @@ app-transaction .pt-six-card-grid .pt-metric-card {
   gap: 9px;
   padding: 14px 11px !important;
   min-width: 0;
-  border: 1px solid rgba(183,201,215,.14) !important;
+  border: 1px solid transparent !important;
   border-radius: 9px;
   /* baseline: removed background */
 }
@@ -2221,7 +2221,7 @@ app-transaction .pt-eight-details .pt-snapshot-fact > span {font-size:.89rem}
 app-transaction .pt-eight-details .pt-snapshot-fact strong {font-size:.83rem;overflow-wrap:anywhere}
 app-transaction .pt-eight-details .pt-snapshot-meaning {font-size:.75rem}
 app-transaction .pt-additional-facts {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
-app-transaction .pt-additional-fact {border-bottom:1px solid rgba(204,212,219,.14);padding:10px 4px;font-size:.82rem}
+app-transaction .pt-additional-fact {border-bottom:1px solid transparent;padding:10px 4px;font-size:.82rem}
 app-transaction .pt-additional-fact strong {display:inline-block;min-width:40%;color:#f0f2f3}
 app-transaction .pt-additional-fact span {color:#e4bd77}
 app-transaction .pt-additional-fact p {margin:5px 0;color:#aab4be}
@@ -2284,7 +2284,7 @@ app-transaction .pt-eight-card-grid .pt-metric-card {
   min-height: 92px;
   gap: 8px !important;
   padding: 13px 14px !important;
-  border: 1px solid rgba(167,186,204,.13) !important;
+  border: 1px solid transparent !important;
   border-radius: 7px;
   /* baseline: removed background */
 }
@@ -2456,7 +2456,7 @@ app-transaction .pt-snapshot-detail-popover {
   padding: 19px 21px;
   color: #d6dde4;
   /* baseline: removed background */
-  border: 1px solid rgba(209,162,87,.5);
+  border: 1px solid transparent;
   border-radius: 11px;
   /* baseline: removed box-shadow */
   font-size: .88rem;
@@ -2472,7 +2472,7 @@ app-transaction .pt-snapshot-popover-heading {
   gap: 15px;
   padding-bottom: 11px;
   margin-bottom: 11px;
-  border-bottom: 1px solid rgba(192,205,218,.13);
+  border-bottom: 1px solid transparent;
 }
 app-transaction .pt-snapshot-popover-heading strong {
   font-size: 1rem;
@@ -2595,7 +2595,7 @@ app-transaction .pt-eight-card-grid .pt-snapshot-detail-popover::backdrop {
    More specific than the legacy pt-eight-details rules above. */
 app-transaction .pt-eight-details.pt-snapshot-panel {
   padding: 12px 13px;
-  border: 1px solid rgba(205,154,67,.35);
+  border: 1px solid transparent;
   border-radius: 10px;
   /* baseline: removed background */
 }
@@ -2608,7 +2608,7 @@ app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metr
   display: block !important;
   min-height: 0 !important;
   padding: 11px 13px !important;
-  border: 1px solid rgba(167,186,204,.075) !important;
+  border: 1px solid transparent !important;
   border-radius: 7px;
   /* baseline: removed background */
 }
@@ -2720,7 +2720,7 @@ app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-mean
   --pt-panel: #20272e;
   --pt-card-top: #343a40;
   --pt-card-bottom: #1b2229;
-  --pt-silver-border: rgba(198,205,212,.15);
+  --pt-silver-border: transparent;
   --pt-silver-top: rgba(227,232,237,.26);
   --pt-gold: #c99a4a;
   --pt-foreground: #edf0f2;
@@ -2757,7 +2757,7 @@ body:has(app-transaction) app-transaction .pt-deeper::after {
 body:has(app-transaction) app-transaction .pt-snapshot-panel,
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel {
   /* baseline: removed background */
-  border: 1px solid rgba(194,208,221,.16) !important;
+  border: 1px solid transparent !important;
   /* baseline: removed box-shadow */
 }
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary {
@@ -2768,7 +2768,7 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summar
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card,
 body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
   /* baseline: removed background */
-  border: 1px solid var(--pt-silver-border) !important;
+  border: 1px solid transparent !important;
   /* baseline: removed border-top-color */
   /* baseline: removed border-left-color */
   /* baseline: removed box-shadow */
@@ -2929,8 +2929,8 @@ body:has(app-transaction) app-transaction .pt-deeper > summary .pt-heading-chevr
   flex: 0 0 8px;
   margin-left: auto;
   margin-right: 4px;
-  border-right: 1.7px solid #c99a4a;
-  border-bottom: 1.7px solid #c99a4a;
+  border-right: 1.7px solid transparent;
+  border-bottom: 1.7px solid transparent;
   transform: rotate(45deg);
   transition: transform .18s ease;
 }
@@ -2947,7 +2947,7 @@ body:has(app-transaction) app-transaction .pt-flow-section {
   margin-bottom: 0 !important;
 }
 body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-visual {
-  border: 1px solid rgba(198,205,212,.14) !important;
+  border: 1px solid transparent !important;
   border-bottom: 0 !important;
   border-radius: 10px 10px 0 0 !important;
   /* baseline: removed background */
@@ -2955,18 +2955,18 @@ body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-visual {
   margin: 7px 0 0 !important;
 }
 body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-content {
-  border: 1px solid rgba(198,205,212,.14);
+  border: 1px solid transparent;
   border-top: 0;
   border-radius: 0 0 10px 10px;
   /* baseline: removed background */
   padding: 8px 10px 12px;
 }
 body:has(app-transaction) app-transaction .pt-flow-section:not(:has(.pt-flow-visual)) .pt-flow-content {
-  border-top: 1px solid rgba(198,205,212,.14);
+  border-top: 1px solid transparent;
   border-radius: 10px;
 }
 body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-content .subtitle-block {
-  border-top: 1px solid rgba(198,205,212,.12);
+  border-top: 1px solid transparent;
   padding-top: 8px;
   margin-top: 0 !important;
   margin-bottom: 6px !important;
@@ -3041,7 +3041,7 @@ body:has(app-transaction) app-transaction .pt-deeper:not(.pt-dive-deeper-toggle)
 
 /* Pending Tracker unified transaction flow panel */
 body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified {
-  border: 1px solid rgba(198,205,212,.16);
+  border: 1px solid transparent;
   border-radius: 10px;
   /* baseline: removed background */
   overflow: hidden;
@@ -3057,7 +3057,7 @@ body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-unified .pt-
   padding: 0 !important;
 }
 body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-unified .pt-flow-content .subtitle-block {
-  border-top: 1px solid rgba(198,205,212,.13);
+  border-top: 1px solid transparent;
   margin-top: 6px !important;
   padding-top: 10px;
 }
@@ -3120,7 +3120,7 @@ app-transaction .pt-flow-section > .pt-flow-header .flow-toggle {
   align-self: center;
 }
 app-transaction .pt-flow-section > .pt-flow-unified {
-  border: 1px solid rgba(198,205,212,.18);
+  border: 1px solid transparent;
   border-radius: 10px;
   /* baseline: removed background */
   padding: 10px 12px 12px;
@@ -3183,7 +3183,7 @@ app-transaction .pt-flow-preview-stream { width: 100%; min-width: 0; }
 app-transaction .pt-flow-preview-stream svg { display: block; width: 100%; height: 164px; }
 app-transaction .pt-flow-preview-output {
  display: flex; flex-direction: column; gap: 5px; padding: 10px 12px;
- border: 1px solid rgba(197,207,217,.16); border-radius: 9px;
+ border: 1px solid transparent; border-radius: 9px;
  /* baseline: removed background */
 }
 @media(max-width:767px) {
@@ -3235,7 +3235,7 @@ app-transaction .pt-flow-section .pt-flow-table-headings {
   color: #cbd4dd;
   font-size: .81rem;
   font-weight: 700;
-  border-bottom: 1px solid rgba(198,205,212,.16);
+  border-bottom: 1px solid transparent;
 }
 app-transaction .pt-flow-section .pt-flow-table-headings span:nth-child(2),
 app-transaction .pt-flow-section .pt-flow-table-headings span:nth-child(4) { text-align: right; }
@@ -3316,7 +3316,7 @@ app-transaction .pt-flow-section .pt-flow-table-headings {
   font-size: clamp(.87rem,1.2vw,1.04rem) !important;
   font-weight: 700 !important;
   color: #edf1f5 !important;
-  border-bottom: 1px solid rgba(190,203,213,.15) !important;
+  border-bottom: 1px solid transparent !important;
 }
 app-transaction .pt-flow-section .pt-flow-heading-half {
   display: grid;
@@ -3347,7 +3347,7 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel {
   border-radius: 0 !important;
 }
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary {
-  border: 1px solid rgba(180,194,205,.18) !important;
+  border: 1px solid transparent !important;
   border-radius: 10px !important;
   /* baseline: removed box-shadow */
   margin: 0 0 8px !important;
