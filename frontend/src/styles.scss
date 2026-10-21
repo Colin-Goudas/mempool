@@ -4116,7 +4116,7 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel:is(.pt-snapshot-pan
   .pt-snapshot-fact {display:flex !important;flex-direction:row !important;flex-wrap:wrap !important;align-items:baseline !important;justify-content:flex-start !important;gap:0 6px !important;margin-bottom:5px !important;}
   .pt-snapshot-fact > span {font-size:17px !important;line-height:1.2 !important;font-weight:700 !important;color:#fafafa !important;margin:0 !important;}
   .pt-snapshot-fact > span::after {content:":" !important;}
-  .pt-snapshot-fact > strong {font-size:17px !important;line-height:1.2 !important;font-weight:600 !important;color:#d4d4d8 !important;margin:0 !important;}
+  .pt-snapshot-fact > strong {font-size:15px !important;line-height:1.25 !important;font-weight:500 !important;color:#d4d4d8 !important;margin:0 !important;}
 }
 body:has(app-transaction) app-transaction {
   .pt-flow-label-rule {display:none !important;}
