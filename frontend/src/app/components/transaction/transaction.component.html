@@ -69,8 +69,26 @@
                   <p *ngIf="helpRole === 'sent'">Check your sending wallet for Increase fee or Replace by fee. Availability depends on wallet support, control of the inputs and node policy; signaling RBF does not guarantee acceptance or confirmation.</p>
                   <p *ngIf="helpRole === 'receiving'">Ask the sender about fee-increase options. Some wallets support spending a suitable unconfirmed output with a higher fee (CPFP); this needs control of that output and wallet support. You cannot assume you can replace the sender’s transaction.</p>
                   <p *ngIf="helpRole === 'exchange'">The sending platform controls the withdrawal. Check its withdrawal status or official support; you usually cannot increase its fee yourself.</p>
-                  <button type="button" class="pt-alert-control" *ngIf="!replaced && !rbfTransaction" (click)="toggleConfirmationAlert()">{{ alertTxid === tx.txid ? 'Turn off confirmation alert' : 'Notify me when confirmed' }}</button><small class="pt-update-note">Alerts require permission and this page to remain open and connected.</small><p *ngIf="alertMessage" role="status">{{ alertMessage }}</p>
+
                 }
+              </div>
+            </span>
+          }
+          @if (!replaced && !rbfTransaction && !rbfInfo?.mined) {
+            <span class="pt-summary-question">
+              <button type="button" class="pt-notification-action" style="anchor-name:--pt-confirmation-alert" popovertarget="pt-confirmation-alert">{{ confirmationAlertLabel }}</button>
+              <div id="pt-confirmation-alert" class="pt-question-popover" style="position-anchor:--pt-confirmation-alert" popover="auto">
+                <div class="pt-question-heading"><strong>Track confirmations</strong><button type="button" popovertarget="pt-confirmation-alert" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
+                <p><strong>Current: {{ confirmationCount }} {{ confirmationCount === 1 ? 'confirmation' : 'confirmations' }} · Alert target: {{ confirmationTarget }}</strong></p>
+                <progress class="pt-confirmation-progress" [value]="confirmationCount" [max]="confirmationTarget" aria-label="Progress toward confirmation tracking target"></progress>
+                <p>{{ tx.status.confirmed ? 'This transaction is already confirmed.' : 'The transaction is waiting for its first confirmation.' }} A receiving wallet or exchange may require additional confirmations before crediting it. Six is an example target, not a universal requirement; check your receiving platform.</p>
+                <label class="pt-target-select" for="pt-confirmation-target">Notify me at<select id="pt-confirmation-target" [value]="confirmationTarget" (change)="selectedAlertTarget = +$any($event.target).value; alertMessage = ''"><option value="1">1 confirmation</option><option value="2">2 confirmations</option><option value="3">3 confirmations</option><option value="6">6 confirmations</option><option value="12">12 confirmations</option><option value="24">24 confirmations</option><option value="100">100 confirmations</option></select></label>
+                <p *ngIf="confirmationCount >= confirmationTarget">This target has already been reached. Choose a higher target to set a new alert.</p>
+                <button type="button" class="pt-alert-control" [disabled]="confirmationCount >= confirmationTarget || alertRequestPending" (click)="enableConfirmationAlert()">{{ alertRequestPending ? 'Requesting permission…' : alertTxid === tx.txid ? 'Update alert target' : 'Enable confirmation alert' }}</button>
+                <button type="button" class="pt-alert-control" *ngIf="alertTxid === tx.txid" (click)="cancelConfirmationAlert()">Turn off alert</button>
+                <small class="pt-update-note">Desktop alerts require browser permission and this page to stay open and connected. Alerts stop when you leave or reload. No account is required.</small>
+                <p *ngIf="alertTxid === tx.txid">Active alert: {{ confirmationCount }} of {{ activeAlertTarget }} confirmations.</p>
+                <p *ngIf="alertMessage" role="status">{{ alertMessage }}</p>
               </div>
             </span>
           }
