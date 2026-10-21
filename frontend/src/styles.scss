@@ -4200,3 +4200,12 @@ body:has(app-transaction) app-transaction {
 @supports (position-area:bottom) {
   body:has(app-transaction) app-transaction .pt-question-popover {inset:auto;margin:8px 0;position-area:bottom span-right;position-try-fallbacks:flip-inline,flip-block;}
 }
+
+body:has(app-transaction) app-transaction {
+  .pt-summary-question > button.pt-notification-action {border-color:#bc975f99;color:#e3c48d;background:#bc975f10;}
+  .pt-confirmation-progress {width:100%;height:7px;accent-color:#bc975f;display:block;margin:10px 0;}
+  .pt-target-select {display:flex;align-items:center;gap:10px;font-size:12px;margin:12px 0;color:#d4d4d8;}
+  .pt-target-select select {padding:7px 10px;border:1px solid #ffffff30;border-radius:9px;background:#202023;color:#f4f4f5;font-size:12px;}
+  .pt-alert-control:disabled {opacity:.45;cursor:default;}
+  .pt-alert-control + .pt-alert-control {margin-left:7px;}
+}
