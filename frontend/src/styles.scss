@@ -4209,3 +4209,52 @@ body:has(app-transaction) app-transaction {
   .pt-alert-control:disabled {opacity:.45;cursor:default;}
   .pt-alert-control + .pt-alert-control {margin-left:7px;}
 }
+
+/* FACETRY SECURITY — network explorer shares approved transaction design tokens. */
+body:has(app-dashboard .pt-network-dashboard) {
+  --pt-facetry-metal: linear-gradient(180deg,#fbfbfb 0%,#e4e4e4 18%,#cccbcb 55%,#9e9d9d 100%);
+  --pt-facetry-surface: radial-gradient(130% 130% at 50% 0%,rgba(255,255,255,.05) 0%,rgba(255,255,255,.01) 60%,rgba(0,0,0,.4) 100%);
+  --pt-facetry-shadow: inset 0 1px 0 rgba(255,255,255,.12),inset 0 0 0 1px rgba(255,255,255,.04),0 30px 60px -12px rgba(0,0,0,.95);
+  --pt-warm:#d4d4d8; --pt-muted:#a1a1aa;
+  --link-color:#d4d4d8; --link-hover-color:#fff;
+  background: #000;
+  color:#f4f4f5;
+  font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  isolation:isolate;
+}
+body:has(app-dashboard .pt-network-dashboard)::before {
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:repeating-linear-gradient(135deg,#0e0f10 0px,#0e0f10 60px,rgba(14,15,16,.6) 70px,#18191b 130px);
+  opacity:.7;
+}
+body:has(app-dashboard .pt-network-dashboard)::after {
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:radial-gradient(circle at 50% 30%,rgba(24,24,27,.35) 0%,rgba(9,9,11,.72) 38%,rgba(0,0,0,.96) 100%);
+}
+
+body:has(app-dashboard .pt-network-dashboard) {
+  --bg:#09090b;--secondary:#18181b;--title-fg:#f4f4f5;--fg:#d4d4d8;--transparent-fg:#a1a1aa;
+  .navbar {background:#101112 !important;border-bottom:1px solid #ffffff0d;}
+  .navbar .pending-tracker-wordmark {color:#f4f4f5;font-size:17px;letter-spacing:-.015em;}
+}
+body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-network-dashboard {
+  font-family:inherit;
+  .card,.card-body {color:#d4d4d8;}
+  a {color:#d4d4d8;}
+  a:hover {color:#fff;}
+  .table {--bs-table-bg:transparent;--bs-table-color:#d4d4d8;--bs-table-striped-bg:transparent;--bs-table-hover-bg:#ffffff05;color:#d4d4d8;}
+  .table th {color:#a1a1aa;font-weight:500;font-size:11px;border-color:#ffffff14;}
+  .table td {background:transparent;color:#d4d4d8;border-color:#ffffff0a;vertical-align:middle;}
+  .table tr {background:transparent;}
+  .quick-filter .btn {background:#ffffff06;border:1px solid #ffffff1c;color:#a1a1aa;font-size:10px;box-shadow:none;}
+  .quick-filter .btn-check:checked + .btn {background:var(--pt-facetry-metal);color:#18181b;border-color:#d4d4d8;}
+  app-difficulty .card {border:1px solid #ffffff12;border-radius:24px;background:var(--pt-facetry-surface);box-shadow:var(--pt-facetry-shadow);}
+  app-difficulty .card-body {padding:16px;}
+  app-difficulty .main-title {font-size:17px;color:#fafafa;font-weight:700;margin-bottom:10px;}
+  app-fees-box .fee-label {color:#d4d4d8;font-size:10px;}
+  app-fees-box .fee-text {font-size:16px;}
+  app-recent-transactions-list .table {margin-bottom:0;}
+  app-recent-transactions-list .table td {font-size:12px;}
+  .mempool-block-wrapper canvas {border-radius:12px;}
+}
