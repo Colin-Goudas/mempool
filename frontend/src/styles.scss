@@ -4099,3 +4099,13 @@ body:has(app-transaction) app-transaction {
   .pt-snapshot-detail-popover p + p {margin-top:12px !important;}
   .pt-deeper:not(.pt-dive-deeper-toggle) {margin-top:26px !important;}
 }
+/* Uniform compact facts: supporting action shares the explanation row. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel:is(.pt-snapshot-panel,.pt-eight-details) .pt-eight-card-grid .pt-metric-card {
+  min-height:90px !important;
+  .pt-snapshot-meaning {display:grid !important;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end;}
+  .pt-meaning-preview {max-height:2.9em !important;overflow:hidden;}
+  .pt-snapshot-popover-trigger {margin-top:0 !important;min-height:24px;white-space:nowrap;}
+}
+@media(max-width:700px) {
+  body:has(app-transaction) app-transaction .pt-snapshot-panel:is(.pt-snapshot-panel,.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-meaning {grid-template-columns:minmax(0,1fr);gap:4px;}
+}
