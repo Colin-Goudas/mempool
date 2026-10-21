@@ -4144,3 +4144,35 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel:is(.pt-snapshot-pan
 body:has(app-transaction) app-transaction .pt-snapshot-panel:is(.pt-snapshot-panel,.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > strong.pt-pending-value {color:#d6b773 !important;}
 
 body:has(app-transaction) app-transaction .pt-pending-badge {display:inline-flex;align-items:center;padding:7px 16px;border-radius:999px;border:1px solid rgba(214,183,115,.3);background:rgba(214,183,115,.08);color:#d6b773;font-size:12px;}
+
+/* On-demand help and useful amount context retain the compact fact hierarchy. */
+body:has(app-transaction) app-transaction {
+  .pt-amount-context {margin-top:12px;font-size:14px;color:#d4d4d8;}
+  .pt-amount-context strong {font-size:14px;color:#ececef;}
+  .pt-amount-context small,.pt-update-note {display:block;font-size:10px;color:#a1a1aa;margin-top:5px;line-height:1.5;}
+  .pt-snapshot-summary .pt-next-step {font-size:12px !important;color:#d6b773 !important;margin:8px 0 !important;}
+  .pt-tracking-controls,.pt-help-roles {display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:11px;color:#a1a1aa;}
+  .pt-tracking-controls label {display:flex;gap:6px;align-items:center;margin:0;}
+  .pt-context-help {margin-top:8px;font-size:12px;color:#d4d4d8;}
+  .pt-context-help summary {color:#bc975f;cursor:pointer;}
+  .pt-snapshot-summary .pt-context-help p {font-size:12px !important;}
+  .pt-help-roles button,.pt-address-find button {border:1px solid #ffffff20;border-radius:12px;padding:5px 10px;background:#ffffff08;color:#d4d4d8;font-size:11px;}
+  .pt-address-find {margin:4px 0 12px;font-size:11px;color:#a1a1aa;}
+  .pt-address-find label {display:block;margin-bottom:4px;}
+  .pt-address-find > div {display:flex;gap:8px;}
+  .pt-address-find input {flex:1;min-width:0;background:#ffffff05;border:1px solid #ffffff20;color:#ececef;border-radius:10px;padding:7px 10px;}
+  .pt-address-find small {display:block;margin-top:5px;}
+  .pt-flow-section tr.highlight td {background:rgba(188,151,95,.15) !important;}
+  .pt-advanced-card {min-height:90px;border:1px solid #ffffff12;border-radius:20px;background:#ffffff03;padding:12px 16px;color:#a1a1aa;}
+  .pt-advanced-card > summary {cursor:pointer;list-style:none;}
+  .pt-advanced-card .pt-snapshot-fact {display:flex;gap:6px;align-items:baseline;flex-wrap:wrap;}
+  .pt-advanced-card .pt-snapshot-fact > span {font-size:17px;font-weight:700;color:#fafafa;}
+  .pt-advanced-card .pt-snapshot-fact > span::after {content:':';}
+  .pt-advanced-card .pt-snapshot-fact > strong {font-size:15px;font-weight:500;color:#d4d4d8;}
+  .pt-advanced-description {font-size:12px;display:block;margin-top:6px;}
+  .pt-advanced-action {font-size:11px;display:block;text-align:right;color:#bc975f;}
+  .pt-advanced-card[open] {grid-column:1 / -1;}
+  .pt-advanced-body {margin-top:16px;}
+}
+
+body:has(app-transaction) app-transaction .pt-output-fiat {display:block;color:#a1a1aa;font-size:10px;line-height:1.2;}
