@@ -9,3 +9,5 @@ test('unavailable values remain unavailable, while real zeros stay visible',()=>
 test('transaction net includes same-address change but excludes other recipients',()=>{const tx={vin:[{prevout:{scriptpubkey_address:'A',value:10000}}],vout:[{scriptpubkey_address:'A',value:3000},{scriptpubkey_address:'B',value:6500}]};assert.equal(addressTransactionChange(tx,'A'),-7000);assert.equal(addressTransactionChange(tx,'B'),6500);assert.equal(addressTransactionChange({...tx,vin:[{}]},'A'),null);});
 
 test('snapshot prioritizes pending activity and moves lifetime totals into deeper details',()=>{const v=walletView(stats,pending);assert.equal(v.rows.length,6);assert.equal(v.deeper.length,8);assert.ok(v.rows.some(r=>r.id==='incoming'));assert.ok(v.rows.some(r=>r.id==='pending-txs'));assert.ok(v.deeper.some(r=>r.id==='received'));assert.equal(v.questions[0].id,'arrived');assert.equal(v.questions.length,3);});
+
+test('summary exposes both directions of pending activity even when net is zero',()=>{const v=walletView(stats,{...pending,funded_txo_sum:30000});assert.match(v.summary,/received and/);assert.match(v.summary,/whole outputs being spent/);});
