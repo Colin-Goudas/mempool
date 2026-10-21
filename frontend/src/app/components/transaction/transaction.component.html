@@ -232,6 +232,7 @@
     </ng-container>
 
 <section class="pt-flow-section" aria-label="Transaction Flow and Inputs and Outputs">
+    <div class="pt-flow-unified">
     <div class="pt-flow-header">
       <div class="pt-flow-heading-copy">
         <h2 id="flow" #flow class="anchor">Transaction Flow (Inputs &amp; Outputs)</h2>
@@ -239,8 +240,7 @@
       <button type="button" class="btn btn-outline-info flow-toggle btn-sm" (click)="toggleGraph()" [attr.aria-expanded]="flowEnabled">{{ flowEnabled ? 'Hide diagram' : 'Show diagram' }}</button>
     </div>
 
-    <div class="pt-flow-label-rule" aria-hidden="true"></div>
-    <div class="pt-flow-unified">
+
     <form *ngIf="pendingTrackerSnapshot" class="pt-address-find" (submit)="$event.preventDefault(); findTransactionAddress(addressLookup.value)"><label for="pt-address-find">Find an address</label><div><input #addressLookup id="pt-address-find" type="text" placeholder="Paste an address from this transaction" autocomplete="off"><button type="submit">Find address</button><button type="button" *ngIf="selectedAddress" (click)="selectedAddress = ''; addressFeedback = ''; addressLookup.value = ''">Clear</button></div><small role="status">{{ addressFeedback }}</small></form>
     <ng-container *ngIf="flowEnabled; else ptFlowPlaceholder">
       <div class="pt-original-graph" #graphContainer>
