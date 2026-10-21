@@ -4139,3 +4139,6 @@ body:has(app-transaction) app-transaction {
 }
 
 body:has(app-transaction) app-transaction .pt-network-label {font-size:10px;color:#bc975f;white-space:nowrap;margin-right:10px;}
+
+body:has(app-transaction) app-transaction .pt-snapshot-panel:is(.pt-snapshot-panel,.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > strong.pt-confirmed-value {color:#81b99b !important;}
+body:has(app-transaction) app-transaction .pt-snapshot-panel:is(.pt-snapshot-panel,.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > strong.pt-pending-value {color:#d6b773 !important;}
