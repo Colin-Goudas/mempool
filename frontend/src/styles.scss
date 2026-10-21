@@ -4651,3 +4651,31 @@ body:has(app-address) app-address .pt-wallet-page .pt-wallet-summary {
  > p.pt-summary-narrative .pt-summary-inline-label {display:inline !important;font-size:16px !important;font-weight:600 !important;color:#f4f4f5 !important;letter-spacing:normal !important;line-height:inherit !important;}
  .pt-summary-questions,.pt-network-questions,.pt-wallet-questions {margin-top:10px !important;gap:8px !important;}
 }
+
+/* Shared snapshot finishing: align briefing copy to the 15px card text inset. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact,
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-network-summary,
+body:has(app-address) app-address .pt-wallet-page .pt-wallet-summary {padding-left:13px !important;}
+body:has(app-transaction) app-transaction .pt-summary-questions > span > button,
+.pt-network-dashboard .pt-network-questions > span > button,.pt-wallet-page .pt-wallet-questions > span > button {
+ border-color:#ffffff1c !important;color:#b4b4bc !important;background:#ffffff03 !important;
+}
+body:has(app-transaction) app-transaction .pt-summary-questions > span > button.pt-notification-action,
+.pt-wallet-page .pt-wallet-questions > span > button.pt-wallet-track,
+.pt-network-dashboard .pt-network-questions > span > button.pt-send-trigger {
+ border-color:#bc975f80 !important;color:#e0c58a !important;background:#bc975f0d !important;
+}
+body:has(app-transaction) app-transaction .pt-summary-questions > span > button:hover,
+.pt-network-dashboard .pt-network-questions > span > button:hover,.pt-wallet-page .pt-wallet-questions > span > button:hover {
+ border-color:#ffffff50 !important;color:#fafafa !important;background:#ffffff0d !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-metric-card .pt-snapshot-fact > span,
+.pt-network-dashboard .pt-network-fact-line > span,.pt-wallet-page .pt-wallet-fact-line > span {
+ color:#fafafa !important;font-weight:700 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-popover-trigger,
+.pt-network-dashboard .pt-network-meaning > button,.pt-wallet-page .pt-wallet-meaning > button {color:#b4b4bc !important;font-size:11px !important;font-weight:400 !important;}
+body:has(app-transaction) app-transaction .pt-snapshot-popover-trigger:focus-visible,
+.pt-network-dashboard .pt-network-meaning > button:focus-visible,.pt-wallet-page .pt-wallet-meaning > button:focus-visible {
+ outline:2px solid #bc975f;outline-offset:3px;border-radius:3px;
+}
