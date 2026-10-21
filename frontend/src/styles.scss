@@ -4406,3 +4406,7 @@ body:has(app-address .pt-wallet-page) .navbar app-search-form.search-form-contai
 .navbar .pt-lookup-nav .nav-link {display:flex;align-items:center;justify-content:center;min-width:54px;height:62px;}
 .navbar .pt-lookup-nav fa-icon {font-size:21px;line-height:1;}
 .navbar .nav-link:focus-visible {outline:2px solid #bc975f;outline-offset:-4px;}
+
+.navbar .pt-lookup-button {border:0;background:transparent;cursor:pointer;}
+.navbar .pt-lookup-button:disabled {opacity:.5;cursor:wait;}
+.pt-lookup-error {margin:0;padding:10px 20px;background:#18181b;color:#e0c58a;font-size:13px;}
