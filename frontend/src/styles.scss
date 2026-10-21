@@ -3950,3 +3950,55 @@ body:has(app-transaction) app-transaction .pt-flow-section .pt-original-graph
   stop-color: #755332 !important;
   stop-opacity: .92 !important;
 }
+
+
+/* CARD SCANNER FINANCE — isolated preview only.
+   Source: RayVelez27/instalanding.ai/pages/card-scanner-finance-page/index.html (MIT).
+   Original NOVA palette #050508 / #0b0a14 / #ece9ff / #c4b5fd / #8b5cf6.
+   Ported only material and lighting tokens; no source layout, fonts, animations,
+   transaction logic, diagram geometry or spacing is changed. */
+body:has(app-transaction) {
+  --nova-bg: #050508;
+  --nova-bg-2: #0b0a14;
+  --nova-text: #ece9ff;
+  --nova-lilac: #c4b5fd;
+  --nova-violet: #8b5cf6;
+  background: var(--nova-bg) !important;
+}
+body:has(app-transaction) app-transaction {
+  background:
+    radial-gradient(ellipse 60% 43% at 70% 17%, rgba(124,58,237,.19),transparent 72%),
+    radial-gradient(ellipse 65% 52% at 9% 70%, rgba(76,29,149,.13),transparent 76%),
+    linear-gradient(180deg,#08070f 0%,#050508 100%) !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel:not(.pt-eight-details)::before {
+  background:
+    radial-gradient(ellipse 65% 60% at 47% 29%,rgba(167,139,250,.17),rgba(124,58,237,.065) 49%,transparent 80%),
+    radial-gradient(ellipse 65% 75% at 52% 68%,rgba(76,29,149,.105),transparent 74%) !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified::before {
+  background:
+    radial-gradient(ellipse 67% 62% at 50% 40%,rgba(139,92,246,.12),rgba(76,29,149,.052) 50%,transparent 81%),
+    radial-gradient(ellipse 65% 72% at 50% 69%,rgba(196,181,253,.055),transparent 77%) !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+  background:radial-gradient(ellipse 88% 100% at 30% 0%,rgba(196,181,253,.10),rgba(139,92,246,.025) 56%,transparent 100%) !important;
+  box-shadow:none !important;
+}
+body:has(app-transaction) app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-metric-card {
+  background:radial-gradient(ellipse 88% 100% at 30% 0%,rgba(196,181,253,.065),rgba(139,92,246,.015) 56%,transparent 100%) !important;
+}
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > .pt-deeper-snapshot {
+  background-image:
+    linear-gradient(90deg,transparent,rgba(196,181,253,.23) 45%,transparent),
+    radial-gradient(ellipse 70% 75% at 44% 26%,rgba(139,92,246,.095),transparent 75%) !important;
+  background-size:100% 1px,100% 100% !important;
+  background-position:center top,center !important;
+  background-repeat:no-repeat !important;
+}
+body:has(app-transaction) app-global-footer {
+  background:linear-gradient(180deg,rgba(5,5,8,0),#050508 100%) !important;
+}
+@media (prefers-reduced-motion:reduce) {
+  body:has(app-transaction) app-transaction { scroll-behavior:auto; }
+}
