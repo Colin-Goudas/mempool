@@ -36,6 +36,18 @@ export class TransactionsListComponent implements OnInit, OnChanges, OnDestroy {
   @Input() cached: boolean = false;
   @Input() showConfirmations = false;
   @Input() transactionPage = false;
+  @Input() compactFlow = false;
+  expandedInputs = new Set<string>();
+  expandedOutputs = new Set<string>();
+
+  toggleFlowInputs(tx: Transaction): void {
+    if (this.expandedInputs.has(tx.txid)) this.expandedInputs.delete(tx.txid);
+    else { this.expandedInputs.add(tx.txid); this.loadMoreInputs(tx); }
+  }
+  toggleFlowOutputs(tx: Transaction): void {
+    if (this.expandedOutputs.has(tx.txid)) this.expandedOutputs.delete(tx.txid);
+    else this.expandedOutputs.add(tx.txid);
+  }
   @Input() errorUnblinded = false;
   @Input() paginated = false;
   @Input() inputIndex: number;
@@ -212,6 +224,12 @@ export class TransactionsListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes): void {
+    if (this.compactFlow && (changes.inputIndex || changes.outputIndex || changes.transactions)) {
+      for (const tx of this.transactions || []) {
+        if (this.inputIndex >= 5) this.expandedInputs.add(tx.txid);
+        if (this.outputIndex >= 5) this.expandedOutputs.add(tx.txid);
+      }
+    }
     if (changes.inputIndex || changes.outputIndex || changes.rowLimit) {
       this.inputRowLimit = Math.max(this.rowLimit, (this.inputIndex || 0) + 3);
       this.outputRowLimit = Math.max(this.rowLimit, (this.outputIndex || 0) + 3);
@@ -573,6 +591,7 @@ export class TransactionsListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   getVinLimit(tx: Transaction, next = false): number {
+    if (this.compactFlow) return this.expandedInputs.has(tx.txid) ? tx.vin.length : Math.min(5, tx.vin.length);
     let limit;
     if ((tx['@vinLimit'] || 0) > this.inputRowLimit) {
       limit = Math.min(tx['@vinLimit'] + (next ? this.showMoreIncrement : 0), tx.vin.length);
@@ -586,6 +605,7 @@ export class TransactionsListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   getVoutLimit(tx: Transaction, next = false): number {
+    if (this.compactFlow) return this.expandedOutputs.has(tx.txid) ? tx.vout.length : Math.min(5, tx.vout.length);
     let limit;
     if ((tx['@voutLimit'] || 0) > this.outputRowLimit) {
       limit = Math.min(tx['@voutLimit'] + (next ? this.showMoreIncrement : 0), tx.vout.length);
