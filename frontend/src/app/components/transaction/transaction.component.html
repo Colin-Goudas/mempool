@@ -208,6 +208,7 @@
           [outputIndex]="outputIndex">
         </tx-bowtie-graph>
       </div>
+      <p class="pt-flow-scope" *ngIf="pendingTrackerSnapshot">Diagram and totals include all {{ tx.vin.length }} inputs and {{ tx.vout.length }} outputs.</p>
       <div class="toggle-wrapper" *ngIf="maxInOut > 24">
         <button class="btn btn-sm btn-primary graph-toggle" (click)="expandGraph()" *ngIf="!graphExpanded; else ptCollapseGraph">Show more</button>
         <ng-template #ptCollapseGraph><button class="btn btn-sm btn-primary graph-toggle" (click)="collapseGraph()">Show less</button></ng-template>
@@ -225,7 +226,7 @@
           <div class="pt-flow-heading-half"><span>Outputs</span><span>Value (BTC)</span></div>
         </div>
       </div>
-    <app-transactions-list #txList [transactions]="[tx]" [cached]="isCached" [errorUnblinded]="errorUnblinded" [inputIndex]="inputIndex" [outputIndex]="outputIndex" [transactionPage]="true"></app-transactions-list>
+    <app-transactions-list #txList [transactions]="[tx]" [cached]="isCached" [errorUnblinded]="errorUnblinded" [inputIndex]="inputIndex" [outputIndex]="outputIndex" [transactionPage]="true" [compactFlow]="pendingTrackerSnapshot"></app-transactions-list>
       <div class="pt-flow-bottom-rule" aria-hidden="true"></div>
     </div>
     </div>
