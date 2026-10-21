@@ -109,6 +109,7 @@
                           [address]="vin.prevout.scriptpubkey_address"
                           [similarity]="similarityMatches.get(tx.txid)?.get(vin.prevout.scriptpubkey_address)"
                         ></app-address-text>
+                        <app-clipboard *ngIf="compactFlow && vin.prevout.scriptpubkey_address" [text]="vin.prevout.scriptpubkey_address"></app-clipboard>
                         <ng-template #vinScriptPubkeyType>
                           {{ vin.prevout.scriptpubkey_type?.toUpperCase() }}
                         </ng-template>
@@ -304,7 +305,17 @@
                 </td>
               </tr>
             </ng-template>
-            <tr *ngIf="tx.vin.length > getVinLimit(tx)">
+            <tr *ngIf="compactFlow && tx.vin.length > 5" class="pt-flow-expand-row">
+              <td colspan="4">
+                <div class="pt-flow-expand-control">
+                  <span>Showing {{ getVinLimit(tx) }} of {{ tx.vin.length }} inputs</span>
+                  <button type="button" class="btn btn-outline-info btn-sm" (click)="toggleFlowInputs(tx)" [attr.aria-expanded]="expandedInputs.has(tx.txid)">
+                    {{ expandedInputs.has(tx.txid) ? 'Show fewer inputs' : 'Show all ' + tx.vin.length + ' inputs' }}
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="!compactFlow && tx.vin.length > getVinLimit(tx)">
               <td [attr.colspan]="tx['_showSignatures'] ? 4 : 3" class="text-center">
                 <button class="btn btn-sm btn-primary mt-2" (click)="showMoreInputs(tx)">
                   <span *ngIf="getVinLimit(tx, true) >= tx.vin.length; else showMoreInputsLabel" i18n="show-all">Show all</span>
@@ -334,6 +345,7 @@
                     [address]="vout.scriptpubkey_address"
                     [similarity]="similarityMatches.get(tx.txid)?.get(vout.scriptpubkey_address)"
                   ></app-address-text>
+                  <app-clipboard *ngIf="compactFlow && vout.scriptpubkey_address" [text]="vout.scriptpubkey_address"></app-clipboard>
                   <ng-template #pubkey_type>
                     <ng-container *ngIf="vout.scriptpubkey_type === 'p2pk'; else scriptpubkey_type">
                       P2PK <a class="address p2pk-address" [routerLink]="['/address/' | relativeUrl, vout.scriptpubkey.slice(2, -2)]" title="{{ vout.scriptpubkey.slice(2, -2) }}">
@@ -499,7 +511,17 @@
                 </td>
               </tr>
             </ng-template>
-            <tr *ngIf="tx.vout.length > getVoutLimit(tx)">
+            <tr *ngIf="compactFlow && tx.vout.length > 5" class="pt-flow-expand-row">
+              <td colspan="4">
+                <div class="pt-flow-expand-control">
+                  <span>Showing {{ getVoutLimit(tx) }} of {{ tx.vout.length }} outputs</span>
+                  <button type="button" class="btn btn-outline-info btn-sm" (click)="toggleFlowOutputs(tx)" [attr.aria-expanded]="expandedOutputs.has(tx.txid)">
+                    {{ expandedOutputs.has(tx.txid) ? 'Show fewer outputs' : 'Show all ' + tx.vout.length + ' outputs' }}
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="!compactFlow && tx.vout.length > getVoutLimit(tx)">
               <td [attr.colspan]="3" class="text-center">
                 <button class="btn btn-sm btn-primary mt-2" (click)="showMoreOutputs(tx)">
                   <span *ngIf="getVoutLimit(tx, true) >= tx.vout.length; else showMoreOutputsLabel" i18n="show-all">Show all</span>
