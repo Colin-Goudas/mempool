@@ -95,7 +95,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   get ownFeeRate() { return this.tx?.weight > 0 ? this.tx.fee / Math.ceil(this.tx.weight / 4) : undefined; }
   get feeInterpretation() {
     if (this.tx?.status?.confirmed) return 'Confirmed on Bitcoin. No fee increase is needed.';
-    if (this.replaced || this.rbfTransaction) return 'A replacement was observed. Follow its current status above.';
+    if (!this.tx?.status?.confirmed && (this.replaced || this.rbfTransaction)) return 'A replacement was observed. Follow its current status above.';
     if (!this.fastFeeRate || this.ownFeeRate === undefined) return 'Waiting for confirmation. A reliable fee comparison is currently unavailable.';
     return this.ownFeeRate < this.fastFeeRate ? 'Your rate is below the first projected block’s median rate. Waiting remains an option; check fee-increase options if timing matters.' : 'Your rate meets or exceeds the first projected block’s median rate. Waiting is reasonable; inclusion is not guaranteed.';
   }
@@ -112,6 +112,36 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     const permission = await Notification.requestPermission();
     if (permission === 'granted') { this.alertTxid = this.tx.txid; this.alertMessage = 'Alert enabled for this transaction while this page stays open and connected.'; }
     else this.alertMessage = 'Desktop alert permission was not granted. You can continue tracking here.';
+  }
+  summaryStatus(): string {
+    if (!this.tx?.status?.confirmed && (this.replaced || this.rbfTransaction)) return 'A replacement was observed for this transaction.';
+    if (this.rbfInfo?.mined && !this.tx?.status?.confirmed) return 'A conflicting transaction has confirmed.';
+    if (this.tx?.vin?.some(v => v.is_coinbase)) return 'This is a Bitcoin mining reward transaction.';
+    if (!this.tx?.status?.confirmed) return 'Your Bitcoin transaction is waiting for its first confirmation.';
+    const count = this.latestBlock?.height >= this.tx.status.block_height ? this.latestBlock.height - this.tx.status.block_height + 1 : null;
+    return count ? 'Your Bitcoin transaction is confirmed with ' + count + (count === 1 ? ' confirmation.' : ' confirmations.') : 'Your Bitcoin transaction is confirmed.';
+  }
+  summaryContext(eta: ETA | null): string {
+    if (!this.tx) return '';
+    if (!this.tx.status.confirmed && (this.replaced || this.rbfTransaction || this.rbfInfo?.mined)) return 'Review the status notice and linked transaction above before relying on this record.';
+    if (this.tx.vin?.some(v => v.is_coinbase)) return 'It creates the block subsidy and collects transaction fees; it does not pay a normal network fee.';
+    const fee = this.tx.fee.toLocaleString('en-US') + (this.tx.fee === 1 ? ' sat' : ' sats');
+    const rate = this.ownFeeRate?.toLocaleString('en-US', {maximumFractionDigits:2});
+    const timing = this.tx.status.confirmed ? 'It was included in block ' + this.tx.status.block_height?.toLocaleString('en-US') + '. ' : eta && Number.isFinite(eta.wait) && eta.wait >= 0 ? 'The current estimate is about ' + Math.max(1, Math.ceil(eta.wait / 60000)) + ' minutes, but it can change. ' : 'A reliable confirmation-time estimate is currently unavailable. ';
+    return timing + (this.tx.status.confirmed ? 'It paid ' : 'It pays ') + fee + ' in network fees at ' + rate + ' sat/vB.';
+  }
+  get summaryQuestions() {
+    if (this.tx?.status?.confirmed) return [
+      {id:'confirmations', label:'What do confirmations mean?', text:'The containing block is the first confirmation. Each later block adds another, making a reversal through a chain reorganization progressively less likely. Wallets and exchanges set their own acceptance requirements; confirmation does not prove the recipient is correct or a payment is legitimate.'},
+      {id:'missing', label:'Why aren’t my funds showing?', text:'A confirmed transaction is recorded on Bitcoin, but the receiving service may still be processing the deposit. Check the receiving address, supported network and its confirmation requirements. If those match, contact the receiving service through official support. We cannot see its internal account status.'},
+      {id:'amount', label:'Which amount is mine?', text:'A Bitcoin transaction can pay several addresses and return change to the sender. The total output is not necessarily your payment. Use Find an address in this transaction below to highlight an address and total its matching outputs. Selecting an address does not establish ownership. Fiat values use the current price.'}
+    ];
+    return [
+      {id:'pending', label:'Why is it pending?', text:this.feeInterpretation + ' Miners choose which transactions to include. Transactions that spend unconfirmed outputs also depend on their parents, and related package fees can affect priority. The comparison shown uses the first projected block’s median rate, not a guaranteed fee recommendation.'},
+      {id:'time', label:'How long could it take?', text:'The Snapshot estimate reflects the observed queue and mining conditions. New transactions and irregular block times can move it earlier or later; it is not a countdown or deadline. If an estimate is unavailable, that does not by itself mean failure. Queue data was last updated at ' + (this.feeUpdatedAt || 'an unavailable time') + '.' + (this.estimateChanged ? ' The projected block estimate has changed with new network data.' : '')},
+      {id:'speed', label:'Can I speed it up?', text:'Waiting remains an option. If timing matters, choose the situation that matches you for relevant fee-increase guidance. Pending Tracker does not control your wallet or change transaction fees.'},
+      {id:'lost', label:'Is my money lost?', text:this.replaced || this.rbfTransaction ? 'A replacement has been observed. Follow its link above and verify the receiving outputs; do not assume the original will confirm.' : this.rbfInfo?.mined ? 'A conflicting transaction was mined. Review the linked transaction and contact the sender if needed; this original record is not a confirmed payment.' : this.isCached ? 'This is a cached record. Current network presence has not been verified, so we cannot establish its current state from this record alone.' : 'Our data source currently shows this transaction waiting for confirmation. Pending does not by itself mean your money is lost, and disappearance from one provider does not prove cancellation. Verify the intended receiving address. We cannot guarantee eventual confirmation, correct ownership or recovery.'}
+    ];
   }
   get snapshotFacts() { return this.snapshotFactsFor(null); }
   snapshotFactsFor(eta: ETA | null) {
