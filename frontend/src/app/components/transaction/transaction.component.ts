@@ -185,6 +185,24 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       if (fact.label === 'Total output' && this.selectedAddress) return {...fact, label:'To selected address', value:(this.selectedOutputSats / 100000000).toFixed(8) + ' BTC', fiatSats:this.selectedOutputSats, meaning:'Total of outputs to the address you selected.', details:'This amount includes every output to the selected address. Selecting an address does not establish who owns it.'};
       if (fact.label === 'Fee rate' && !this.tx?.status?.confirmed) return {...fact, meaning:this.fastFeeRate && this.ownFeeRate !== undefined ? (this.ownFeeRate < this.fastFeeRate ? 'Below' : 'At or above') + ' the first projected block’s median rate.' : 'Current queue comparison unavailable.', details:fact.details + (this.fastFeeRate ? ' First projected block median: ' + this.fastFeeRate.toFixed(2) + ' sat/vB. This is an observed queue benchmark, not a guaranteed recommended fee.' : '')};
       return fact;
+    }).map(fact => {
+      const compact: Record<string, string> = {
+        'Status': fact.value === 'Replaced' ? 'Follow the replacement transaction.' : this.tx?.status?.confirmed ? 'Recorded in a Bitcoin block.' : 'Awaiting a block; timing can change.',
+        'Confirmations': 'Each new block adds a confirmation.',
+        'Confirmed at': 'Time reported by the confirming block.',
+        'First seen': 'First observed by this data provider.',
+        'Included in block': 'The block containing this transaction.',
+        'Total output': 'All outputs combined; may include change.',
+        'To selected address': 'Outputs to the selected address.',
+        'Estimated confirmation': fact.value === 'Not applicable' ? 'Follow the replacement transaction.' : 'Current queue estimate; timing can change.',
+        'Waiting': 'Time since this provider first saw it.',
+      };
+      if (!this.tx?.vin?.some(v => v.is_coinbase)) {
+        compact['Network fee'] = 'Miner fee, separate from the amount sent.';
+        if (this.tx?.status?.confirmed) compact['Fee rate'] = 'Fee per virtual byte of block space.';
+      }
+      const meaning = compact[fact.label];
+      return meaning ? {...fact, meaning, details:fact.meaning + ' ' + fact.details} : fact;
     });
   }
   get technicalFacts() { return transactionTechnicalFacts(this.tx, this.pool?.name, this.transactionTime); }
