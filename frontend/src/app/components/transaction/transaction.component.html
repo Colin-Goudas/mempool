@@ -100,9 +100,10 @@
       <div class="pt-snapshot-rows pt-eight-card-grid">
         @for (fact of snapshotFactsFor(ETA$ | async); track fact.label) {
             <div class="pt-snapshot-row pt-metric-card" [style.anchor-name]="'--pt-snapshot-card-' + $index">
-              <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong [class.pt-confirmed-value]="fact.label === 'Status' && tx.status.confirmed" [class.pt-pending-value]="fact.label === 'Status' && !tx.status.confirmed">@if (fact.label === 'Status') { <span aria-hidden="true">{{ tx.status.confirmed ? '✓' : '◷' }}</span> }{{ fact.value }}</strong></div>
-              @if (fact.secondary) { <div class="pt-fact-secondary">{{ fact.secondary }}</div> }
-              @if (showUsd && fact.fiatSats !== undefined) { <div class="pt-fact-secondary">≈ <app-fiat [value]="fact.fiatSats" colorClass=""></app-fiat> · current price</div> }
+              <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong [class.pt-confirmed-value]="fact.label === 'Status' && tx.status.confirmed" [class.pt-pending-value]="fact.label === 'Status' && !tx.status.confirmed">@if (fact.label === 'Status') { <span aria-hidden="true">{{ tx.status.confirmed ? '✓' : '◷' }}</span> }{{ fact.value }}</strong>
+                @if (fact.secondary) { <small class="pt-fact-secondary pt-inline-card-context">{{ fact.secondary }}</small> }
+                @if (showUsd && fact.fiatSats !== undefined) { <small class="pt-fact-secondary pt-inline-card-context">≈ <app-fiat [value]="fact.fiatSats" colorClass=""></app-fiat> · current price</small> }
+              </div>
               <div class="pt-snapshot-meaning"><p class="pt-meaning-preview">{{ fact.meaning }}</p> <button type="button" class="pt-explore-more pt-snapshot-popover-trigger" [attr.popovertarget]="'pt-snapshot-detail-' + $index">Explore more <span aria-hidden="true">▾</span><span class="visually-hidden"> about {{ fact.label }}</span></button></div>
               <div class="pt-snapshot-detail-popover" [style.position-anchor]="'--pt-snapshot-card-' + $index" [id]="'pt-snapshot-detail-' + $index" popover="auto">
                 <div class="pt-snapshot-popover-heading"><strong>Understanding {{ fact.label }}</strong><button type="button" [attr.popovertarget]="'pt-snapshot-detail-' + $index" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
