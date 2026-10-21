@@ -4178,3 +4178,25 @@ body:has(app-transaction) app-transaction {
 body:has(app-transaction) app-transaction .pt-output-fiat {display:block;color:#a1a1aa;font-size:10px;line-height:1.2;}
 
 body:has(app-transaction) app-transaction .pt-advanced-card {min-width:0;}
+
+/* Summary answers stay on the top layer without moving the transaction page. */
+body:has(app-transaction) app-transaction {
+  .pt-display-fiat {display:inline-flex;align-items:center;gap:5px;font-size:10px;color:#a1a1aa;white-space:nowrap;margin:0 12px 0 0;}
+  .pt-summary-compact {padding:14px 18px !important;}
+  .pt-summary-heading {margin:0 0 7px !important;}
+  .pt-snapshot-panel .pt-summary-compact .pt-summary-narrative {font-size:14px !important;line-height:1.55 !important;margin:0 !important;color:#d4d4d8 !important;}
+  .pt-summary-narrative strong {font-weight:650;color:#f4f4f5;}
+  .pt-summary-questions {display:flex;flex-wrap:wrap;gap:7px;margin-top:11px;}
+  .pt-summary-question > button,.pt-alert-control {border:1px solid #ffffff20;border-radius:999px;background:#ffffff05;color:#c7b18a;padding:5px 11px;font-size:11px;line-height:1.4;cursor:pointer;}
+  .pt-summary-question > button:hover,.pt-summary-question > button:focus-visible,.pt-summary-question > button:has(+ :popover-open) {color:#f0cf92;border-color:#bc975f88;background:#bc975f16;}
+  .pt-question-popover {position:fixed;inset:0;margin:auto;width:min(480px,calc(100vw - 32px));max-height:min(65dvh,480px);overflow:auto;padding:16px;border:1px solid #ffffff26;border-radius:16px;background:#111113;color:#d4d4d8;box-shadow:0 14px 50px #000a;z-index:2100;}
+  .pt-question-popover::backdrop {background:transparent;}
+  .pt-question-heading {display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid #ffffff14;padding-bottom:9px;}
+  .pt-question-heading strong {color:#f4f4f5;font-size:15px;}
+  .pt-question-heading button {border:0;background:transparent;color:#d4d4d8;font-size:22px;line-height:1;cursor:pointer;}
+  .pt-snapshot-panel .pt-question-popover p {font-size:13px !important;line-height:1.6 !important;margin:11px 0 !important;color:#d4d4d8 !important;}
+  .pt-question-popover .pt-help-roles button[aria-pressed="true"] {border-color:#bc975f;color:#f0cf92;}
+}
+@supports (position-area:bottom) {
+  body:has(app-transaction) app-transaction .pt-question-popover {inset:auto;margin:8px 0;position-area:bottom span-right;position-try-fallbacks:flip-inline,flip-block;}
+}
