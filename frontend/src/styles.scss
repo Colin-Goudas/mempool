@@ -4365,3 +4365,24 @@ body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-network-snapshot
 .pt-wallet-page .pt-wallet-history {margin-top:0 !important;}
 .pt-wallet-page .pt-wallet-deeper,.pt-network-dashboard .pt-network-deeper {margin-bottom:0 !important;}
 .pt-wallet-page .pt-wallet-section-heading,.pt-network-dashboard .pt-network-section-heading {margin-top:26px;margin-bottom:10px;}
+
+/* The explorer introduces transaction and wallet lookup immediately below the ribbon. */
+body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-explorer-intro {
+  text-align:center;padding:18px 0 24px;margin:0 0 26px;border-bottom:1px solid #ffffff12;
+  h2 {font-size:clamp(25px,2.7vw,34px);font-weight:650;letter-spacing:-.035em;color:#fafafa;margin:0 0 9px;line-height:1.2;}
+  > p {font-size:14px;color:#a1a1aa;margin:0 0 20px;line-height:1.5;}
+  > small {font-size:11px;color:#a1a1aa;}
+  app-search-form {display:block;max-width:840px;margin:0 auto 16px;text-align:left;}
+  app-search-form form {margin:0;width:100%;}
+  app-search-form form > .d-flex {padding:7px;border:1px solid #ffffff30;border-radius:14px;background:var(--pt-facetry-surface);box-shadow:inset 0 1px 0 #ffffff0c;align-items:center;}
+  app-search-form .search-box-container {min-width:0;}
+  app-search-form input {height:42px;background:transparent;border:0;border-radius:8px;color:#e4e4e7;font-size:15px;padding-left:14px;}
+  app-search-form input::placeholder {color:#a1a1aa;}
+  app-search-form input:focus-visible {outline:2px solid #bc975f;outline-offset:-2px;}
+  app-search-form .search-submit {width:110px;min-height:42px;border:1px solid #ffffff40;border-radius:9px;background:var(--pt-facetry-metal);color:#0b0b0c;font-size:14px;font-weight:600;}
+  .pt-explorer-examples {display:flex;justify-content:center;flex-wrap:wrap;gap:8px 34px;margin-bottom:10px;}
+  .pt-explorer-examples a {color:#d6b773;font-size:13px;text-decoration:none;border-bottom:1px solid #bc975f55;padding-bottom:3px;}
+  .pt-explorer-examples a:hover {color:#f0cf92;border-color:#f0cf92;}
+  app-search-results .dropdown-menu {width:100%;}
+  @media(max-width:600px) {padding-top:12px;app-search-form input {font-size:13px;}app-search-form .search-submit {width:82px;}}
+}
