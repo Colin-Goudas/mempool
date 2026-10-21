@@ -52,7 +52,7 @@
   @if (pendingTrackerSnapshot && tx && !tx.status.confirmed && (replaced || rbfTransaction || rbfInfo?.mined || isCached)) {
     <div class="pt-tracking-notice" role="status">{{ replaced || rbfTransaction ? 'A replacement was observed. Follow the replacement transaction above for its latest status.' : rbfInfo?.mined ? 'A conflicting transaction was mined. Do not treat this transaction as confirmed.' : 'Showing cached transaction data. Current mempool presence has not been verified.' }}</div>
   }
-  <div class="pt-snapshot-panel">
+  <div class="pt-snapshot-panel" [class.pt-snapshot-body]="pendingTrackerSnapshot">
     @if (tx && network === '' && stateService.env.PENDING_TRACKER_EXPLANATIONS) {
       <div class="pt-snapshot-summary pt-summary-compact">
         <p class="pt-summary-narrative"><strong class="pt-summary-inline-label">In plain English —</strong> {{ summaryStatus() }} {{ summaryContext(ETA$ | async) }}
