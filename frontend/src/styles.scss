@@ -4109,3 +4109,19 @@ body:has(app-transaction) app-transaction .pt-snapshot-panel:is(.pt-snapshot-pan
 @media(max-width:700px) {
   body:has(app-transaction) app-transaction .pt-snapshot-panel:is(.pt-snapshot-panel,.pt-eight-details) .pt-eight-card-grid .pt-metric-card .pt-snapshot-meaning {grid-template-columns:minmax(0,1fr);gap:4px;}
 }
+
+/* Scan hierarchy: field identity first, recorded value second. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel:is(.pt-snapshot-panel,.pt-eight-details) .pt-eight-card-grid .pt-metric-card {
+  min-height:110px !important;
+  .pt-snapshot-fact {display:flex !important;flex-direction:column !important;align-items:flex-start !important;gap:2px !important;margin-bottom:5px !important;}
+  .pt-snapshot-fact > span {font-size:17px !important;line-height:1.2 !important;font-weight:700 !important;color:#fafafa !important;margin:0 !important;}
+  .pt-snapshot-fact > span::after {content:none !important;}
+  .pt-snapshot-fact > strong {font-size:15px !important;line-height:1.25 !important;font-weight:500 !important;color:#d4d4d8 !important;margin:0 !important;}
+}
+body:has(app-transaction) app-transaction {
+  .pt-flow-label-rule {display:none !important;}
+  .pt-flow-scope {font-size:11px;color:#a1a1aa;margin:4px 12px 0;}
+  .pt-flow-expand-control {display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 4px;color:#a1a1aa;font-size:11px;}
+  .pt-flow-section .address-cell app-clipboard {display:inline-block;vertical-align:middle;margin-left:5px;}
+  .pt-flow-section .address-cell app-address-text {max-width:calc(100% - 28px);display:inline-block;vertical-align:middle;}
+}
