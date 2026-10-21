@@ -4433,3 +4433,5 @@ body:has(app-address .pt-wallet-page) app-address .pt-wallet-deeper {padding-lef
 body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-difficulty-widget app-difficulty {display:block;}
 body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-difficulty-widget .main-title {margin:0 0 10px !important;text-align:left;color:#fafafa;}
 body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-fee-widget .main-title {margin:0 0 10px !important;}
+/* Override the legacy adjacent-section rule after removing its spacer. */
+body:has(app-transaction) app-transaction .pt-snapshot + .pt-flow-section {margin-top:24px !important;}
