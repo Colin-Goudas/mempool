@@ -4451,3 +4451,55 @@ body:has(app-transaction) app-transaction .pt-snapshot-popover-trigger::after,
 .pt-wallet-page .pt-wallet-meaning > button::after,.pt-network-dashboard .pt-network-meaning > button::after {content:'';position:absolute;inset:-3px -5px;}
 .pt-wallet-page .pt-wallet-questions > span > button,.pt-network-dashboard .pt-network-questions > span > button,
 body:has(app-transaction) app-transaction .pt-summary-questions > span > button {min-height:30px;}
+/* Shared editorial hierarchy: identity first, quiet utilities, section accents. */
+body:has(app-transaction) app-transaction .pt-snapshot > .title-block {
+ display:grid !important;grid-template-columns:auto minmax(200px,1fr);gap:8px 18px !important;padding:0 0 10px !important;margin:0 !important;border:0 !important;align-items:center;
+ h1 {font-size:24px !important;margin:0 !important;grid-column:1;grid-row:1;}
+ .tx-link {grid-column:2 !important;grid-row:1 !important;order:0 !important;flex-basis:auto !important;width:100%;margin:0 !important;min-width:0;}
+ .tx-link,.tx-link a,.tx-link .txid {font-size:16px !important;line-height:1.4 !important;color:#e4e4e7 !important;}
+ .tx-link app-truncate {display:block;min-width:0;}
+ .pt-title-utilities {grid-column:1/-1;grid-row:2;display:flex;align-items:center;justify-content:flex-end;gap:14px;min-width:0;}
+ .pt-title-utilities .container-buttons {margin:0 !important;}
+ .pt-title-utilities .pt-network-label {margin:0;font-size:11px;color:#a1a1aa;}
+ .pt-title-utilities .pt-display-fiat {margin:0;font-size:11px;color:#a1a1aa;}
+ .alert {grid-column:1/-1;grid-row:auto;}
+}
+body:has(app-transaction) app-transaction .pt-snapshot > .title-block h1,
+body:has(app-transaction) app-transaction .pt-flow-header h2,
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary .pt-heading-title,
+.pt-network-dashboard .pt-network-heading h1,.pt-network-dashboard .pt-network-section-heading h2,
+.pt-wallet-page .pt-wallet-heading h1,.pt-wallet-page .pt-wallet-section-heading h2,.pt-wallet-page .title-tx h2 {
+ color:#d8c39c !important;font-weight:600 !important;letter-spacing:-.025em !important;line-height:1.2 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot > .title-block h1::before,
+body:has(app-transaction) app-transaction .pt-flow-header h2::before,
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary .pt-heading-title::before,
+.pt-network-dashboard .pt-network-heading h1::before,.pt-network-dashboard .pt-network-section-heading h2::before,
+.pt-wallet-page .pt-wallet-heading h1::before,.pt-wallet-page .pt-wallet-section-heading h2::before,.pt-wallet-page .title-tx h2::before {
+ content:'' !important;display:inline-block;width:3px;height:.78em;background:#bc975f;border-radius:2px;margin-right:10px;vertical-align:baseline;
+}
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary::before {display:none !important;}
+.pt-wallet-page .pt-wallet-heading .pt-wallet-address code {font-size:16px !important;color:#e4e4e7 !important;}
+.pt-wallet-page .pt-wallet-heading {margin-bottom:10px !important;}
+.pt-network-dashboard .pt-network-section-heading,.pt-wallet-page .pt-wallet-section-heading {margin-bottom:8px !important;}
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary {padding-bottom:8px !important;}
+body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-header {margin-bottom:8px !important;}
+/* Plain English reads as an integrated briefing, rather than another raised card. */
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary,
+.pt-network-dashboard .pt-network-summary,.pt-wallet-page .pt-wallet-summary {
+ border:0 !important;border-left:2px solid #bc975f !important;border-radius:0 !important;background:linear-gradient(90deg,rgba(188,151,95,.045),transparent 75%) !important;box-shadow:none !important;padding:10px 16px 12px !important;margin-bottom:14px !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-summary h2::before {display:none !important;}
+.pt-network-dashboard .pt-network-summary h2,.pt-wallet-page .pt-wallet-summary h2 {color:#bca681;font-size:11px;letter-spacing:.12em;}
+body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-unified .pt-address-find {
+ display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin:0 0 14px;padding:0 0 12px;border-bottom:1px solid #ffffff12;
+ label {margin:0;color:#b4b4bc;font-size:12px;}
+ > div {display:flex;flex:1;max-width:520px;margin-left:auto;gap:6px;}
+ input {font-size:12px;min-height:34px;padding:6px 10px;background:#ffffff04;border-color:#ffffff1f;}
+ button {white-space:nowrap;}
+ small {flex-basis:100%;margin:0;}
+ small:empty {display:none;}
+}
+@media(max-width:767px) {
+ body:has(app-transaction) app-transaction .pt-snapshot > .title-block {grid-template-columns:minmax(0,1fr);.tx-link {grid-column:1 !important;grid-row:2 !important;}.pt-title-utilities {grid-row:3;justify-content:flex-start;flex-wrap:wrap;}}
+}
