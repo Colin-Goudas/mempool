@@ -483,3 +483,15 @@
 .dashboard-container:not(.pt-network-dashboard) {
   .pt-fee-widget,.pt-difficulty-widget {order:-1;}
 }
+
+.pt-network-dashboard {
+  .pt-ribbon-guide {display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 20px;margin:0 0 20px;color:#a1a1aa;font-size:12px;}
+  .pt-ribbon-guide strong {color:#d4d4d8;font-weight:600;}
+  .pt-ribbon-guide small {flex-basis:100%;font-size:11px;}
+  .pt-network-questions > span > .pt-send-trigger {color:#f4f4f5;border-color:#bc975f77;}
+  .pt-fee-size {display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px;margin:12px 0;}
+  .pt-fee-size select,.pt-fee-size input {max-width:230px;width:65%;background:#202024;color:#f4f4f5;border:1px solid #ffffff26;border-radius:8px;padding:7px;}
+  .pt-fee-choice {display:grid;gap:5px;padding:12px 0;border-top:1px solid #ffffff14;font-size:13px;}
+  .pt-fee-choice > strong {color:#fafafa;font-size:15px;}
+  .pt-fee-choice small {color:#a1a1aa;font-size:12px;}
+}
