@@ -29,7 +29,12 @@ export function walletView(chain: ChainStats | null, pending: ChainStats | null)
     row('format','Address type','format','The script format, not an owner or trust rating.','Legacy, SegWit and Taproot formats describe spending conditions and influence transaction size. They do not establish ownership or safety. Revealed scripts and available Taproot tools remain below.')
   ];
   // Put pending-payment questions ahead of lifetime accounting totals.
-  const snapshotRows = [rows[0], rows[2], rows[4], rows[3], rows[1], deeper[1]];
+  const compactMeanings: Record<string,string> = {
+    balance:'Confirmed funds before pending activity.', incoming:'Unconfirmed receipts; may include change.',
+    'pending-txs':'Observed transactions awaiting a block.', outgoing:'Whole outputs used by pending spending.',
+    pending:'Pending receipts minus outputs being spent.', projected:'Projection if pending activity confirms unchanged.'
+  };
+  const snapshotRows = [rows[0], rows[2], rows[4], rows[3], rows[1], deeper[1]].map(fact => ({...fact, meaning:compactMeanings[fact.id], details:fact.meaning + ' ' + fact.details}));
   const deeperRows = [rows[6], rows[7], rows[5], deeper[0], deeper[2], deeper[3], deeper[4], deeper[5]];
   let summary = balance === null ? 'Confirmed balance is currently unavailable.' : balance === 0 ? 'This address currently has no confirmed balance.' : 'This address has ' + btc(balance) + ' in confirmed outputs.';
   if (pendingCount !== null) summary += pendingCount === 0 ? ' No pending transactions are currently observed.' : ' ' + count(pendingCount) + ' pending ' + (pendingCount === 1 ? 'transaction' : 'transactions') + (net === null ? ' currently involve this address.' : net > 0 ? ' would add a net ' + btc(net) + ' if confirmed unchanged.' : net < 0 ? ' would reduce its balance by a net ' + btc(-net) + ' if confirmed unchanged.' : ' currently have no net effect on its balance.');
