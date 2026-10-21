@@ -1691,7 +1691,7 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
   overflow: hidden;
   color: var(--fg, #d0d2d7);
 }
-.pt-snapshot > .title-block { padding: 1.1rem 1.25rem .75rem; margin: 0; }
+.pt-snapshot .pt-snapshot-intro > .title-block { padding: 1.1rem 1.25rem .75rem; margin: 0; }
 .pt-snapshot .title-block h1 { margin: 0 .65rem .4rem 0; font-size: 1.7rem; }
 .pt-snapshot .tx-link { overflow-wrap: anywhere; min-width: 0; }
 .pt-snapshot-eyebrow { display: block; color: var(--grey); font-size: .65rem; letter-spacing: .12em; margin-bottom: .55rem; }
@@ -1718,7 +1718,7 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
 .pt-deeper .pt-deeper-intro { padding: 0 1.25rem; }
 .pt-deeper .box { margin-bottom: 0; }
 @media (max-width: 575px) {
-  .pt-snapshot > .title-block, .pt-snapshot-heading { padding: .85rem .75rem .6rem; }
+  .pt-snapshot .pt-snapshot-intro > .title-block, .pt-snapshot-heading { padding: .85rem .75rem .6rem; }
   .pt-snapshot .title-block h1 { font-size: 1.4rem; }
   .pt-snapshot-summary { padding: .8rem .75rem; }
   .pt-snapshot-rows { padding: .15rem .4rem .35rem; }
@@ -1731,11 +1731,11 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
   .pt-deeper > summary span { display: none; }
 }
 
-.pt-snapshot > .title-block { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .5rem 1rem; align-items: center; }
-.pt-snapshot > .title-block h1 { grid-column: 1; grid-row: 1; margin: 0; }
-.pt-snapshot > .title-block .container-buttons { grid-column: 2; grid-row: 1; }
-.pt-snapshot > .title-block .tx-link { display: block; grid-column: 1 / -1; grid-row: 2; width: 100%; margin: .25rem 0 0; }
-.pt-snapshot > .title-block .tx-link .txid { display: block; width: 100%; min-width: 0; }
+.pt-snapshot .pt-snapshot-intro > .title-block { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .5rem 1rem; align-items: center; }
+.pt-snapshot .pt-snapshot-intro > .title-block h1 { grid-column: 1; grid-row: 1; margin: 0; }
+.pt-snapshot .pt-snapshot-intro > .title-block .container-buttons { grid-column: 2; grid-row: 1; }
+.pt-snapshot .pt-snapshot-intro > .title-block .tx-link { display: block; grid-column: 1 / -1; grid-row: 2; width: 100%; margin: .25rem 0 0; }
+.pt-snapshot .pt-snapshot-intro > .title-block .tx-link .txid { display: block; width: 100%; min-width: 0; }
 .pt-snapshot-meaning > p { margin: 0; }
 .pt-row-more { margin-top: .35rem; }
 .pt-row-more > summary { color: #d8b779; cursor: pointer; font-size: .75rem; list-style-position: inside; }
@@ -1786,7 +1786,7 @@ app-transaction .pt-snapshot::before {
   /* baseline: removed background */
   /* baseline: removed box-shadow */
 }
-app-transaction .pt-snapshot > .title-block {
+app-transaction .pt-snapshot .pt-snapshot-intro > .title-block {
   padding: 1.45rem 1.6rem 1.1rem;
 }
 app-transaction .pt-snapshot .title-block h1 {
@@ -1880,7 +1880,7 @@ app-transaction .pt-deeper .pt-snapshot { /* baseline: removed border-color */ }
 app-transaction .table tr { /* baseline: removed border-color */ }
 app-transaction .btn-outline-info { border-radius: 8px; }
 @media (max-width: 575px) {
-  app-transaction .pt-snapshot > .title-block { padding: 1rem .8rem .7rem; }
+  app-transaction .pt-snapshot .pt-snapshot-intro > .title-block { padding: 1rem .8rem .7rem; }
   app-transaction .pt-snapshot-summary { margin: .2rem .6rem .35rem; padding: .95rem .85rem; }
   app-transaction .pt-snapshot-rows { padding: .2rem .45rem .55rem; }
   app-transaction .pt-snapshot-row { gap: .55rem; padding: .85rem .25rem; }
@@ -1910,7 +1910,7 @@ app-transaction .pt-flow-section {
   overflow: visible;
 }
 app-transaction .pt-snapshot::before { display: none; }
-app-transaction .pt-snapshot > .title-block {
+app-transaction .pt-snapshot .pt-snapshot-intro > .title-block {
   display: flex;
   flex-wrap: wrap;
   gap: .45rem 1rem;
@@ -1918,7 +1918,7 @@ app-transaction .pt-snapshot > .title-block {
   padding: .8rem 0 1.05rem;
   margin: 0;
 }
-app-transaction .pt-snapshot > .title-block h1 {
+app-transaction .pt-snapshot .pt-snapshot-intro > .title-block h1 {
   flex: none;
   margin: 0;
   font-size: clamp(1.28rem, 2.2vw, 1.5rem);
@@ -1927,14 +1927,14 @@ app-transaction .pt-snapshot > .title-block h1 {
   text-transform: none;
   color: var(--pt-text);
 }
-app-transaction .pt-snapshot > .title-block h1::before {
+app-transaction .pt-snapshot .pt-snapshot-intro > .title-block h1::before {
   content: '◇';
   display: inline-block;
   color: var(--pt-warm);
   margin-right: .75rem;
   font-size: 1.1em;
 }
-app-transaction .pt-snapshot > .title-block .tx-link {
+app-transaction .pt-snapshot .pt-snapshot-intro > .title-block .tx-link {
   flex: 1 1 300px;
   width: auto;
   margin: 0;
@@ -1943,7 +1943,7 @@ app-transaction .pt-snapshot > .title-block .tx-link {
   color: #b7c1cc;
   overflow-wrap: anywhere;
 }
-app-transaction .pt-snapshot > .title-block .container-buttons { margin-left: auto; }
+app-transaction .pt-snapshot .pt-snapshot-intro > .title-block .container-buttons { margin-left: auto; }
 app-transaction .pt-snapshot-summary {
   margin: 0 0 .55rem;
   padding: 1.15rem 1.4rem 1.25rem;
@@ -2051,9 +2051,9 @@ app-transaction .pt-flow-section .graph-container { /* baseline: removed backgro
 app-transaction .pt-flow-section .subtitle-block { margin-top: .8rem; }
 app-transaction .pt-flow-section .title { margin-bottom: .7rem; }
 @media (max-width: 767px) {
-  app-transaction .pt-snapshot > .title-block { gap: .5rem; }
-  app-transaction .pt-snapshot > .title-block .tx-link { flex-basis: 100%; order: 3; }
-  app-transaction .pt-snapshot > .title-block .container-buttons { margin-left: auto; }
+  app-transaction .pt-snapshot .pt-snapshot-intro > .title-block { gap: .5rem; }
+  app-transaction .pt-snapshot .pt-snapshot-intro > .title-block .tx-link { flex-basis: 100%; order: 3; }
+  app-transaction .pt-snapshot .pt-snapshot-intro > .title-block .container-buttons { margin-left: auto; }
   app-transaction .pt-snapshot-row { grid-template-columns: minmax(0, 43fr) minmax(0, 57fr); gap: .6rem; padding: .95rem 0; }
   app-transaction .pt-snapshot-fact { display: flex; flex-direction: column; gap: .2rem; }
   app-transaction .pt-snapshot-fact > span { font-size: .98rem; }
@@ -2065,8 +2065,8 @@ app-transaction .pt-flow-section .title { margin-bottom: .7rem; }
 
 /* Compact transaction detail density — match Pending Tracker explorer mockup.
    Explicitly excludes the Mempool block/confirmation visualization. */
-app-transaction .pt-snapshot > .title-block { padding: .4rem 0 .6rem; gap: .25rem .7rem; }
-app-transaction .pt-snapshot > .title-block .tx-link { font-size: .75rem; }
+app-transaction .pt-snapshot .pt-snapshot-intro > .title-block { padding: .4rem 0 .6rem; gap: .25rem .7rem; }
+app-transaction .pt-snapshot .pt-snapshot-intro > .title-block .tx-link { font-size: .75rem; }
 app-transaction .pt-snapshot-summary {
   padding: .65rem 1rem .75rem;
   margin: 0 0 .25rem;
@@ -2144,7 +2144,7 @@ app-transaction .pt-group-fact p { margin: .25rem 0; }
 
 /* Approved October redesign: header flush above one English-summary + six-card panel.
    Scoped to Angular transaction page, never the mempool block visualization. */
-app-transaction .pt-snapshot > .title-block { padding: .7rem 0 .85rem; }
+app-transaction .pt-snapshot .pt-snapshot-intro > .title-block { padding: .7rem 0 .85rem; }
 app-transaction .pt-snapshot-panel {
   border: 1px solid transparent;
   border-radius: 13px;
@@ -2654,7 +2654,7 @@ app-transaction .pt-eight-details.pt-snapshot-panel .pt-eight-card-grid .pt-mean
    Keep block projection ribbon, typography, colors, and mobile unchanged.
    Consolidated here rather than accumulating competing CSS overlays. */
 @media (min-width: 768px) {
-  app-transaction .pt-snapshot > .title-block {
+  app-transaction .pt-snapshot .pt-snapshot-intro > .title-block {
     padding: .36rem 0 .45rem;
     gap: .2rem .6rem;
   }
@@ -2860,12 +2860,12 @@ body app-global-footer .container-xl {
     margin-top: .45rem !important;
     padding-top: .4rem !important;
   }
-  body:has(app-transaction) app-transaction .pt-snapshot > .title-block {
+  body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block {
     padding-top: .18rem !important;
     padding-bottom: .3rem !important;
     align-items: center;
   }
-  body:has(app-transaction) app-transaction .pt-snapshot > .title-block h1::before {
+  body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block h1::before {
     font-size: .78em !important;
     margin-right: .4rem !important;
     vertical-align: .045em;
@@ -3980,7 +3980,7 @@ body:has(app-transaction)::after {
 body:has(app-transaction) app-transaction {
   font-family:inherit; color:#f4f4f5;
   > .container-xl {padding-top:10px; padding-bottom:56px;}
-  .pt-snapshot > .title-block {padding:10px 0 10px !important; gap:12px 22px !important;}
+  .pt-snapshot .pt-snapshot-intro > .title-block {padding:10px 0 10px !important; gap:12px 22px !important;}
   .title-block h1 {font-size:24px !important;line-height:1.12 !important;font-weight:600 !important;letter-spacing:-.035em !important;color:#f4f4f5 !important;}
   .tx-link, .tx-link a {color:#a1a1aa !important;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11px !important;}
   .pt-snapshot-panel .pt-snapshot-summary {
@@ -4037,7 +4037,7 @@ body:has(app-transaction) app-transaction {
     box-shadow:inset 0 1px 0 rgba(255,255,255,.08) !important;
     &:hover {background:rgba(255,255,255,.09) !important;color:#fff !important;}
   }
-  .pt-snapshot > .title-block .container-buttons .btn-success {
+  .pt-snapshot .pt-snapshot-intro > .title-block .container-buttons .btn-success {
     background:var(--pt-facetry-metal) !important;color:#0b0b0c !important;
     border:0 !important;border-radius:999px !important;padding:9px 17px !important;
     box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 8px 24px -12px rgba(255,255,255,.22) !important;
@@ -4452,7 +4452,7 @@ body:has(app-transaction) app-transaction .pt-snapshot-popover-trigger::after,
 .pt-wallet-page .pt-wallet-questions > span > button,.pt-network-dashboard .pt-network-questions > span > button,
 body:has(app-transaction) app-transaction .pt-summary-questions > span > button {min-height:30px;}
 /* Shared editorial hierarchy: identity first, quiet utilities, section accents. */
-body:has(app-transaction) app-transaction .pt-snapshot > .title-block {
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block {
  display:grid !important;grid-template-columns:auto minmax(200px,1fr);gap:8px 18px !important;padding:0 0 10px !important;margin:0 !important;border:0 !important;align-items:center;
  h1 {font-size:24px !important;margin:0 !important;grid-column:1;grid-row:1;}
  .tx-link {grid-column:2 !important;grid-row:1 !important;order:0 !important;flex-basis:auto !important;width:100%;margin:0 !important;min-width:0;}
@@ -4464,14 +4464,14 @@ body:has(app-transaction) app-transaction .pt-snapshot > .title-block {
  .pt-title-utilities .pt-display-fiat {margin:0;font-size:11px;color:#a1a1aa;}
  .alert {grid-column:1/-1;grid-row:auto;}
 }
-body:has(app-transaction) app-transaction .pt-snapshot > .title-block h1,
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block h1,
 body:has(app-transaction) app-transaction .pt-flow-header h2,
 body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary .pt-heading-title,
 .pt-network-dashboard .pt-network-heading h1,.pt-network-dashboard .pt-network-section-heading h2,
 .pt-wallet-page .pt-wallet-heading h1,.pt-wallet-page .pt-wallet-section-heading h2,.pt-wallet-page .title-tx h2 {
  color:#d8c39c !important;font-weight:600 !important;letter-spacing:-.025em !important;line-height:1.2 !important;
 }
-body:has(app-transaction) app-transaction .pt-snapshot > .title-block h1::before,
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block h1::before,
 body:has(app-transaction) app-transaction .pt-flow-header h2::before,
 body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary .pt-heading-title::before,
 .pt-network-dashboard .pt-network-heading h1::before,.pt-network-dashboard .pt-network-section-heading h2::before,
@@ -4501,39 +4501,39 @@ body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-unified .pt-
  small:empty {display:none;}
 }
 @media(max-width:767px) {
- body:has(app-transaction) app-transaction .pt-snapshot > .title-block {grid-template-columns:minmax(0,1fr);.tx-link {grid-column:1 !important;grid-row:2 !important;}.pt-title-utilities {grid-row:3;justify-content:flex-start;flex-wrap:wrap;}}
+ body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block {grid-template-columns:minmax(0,1fr);.tx-link {grid-column:1 !important;grid-row:2 !important;}.pt-title-utilities {grid-row:3;justify-content:flex-start;flex-wrap:wrap;}}
 }
 /* Keep headings attached to their content; remove the superseded Flow divider. */
 body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-label-rule {display:none !important;}
 body:has(app-transaction) app-transaction .pt-deeper.pt-dive-deeper-toggle > summary {padding-bottom:8px !important;}
 @media(min-width:1200px) {
- body:has(app-transaction) app-transaction .pt-snapshot > .title-block {
+ body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block {
   grid-template-columns:auto minmax(200px,1fr) auto;
   .pt-title-utilities {grid-column:3;grid-row:1;gap:10px;}
  }
 }
-body:has(app-transaction) app-transaction .pt-snapshot > .title-block .tx-link {
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block .tx-link {
  .truncate,.truncate-link,.first,.last-four {white-space:nowrap !important;overflow-wrap:normal !important;}
  .truncate-link {min-width:0;}
  .first {min-width:0;}
 }
 
 /* Cohesive snapshot briefing: shared header surface, one divider and quiet narrative. */
-body:has(app-transaction) app-transaction .pt-snapshot > .title-block,
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block,
 .pt-network-dashboard .pt-network-heading,
 .pt-wallet-page .pt-wallet-heading {
  background:#141416 !important;border:1px solid #ffffff16 !important;
  border-bottom:1px solid #ffffff20 !important;border-radius:14px 14px 0 0 !important;
  padding:14px 16px !important;margin:0 !important;
 }
-body:has(app-transaction) app-transaction .pt-snapshot > .title-block h1,
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block h1,
 body:has(app-transaction) app-transaction .pt-flow-header h2,
 body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary .pt-heading-title,
 .pt-network-dashboard .pt-network-heading h1,.pt-network-dashboard .pt-network-section-heading h2,
 .pt-wallet-page .pt-wallet-heading h1,.pt-wallet-page .pt-wallet-section-heading h2,.pt-wallet-page .title-tx h2 {
  color:#f4f4f5 !important;
 }
-body:has(app-transaction) app-transaction .pt-snapshot > .title-block h1::before,
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block h1::before,
 .pt-network-dashboard .pt-network-heading h1::before,.pt-wallet-page .pt-wallet-heading h1::before {display:none !important;}
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary,
 .pt-network-dashboard .pt-network-summary,.pt-wallet-page .pt-wallet-summary {
@@ -4591,7 +4591,7 @@ body:has(app-transaction) app-transaction .pt-summary-questions > span > button:
 }
 
 /* Transaction-only open snapshot: identity, explanation and facts form one section. */
-body:has(app-transaction) app-transaction .pt-snapshot > .title-block {
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block {
  background:transparent !important;border:0 !important;border-bottom:1px solid #ffffff20 !important;
  border-radius:0 !important;box-shadow:none !important;padding:0 0 11px !important;margin:0 !important;
 }
@@ -4617,7 +4617,7 @@ body:has(app-transaction) app-transaction .pt-flow-section::before,
 body:has(app-transaction) app-transaction .pt-flow-section::after,
 body:has(app-transaction) app-transaction .pt-flow-section > .pt-flow-unified::before,
 body:has(app-transaction) app-transaction .pt-dive-deeper-toggle::before {content:none !important;display:none !important;}
-body:has(app-transaction) app-transaction .pt-snapshot > .title-block {
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block {
  padding-bottom:8px !important;border-bottom-color:#bc975f55 !important;
 }
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact {
@@ -4634,14 +4634,14 @@ body:has(app-transaction) app-transaction .pt-flow-section .pt-flow-unified > .p
 body:has(app-transaction) app-transaction .pt-deeper.pt-dive-deeper-toggle > summary {padding-bottom:6px !important;}
 
 /* Shared snapshot standard: heading sits on its rule; the summary rail joins it. */
-body:has(app-transaction) app-transaction .pt-snapshot > .title-block,
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block,
 body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-network-heading,
 body:has(app-address) app-address .pt-wallet-page .pt-wallet-heading {
  background:transparent !important;border:0 !important;border-bottom:1px solid #bc975f55 !important;
  border-radius:0 !important;box-shadow:none !important;padding:0 0 3px !important;margin:0 !important;align-items:baseline !important;
  h1 {margin:0 !important;padding:0 !important;line-height:1.15 !important;}
 }
-body:has(app-transaction) app-transaction .pt-snapshot > .title-block .pt-title-utilities {align-self:end;}
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block .pt-title-utilities {align-self:end;}
 body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact,
 body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-network-summary,
 body:has(app-address) app-address .pt-wallet-page .pt-wallet-summary {
@@ -4713,3 +4713,22 @@ body:has(app-transaction) app-transaction .pt-snapshot > .pt-snapshot-panel.pt-s
  width:2px !important;height:auto !important;min-height:0 !important;margin:0 !important;
  transform:none !important;border-radius:0 !important;
 }
+
+/* Rail boundary is the actual heading-and-summary group, ending at the first card. */
+body:has(app-transaction) app-transaction .pt-snapshot-body::before,
+body:has(app-transaction) app-transaction .pt-snapshot > .pt-snapshot-panel.pt-snapshot-body::before,
+.pt-network-dashboard .pt-snapshot-body::before,.pt-wallet-page .pt-snapshot-body::before {content:none !important;display:none !important;}
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro,
+.pt-network-dashboard .pt-snapshot-intro,.pt-wallet-page .pt-snapshot-intro {position:relative;display:flow-root;}
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro::before,
+.pt-network-dashboard .pt-snapshot-intro::before,.pt-wallet-page .pt-snapshot-intro::before {
+ content:'';position:absolute;left:-9px;top:0;bottom:0;width:2px;pointer-events:none;
+ background:linear-gradient(180deg,transparent 0%,rgba(188,151,95,.7) 12%,rgba(188,151,95,.7) 85%,transparent 100%);
+}
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block,
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-network-heading,
+body:has(app-address) app-address .pt-wallet-page .pt-wallet-heading {
+ align-items:end !important;padding-bottom:0 !important;
+ h1 {align-self:end !important;margin:0 !important;padding:0 !important;line-height:1.05 !important;}
+}
+body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .title-block .tx-link {align-self:end !important;}
