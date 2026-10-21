@@ -4176,3 +4176,5 @@ body:has(app-transaction) app-transaction {
 }
 
 body:has(app-transaction) app-transaction .pt-output-fiat {display:block;color:#a1a1aa;font-size:10px;line-height:1.2;}
+
+body:has(app-transaction) app-transaction .pt-advanced-card {min-width:0;}
