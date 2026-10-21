@@ -59,7 +59,7 @@
               <div class="pt-snapshot-meaning"><p class="pt-meaning-preview">{{ fact.meaning }}</p> <button type="button" class="pt-explore-more pt-snapshot-popover-trigger" [attr.popovertarget]="'pt-snapshot-detail-' + $index">Explore more <span aria-hidden="true">▾</span><span class="visually-hidden"> about {{ fact.label }}</span></button></div>
               <div class="pt-snapshot-detail-popover" [style.position-anchor]="'--pt-snapshot-card-' + $index" [id]="'pt-snapshot-detail-' + $index" popover="auto">
                 <div class="pt-snapshot-popover-heading"><strong>Understanding {{ fact.label }}</strong><button type="button" [attr.popovertarget]="'pt-snapshot-detail-' + $index" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
-                <p>{{ fact.details }}</p>
+                <p>{{ fact.meaning }}</p><p>{{ fact.details }}</p>
               </div>
             </div>
         }
@@ -242,7 +242,7 @@
               <div class="pt-snapshot-meaning"><p class="pt-meaning-preview">{{ fact.meaning }}</p> <button type="button" class="pt-explore-more pt-snapshot-popover-trigger" [attr.popovertarget]="'pt-deeper-detail-' + $index">Explore more <span aria-hidden="true">▾</span><span class="visually-hidden"> about {{ fact.label }}</span></button></div>
               <div class="pt-snapshot-detail-popover" [style.position-anchor]="'--pt-deeper-card-' + $index" [id]="'pt-deeper-detail-' + $index" popover="auto">
                 <div class="pt-snapshot-popover-heading"><strong>Understanding {{ fact.label }}</strong><button type="button" [attr.popovertarget]="'pt-deeper-detail-' + $index" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
-                <p>{{ fact.details }}</p>
+                <p>{{ fact.meaning }}</p><p>{{ fact.details }}</p>
               </div>
             </div>
             }
