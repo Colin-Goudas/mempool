@@ -76,58 +76,58 @@
     <ul class="navbar-nav {{ network.val }}">
 
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="btn-home">
-        <a class="nav-link" title="Home" aria-label="Home" [routerLink]="['/' | relativeUrl]" (click)="collapse()">
+        <a class="nav-link" ngbTooltip="Home" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Home" [routerLink]="['/' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-tachometer" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item pt-lookup-nav" id="btn-transaction-search" *ngIf="env.PENDING_TRACKER_EXPLANATIONS && network.val === ''">
-        <button type="button" class="nav-link pt-lookup-button" title="Transaction search" aria-label="Transaction search" [disabled]="lookupLoading" [attr.aria-busy]="lookupLoading" (click)="openRecentTransaction()"><fa-icon [icon]="['fas','exchange-alt']" [fixedWidth]="true" aria-hidden="true"></fa-icon></button>
+        <button type="button" class="nav-link pt-lookup-button" ngbTooltip="Look up transaction" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Transaction search" [disabled]="lookupLoading" [attr.aria-busy]="lookupLoading" (click)="openRecentTransaction()"><fa-icon [icon]="['fas','exchange-alt']" [fixedWidth]="true" aria-hidden="true"></fa-icon></button>
       </li>
       <li class="nav-item pt-lookup-nav" id="btn-wallet-search" *ngIf="env.PENDING_TRACKER_EXPLANATIONS && network.val === ''">
-        <button type="button" class="nav-link pt-lookup-button" title="Wallet search" aria-label="Wallet search" (click)="openPublicWallet()"><fa-icon [icon]="['fas','wallet']" [fixedWidth]="true" aria-hidden="true"></fa-icon></button>
+        <button type="button" class="nav-link pt-lookup-button" ngbTooltip="Look up wallet" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Wallet search" (click)="openPublicWallet()"><fa-icon [icon]="['fas','wallet']" [fixedWidth]="true" aria-hidden="true"></fa-icon></button>
       </li>
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="btn-home" *ngIf="network.val === '' && stateService.env.ACCELERATOR">
-        <a class="nav-link" title="Transaction acceleration" aria-label="Transaction acceleration" [routerLink]="['/acceleration' | relativeUrl]" (click)="collapse()">
+        <a class="nav-link" ngbTooltip="Transaction acceleration" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Transaction acceleration" [routerLink]="['/acceleration' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-rocket" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item mining" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="btn-pools" *ngIf="stateService.env.MINING_DASHBOARD">
-        <a class="nav-link" title="Mining dashboard" aria-label="Mining dashboard" [routerLink]="['/mining' | relativeUrl]" (click)="collapse()">
+        <a class="nav-link" ngbTooltip="Mining dashboard" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Mining dashboard" [routerLink]="['/mining' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-pickaxe" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="btn-lightning" *ngIf="stateService.networkSupportsLightning()">
-        <a class="nav-link" title="Lightning explorer" aria-label="Lightning explorer" [routerLink]="['/lightning' | relativeUrl]" (click)="collapse()">
+        <a class="nav-link" ngbTooltip="Lightning explorer" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Lightning explorer" [routerLink]="['/lightning' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-bolt" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active" id="btn-blocks" *ngIf="!stateService.env.MINING_DASHBOARD">
-        <a class="nav-link" title="Blocks" aria-label="Blocks" [routerLink]="['/blocks' | relativeUrl]" (click)="collapse()">
+        <a class="nav-link" ngbTooltip="Blocks" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Blocks" [routerLink]="['/blocks' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-cubes" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active" id="btn-graphs">
-        <a class="nav-link" title="Network charts" aria-label="Network charts" [routerLink]="['/graphs' | relativeUrl]" (click)="collapse()">
+        <a class="nav-link" ngbTooltip="Network charts" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Network charts" [routerLink]="['/graphs' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-chart-area" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active" id="btn-faucet" *ngIf="stateService.isMempoolSpaceBuild && stateService.env.OFFICIAL_MEMPOOL_SPACE && stateService.network === 'testnet4'">
-        <a class="nav-link" title="Testnet faucet" aria-label="Testnet faucet" [routerLink]="['/faucet' | relativeUrl]" (click)="collapse()">
+        <a class="nav-link" ngbTooltip="Testnet faucet" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Testnet faucet" [routerLink]="['/faucet' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-faucet-drip" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active" id="btn-docs" *ngIf="!officialMempoolSpaceBuild">
-        <a class="nav-link" title="API documentation" aria-label="API documentation" [routerLink]="['/docs' | relativeUrl ]" (click)="collapse()">
+        <a class="nav-link" ngbTooltip="API documentation" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="API documentation" [routerLink]="['/docs' | relativeUrl ]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-book" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active" id="btn-enterprise" *ngIf="officialMempoolSpaceBuild">
-        <a class="nav-link" title="Enterprise" aria-label="Enterprise" [routerLink]="['/enterprise']" [queryParams]="{network: network.val.length ? network.val : null}" (click)="collapse()">
+        <a class="nav-link" ngbTooltip="Enterprise" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Enterprise" [routerLink]="['/enterprise']" [queryParams]="{network: network.val.length ? network.val : null}" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-enterprise" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active" id="btn-about">
-        <a class="nav-link" title="About" aria-label="About" [routerLink]="['/about']" (click)="collapse()">
+        <a class="nav-link" ngbTooltip="About" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="About" [routerLink]="['/about']" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-info-circle" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
