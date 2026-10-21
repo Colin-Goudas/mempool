@@ -102,10 +102,21 @@ export class AddressComponent implements OnInit, OnDestroy {
   network = '';
   showWalletFiat = true;
   visibleWalletTransactions = 10;
+  showWalletRaw = false;
+  private walletHistorySource: Transaction[];
+  private walletHistoryLimit = 0;
+  private walletHistoryCache: Transaction[] = [];
   get walletView() { return walletView(this.chainStats || this.address?.chain_stats, this.mempoolStats || this.address?.mempool_stats); }
   walletTxChange(tx: Transaction): number | null { return addressTransactionChange(tx, this.addressString); }
-  get visibleWalletHistory(): Transaction[] { return (this.transactions || []).slice(0,this.visibleWalletTransactions); }
-  async expandWalletHistory(): Promise<void> {
+  get visibleWalletHistory(): Transaction[] {
+    if (this.walletHistorySource !== this.transactions || this.walletHistoryLimit !== this.visibleWalletTransactions) {
+      this.walletHistorySource = this.transactions;
+      this.walletHistoryLimit = this.visibleWalletTransactions;
+      this.walletHistoryCache = (this.transactions || []).slice(0,this.visibleWalletTransactions);
+    }
+    return this.walletHistoryCache;
+  }
+  expandWalletHistory(): void {
     if ((this.transactions?.length || 0) > this.visibleWalletTransactions) this.visibleWalletTransactions += 10;
     else if (!this.fullyLoaded && !this.isLoadingTransactions) { this.visibleWalletTransactions += 10; this.loadMore(); }
   }
@@ -168,30 +179,6 @@ export class AddressComponent implements OnInit, OnDestroy {
     return !!this.stateService.env.PENDING_TRACKER_EXPLANATIONS && this.network === '';
   }
 
-  get walletSnapshot(): {
-    balance: number | null; pending: number | null; received: number | null;
-    spent: number | null; utxos: number | null; confirmedTransactions: number | null;
-    pendingTransactions: number | null; pendingUtxos: number | null;
-  } {
-    // AddressStats is maintained by the existing live subscriptions. Fall back to
-    // the response stats only while those live wrappers are being initialized.
-    const confirmed = this.chainStats || this.address?.chain_stats;
-    const pending = this.mempoolStats || this.address?.mempool_stats;
-    const finite = (value: number | undefined): number | null => Number.isFinite(value) ? value : null;
-    const difference = (funded: number | undefined, spent: number | undefined): number | null =>
-      Number.isFinite(funded) && Number.isFinite(spent) ? funded - spent : null;
-    return {
-      balance: difference(confirmed?.funded_txo_sum, confirmed?.spent_txo_sum),
-      pending: difference(pending?.funded_txo_sum, pending?.spent_txo_sum),
-      received: finite(confirmed?.funded_txo_sum),
-      spent: finite(confirmed?.spent_txo_sum),
-      utxos: difference(confirmed?.funded_txo_count, confirmed?.spent_txo_count),
-      confirmedTransactions: finite(confirmed?.tx_count),
-      pendingTransactions: finite(pending?.tx_count),
-      pendingUtxos: difference(pending?.funded_txo_count, pending?.spent_txo_count),
-    };
-  }
-
   ngOnInit(): void {
     this.network = this.stateService.network;
     this.networkChangeSubscription = this.stateService.networkChanged$.subscribe((network) => {
@@ -223,6 +210,7 @@ export class AddressComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap((params: ParamMap) => {
           this.visibleWalletTransactions = 10;
+          this.showWalletRaw = false;
           this.chainStats = undefined;
           this.mempoolStats = undefined;
           this.error = undefined;
