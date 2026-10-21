@@ -4738,3 +4738,18 @@ body:has(app-transaction) app-transaction .pt-snapshot .pt-snapshot-intro > .tit
 body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-network-heading,
 body:has(app-address) app-address .pt-wallet-page .pt-wallet-heading {padding-left:15px !important;}
 body:has(app-transaction) app-transaction .pt-snapshot-summary .pt-summary-btc-amount {white-space:nowrap;}
+
+/* Pending Tracker homepage preview shares the approved explorer palette and search. */
+body:has(app-pending-home) {background:#09090b !important;color:#d4d4d8;}
+body:has(app-pending-home)::before {content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:repeating-linear-gradient(135deg,#0e0f10 0,#0e0f10 60px,#0e0f1099 70px,#18191b 130px);opacity:.45;}
+body:has(app-pending-home)::after {content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 5%,#18181b44,#09090bcc 50%,#000 100%);}
+app-pending-home app-search-form {display:block;}
+app-pending-home app-search-form form {margin:0;}
+app-pending-home app-search-form form > .d-flex {padding:5px;background:#ffffff05;border:1px solid #ffffff30;border-radius:12px;align-items:center;box-shadow:inset 0 1px 0 #ffffff08;}
+app-pending-home app-search-form .search-box-container {min-width:0;flex:1;margin:0 !important;}
+app-pending-home app-search-form input.form-control {background:transparent !important;border:0 !important;height:48px;padding:0 13px;font-size:14px;color:#f4f4f5;box-shadow:none;}
+app-pending-home app-search-form input.form-control::placeholder {color:#93939e;}
+app-pending-home app-search-form input.form-control:focus-visible {outline:2px solid #bc975f;outline-offset:-2px;border-radius:7px;}
+app-pending-home app-search-form .search-submit {height:44px;min-width:108px;border:1px solid #ffffff40 !important;border-radius:8px !important;background:linear-gradient(180deg,#fbfbfb,#cccbcb 55%,#9e9d9d) !important;color:#111113 !important;font-size:13px;font-weight:600;}
+app-pending-home app-search-form .search-submit:focus-visible {outline:2px solid #bc975f;outline-offset:3px;}
+app-pending-home app-search-form .dropdown-menu {width:100%;}
