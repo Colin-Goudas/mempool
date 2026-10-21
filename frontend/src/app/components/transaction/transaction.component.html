@@ -8,7 +8,7 @@
     </div>
 
     <ng-container *ngIf="!rbfTransaction || rbfTransaction?.size || tx">
-      <h1 i18n="shared.transaction">Transaction Snapshot</h1><span *ngIf="pendingTrackerSnapshot" class="pt-network-label">Bitcoin mainnet</span>
+      <h1 i18n="shared.transaction">Transaction Snapshot</h1><span *ngIf="pendingTrackerSnapshot" class="pt-network-label">Bitcoin mainnet</span><label *ngIf="pendingTrackerSnapshot" class="pt-display-fiat"><input type="checkbox" [checked]="showUsd" (change)="showUsd = !showUsd"> Fiat values</label>
 
       <span class="tx-link">
         <span class="txid">
@@ -52,20 +52,30 @@
   }
   <div class="pt-snapshot-panel">
     @if (tx && network === '' && stateService.env.PENDING_TRACKER_EXPLANATIONS) {
-      <div class="pt-snapshot-summary"><app-transaction-explanation [txid]="tx.txid" [confirmed]="tx.status.confirmed" [embedded]="true" [fallbackSummary]="snapshotSummary" [replaced]="!!replaced || !!rbfTransaction"></app-transaction-explanation>
-        <div class="pt-amount-context"><strong>{{ selectedAddress ? 'To selected address' : 'Total output' }}: {{ displayAmountSats / 100000000 | number:'1.8-8' }} BTC</strong><span *ngIf="showUsd"> · ≈ <app-fiat [value]="displayAmountSats" colorClass=""></app-fiat></span><small>{{ selectedAddress ? 'Outputs to the address you selected.' : 'Combined outputs; may include change.' }} <span *ngIf="showUsd">Conversions use the current price.</span></small></div>
-        <p class="pt-next-step">{{ feeInterpretation }}</p>
-        <div class="pt-tracking-controls"><label><input type="checkbox" [checked]="showUsd" (change)="showUsd = !showUsd"> Show fiat equivalents</label>
-        <button type="button" class="btn btn-outline-info btn-sm" *ngIf="!tx.status.confirmed && !replaced && !rbfTransaction" (click)="toggleConfirmationAlert()">{{ alertTxid === tx.txid ? 'Turn off confirmation alert' : 'Notify me when confirmed' }}</button></div>
-        <small class="pt-update-note">Queue data updated {{ feeUpdatedAt || 'when available' }}. <span *ngIf="(stateService.connectionState$ | async) !== 2">Live updates disconnected; displayed data may be stale.</span><span *ngIf="estimateChanged && !tx.status.confirmed"> The projected block estimate changed with new network data; it is not a countdown.</span></small>
-        <p *ngIf="alertMessage" class="pt-update-note" role="status">{{ alertMessage }}</p>
-        <details class="pt-context-help"><summary>What can I do?</summary>
-          <p *ngIf="tx.status.confirmed">No fee increase is needed. If a deposit is missing, check the receiving platform’s confirmation requirements, address and supported network. We cannot see its internal crediting status.</p>
-          <ng-container *ngIf="!tx.status.confirmed"><p>Waiting is an option. Estimates change as blocks arrive and transactions compete for space. Pending does not itself mean failed.</p><div class="pt-help-roles"><button type="button" (click)="helpRole = 'sent'">I sent this</button><button type="button" (click)="helpRole = 'receiving'">I am receiving it</button><button type="button" (click)="helpRole = 'exchange'">Sent through an exchange</button></div>
-          <p *ngIf="helpRole === 'sent'">If timing matters, check your sending wallet for Increase fee or Replace by fee. Availability depends on wallet support, control of the inputs and node policy. Pending Tracker cannot change the fee or guarantee confirmation.</p>
-          <p *ngIf="helpRole === 'receiving'">Ask the sender about fee-increase options. Some wallets let you spend an unconfirmed output with a higher fee (CPFP); this requires control of a suitable output and wallet support. Do not assume you can replace the sender’s transaction.</p>
-          <p *ngIf="helpRole === 'exchange'">The sending platform controls the withdrawal. Check its withdrawal status or contact its official support; you usually cannot increase its transaction fee yourself.</p></ng-container>
-        </details>
+      <div class="pt-snapshot-summary pt-summary-compact">
+        <h2 class="pt-summary-heading">IN PLAIN ENGLISH</h2>
+        <p class="pt-summary-narrative"><strong>{{ summaryStatus() }}</strong> {{ summaryContext(ETA$ | async) }}
+          {{ selectedAddress ? 'Outputs to the selected address total' : 'Its outputs total' }} <strong>{{ displayAmountSats / 100000000 | number:'1.8-8' }} BTC</strong><span *ngIf="showUsd"> (approximately <app-fiat [value]="displayAmountSats" colorClass=""></app-fiat> at the current price)</span>{{ selectedAddress ? '.' : ', which may include change returned to the sender.' }}
+        </p>
+        <div class="pt-summary-questions" aria-label="Questions about this transaction">
+          @for (question of summaryQuestions; track question.id) {
+            <span class="pt-summary-question">
+              <button type="button" [style.anchor-name]="'--pt-question-' + question.id" [attr.popovertarget]="'pt-question-' + question.id">{{ question.label }}</button>
+              <div class="pt-question-popover" [id]="'pt-question-' + question.id" [style.position-anchor]="'--pt-question-' + question.id" popover="auto">
+                <div class="pt-question-heading"><strong>{{ question.label }}</strong><button type="button" [attr.popovertarget]="'pt-question-' + question.id" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
+                <p>{{ question.text }}</p>
+                @if (question.id === 'speed') {
+                  <div class="pt-help-roles"><button type="button" (click)="helpRole = 'sent'" [attr.aria-pressed]="helpRole === 'sent'">I sent this</button><button type="button" (click)="helpRole = 'receiving'" [attr.aria-pressed]="helpRole === 'receiving'">I am receiving it</button><button type="button" (click)="helpRole = 'exchange'" [attr.aria-pressed]="helpRole === 'exchange'">Sent through an exchange</button></div>
+                  <p *ngIf="helpRole === 'sent'">Check your sending wallet for Increase fee or Replace by fee. Availability depends on wallet support, control of the inputs and node policy; signaling RBF does not guarantee acceptance or confirmation.</p>
+                  <p *ngIf="helpRole === 'receiving'">Ask the sender about fee-increase options. Some wallets support spending a suitable unconfirmed output with a higher fee (CPFP); this needs control of that output and wallet support. You cannot assume you can replace the sender’s transaction.</p>
+                  <p *ngIf="helpRole === 'exchange'">The sending platform controls the withdrawal. Check its withdrawal status or official support; you usually cannot increase its fee yourself.</p>
+                  <button type="button" class="pt-alert-control" *ngIf="!replaced && !rbfTransaction" (click)="toggleConfirmationAlert()">{{ alertTxid === tx.txid ? 'Turn off confirmation alert' : 'Notify me when confirmed' }}</button><small class="pt-update-note">Alerts require permission and this page to remain open and connected.</small><p *ngIf="alertMessage" role="status">{{ alertMessage }}</p>
+                }
+              </div>
+            </span>
+          }
+        </div>
+        <small *ngIf="(stateService.connectionState$ | async) !== 2" class="pt-update-note" role="status">Live updates disconnected; displayed data may be stale.</small>
       </div>
     }
     @if (pendingTrackerSnapshot && tx && !error) {
