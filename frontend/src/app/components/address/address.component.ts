@@ -1,3 +1,4 @@
+import { walletView, addressTransactionChange } from './wallet-view';
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -99,6 +100,16 @@ class AddressStats implements ChainStats {
 })
 export class AddressComponent implements OnInit, OnDestroy {
   network = '';
+  showWalletFiat = true;
+  visibleWalletTransactions = 10;
+  get walletView() { return walletView(this.chainStats || this.address?.chain_stats, this.mempoolStats || this.address?.mempool_stats); }
+  walletTxChange(tx: Transaction): number | null { return addressTransactionChange(tx, this.addressString); }
+  get visibleWalletHistory(): Transaction[] { return (this.transactions || []).slice(0,this.visibleWalletTransactions); }
+  async expandWalletHistory(): Promise<void> {
+    if ((this.transactions?.length || 0) > this.visibleWalletTransactions) this.visibleWalletTransactions += 10;
+    else if (!this.fullyLoaded && !this.isLoadingTransactions) { this.visibleWalletTransactions += 10; this.loadMore(); }
+  }
+
 
   isMobile: boolean;
   showQR: boolean = false;
@@ -211,6 +222,9 @@ export class AddressComponent implements OnInit, OnDestroy {
     this.mainSubscription = this.route.paramMap
       .pipe(
         switchMap((params: ParamMap) => {
+          this.visibleWalletTransactions = 10;
+          this.chainStats = undefined;
+          this.mempoolStats = undefined;
           this.error = undefined;
           this.isLoadingAddress = true;
           this.fullyLoaded = false;
