@@ -1,6 +1,8 @@
 <div class="container-xl">
   <section [class.pt-snapshot]="pendingTrackerSnapshot" [attr.aria-label]="pendingTrackerSnapshot ? 'Transaction snapshot' : null">
 
+  <div class="pt-snapshot-panel">
+  <div class="pt-snapshot-intro">
   <div class="title-block">
     <div *ngIf="rbfTransaction && !tx?.status?.confirmed" class="alert alert-mempool" role="alert">
       <span i18n="transaction.rbf.replacement|RBF replacement">This transaction has been replaced by:</span>
@@ -52,7 +54,7 @@
   @if (pendingTrackerSnapshot && tx && !tx.status.confirmed && (replaced || rbfTransaction || rbfInfo?.mined || isCached)) {
     <div class="pt-tracking-notice" role="status">{{ replaced || rbfTransaction ? 'A replacement was observed. Follow the replacement transaction above for its latest status.' : rbfInfo?.mined ? 'A conflicting transaction was mined. Do not treat this transaction as confirmed.' : 'Showing cached transaction data. Current mempool presence has not been verified.' }}</div>
   }
-  <div class="pt-snapshot-panel" [class.pt-snapshot-body]="pendingTrackerSnapshot">
+
     @if (tx && network === '' && stateService.env.PENDING_TRACKER_EXPLANATIONS) {
       <div class="pt-snapshot-summary pt-summary-compact">
         <p class="pt-summary-narrative"><strong class="pt-summary-inline-label">In plain English —</strong> {{ summaryStatus() }} {{ summaryContext(ETA$ | async) }}
@@ -98,6 +100,7 @@
         <small *ngIf="(stateService.connectionState$ | async) !== 2" class="pt-update-note" role="status">Live updates disconnected; displayed data may be stale.</small>
       </div>
     }
+    </div>
     @if (pendingTrackerSnapshot && tx && !error) {
       <div class="pt-snapshot-rows pt-eight-card-grid">
         @for (fact of snapshotFactsFor(ETA$ | async); track fact.label) {
