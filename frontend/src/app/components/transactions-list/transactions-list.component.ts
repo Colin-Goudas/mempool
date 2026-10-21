@@ -37,6 +37,7 @@ export class TransactionsListComponent implements OnInit, OnChanges, OnDestroy {
   @Input() showConfirmations = false;
   @Input() transactionPage = false;
   @Input() compactFlow = false;
+  @Input() showCurrentFiat = false;
   expandedInputs = new Set<string>();
   expandedOutputs = new Set<string>();
 
