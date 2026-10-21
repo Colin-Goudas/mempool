@@ -3952,3 +3952,115 @@ body:has(app-transaction) app-transaction *::after {
   box-shadow: none !important;
   text-shadow: none !important;
 }
+
+/* FACETRY SECURITY — isolated transaction template, based on its published
+   surface, metal, type and diagonal-background tokens. Baseline remains on
+   baseline/transaction-visual-reset-2026-10-21. No graph or data code changes. */
+body:has(app-transaction) {
+  --pt-facetry-metal: linear-gradient(180deg,#fbfbfb 0%,#e4e4e4 18%,#cccbcb 55%,#9e9d9d 100%);
+  --pt-facetry-surface: radial-gradient(130% 130% at 50% 0%,rgba(255,255,255,.05) 0%,rgba(255,255,255,.01) 60%,rgba(0,0,0,.4) 100%);
+  --pt-facetry-shadow: inset 0 1px 0 rgba(255,255,255,.12),inset 0 0 0 1px rgba(255,255,255,.04),0 30px 60px -12px rgba(0,0,0,.95);
+  --pt-warm:#d4d4d8; --pt-muted:#a1a1aa;
+  --link-color:#d4d4d8; --link-hover-color:#fff;
+  background: #000;
+  color:#f4f4f5;
+  font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  isolation:isolate;
+}
+body:has(app-transaction)::before {
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:repeating-linear-gradient(135deg,#0e0f10 0px,#0e0f10 60px,rgba(14,15,16,.6) 70px,#18191b 130px);
+  opacity:.7;
+}
+body:has(app-transaction)::after {
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:radial-gradient(circle at 50% 30%,rgba(24,24,27,.35) 0%,rgba(9,9,11,.72) 38%,rgba(0,0,0,.96) 100%);
+}
+body:has(app-transaction) app-transaction {
+  font-family:inherit; color:#f4f4f5;
+  > .container-xl {padding-top:10px; padding-bottom:56px;}
+  .pt-snapshot > .title-block {padding:15px 0 22px !important; gap:12px 22px !important;}
+  .title-block h1 {font-size:30px !important;line-height:1.12 !important;font-weight:600 !important;letter-spacing:-.035em !important;color:#f4f4f5 !important;}
+  .tx-link, .tx-link a {color:#a1a1aa !important;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11px !important;}
+  .pt-snapshot-panel .pt-snapshot-summary {
+    padding:20px 24px !important;margin:0 0 18px !important;
+    background:var(--pt-facetry-surface) !important;
+    border:1px solid rgba(255,255,255,.07) !important;border-radius:24px !important;
+    box-shadow:var(--pt-facetry-shadow) !important;
+    color:#d4d4d8 !important;font-size:15px !important;line-height:1.7 !important;
+  }
+  .pt-snapshot-summary h2 {color:#a1a1aa !important;font-size:11px !important;letter-spacing:.12em !important;font-weight:500 !important;}
+  .pt-snapshot-summary p {color:#d4d4d8 !important;line-height:1.7 !important;}
+  .pt-snapshot-panel:is(.pt-snapshot-panel,.pt-eight-details) .pt-snapshot-rows.pt-eight-card-grid {
+    gap:16px !important;overflow:visible !important;
+  }
+  .pt-snapshot-panel:is(.pt-snapshot-panel,.pt-eight-details) .pt-eight-card-grid .pt-metric-card {
+    padding:24px !important;min-height:150px !important;
+    background:var(--pt-facetry-surface) !important;
+    border:1px solid rgba(255,255,255,.045) !important;border-radius:28px !important;
+    box-shadow:var(--pt-facetry-shadow) !important;
+    transition:background-color .25s ease,border-color .25s ease;
+    &:hover {background-color:rgba(255,255,255,.025) !important;border-color:rgba(255,255,255,.12) !important;}
+    &::before,&::after {display:none !important;}
+    .pt-snapshot-fact {font-size:20px !important;line-height:1.35 !important;letter-spacing:-.02em !important;margin-bottom:10px !important;}
+    .pt-snapshot-fact > span {color:#f4f4f5 !important;font-size:inherit !important;font-weight:500 !important;}
+    .pt-snapshot-fact > strong {color:#d4d4d8 !important;font-size:inherit !important;font-weight:400 !important;}
+    .pt-snapshot-meaning,.pt-meaning-preview {color:#a1a1aa !important;font-size:14px !important;line-height:1.65 !important;}
+    .pt-snapshot-popover-trigger {color:#d4d4d8 !important;font-size:12px !important;font-weight:500 !important;margin-top:13px !important;letter-spacing:.01em;}
+    .pt-snapshot-popover-trigger:hover {color:#fff !important;}
+  }
+  .pt-flow-section,.pt-dive-deeper-toggle,.pt-deeper:not(.pt-dive-deeper-toggle) {margin-top:46px !important;padding-top:24px !important;}
+  .pt-flow-header h2,.pt-heading-title {color:#f4f4f5 !important;font-size:27px !important;font-weight:600 !important;letter-spacing:-.035em !important;}
+  .pt-flow-description,.pt-heading-description {color:#a1a1aa !important;font-size:13px !important;line-height:1.6 !important;}
+  .pt-dive-deeper-toggle > summary {padding-bottom:24px !important;}
+  .pt-flow-section .pt-flow-unified {
+    background:var(--pt-facetry-surface) !important;border:1px solid rgba(255,255,255,.06) !important;
+    border-radius:32px !important;padding:22px 18px !important;box-shadow:var(--pt-facetry-shadow) !important;
+  }
+  .pt-flow-section .pt-graph-direction-labels {color:#d4d4d8 !important;font-size:16px !important;font-weight:500 !important;letter-spacing:-.01em;}
+  .pt-flow-section .pt-flow-table-headings {color:#a1a1aa !important;font-size:12px !important;font-weight:500 !important;letter-spacing:.03em;}
+  .pt-flow-section .pt-flow-table-divider {background:rgba(255,255,255,.08) !important;margin:18px 0 14px !important;}
+  .pt-flow-section .address-cell a {color:#d4d4d8 !important;}
+  .pt-flow-section::before,.pt-dive-deeper-toggle::before {background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent) !important;}
+  .pt-snapshot-detail-popover {
+    color:#d4d4d8 !important;background:#111113 !important;
+    border:1px solid rgba(255,255,255,.12) !important;border-radius:22px !important;
+    box-shadow:var(--pt-facetry-shadow) !important;padding:22px !important;
+  }
+  .pt-snapshot-popover-heading {border-bottom:1px solid rgba(255,255,255,.08) !important;}
+  .pt-snapshot-popover-heading strong {color:#f4f4f5 !important;}
+  .btn-outline-info,.pt-summary-refresh,.pt-explanation-refresh {
+    color:#d4d4d8 !important;background:rgba(255,255,255,.04) !important;
+    border:1px solid rgba(255,255,255,.1) !important;border-radius:999px !important;
+    padding:7px 15px !important;font-size:12px !important;line-height:1.3 !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08) !important;
+    &:hover {background:rgba(255,255,255,.09) !important;color:#fff !important;}
+  }
+  .pt-snapshot > .title-block .container-buttons .btn-success {
+    background:var(--pt-facetry-metal) !important;color:#0b0b0c !important;
+    border:0 !important;border-radius:999px !important;padding:9px 17px !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 8px 24px -12px rgba(255,255,255,.22) !important;
+    font-size:12px !important;font-weight:500 !important;
+  }
+  .pt-deeper-intro,.pt-deeper p {color:#a1a1aa;}
+  .pt-deeper a,.pt-row-more > summary {color:#d4d4d8 !important;}
+  .pt-heading-title::before,.pt-flow-header h2::before,.title-block h1::before {color:#a1a1aa !important;}
+  button:focus-visible,a:focus-visible,summary:focus-visible {outline:2px solid #d4d4d8 !important;outline-offset:4px;}
+}
+body:has(app-transaction) .navbar {
+  background:rgba(18,18,21,.92) !important;border-bottom:1px solid rgba(255,255,255,.06);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 16px 32px -8px rgba(0,0,0,.7) !important;
+  .navbar-brand {color:#f4f4f5 !important;letter-spacing:-.015em;}
+  .form-control {background:rgba(255,255,255,.035) !important;border:1px solid rgba(255,255,255,.08) !important;border-radius:999px 0 0 999px !important;}
+  .btn {background:var(--pt-facetry-metal) !important;color:#0b0b0c !important;border:0 !important;border-radius:0 999px 999px 0 !important;}
+}
+body:has(app-transaction) footer {background:#09090b !important;border-top:1px solid rgba(255,255,255,.06);color:#a1a1aa;}
+@media(max-width:700px) {
+  body:has(app-transaction) app-transaction {
+    .pt-snapshot-panel:is(.pt-snapshot-panel,.pt-eight-details) .pt-eight-card-grid .pt-metric-card {padding:18px !important;min-height:0 !important;}
+    .pt-snapshot-panel:is(.pt-snapshot-panel,.pt-eight-details) .pt-snapshot-rows.pt-eight-card-grid {gap:12px !important;}
+    .pt-flow-section .pt-flow-unified {padding:16px 8px !important;border-radius:24px !important;}
+  }
+}
