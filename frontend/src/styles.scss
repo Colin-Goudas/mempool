@@ -4386,3 +4386,18 @@ body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-explorer-intro {
   app-search-results .dropdown-menu {width:100%;}
   @media(max-width:600px) {padding-top:12px;app-search-form input {font-size:13px;}app-search-form .search-submit {width:82px;}}
 }
+
+/* Make the shared Bitcoin lookup prominent on explorer, transaction and wallet pages. */
+body:has(app-transaction) .navbar app-search-form.search-form-container,
+body:has(app-dashboard .pt-network-dashboard) .navbar app-search-form.search-form-container,
+body:has(app-address .pt-wallet-page) .navbar app-search-form.search-form-container {
+  @media(min-width:992px) {max-width:640px !important;width:52vw !important;flex:0 1 640px;padding-left:20px;}
+  form {margin:0 !important;}
+  form > .d-flex {align-items:center;gap:0;}
+  .search-box-container {margin-right:0 !important;min-width:0;}
+  input.form-control {height:44px !important;font-size:14px !important;color:#ececef !important;background:rgba(255,255,255,.065) !important;border:1px solid rgba(255,255,255,.22) !important;border-right:0 !important;border-radius:12px 0 0 12px !important;padding-left:16px;}
+  input.form-control::placeholder {color:#b4b4bc !important;opacity:1;}
+  input.form-control:focus-visible {outline:2px solid #bc975f;outline-offset:-2px;}
+  .search-submit {height:44px !important;min-width:100px;width:100px;border-radius:0 12px 12px 0 !important;font-size:13px;font-weight:600;}
+  @media(max-width:991px) {.search-submit {min-width:85px;width:85px;}input.form-control {font-size:12px !important;}}
+}
