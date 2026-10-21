@@ -4517,3 +4517,62 @@ body:has(app-transaction) app-transaction .pt-snapshot > .title-block .tx-link {
  .truncate-link {min-width:0;}
  .first {min-width:0;}
 }
+
+/* Cohesive snapshot briefing: shared header surface, one divider and quiet narrative. */
+body:has(app-transaction) app-transaction .pt-snapshot > .title-block,
+.pt-network-dashboard .pt-network-heading,
+.pt-wallet-page .pt-wallet-heading {
+ background:#141416 !important;border:1px solid #ffffff16 !important;
+ border-bottom:1px solid #ffffff20 !important;border-radius:14px 14px 0 0 !important;
+ padding:14px 16px !important;margin:0 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot > .title-block h1,
+body:has(app-transaction) app-transaction .pt-flow-header h2,
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary .pt-heading-title,
+.pt-network-dashboard .pt-network-heading h1,.pt-network-dashboard .pt-network-section-heading h2,
+.pt-wallet-page .pt-wallet-heading h1,.pt-wallet-page .pt-wallet-section-heading h2,.pt-wallet-page .title-tx h2 {
+ color:#f4f4f5 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot > .title-block h1::before,
+.pt-network-dashboard .pt-network-heading h1::before,.pt-wallet-page .pt-wallet-heading h1::before {display:none !important;}
+body:has(app-transaction) app-transaction .pt-snapshot-panel .pt-snapshot-summary,
+.pt-network-dashboard .pt-network-summary,.pt-wallet-page .pt-wallet-summary {
+ background:#141416 !important;border:1px solid #ffffff16 !important;border-top:0 !important;
+ border-left:1px solid #ffffff16 !important;border-radius:0 0 14px 14px !important;
+ padding:16px !important;margin:0 0 12px !important;box-shadow:none !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-summary .pt-summary-heading,
+.pt-network-dashboard .pt-network-summary h2,.pt-wallet-page .pt-wallet-summary h2 {
+ margin:0 0 9px !important;font-size:11px !important;font-weight:600 !important;
+ letter-spacing:.1em !important;color:#a1a1aa !important;line-height:1.4 !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-summary .pt-summary-outcome {
+ font-size:17px !important;font-weight:600 !important;color:#f4f4f5 !important;
+ line-height:1.45 !important;margin:0 0 6px !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-summary .pt-summary-narrative,
+.pt-network-dashboard .pt-network-summary > p,.pt-wallet-page .pt-wallet-summary > p {
+ font-size:14px !important;line-height:1.6 !important;color:#c4c4cc !important;
+ max-width:88ch;margin:0 0 10px !important;
+}
+body:has(app-transaction) app-transaction .pt-snapshot-summary .pt-next-step {
+ color:#c4c4cc !important;max-width:96ch;margin:10px 0 0 !important;
+}
+body:has(app-transaction) app-transaction .pt-summary-questions,
+.pt-network-dashboard .pt-network-questions,.pt-wallet-page .pt-wallet-questions {
+ margin-top:14px !important;gap:8px !important;align-items:center;
+}
+body:has(app-transaction) app-transaction .pt-summary-questions > span > button,
+.pt-network-dashboard .pt-network-questions > span > button,.pt-wallet-page .pt-wallet-questions > span > button {
+ background:#ffffff04 !important;border:1px solid #ffffff24 !important;color:#d4d4d8 !important;
+ border-radius:8px !important;font-size:12px !important;padding:6px 10px !important;min-height:32px;
+}
+body:has(app-transaction) app-transaction .pt-summary-questions > span > button.pt-notification-action,
+.pt-wallet-page .pt-wallet-questions > span > button.pt-wallet-track,
+.pt-network-dashboard .pt-network-questions > span > button.pt-send-trigger {
+ border-color:#bc975f80 !important;color:#e0c58a !important;background:#bc975f0d !important;
+}
+body:has(app-transaction) app-transaction .pt-summary-questions button:focus-visible,
+.pt-network-dashboard .pt-network-questions button:focus-visible,.pt-wallet-page .pt-wallet-questions button:focus-visible {
+ outline:2px solid #bc975f;outline-offset:3px;
+}
