@@ -1,4 +1,4 @@
-<div class="container-xl" [class.pt-phone-status]="phoneStatusView" [class.pt-phone-details]="phoneDetailsView">
+<div id="pt-transaction-layout" class="container-xl" [class.pt-phone-status]="phoneStatusView" [class.pt-phone-details]="phoneDetailsView">
   @if (phoneStatusView) {
     <div class="pt-phone-nav nav-header"><a routerLink="/">Pending Tracker</a><a routerLink="/bitcoin">Bitcoin</a></div>
     <div class="pt-phone-id field"><span class="label">Transaction</span><span class="value"><app-truncate [text]="txId" [lastChars]="12"><app-clipboard [text]="txId"></app-clipboard></app-truncate></span></div>
