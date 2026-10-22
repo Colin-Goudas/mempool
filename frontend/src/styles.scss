@@ -4926,7 +4926,7 @@ body:has(app-transaction) app-transaction .pt-flow-section.pt-flow-open {
 
 /* Explorer hierarchy: clear section rhythm and purposeful data colors. */
 body:has(app-transaction),body:has(app-address .pt-wallet-page),body:has(app-dashboard .pt-network-dashboard) {
-  --pt-data-link:#d8bc86;--pt-data-in:#9bcbb0;--pt-data-out:#dfa58d;--pt-data-pending:#dfbd7b;
+  --pt-data-link:#8bc9e8;--pt-data-in:#9bcbb0;--pt-data-out:#dfa58d;--pt-data-pending:#dfbd7b;
 }
 body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-intro h1,
 body:has(app-transaction) app-transaction .pt-flow-header h2,
@@ -4954,7 +4954,7 @@ body:has(app-transaction) app-transaction .pt-flow-open .address-cell a {color:v
 body:has(app-dashboard) .pt-network-dashboard app-recent-transactions-list a:hover,
 body:has(app-dashboard) .pt-network-dashboard .lastest-replacements-table a:hover,
 body:has(app-address) .pt-wallet-page .pt-wallet-history-table td:first-child a:hover,
-body:has(app-transaction) app-transaction .pt-flow-open .address-cell a:hover {color:#f3d9a8 !important;text-decoration:underline;text-underline-offset:3px;}
+body:has(app-transaction) app-transaction .pt-flow-open .address-cell a:hover {color:#c2e9ff !important;text-decoration:underline;text-underline-offset:3px;}
 body:has(app-address) .pt-wallet-page .pt-wallet-history .pt-wallet-confirmed {color:var(--pt-data-in) !important;}
 body:has(app-address) .pt-wallet-page .pt-wallet-history .pt-wallet-pending {color:var(--pt-data-pending) !important;background:#dfbd7b12;border-radius:4px;padding:3px 6px;}
 body:has(app-address) .pt-wallet-page .pt-value-incoming app-amount,
@@ -5018,3 +5018,36 @@ body:has(app-dashboard) .pt-network-dashboard app-recent-transactions-list .tabl
 body:has(app-dashboard) .pt-network-dashboard .lastest-replacements-table td {font-size:14px !important;padding-top:10px !important;padding-bottom:10px !important;}
 body:has(app-dashboard) .pt-network-dashboard app-recent-transactions-list .table th,
 body:has(app-dashboard) .pt-network-dashboard .lastest-replacements-table th {font-size:12px !important;color:#c2c2ca !important;}
+
+/* Identity and narrative finish: readable summaries, aligned IDs, quiet chrome. */
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-balanced-overview .pt-network-summary > p.pt-summary-narrative,
+body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[aria-label="Wallet snapshot"] .pt-wallet-summary > p.pt-summary-narrative,
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact > p.pt-summary-narrative {color:#e3e3e9 !important;}
+body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[aria-label="Wallet snapshot"] {
+  .pt-wallet-heading {align-items:baseline !important;}
+  .pt-wallet-address {align-self:baseline !important;align-items:baseline !important;line-height:1.4 !important;min-width:0;}
+  .pt-wallet-address code {color:var(--pt-data-link) !important;font-size:14px !important;line-height:1.4 !important;min-width:0;}
+  .pt-wallet-address app-clipboard,.pt-wallet-address > button {align-self:baseline;}
+}
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-intro > .title-block {
+  .tx-link,.tx-link a,.tx-link .txid {color:var(--pt-data-link) !important;font-size:14px !important;}
+  .tx-link {align-self:baseline !important;line-height:1.4 !important;}
+}
+body:has(app-address) app-address .pt-wallet-page .pt-wallet-history-heading {
+  display:flex !important;align-items:baseline !important;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;padding:0 !important;margin-bottom:12px !important;
+  h2 {margin:0 !important;flex-shrink:0;}
+  .pt-wallet-history-context {display:flex;align-items:baseline;justify-content:flex-end;flex-wrap:wrap;gap:6px 16px;flex:1;min-width:200px;color:#b2b2bc;font-size:12px;line-height:1.5;}
+}
+body:has(app-address) .pt-wallet-page .pt-wallet-history-table th {font-size:12px !important;color:#bcbcc6 !important;}
+body:has(app-address) .pt-wallet-page .pt-wallet-history-table td {font-size:14px !important;}
+body:has(app-address) .pt-wallet-page .pt-wallet-history-table tbody tr:hover {background:#8bc9e807;}
+body:has(app-dashboard) .pt-network-dashboard app-recent-transactions-list tbody tr:hover,
+body:has(app-dashboard) .pt-network-dashboard .lastest-replacements-table tbody tr:hover {background:#8bc9e807;}
+@media(max-width:767px){body:has(app-address) app-address .pt-wallet-page .pt-wallet-history-heading .pt-wallet-history-context{justify-content:flex-start;flex-basis:100%;}}
+/* One left/right guide for snapshot titles, narratives, toolbars and cards. */
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-balanced-overview,
+body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[aria-label="Wallet snapshot"],
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced {
+  .pt-snapshot-intro {padding-left:0 !important;padding-right:0 !important;}
+  .pt-network-questions,.pt-wallet-questions,.pt-summary-questions {margin-left:0 !important;margin-right:0 !important;}
+}
