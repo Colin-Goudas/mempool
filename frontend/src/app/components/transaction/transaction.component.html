@@ -240,17 +240,23 @@
       <br>
     </ng-container>
 
-<section class="pt-flow-section" aria-label="Transaction Flow and Inputs and Outputs">
-    <div class="pt-flow-unified">
+<section class="pt-flow-section pt-flow-open" aria-label="Transaction Flow and Inputs and Outputs">
     <div class="pt-flow-header">
       <div class="pt-flow-heading-copy">
         <h2 id="flow" #flow class="anchor">Transaction Flow (Inputs &amp; Outputs)</h2>
       </div>
-      <button type="button" class="btn btn-outline-info flow-toggle btn-sm" (click)="toggleGraph()" [attr.aria-expanded]="flowEnabled">{{ flowEnabled ? 'Hide diagram' : 'Show diagram' }}</button>
+      <span class="pt-flow-total">Total output: <app-amount [satoshis]="totalOutputSats"></app-amount></span>
     </div>
-
-
-    <form *ngIf="pendingTrackerSnapshot" class="pt-address-find" (submit)="$event.preventDefault(); findTransactionAddress(addressLookup.value)"><label for="pt-address-find">Find an address</label><div><input #addressLookup id="pt-address-find" type="text" placeholder="Paste an address from this transaction" autocomplete="off"><button type="submit">Find address</button><button type="button" *ngIf="selectedAddress" (click)="selectedAddress = ''; addressFeedback = ''; addressLookup.value = ''">Clear</button></div><small role="status">{{ addressFeedback }}</small></form>
+    <div class="pt-flow-unified">
+    <div class="pt-flow-visual">
+    <div class="pt-flow-toolbar">
+      <form *ngIf="pendingTrackerSnapshot" class="pt-address-find" (submit)="$event.preventDefault(); findTransactionAddress(addressLookup.value)">
+        <div><input #addressLookup id="pt-address-find" aria-label="Find an address in this transaction" type="text" placeholder="Find an address in this transaction" autocomplete="off"><button type="submit">Find</button><button type="button" *ngIf="selectedAddress" (click)="selectedAddress = ''; addressFeedback = ''; addressLookup.value = ''">Clear</button></div>
+        <small *ngIf="addressFeedback" role="status">{{ addressFeedback }}</small>
+      </form>
+      <button type="button" class="pt-flow-control flow-toggle" (click)="toggleGraph()" [attr.aria-expanded]="flowEnabled">{{ flowEnabled ? 'Hide diagram' : 'Show diagram' }}</button>
+      <button type="button" class="pt-flow-control pt-flow-details-button" (click)="toggleDetailsFromTxPage()" [attr.aria-expanded]="isDetailsOpen">{{ isDetailsOpen ? 'Hide technical details' : 'Technical details' }} {{ isDetailsOpen ? '▴' : '▾' }}</button>
+    </div>
     <ng-container *ngIf="flowEnabled; else ptFlowPlaceholder">
       <div class="pt-original-graph" #graphContainer>
         <div class="pt-graph-direction-labels" aria-hidden="true"><span>Inputs</span><span>Outputs</span></div>
@@ -268,7 +274,6 @@
           [outputIndex]="matchedOutputIndex">
         </tx-bowtie-graph>
       </div>
-      <p class="pt-flow-scope" *ngIf="pendingTrackerSnapshot">Diagram and totals include all {{ tx.vin.length }} inputs and {{ tx.vout.length }} outputs.</p>
       <div class="toggle-wrapper" *ngIf="maxInOut > 24">
         <button class="btn btn-sm btn-primary graph-toggle" (click)="expandGraph()" *ngIf="!graphExpanded; else ptCollapseGraph">Show more</button>
         <ng-template #ptCollapseGraph><button class="btn btn-sm btn-primary graph-toggle" (click)="collapseGraph()">Show less</button></ng-template>
@@ -277,13 +282,13 @@
     <ng-template #ptFlowPlaceholder>
       <div class="graph-container pt-flow-graph-measure" #graphContainer></div>
     </ng-template>
+    </div>
     <div class="pt-flow-content">
       <div class="pt-flow-table-divider" aria-hidden="true"></div>
       <div class="pt-flow-table-header-row">
-        <button type="button" class="btn btn-outline-info btn-sm pt-flow-details-button" (click)="toggleDetailsFromTxPage()" i18n="transaction.details|Transaction Details">Details</button>
         <div class="pt-flow-table-headings" aria-label="Transaction input and output columns">
-          <div class="pt-flow-heading-half"><span>Inputs</span><span>Value (BTC)</span></div>
-          <div class="pt-flow-heading-half"><span>Outputs</span><span>Value (BTC)</span></div>
+          <div class="pt-flow-heading-half"><span>Inputs ({{ tx.vin.length }})</span><span>Value (BTC)</span></div>
+          <div class="pt-flow-heading-half"><span>Outputs ({{ tx.vout.length }})</span><span>Value (BTC)</span></div>
         </div>
       </div>
     <app-transactions-list #txList [transactions]="[tx]" [cached]="isCached" [errorUnblinded]="errorUnblinded" [addresses]="addressMatches" [inputIndex]="matchedInputIndex" [outputIndex]="matchedOutputIndex" [transactionPage]="true" [compactFlow]="pendingTrackerSnapshot" [showCurrentFiat]="showUsd"></app-transactions-list>

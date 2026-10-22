@@ -537,7 +537,7 @@
       </div>
     </div>
 
-    <div class="summary">
+    <div class="summary" *ngIf="!compactFlow">
       <div class="float-start mt-2-5" *ngIf="!transactionPage && !tx.vin[0].is_coinbase && tx.fee !== -1">
         <app-fee-rate [fee]="tx.fee" [weight]="tx.weight"></app-fee-rate>
         <span class="d-none d-sm-inline-block">&nbsp;&ndash; {{ tx.fee | number }} <span class="symbol"

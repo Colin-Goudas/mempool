@@ -4900,3 +4900,26 @@ body:has(app-transaction) app-transaction .pt-replacement-history .rbf-diff-togg
 body:has(app-transaction) app-transaction .pt-replacement-caption {font-size:13px;color:#a9a9b3;margin:8px 0 12px;}
 body:has(app-transaction) app-transaction .pt-replacement-history .rbf-timeline.box {background:transparent;border:0;box-shadow:none;}
 body:has(app-transaction) app-transaction .pt-replacement-history .timeline-wrapper {scrollbar-width:thin;scrollbar-color:#85704d #171719;}
+
+/* Approved open Flow: a fading diagram frame joins the unboxed address lists. */
+body:has(app-transaction) app-transaction .pt-flow-section.pt-flow-open {
+  > .pt-flow-header {display:flex !important;align-items:baseline !important;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;margin:0 0 12px !important;padding:0 !important;border:0 !important;}
+  .pt-flow-header h2 {margin:0 !important;}
+  .pt-flow-total {color:#bca16e;font-size:13px;max-width:100%;overflow-wrap:anywhere;app-amount {white-space:normal;}}
+  > .pt-flow-unified {padding:0 !important;border:0 !important;border-radius:0 !important;background:transparent !important;box-shadow:none !important;}
+  .pt-flow-visual {position:relative;padding:14px 16px 0 !important;border:0 !important;background:transparent !important;box-shadow:none !important;}
+  .pt-flow-visual::before {content:"";position:absolute;inset:0;pointer-events:none;border:1px solid #ffffff24;border-bottom:0;border-radius:22px 22px 0 0;mask-image:linear-gradient(#000 0%,#000 45%,transparent 100%);}
+  .pt-flow-toolbar {display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .pt-flow-unified .pt-address-find {flex:1;min-width:200px;margin:0 !important;padding:0 !important;border:0 !important;> div {max-width:none;margin:0;}input {width:100%;min-width:0;}small {padding-top:5px;}}
+  .pt-flow-control {border:0;background:transparent;color:#c0c0c8;font-size:12px;padding:6px 0 !important;margin:0 !important;white-space:nowrap;text-decoration:underline;text-underline-offset:4px;}
+  .pt-original-graph {padding:10px 0 0 !important;}
+  .pt-graph-direction-labels {display:flex !important;justify-content:space-between;padding:0 0 5px !important;color:#e4e4e8 !important;font-size:16px !important;font-weight:500 !important;}
+  .pt-flow-content {padding:0 16px !important;}
+  .pt-flow-table-divider {display:block !important;height:1px;margin:12px 0 10px !important;background:linear-gradient(90deg,transparent,#bc975f65 22%,#bc975f65 78%,transparent) !important;}
+  .pt-flow-table-headings {color:#eeeef0 !important;font-size:17px !important;letter-spacing:0 !important;padding:0 0 8px !important;}
+  .pt-flow-heading-half span:last-child {font-size:13px !important;color:#c3c3ca !important;}
+  .pt-flow-bottom-rule {display:none !important;}
+  .pt-flow-graph-measure {height:0 !important;min-height:0 !important;margin:0 !important;}
+  app-transactions-list > div > ng-container + br {display:none;}
+}
+@media(max-width:767px){body:has(app-transaction) app-transaction .pt-flow-section.pt-flow-open {.pt-flow-header{align-items:flex-start !important;}.pt-flow-total{flex-basis:100%;}.pt-flow-toolbar{gap:10px 16px;}.pt-flow-unified .pt-address-find{flex-basis:100%;}.pt-flow-table-headings{font-size:17px !important;}}}
