@@ -5290,29 +5290,29 @@ body:has(app-address) .pt-block-strip-key {display:none;}
  body:has(.pt-phone-status) app-header, body:has(.pt-phone-status) app-footer,
  body:has(.pt-phone-status) app-blockchain, body:has(app-transaction) .pt-strip-key {display:none!important;}
  app-transaction .container-xl {padding:0;}
- body .pt-phone-status {max-width:600px;margin:auto;}
- body .pt-phone-status .pt-snapshot {margin:0!important;}
- body .pt-phone-status .pt-snapshot-panel {padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;}
- body .pt-phone-status .pt-snapshot-intro {padding:12px 16px!important;margin:0!important;}
- body .pt-phone-status .pt-snapshot-title {flex-wrap:wrap;}
- body .pt-phone-status .pt-snapshot-title h1 {font-size:20px!important;}
- body .pt-phone-status .pt-snapshot .tx-link {display:none!important;}
- body:has(app-transaction) .pt-phone-status .pt-snapshot.pt-balanced.pt-quiet-depth .pt-snapshot-surface {padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;}
- body .pt-phone-status .pt-summary-narrative {padding:16px!important;font-size:16px!important;line-height:1.5!important;}
- body .pt-phone-status .pt-summary-inline-label {font-size:16px!important;}
- body .pt-phone-status .pt-summary-actionbar {padding:0 16px 12px!important;flex-wrap:wrap!important;gap:4px 14px!important;}
- body .pt-phone-status .pt-eight-card-grid {display:flex!important;flex-direction:column;gap:0!important;margin:0!important;padding:0!important;background:transparent!important;}
- body .pt-phone-status .pt-metric-card {border:0!important;border-radius:0!important;box-shadow:none!important;padding:12px 16px!important;min-height:48px!important;background:transparent!important;}
- body .pt-phone-status .pt-metric-card:nth-child(even) {background:#ffffff04!important;}
- body .pt-phone-status .tracker-bar {padding:16px;}
- body .pt-phone-status .pt-phone-details-link {display:block;text-align:center;padding:16px;background:#a38045;color:#fff;}
- body .pt-phone-details {display:flex;flex-direction:column;padding:0 12px!important;}
+ body #pt-transaction-layout.pt-phone-status {max-width:600px;margin:auto;}
+ body #pt-transaction-layout.pt-phone-status .pt-snapshot {margin:0!important;}
+ body #pt-transaction-layout.pt-phone-status .pt-snapshot-panel {padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;}
+ body #pt-transaction-layout.pt-phone-status .pt-snapshot-intro {padding:12px 16px!important;margin:0!important;}
+ body #pt-transaction-layout.pt-phone-status .pt-snapshot-title {flex-wrap:wrap;}
+ body #pt-transaction-layout.pt-phone-status .pt-snapshot-title h1 {font-size:20px!important;}
+ body #pt-transaction-layout.pt-phone-status .pt-snapshot .tx-link {display:none!important;}
+ body:has(app-transaction) #pt-transaction-layout.pt-phone-status .pt-snapshot.pt-balanced.pt-quiet-depth .pt-snapshot-surface {padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;}
+ body #pt-transaction-layout.pt-phone-status .pt-summary-narrative {padding:16px!important;font-size:16px!important;line-height:1.5!important;}
+ body #pt-transaction-layout.pt-phone-status .pt-summary-inline-label {font-size:16px!important;}
+ body #pt-transaction-layout.pt-phone-status .pt-summary-actionbar {padding:0 16px 12px!important;flex-wrap:wrap!important;gap:4px 14px!important;}
+ body #pt-transaction-layout.pt-phone-status .pt-eight-card-grid {display:flex!important;flex-direction:column;gap:0!important;margin:0!important;padding:0!important;background:transparent!important;}
+ body #pt-transaction-layout.pt-phone-status .pt-metric-card {border:0!important;border-radius:0!important;box-shadow:none!important;padding:12px 16px!important;min-height:48px!important;background:transparent!important;}
+ body #pt-transaction-layout.pt-phone-status .pt-metric-card:nth-child(even) {background:#ffffff04!important;}
+ body #pt-transaction-layout.pt-phone-status .tracker-bar {padding:16px;}
+ body #pt-transaction-layout.pt-phone-status .pt-phone-details-link {display:block;text-align:center;padding:16px;background:#a38045;color:#fff;}
+ body #pt-transaction-layout.pt-phone-details {display:flex;flex-direction:column;padding:0 12px!important;}
  .pt-phone-details-nav {order:0;padding:16px 0;}
  .pt-phone-details-nav h1 {font-size:24px;margin-top:16px;}
  .pt-phone-details > .pt-deeper {order:1;}
  .pt-phone-details > .pt-flow {order:2;}
  .pt-phone-details .pt-flow-toolbar {display:none!important;}
- body .pt-phone-details .pt-eight-card-grid {grid-template-columns:1fr!important;}
+ body #pt-transaction-layout.pt-phone-details .pt-eight-card-grid {grid-template-columns:1fr!important;}
  body:has(.pt-phone-details) app-blockchain {display:none!important;}
  body:has(app-transaction) [popover], .pt-network-dashboard [popover], app-address [popover] {position:fixed!important;inset:auto 12px 16px!important;margin:0 auto!important;width:calc(100vw - 24px)!important;max-width:576px!important;max-height:75dvh;overflow:auto;}
  body .pt-network-facts, body .pt-wallet-facts {grid-template-columns:1fr!important;gap:0!important;}
@@ -5327,7 +5327,7 @@ body:has(app-address) .pt-block-strip-key {display:none;}
  body .pt-network-heading h1, body .pt-wallet-heading h1 {font-size:24px!important;flex-basis:100%;}
 }
 
-@media(max-width:767.98px){ body .pt-phone-status .pt-snapshot-fact {flex:1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;} body .pt-phone-status .pt-snapshot-fact > span, body .pt-phone-status .pt-snapshot-fact > strong {font-size:15px!important;line-height:1.4!important;} body .pt-phone-status .pt-metric-card {display:flex!important;align-items:center;gap:12px;} }
+@media(max-width:767.98px){ body #pt-transaction-layout.pt-phone-status .pt-snapshot-fact {flex:1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;} body #pt-transaction-layout.pt-phone-status .pt-snapshot-fact > span, body #pt-transaction-layout.pt-phone-status .pt-snapshot-fact > strong {font-size:15px!important;line-height:1.4!important;} body #pt-transaction-layout.pt-phone-status .pt-metric-card {display:flex!important;align-items:center;gap:12px;} }
 @media(max-width:767.98px){
  .pt-phone-details > .pt-flow-section {order:2;}
  .pt-phone-details > .pt-deeper > summary {display:none!important;}
