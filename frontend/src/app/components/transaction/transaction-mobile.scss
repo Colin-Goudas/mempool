@@ -1,0 +1,14 @@
+// Reuse Mempool's original tracker structure styles, scoped to phones only.
+@media (max-width: 767.98px) {
+  .pt-phone-status {
+    @import '../tracker/tracker.component';
+    --primary:#a38045;--tertiary:#b99454;--secondary:#19191d;--stat-box-bg:#303038;--box-bg:#111113;--transparent-fg:#a1a1aa;
+    .mobile-container {height:auto;min-height:0;max-height:none;}
+    .pt-phone-chain {width:100%;max-width:600px;margin:0 auto;}
+    .pt-phone-nav {display:flex;justify-content:space-between;align-items:center;padding:16px;background:#111113;}
+    .pt-phone-nav a {color:#f4f4f5;font-weight:600;}
+    .pt-phone-id {padding:16px;}
+    .pt-phone-id .value {overflow:hidden;text-align:right;}
+    .pt-phone-details-link {background:#a38045;color:#fff;padding:16px;}
+  }
+}
