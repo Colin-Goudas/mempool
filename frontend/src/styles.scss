@@ -5013,3 +5013,8 @@ body:has(app-address) .pt-wallet-page .pt-wallet-raw .btn-success {background:#9
 body:has(app-address) .pt-wallet-page .pt-wallet-raw .btn-danger {background:#dfa58d18 !important;border-color:#dfa58d40 !important;color:var(--pt-data-out) !important;}
 body:has(app-address) .pt-wallet-page .pt-wallet-raw .btn-success app-amount *,
 body:has(app-address) .pt-wallet-page .pt-wallet-raw .btn-danger app-amount * {color:inherit !important;}
+/* Activity tables need readable data, not miniature dashboard captions. */
+body:has(app-dashboard) .pt-network-dashboard app-recent-transactions-list .table td,
+body:has(app-dashboard) .pt-network-dashboard .lastest-replacements-table td {font-size:14px !important;padding-top:10px !important;padding-bottom:10px !important;}
+body:has(app-dashboard) .pt-network-dashboard app-recent-transactions-list .table th,
+body:has(app-dashboard) .pt-network-dashboard .lastest-replacements-table th {font-size:12px !important;color:#c2c2ca !important;}
