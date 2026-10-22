@@ -4776,7 +4776,7 @@ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced {
  .pt-snapshot-intro > .title-block {
   display:grid !important;grid-template-columns:auto minmax(160px,1fr) auto !important;gap:8px 14px !important;align-items:baseline !important;
   padding:0 0 9px !important;margin:0 !important;border-bottom:1px solid #c2a26b66 !important;
-  h1 {font-size:21px !important;line-height:1.2 !important;font-weight:650 !important;letter-spacing:-.5px !important;color:#f2f2f4 !important;align-self:baseline !important;}
+  h1 {font-size:24px !important;line-height:1.2 !important;font-weight:650 !important;letter-spacing:-.5px !important;color:#f2f2f4 !important;align-self:baseline !important;}
   h1::before {display:none !important;content:none !important;}
   .tx-link {grid-column:2 !important;grid-row:1 !important;align-self:baseline !important;top:0 !important;margin:0 !important;}
   .tx-link,.tx-link a,.tx-link .txid {font-size:13px !important;line-height:1.4 !important;color:#c4c4cd !important;}
@@ -4828,4 +4828,10 @@ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced {
  @media(max-width:500px) {
   .pt-snapshot-intro > .title-block {grid-template-columns:minmax(0,1fr) !important;.tx-link {grid-column:1 !important;grid-row:2 !important;}.pt-title-utilities {grid-row:3 !important;}}
  }
+}
+
+/* Transaction page section headings share one size and no leading accent bars. */
+body:has(app-transaction) app-transaction .pt-flow-header h2::before,
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary .pt-heading-title::before {
+ content:none !important;display:none !important;
 }
