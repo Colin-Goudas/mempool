@@ -4894,7 +4894,7 @@ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-title-uti
 /* Optional replacement history uses the existing dark/gold transaction palette. */
 body:has(app-transaction) app-transaction .pt-history-action {border:1px solid #bc975f66;border-radius:6px;background:#bc975f10;color:#dfc89f;padding:6px 10px;font-size:12px;line-height:1.4;}
 body:has(app-transaction) app-transaction .pt-history-action:focus-visible {outline:2px solid #bc975f;outline-offset:3px;}
-body:has(app-transaction) app-transaction .pt-replacement-history {margin:22px 0;padding:16px;border:1px solid #ffffff19;border-radius:12px;background:#111113;--box-bg:#111113;--primary:#b99559;--info:#d2b57e;--success:#8db89b;--tertiary:#1b1b1e;--secondary:#44403a;}
+body:has(app-transaction) app-transaction .pt-replacement-history {margin:22px 0;padding:16px;border:1px solid #ffffff19;border-radius:12px;background:#111113;--box-bg:#111113;--primary:#b99559;--info:#d2b57e;--success:#8db89b;--tertiary:#1b1b1e;--secondary:#44403a;--mainnet-alt:#c19b5c;--link-color:#d4bb91;--fg:#dddde3;--transparent-fg:#aaaab4;--fade-out-box-bg-start:#11111300;--fade-out-box-bg-end:#111113;}
 body:has(app-transaction) app-transaction .pt-replacement-history h2 {font-size:24px;color:#eee;margin:0 0 10px;}
 body:has(app-transaction) app-transaction .pt-replacement-history .rbf-diff-toggle {color:#cfbb98;border-color:#bc975f66;font-size:12px;margin-right:8px;}
 body:has(app-transaction) app-transaction .pt-replacement-caption {font-size:13px;color:#a9a9b3;margin:8px 0 12px;}
