@@ -35,3 +35,8 @@ test('RBF signaling or a single version does not create replacement history',()=
  old.replaces.push(root);
  assert.equal(replacementHistoryCount(root),1);
 });
+
+test('displayed fee rate matches Mempool for fractional virtual size',()=>{
+ const facts=transactionSnapshot({...tx,weight:437,fee:330});
+ assert.equal(facts.find(f=>f.label==='Fee rate').value,'3.02 sat/vB');
+});

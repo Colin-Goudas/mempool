@@ -11,7 +11,7 @@ export function transactionSnapshot(tx: Transaction | undefined, tip?: number, f
   const confirmed = tx.status?.confirmed === true;
   const height = tx.status?.block_height;
   const confirmations = confirmed && finite(tip) && finite(height) && tip >= height ? tip - height + 1 : null;
-  const vsize = finite(tx.weight) && tx.weight > 0 ? Math.ceil(tx.weight / 4) : null;
+  const vsize = finite(tx.weight) && tx.weight > 0 ? tx.weight / 4 : null;
   const fee = finite(tx.fee) && tx.fee >= 0 ? tx.fee : null;
   const time = confirmed ? tx.status?.block_time : firstSeen;
   const deeper: Record<string, string> = {
@@ -20,7 +20,7 @@ export function transactionSnapshot(tx: Transaction | undefined, tip?: number, f
     'Confirmed at': 'A block timestamp is supplied by its miner under Bitcoin consensus rules. It records the block’s reported time, not necessarily the exact instant your wallet sent the payment. All times in this snapshot use UTC.',
     'First seen': 'First-seen time comes from the provider’s own observation, rather than a field stored in an unconfirmed Bitcoin transaction. Older records or transactions first seen by a different node may have no retained observation time.',
     'Network fee': 'For an ordinary Bitcoin transaction, the network fee is the sum of the input values minus the sum of the output values. It pays for block space and is not the amount transferred to a recipient. A wallet or exchange may separately charge a service fee that cannot be identified from this transaction alone.',
-    'Fee rate': 'Miners generally compare fees relative to transaction size, rather than the total number of sats paid. Virtual size is transaction weight divided by four, rounded up. An unconfirmed parent or child can influence the package’s effective rate; the detailed analysis below shows related transactions when available.',
+    'Fee rate': 'Miners generally compare fees relative to transaction size, rather than the total number of sats paid. This displayed fee rate uses transaction weight divided by four, matching Mempool’s transaction view. Wallets and node policies can round virtual size up for other calculations. An unconfirmed parent or child can influence the package’s effective rate; the detailed analysis below shows related transactions when available.',
     'Included in block': 'A block groups validated transactions into Bitcoin’s chain. The block height counts its position from the genesis block. The position arrow in the visualization identifies the containing block; opening a block lets you inspect its other transactions.',
     'Mining pool': 'Pools coordinate miners and commonly identify themselves in a block’s coinbase transaction. The explorer matches that information to a known pool. This identifies the attributed block producer, not the sender, recipient or every individual miner.',
     'Inputs / outputs': 'A Bitcoin transaction consumes previous unspent outputs as inputs and creates new outputs. A wallet often returns unused value to itself as change, and one transaction may pay multiple recipients. The public record alone usually cannot tell which output is your specific payment.',

@@ -103,7 +103,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   get selectedOutputSats() { return this.selectedAddress ? this.tx?.vout?.filter(v => v.scriptpubkey_address === this.selectedAddress).reduce((sum,v) => sum + v.value, 0) || 0 : 0; }
   get totalOutputSats() { return this.tx?.vout?.reduce((sum,v) => sum + v.value, 0) || 0; }
   get displayAmountSats() { return this.selectedAddress ? this.selectedOutputSats : this.totalOutputSats; }
-  get ownFeeRate() { return this.tx?.weight > 0 ? this.tx.fee / Math.ceil(this.tx.weight / 4) : undefined; }
+  get ownFeeRate() { return this.tx?.weight > 0 ? this.tx.fee / (this.tx.weight / 4) : undefined; }
   get feeInterpretation() {
     if (this.tx?.status?.confirmed) return 'Confirmed on Bitcoin. No fee increase is needed.';
     if (!this.tx?.status?.confirmed && (this.replaced || this.rbfTransaction)) return 'A replacement was observed. Follow its current status above.';
