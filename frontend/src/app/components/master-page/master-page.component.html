@@ -80,6 +80,7 @@
           <div class="svg-wrapper"><app-svg-images name="nav-tachometer" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
+      <li class="nav-item pt-lookup-nav" *ngIf="env.PENDING_TRACKER_EXPLANATIONS"><a class="nav-link" routerLink="/bitcoin" ngbTooltip="Bitcoin explorer" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Bitcoin explorer"><span style="font-size:24px">₿</span></a></li>
       <li class="nav-item pt-lookup-nav" id="btn-transaction-search" *ngIf="env.PENDING_TRACKER_EXPLANATIONS && network.val === ''">
         <button type="button" class="nav-link pt-lookup-button" ngbTooltip="Look up transaction" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Transaction search" [disabled]="lookupLoading" [attr.aria-busy]="lookupLoading" (click)="openRecentTransaction()"><fa-icon [icon]="['fas','exchange-alt']" [fixedWidth]="true" aria-hidden="true"></fa-icon></button>
       </li>
@@ -91,22 +92,22 @@
           <div class="svg-wrapper"><app-svg-images name="nav-rocket" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
-      <li class="nav-item mining" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="btn-pools" *ngIf="stateService.env.MINING_DASHBOARD">
+      <li class="nav-item mining" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="btn-pools" *ngIf="!env.PENDING_TRACKER_EXPLANATIONS && stateService.env.MINING_DASHBOARD">
         <a class="nav-link" ngbTooltip="Mining dashboard" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Mining dashboard" [routerLink]="['/mining' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-pickaxe" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="btn-lightning" *ngIf="stateService.networkSupportsLightning()">
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="btn-lightning" *ngIf="!env.PENDING_TRACKER_EXPLANATIONS && stateService.networkSupportsLightning()">
         <a class="nav-link" ngbTooltip="Lightning explorer" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Lightning explorer" [routerLink]="['/lightning' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-bolt" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
-      <li class="nav-item" routerLinkActive="active" id="btn-blocks" *ngIf="!stateService.env.MINING_DASHBOARD">
+      <li class="nav-item" routerLinkActive="active" id="btn-blocks" *ngIf="!env.PENDING_TRACKER_EXPLANATIONS && !stateService.env.MINING_DASHBOARD">
         <a class="nav-link" ngbTooltip="Blocks" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Blocks" [routerLink]="['/blocks' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-cubes" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
-      <li class="nav-item" routerLinkActive="active" id="btn-graphs">
+      <li class="nav-item" routerLinkActive="active" id="btn-graphs" *ngIf="!env.PENDING_TRACKER_EXPLANATIONS">
         <a class="nav-link" ngbTooltip="Network charts" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Network charts" [routerLink]="['/graphs' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-chart-area" width="21.59" height="100%"></app-svg-images></div>
         </a>
@@ -116,7 +117,7 @@
           <div class="svg-wrapper"><app-svg-images name="nav-faucet-drip" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
-      <li class="nav-item" routerLinkActive="active" id="btn-docs" *ngIf="!officialMempoolSpaceBuild">
+      <li class="nav-item" routerLinkActive="active" id="btn-docs" *ngIf="!env.PENDING_TRACKER_EXPLANATIONS && !officialMempoolSpaceBuild">
         <a class="nav-link" ngbTooltip="API documentation" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="API documentation" [routerLink]="['/docs' | relativeUrl ]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-book" width="21.59" height="100%"></app-svg-images></div>
         </a>
@@ -126,7 +127,7 @@
           <div class="svg-wrapper"><app-svg-images name="nav-enterprise" width="21.59" height="100%"></app-svg-images></div>
         </a>
       </li>
-      <li class="nav-item" routerLinkActive="active" id="btn-about">
+      <li class="nav-item" routerLinkActive="active" id="btn-about" *ngIf="!env.PENDING_TRACKER_EXPLANATIONS">
         <a class="nav-link" ngbTooltip="About" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="About" [routerLink]="['/about']" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-info-circle" width="21.59" height="100%"></app-svg-images></div>
         </a>
@@ -150,7 +151,8 @@
     </main>
 
     <div class="flex-grow-1"></div>
-    <app-global-footer *ngIf="footerVisible" [user]="user"></app-global-footer>
+    <footer *ngIf="footerVisible && env.PENDING_TRACKER_EXPLANATIONS" class="pt-release-footer"><span>Pending Tracker · Track. Explore. Understand.</span><nav aria-label="Footer"><a routerLink="/">Home</a><a routerLink="/bitcoin">Bitcoin explorer</a><a href="https://github.com/Colin-Goudas/mempool">Source code</a></nav></footer>
+    <app-global-footer *ngIf="footerVisible && !env.PENDING_TRACKER_EXPLANATIONS" [user]="user"></app-global-footer>
   </div>
 </div>
 
