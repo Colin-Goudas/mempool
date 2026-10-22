@@ -4986,3 +4986,16 @@ body:has(app-dashboard) .pt-network-dashboard [data-metric="Next-block fee"] .pt
 body:has(app-dashboard) .pt-network-dashboard .card-title a {color:var(--pt-data-link) !important;}
 body:has(app-address) .pt-wallet-page .pt-wallet-raw .red {color:var(--pt-data-out) !important;}
 body:has(app-address) .pt-wallet-page .pt-wallet-raw .green {color:var(--pt-data-in) !important;}
+/* Snapshot titles must win over the earlier Balanced sizing rules. */
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-balanced-overview .pt-network-heading h1,
+body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[aria-label="Wallet snapshot"] .pt-wallet-heading h1,
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-intro > .title-block h1 {font-size:32px !important;font-weight:600 !important;}
+body:has(app-dashboard) .pt-network-dashboard app-recent-transactions-list app-fiat,
+body:has(app-dashboard) .pt-network-dashboard app-recent-transactions-list app-fiat * {color:#a8c8ad !important;}
+body:has(app-dashboard) .pt-network-dashboard .lastest-replacements-table .badge {background:#b9965624 !important;color:#dfbf85 !important;border:1px solid #b9965640;}
+body:has(app-address) .pt-wallet-page .pt-wallet-raw a[href*="/tx/"] {color:var(--pt-data-link) !important;}
+@media(max-width:767px){
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-balanced-overview .pt-network-heading h1,
+body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[aria-label="Wallet snapshot"] .pt-wallet-heading h1,
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-intro > .title-block h1 {font-size:27px !important;}
+}
