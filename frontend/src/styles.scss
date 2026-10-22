@@ -5173,10 +5173,10 @@ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced.pt-quiet-dept
   .pt-title-utilities .pt-network-label,.pt-title-utilities .pt-display-fiat {font-size:11px !important;line-height:1.4 !important;white-space:nowrap;}
   .pt-title-utilities .pt-display-fiat {display:inline-flex;align-items:center;gap:4px;}
   .pt-title-utilities .pt-display-fiat input {width:12px;height:12px;margin:0;}
-  .pt-snapshot-surface {border:1px solid #ffffff20;border-radius:12px;background:radial-gradient(ellipse at 0 0,#22232866,transparent 72%),linear-gradient(145deg,#191a1e,#111215 85%);box-shadow:inset 0 1px 0 #ffffff08,0 8px 24px #0002;padding:14px 14px 12px;}
+  .pt-snapshot-surface {border:1px solid #ffffff14;border-radius:12px;background:linear-gradient(145deg,#0e0e11,#0a0a0d 85%);box-shadow:inset 0 1px 0 #ffffff03;padding:14px 14px 12px;}
   .pt-snapshot-surface .pt-snapshot-summary.pt-summary-compact {padding:0 4px !important;margin:0 !important;}
   .pt-snapshot-surface .pt-snapshot-summary.pt-summary-compact > p.pt-summary-narrative {font-size:18px !important;line-height:1.6 !important;margin:0 0 8px !important;}
-  .pt-snapshot-surface .pt-snapshot-summary.pt-summary-compact > p.pt-summary-narrative .pt-summary-inline-label {font-size:20px !important;font-weight:700 !important;}
+  .pt-snapshot-surface .pt-snapshot-summary.pt-summary-compact > p.pt-summary-narrative .pt-summary-inline-label {font-size:19px !important;font-weight:700 !important;}
   .pt-snapshot-surface .pt-snapshot-summary.pt-summary-compact .pt-summary-questions.pt-summary-actionbar {
     min-height:30px !important;padding:0 !important;gap:4px 16px !important;margin:0 !important;background:transparent !important;border:0 !important;border-radius:0 !important;
     > span {display:inline-flex !important;flex:0 1 auto !important;margin:0 !important;}
@@ -5184,16 +5184,16 @@ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced.pt-quiet-dept
     .pt-notification-action {gap:6px !important;}
     .pt-notification-action fa-icon {font-size:12px;line-height:1;}
   }
-  .pt-snapshot-surface > .pt-eight-card-grid {margin:16px 0 0 !important;padding-top:12px !important;border-top:1px solid #ffffff0d;gap:8px !important;}
-  // Match the approved mockup's dark, softly lit cards instead of shallow bright strips.
+  .pt-snapshot-surface > .pt-eight-card-grid {margin:12px 0 0 !important;padding-top:12px !important;border-top:1px solid #ffffff22;gap:6px 8px !important;}
+  // Share the explorer/wallet density; keep depth on cards, not the outer surface.
   .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card {
-    min-height:54px !important;padding:10px 12px !important;
+    min-height:37px !important;padding:7px 10px !important;
     background:radial-gradient(ellipse at 0 0,#ffffff04,transparent 65%),linear-gradient(125deg,#1c1c20 0%,#131316 65%,#101013 100%) !important;
     border:1px solid #ffffff16 !important;box-shadow:inset 0 1px 0 #ffffff09,0 2px 6px #0002 !important;
-    .pt-snapshot-fact > .pt-inline-card-context {font-size:12px !important;color:#a2a3af !important;}
+    .pt-snapshot-fact > .pt-inline-card-context {font-size:11px !important;color:#9595a0 !important;}
     &.pt-card-stacked-context .pt-inline-card-context {flex-basis:100%;}
   }
-  .pt-snapshot-surface.pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card .pt-snapshot-popover-trigger {font-size:13px !important;color:#c5ceda !important;}
+  .pt-snapshot-surface.pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card .pt-snapshot-popover-trigger {font-size:14px !important;color:#e2e8f0 !important;font-weight:500 !important;}
   .pt-snapshot-surface > .pt-tracking-notice,.pt-snapshot-surface > .duplicate-tx-alert {margin:0 4px 10px;}
   @media(max-width:800px) {.pt-title-utilities {flex-wrap:wrap;}.pt-snapshot-surface {padding-top:10px;}}
 }
