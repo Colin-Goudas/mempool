@@ -6,19 +6,20 @@ import { TxBowtieModule } from '@components/tx-bowtie-graph/tx-bowtie.module';
 import { GraphsModule } from '@app/graphs/graphs.module';
 import { TrackerComponent } from '@components/tracker/tracker.component';
 import { TrackerBarComponent } from '@components/tracker/tracker-bar.component';
+import { TransactionComponent } from '@components/transaction/transaction.component';
 import { TransactionModule } from '@components/transaction/transaction.module';
 
 const routes: Routes = [
   {
     path: ':id/accelerate',
-    component: TrackerComponent,
+    component: window['__env']?.PENDING_TRACKER_EXPLANATIONS ? TransactionComponent : TrackerComponent,
     data: {
       ogImage: true
     }
   },
   {
     path: ':id',
-    component: TrackerComponent,
+    component: window['__env']?.PENDING_TRACKER_EXPLANATIONS ? TransactionComponent : TrackerComponent,
     data: {
       ogImage: true
     }
@@ -38,6 +39,7 @@ export class TrackerRoutingModule { }
 @NgModule({
   imports: [
     CommonModule,
+    TrackerBarComponent,
     TrackerRoutingModule,
     TransactionModule,
     SharedModule,
@@ -46,7 +48,6 @@ export class TrackerRoutingModule { }
   ],
   declarations: [
     TrackerComponent,
-    TrackerBarComponent,
   ]
 })
 export class TrackerModule { }
