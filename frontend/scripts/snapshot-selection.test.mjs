@@ -40,3 +40,14 @@ test('displayed fee rate matches Mempool for fractional virtual size',()=>{
  const facts=transactionSnapshot({...tx,weight:437,fee:330});
  assert.equal(facts.find(f=>f.label==='Fee rate').value,'3.02 sat/vB');
 });
+
+test('compact observed times retain the precise UTC timestamp in explanation data',()=>{
+ const first=transactionSnapshot(tx,100,1700000000).find(f=>f.label==='First seen');
+ assert.equal(first.exactValue,'2023-11-14 22:13:20 UTC');
+ assert.match(first.value,/14 Nov(?: 2023)? · 22:13 UTC/);
+ const missing=transactionSnapshot(tx).find(f=>f.label==='First seen');
+ assert.equal(missing.value,'Not available');
+ assert.equal(missing.exactValue,undefined);
+ const confirmed=transactionSnapshot({...tx,status:{confirmed:true,block_height:100,block_time:1700000600}}).find(f=>f.label==='Confirmed at');
+ assert.equal(confirmed.exactValue,'2023-11-14 22:23:20 UTC');
+});

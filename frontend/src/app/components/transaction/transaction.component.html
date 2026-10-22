@@ -59,7 +59,7 @@
 
     @if (tx && network === '' && stateService.env.PENDING_TRACKER_EXPLANATIONS) {
       <div class="pt-snapshot-summary pt-summary-compact">
-        <p class="pt-summary-narrative"><strong class="pt-summary-inline-label">In plain English —</strong> {{ summaryStatus() }} {{ summaryContext(ETA$ | async) }}
+        <p class="pt-summary-narrative"><strong class="pt-summary-inline-label">In plain English —</strong> <span class="pt-summary-status">{{ summaryStatus() }}</span> {{ summaryContext(ETA$ | async) }}
           {{ selectedAddress ? 'Outputs to the selected address total' : 'Its outputs total' }} <strong class="pt-summary-btc-amount">{{ displayAmountSats / 100000000 | number:'1.8-8' }} BTC</strong><span *ngIf="showUsd"> (approximately <app-fiat [value]="displayAmountSats" colorClass=""></app-fiat> at the current price)</span>{{ selectedAddress ? '.' : ', which may include change returned to the sender.' }}
         </p>
         <div class="pt-summary-questions pt-summary-actionbar" style="anchor-name:--pt-summary-toolbar" aria-label="Questions and next steps">
@@ -69,7 +69,7 @@
           }
           @if ((!tx.status.confirmed || alertTxid === tx.txid) && !replaced && !rbfTransaction && !rbfInfo?.mined) {
             <span class="pt-summary-question">
-              <button type="button" class="pt-notification-action" style="anchor-name:--pt-confirmation-alert" popovertarget="pt-confirmation-alert"><fa-icon [icon]="confirmationBellIcon" aria-hidden="true"></fa-icon>{{ confirmationAlertLabel }}<span class="pt-alert-chevron" aria-hidden="true">▾</span></button>
+              <button type="button" class="pt-notification-action" style="anchor-name:--pt-confirmation-alert" popovertarget="pt-confirmation-alert"><svg class="pt-notification-bell" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21a2 2 0 0 0 4 0"/></svg>{{ confirmationAlertLabel }}<span class="pt-alert-chevron" aria-hidden="true">▾</span></button>
               <div id="pt-confirmation-alert" class="pt-question-popover" style="position-anchor:--pt-confirmation-alert" popover="auto">
                 <div class="pt-question-heading"><strong>Track confirmations</strong><button type="button" popovertarget="pt-confirmation-alert" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
                 <p><strong>Current: {{ confirmationCount }} {{ confirmationCount === 1 ? 'confirmation' : 'confirmations' }} · Alert target: {{ confirmationTarget }}</strong></p>
@@ -109,7 +109,7 @@
     @if (pendingTrackerSnapshot && tx && !error) {
       <div class="pt-snapshot-rows pt-eight-card-grid">
         @for (fact of snapshotFactsFor(ETA$ | async); track fact.label) {
-            <div class="pt-snapshot-row pt-metric-card" [style.anchor-name]="'--pt-snapshot-card-' + $index">
+            <div class="pt-snapshot-row pt-metric-card" [class.pt-time-fact]="!!fact.exactValue" [style.anchor-name]="'--pt-snapshot-card-' + $index">
               <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong [class.pt-confirmed-value]="fact.label === 'Status' && tx.status.confirmed" [class.pt-pending-value]="fact.label === 'Status' && !tx.status.confirmed">@if (fact.label === 'Status') { <span aria-hidden="true">{{ tx.status.confirmed ? '✓' : '◷' }}</span> }{{ fact.value }}</strong>
                 @if (fact.secondary) { <small class="pt-fact-secondary pt-inline-card-context">{{ fact.secondary }}</small> }
                 @if (showUsd && fact.fiatSats !== undefined) { <small class="pt-fact-secondary pt-inline-card-context">≈ <app-fiat [value]="fact.fiatSats" colorClass=""></app-fiat> · current price</small> }
@@ -117,7 +117,7 @@
               <div class="pt-snapshot-meaning"><button type="button" class="pt-explore-more pt-snapshot-popover-trigger" [attr.popovertarget]="'pt-snapshot-detail-' + $index">Explain <span aria-hidden="true">+</span><span class="visually-hidden"> {{ fact.label }}</span></button></div>
               <div class="pt-snapshot-detail-popover" [style.position-anchor]="'--pt-snapshot-card-' + $index" [id]="'pt-snapshot-detail-' + $index" popover="auto">
                 <div class="pt-snapshot-popover-heading"><strong>Understanding {{ fact.label }}</strong><button type="button" [attr.popovertarget]="'pt-snapshot-detail-' + $index" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
-                <p>{{ fact.meaning }}</p><p>{{ fact.details }}</p>
+                <p *ngIf="fact.exactValue" class="pt-exact-timestamp"><strong>Exact timestamp:</strong> {{ fact.exactValue }}</p><p>{{ fact.meaning }}</p><p>{{ fact.details }}</p>
                 @if (fact.label === 'Replacement history') {<button type="button" class="pt-history-action" (click)="revealReplacementDiagram($event)" [attr.aria-expanded]="showReplacementDiagram" aria-controls="pt-replacement-diagram">View replacement diagram</button>}
               </div>
             </div>

@@ -1,6 +1,6 @@
 import type { Transaction } from '@interfaces/electrs.interface';
 
-export interface SnapshotFact { label: string; value: string; meaning: string; details: string; secondary?: string; fiatSats?: number; }
+export interface SnapshotFact { label: string; value: string; meaning: string; details: string; secondary?: string; fiatSats?: number; exactValue?: string; }
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 const number = (n: number, digits = 0) => n.toLocaleString('en-US', { maximumFractionDigits: digits });
 
@@ -14,6 +14,10 @@ export function transactionSnapshot(tx: Transaction | undefined, tip?: number, f
   const vsize = finite(tx.weight) && tx.weight > 0 ? tx.weight / 4 : null;
   const fee = finite(tx.fee) && tx.fee >= 0 ? tx.fee : null;
   const time = confirmed ? tx.status?.block_time : firstSeen;
+  const observedDate = finite(time) && time > 0 && time < 8.64e12 ? new Date(time * 1000) : null;
+  const exactTime = observedDate?.toISOString().replace('T', ' ').replace('.000Z', ' UTC');
+  const compactDate = observedDate?.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: observedDate.getUTCFullYear() === new Date().getUTCFullYear() ? undefined : 'numeric', timeZone: 'UTC' });
+  const compactTime = observedDate ? compactDate + ' · ' + observedDate.toISOString().slice(11, 16) + ' UTC' : 'Not available';
   const deeper: Record<string, string> = {
     'Status': 'Unconfirmed transactions can be replaced, dropped or included in a block. Confirmed transactions have a block record; a rare chain reorganization can change that record. A recipient or exchange may require more confirmations before crediting a deposit.',
     'Confirmations': 'This is the latest observed block height minus the containing block height, plus one. There is no universal required count: wallets, exchanges and recipients set their own acceptance policies. More confirmations make a reversal through a chain reorganization progressively less likely.',
@@ -42,7 +46,7 @@ export function transactionSnapshot(tx: Transaction | undefined, tip?: number, f
   const rows: SnapshotFact[] = [
     { label: 'Status', value: replaced && !confirmed ? 'Replaced' : confirmed ? 'Confirmed' : 'Pending', meaning: replaced && !confirmed ? 'A replacement transaction was observed. Follow the replacement link above for its current status.' : confirmed ? 'Recorded in a Bitcoin block.' : 'This transaction has not been confirmed. Inclusion and timing are not guaranteed.' },
     { label: 'Confirmations', value: confirmations === null ? (confirmed ? 'Checking latest block…' : '0') : number(confirmations), meaning: confirmed ? 'The containing block counts as the first confirmation. Each later block adds another.' : 'Confirmations begin when a miner includes this transaction in a block.' },
-    { label: confirmed ? 'Confirmed at' : 'First seen', value: finite(time) && time > 0 && time < 8.64e12 ? new Date(time * 1000).toISOString().replace('T', ' ').replace('.000Z', ' UTC') : 'Not available', secondary: age, meaning: confirmed ? 'The time reported by the confirming block.' : 'When the observing provider first saw this transaction. Other nodes may report a different time.' },
+    { label: confirmed ? 'Confirmed at' : 'First seen', value: compactTime, exactValue: exactTime, secondary: age, meaning: confirmed ? 'The time reported by the confirming block.' : 'When the observing provider first saw this transaction. Other nodes may report a different time.' },
     { label: 'Network fee', fiatSats: !coinbase && fee !== null ? fee : undefined, value: coinbase ? 'Not applicable' : fee === null ? 'Not available' : number(fee) + ' sats', meaning: coinbase ? 'This is a mining reward transaction; it does not pay a normal transaction fee.' : 'Paid to miners for this transaction, separate from its outputs.' },
     { label: 'Fee rate', value: coinbase ? 'Not applicable' : fee !== null && vsize !== null ? number(fee / vsize, 2) + ' sat/vB' : 'Not available', meaning: coinbase ? 'Mining reward transactions do not pay a normal fee.' : confirmed ? 'Fee paid per virtual byte of block space.' : 'Compared with the current queue; timing can change.' },
     { label: 'Included in block', value: confirmed ? (finite(height) ? '#' + number(height) : 'Checking block…') : 'Not yet confirmed', meaning: confirmed ? 'The Bitcoin block that recorded this transaction. The blocks above show its position.' : 'This transaction has not yet been included in a Bitcoin block.' },
