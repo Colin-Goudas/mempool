@@ -1,13 +1,13 @@
 <div class="pt-home">
   <header class="home-nav">
     <a class="wordmark" routerLink="/welcome" aria-label="Pending Tracker home"><span class="brand-mark" aria-hidden="true"></span>Pending Tracker</a>
-    <nav aria-label="Main navigation"><a routerLink="/">Bitcoin explorer <span aria-hidden="true">↗</span></a><span class="unavailable" aria-disabled="true">Ethereum <small>Coming soon</small></span></nav>
+    <nav aria-label="Main navigation"><a routerLink="/welcome" aria-current="page">Home</a><a routerLink="/">Bitcoin explorer <span aria-hidden="true">↗</span></a><span class="unavailable" aria-disabled="true">Ethereum <small>Coming soon</small></span></nav>
   </header>
   <main>
     <section class="hero" aria-labelledby="home-title">
-      <p class="eyebrow">BLOCKCHAIN EXPLORER</p>
-      <h1 id="home-title">Track your transaction.<br>Understand your wallet.</h1>
-      <p class="hero-description">Transaction status, wallet activity, and fees—explained in plain English.</p>
+      <h1 id="home-title" class="hero-wordmark">Pending Tracker</h1>
+      <p class="hero-tagline">Find your transaction. Look up a wallet.</p>
+      <p class="hero-description">A simpler blockchain explorer—with clear explanations of your transactions, wallet activity, and blockchain networks.</p>
       <div class="lookup">
         <div class="lookup-tabs" role="group" aria-label="Choose what to look up">
           <button type="button" [attr.aria-pressed]="mode === 'transaction'" (click)="mode = 'transaction'">Transaction search</button>
