@@ -52,7 +52,7 @@
   <div class="row row-cols-1 row-cols-md-2" *ngIf="{ value: (mempoolInfoData$ | async) } as mempoolInfoData">
 
     <header *ngIf="showPendingTrackerSnapshot" class="pt-network-section-heading"><h2>Live Network Visuals</h2></header>
-    <div class="col">
+    <div class="col" [class.pt-map-unavailable]="showPendingTrackerSnapshot && !webGlEnabled">
       <div class="card graph-card">
         <div class="card-body ps-lg-3 pe-lg-3 ps-2 pe-2">
           <a class="title-link mb-0" style="margin-top: -2px" href="" [routerLink]="['/mempool-block/0' | relativeUrl]">
@@ -77,7 +77,7 @@
               [filterMode]="goggleMode"
               [gradientMode]="gradientMode"
             ></app-mempool-block-overview>
-          </div><p *ngIf="showPendingTrackerSnapshot && !webGlEnabled" class="pt-widget-explanation">This browser cannot render the interactive block map. <a [routerLink]="['/mempool-block/0' | relativeUrl]">Open the projected block details</a>.</p>
+          </div><p *ngIf="showPendingTrackerSnapshot && !webGlEnabled" class="pt-widget-explanation">The interactive block map is unavailable in this browser. <a [routerLink]="['/mempool-block/0' | relativeUrl]">Open the projected block details</a> to explore the queue.</p><p *ngIf="showPendingTrackerSnapshot && !webGlEnabled && mempoolInfoData.value" class="pt-widget-explanation">{{ mempoolInfoData.value.memPoolInfo.size | number }} transactions currently waiting across this provider’s queue.</p>
         </div>
       </div>
     </div>
