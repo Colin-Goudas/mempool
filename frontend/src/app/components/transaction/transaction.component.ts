@@ -1,3 +1,4 @@
+import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { transactionNextStep, replacementHistoryCount } from './transaction-guidance';
 import { transactionSnapshot, transactionSummary, transactionTechnicalFacts } from './transaction-snapshot';
 import { Component, OnInit, AfterViewInit, OnDestroy, HostListener, ViewChild, ElementRef, Inject, ChangeDetectorRef } from '@angular/core';
@@ -76,6 +77,7 @@ const DUPLICATE_TX_BLOCKS: Record<string, [number, number]> = {
   standalone: false,
 })
 export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
+  readonly confirmationBellIcon = faBell;
   get pendingTrackerSnapshot() { return this.network === '' && !!this.stateService.env.PENDING_TRACKER_EXPLANATIONS; }
   activeSummaryQuestion = '';
   onSummaryToggle(id: string, event: Event): void {
