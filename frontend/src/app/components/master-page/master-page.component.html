@@ -87,6 +87,18 @@
       <li class="nav-item pt-lookup-nav" id="btn-wallet-search" *ngIf="env.PENDING_TRACKER_EXPLANATIONS && network.val === ''">
         <button type="button" class="nav-link pt-lookup-button" ngbTooltip="Look up wallet" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Wallet search" (click)="openPublicWallet()"><fa-icon [icon]="['fas','wallet']" [fixedWidth]="true" aria-hidden="true"></fa-icon></button>
       </li>
+      <li class="nav-item pt-more-nav" *ngIf="env.PENDING_TRACKER_EXPLANATIONS">
+        <details class="pt-more-menu">
+          <summary aria-label="More explorer sections">More <span aria-hidden="true">▾</span></summary>
+          <div class="pt-more-panel">
+            <p>{{ env.PENDING_TRACKER_REVIEW_TOOLS ? 'Review tools' : 'More to explore' }}</p>
+            <ng-container *ngFor="let tool of reviewTools">
+              <a *ngIf="env.PENDING_TRACKER_REVIEW_TOOLS; else unavailableTool" [routerLink]="tool.path" (click)="collapse()">{{ tool.label }} <small>Preview</small></a>
+              <ng-template #unavailableTool><button type="button" disabled [attr.aria-label]="tool.label + ' — coming soon'">{{ tool.label }} <small>Coming soon</small></button></ng-template>
+            </ng-container>
+          </div>
+        </details>
+      </li>
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="btn-home" *ngIf="network.val === '' && stateService.env.ACCELERATOR">
         <a class="nav-link" ngbTooltip="Transaction acceleration" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Transaction acceleration" [routerLink]="['/acceleration' | relativeUrl]" (click)="collapse()">
           <div class="svg-wrapper"><app-svg-images name="nav-rocket" width="21.59" height="100%"></app-svg-images></div>
