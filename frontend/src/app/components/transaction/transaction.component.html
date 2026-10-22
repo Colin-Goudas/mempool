@@ -1,7 +1,15 @@
-<div class="container-xl">
-  <section [class.pt-snapshot]="pendingTrackerSnapshot" [class.pt-balanced]="pendingTrackerSnapshot" [class.pt-quiet-depth]="pendingTrackerSnapshot" [attr.aria-label]="pendingTrackerSnapshot ? 'Transaction snapshot' : null">
+<div class="container-xl" [class.pt-phone-status]="phoneStatusView" [class.pt-phone-details]="phoneDetailsView">
+  @if (phoneStatusView) {
+    <div class="pt-phone-nav nav-header"><a routerLink="/">Pending Tracker</a><a routerLink="/bitcoin">Bitcoin</a></div>
+    <div class="pt-phone-id field"><span class="label">Transaction</span><span class="value"><app-truncate [text]="txId" [lastChars]="12"><app-clipboard [text]="txId"></app-clipboard></app-truncate></span></div>
+    <div class="pt-phone-chain blockchain-wrapper" [style.height.px]="phoneViewportWidth / 5 * 1.16"><app-clockchain [height]="phoneViewportWidth / 5" [width]="phoneViewportWidth" mode="none"></app-clockchain></div>
+  }
+  @if (phoneDetailsView) {
+    <nav class="pt-phone-details-nav"><a [routerLink]="['/tx' | relativeUrl,txId]" [queryParams]="{mode:'status'}">← Transaction Snapshot</a><h1>Dive Deeper</h1></nav>
+  }
+  <section *ngIf="!phoneDetailsView" [class.mobile-wrapper]="phoneStatusView" [class.pt-snapshot]="pendingTrackerSnapshot" [class.pt-balanced]="pendingTrackerSnapshot" [class.pt-quiet-depth]="pendingTrackerSnapshot" [attr.aria-label]="pendingTrackerSnapshot ? 'Transaction snapshot' : null">
 
-  <div class="pt-snapshot-panel">
+  <div class="pt-snapshot-panel" [class.mobile-container]="phoneStatusView">
   <div class="pt-snapshot-intro">
   <div class="title-block">
     <div *ngIf="rbfTransaction && !tx?.status?.confirmed" class="alert alert-mempool" role="alert">
@@ -36,7 +44,8 @@
   </div>
   <div class="clearfix"></div>
   </div>
-  <div class="pt-snapshot-surface">
+  <div class="pt-snapshot-surface" [class.panel]="phoneStatusView">
+    @if (phoneStatusView && tx && !isCached && !replaced && !rbfTransaction && !rbfInfo?.mined) {<div class="tracker-bar"><app-tracker-bar [stage]="mobileStage(ETA$ | async)"></app-tracker-bar></div>}
 
   @if (duplicateTxBlocks) {
     <div class="box duplicate-tx-alert">
@@ -109,7 +118,7 @@
     @if (pendingTrackerSnapshot && tx && !error) {
       <div class="pt-snapshot-rows pt-eight-card-grid">
         @for (fact of snapshotFactsFor(ETA$ | async); track fact.label) {
-            <div class="pt-snapshot-row pt-metric-card" [class.pt-card-stacked-context]="!!fact.secondary || fact.label === 'Total output'" [style.anchor-name]="'--pt-snapshot-card-' + $index">
+            <div class="pt-snapshot-row pt-metric-card" [class.field]="phoneStatusView" [class.pt-card-stacked-context]="!!fact.secondary || fact.label === 'Total output'" [style.anchor-name]="'--pt-snapshot-card-' + $index">
               <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong [class.pt-confirmed-value]="fact.label === 'Status' && tx.status.confirmed" [class.pt-pending-value]="fact.label === 'Status' && !tx.status.confirmed">@if (fact.label === 'Status') { <span aria-hidden="true">{{ tx.status.confirmed ? '✓' : '◷' }}</span> }{{ fact.value }}</strong>
                 @if (fact.secondary) { <small class="pt-fact-secondary pt-inline-card-context">{{ fact.secondary }}</small> }
                 @if (showUsd && fact.fiatSats !== undefined) { <small class="pt-fact-secondary pt-inline-card-context">≈ <app-fiat [value]="fact.fiatSats" colorClass=""></app-fiat> · current price</small> }
@@ -127,6 +136,7 @@
   </div>
   </div>
   </section>
+  @if (phoneStatusView) {<a class="pt-phone-details-link footer-link" [routerLink]="['/tx' | relativeUrl,txId]" [queryParams]="{mode:'details'}" queryParamsHandling="merge">See more details · Dive Deeper →</a>}
 
   @if (!error && !pendingTrackerSnapshot) {
     <ng-container *ngTemplateOutlet="upstreamTransactionDetails"></ng-container>
@@ -163,10 +173,10 @@
     ></app-transaction-details>
   </ng-template>
 
-  <ng-template [ngIf]="!isLoadingTx && !error">
+  <ng-template [ngIf]="!isLoadingTx && !error && !phoneStatusView">
 
     <!-- CPFP Details -->
-    <ng-container *ngIf="cpfpMode && hasCpfp">
+    <ng-container *ngIf="cpfpMode && hasCpfp && !phoneLayout">
       <br>
       <div class="title float-start">
         <h2 *ngIf="cpfpInfo?.cluster && !isAcceleration" i18n="transaction.cluster|Cluster">Cluster</h2>
@@ -217,7 +227,7 @@
 
     <br *ngIf="!pendingTrackerSnapshot">
 
-    <section *ngIf="rbfInfo && (!pendingTrackerSnapshot || (replacementCount > 0 && showReplacementDiagram))" class="pt-replacement-history" id="pt-replacement-diagram" aria-label="Replacement history diagram">
+    <section *ngIf="!phoneLayout && rbfInfo && (!pendingTrackerSnapshot || (replacementCount > 0 && showReplacementDiagram))" class="pt-replacement-history" id="pt-replacement-diagram" aria-label="Replacement history diagram">
       <div class="title float-start">
         <h2 id="rbf">Replacement history</h2>
       </div>
@@ -250,7 +260,7 @@
       <span class="pt-flow-total">Total output: <app-amount [satoshis]="totalOutputSats"></app-amount></span>
     </div>
     <div class="pt-flow-unified">
-    <div class="pt-flow-visual">
+    <div class="pt-flow-visual" *ngIf="!phoneLayout">
     <div class="pt-flow-toolbar">
       <form *ngIf="pendingTrackerSnapshot" class="pt-address-find" (submit)="$event.preventDefault(); findTransactionAddress(addressLookup.value)">
         <div><input #addressLookup id="pt-address-find" aria-label="Find an address in this transaction" type="text" placeholder="Find an address in this transaction" autocomplete="off"><button type="submit">Find</button><button type="button" *ngIf="selectedAddress" (click)="selectedAddress = ''; addressFeedback = ''; addressLookup.value = ''">Clear</button></div>
@@ -293,7 +303,7 @@
           <div class="pt-flow-heading-half"><span>Outputs ({{ tx.vout.length }})</span><span>Value (BTC)</span></div>
         </div>
       </div>
-    <app-transactions-list #txList [transactions]="[tx]" [cached]="isCached" [errorUnblinded]="errorUnblinded" [addresses]="addressMatches" [inputIndex]="matchedInputIndex" [outputIndex]="matchedOutputIndex" [transactionPage]="true" [compactFlow]="pendingTrackerSnapshot" [showCurrentFiat]="showUsd"></app-transactions-list>
+    <app-transactions-list #txList [transactions]="[tx]" [cached]="isCached" [errorUnblinded]="errorUnblinded" [addresses]="addressMatches" [inputIndex]="matchedInputIndex" [outputIndex]="matchedOutputIndex" [transactionPage]="true" [compactFlow]="pendingTrackerSnapshot && !phoneLayout" [showCurrentFiat]="showUsd"></app-transactions-list>
       <div class="pt-flow-bottom-rule" aria-hidden="true"></div>
     </div>
     </div>
