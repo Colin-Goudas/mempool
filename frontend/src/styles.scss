@@ -4755,3 +4755,15 @@ app-pending-home app-search-form .search-submit:focus-visible {outline:2px solid
 app-pending-home app-search-form .dropdown-menu {width:100%;}
 
 .pt-release-footer {max-width:1110px;width:calc(100% - 48px);margin:28px auto 0;padding:18px 0 28px;border-top:1px solid #ffffff12;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#84848f;font-size:11px;}.pt-release-footer nav {display:flex;gap:20px;}.pt-release-footer a {color:#b4b4bc;}
+
+/* Unfinished explorer tools stay discoverable without public navigation links. */
+.pt-more-menu { position:relative; font-size:12px; }
+.pt-more-menu summary { list-style:none; cursor:pointer; color:#d5d5dc; padding:12px 10px; white-space:nowrap; }
+.pt-more-menu summary::-webkit-details-marker { display:none; }
+.pt-more-menu summary:focus-visible { outline:2px solid #c5a66d; outline-offset:-2px; border-radius:8px; }
+.pt-more-panel { position:absolute; top:100%; left:0; z-index:1100; width:230px; padding:8px; border:1px solid #ffffff24; border-radius:12px; background:#141416; box-shadow:0 14px 36px #0008; }
+.pt-more-panel p { color:#93939e; font-size:11px; margin:5px 8px 8px; }
+.pt-more-panel a,.pt-more-panel button { display:flex; justify-content:space-between; align-items:center; gap:20px; width:100%; padding:10px 8px; border:0; border-radius:6px; background:transparent; color:#d5d5dc; text-align:left; font:inherit; }
+.pt-more-panel button:disabled { cursor:not-allowed; color:#96969f; }
+.pt-more-panel small { font-size:10px; color:#85858f; }
+.pt-more-panel a:hover { background:#ffffff0b; color:#fff; }
