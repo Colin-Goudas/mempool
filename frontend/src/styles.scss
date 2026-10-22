@@ -5061,3 +5061,21 @@ body:has(app-dashboard) app-dashboard .pt-network-dashboard app-recent-transacti
 body:has(app-dashboard) app-dashboard .pt-network-dashboard .lastest-replacements-table thead th {
   color:#eeeef2 !important;font-size:14px !important;font-weight:600 !important;opacity:1 !important;
 }
+/* Functional controls and data labels remain readable throughout the explorer. */
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-eight-card-grid .pt-snapshot-popover-trigger,
+body:has(app-transaction) app-transaction .pt-eight-details .pt-snapshot-popover-trigger,
+body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[aria-label="Wallet snapshot"] .pt-wallet-meaning button,
+body:has(app-address) app-address .pt-wallet-page .pt-wallet-deeper .pt-wallet-meaning button,
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-balanced-overview .pt-network-meaning button,
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-network-deeper .pt-network-meaning button {font-size:12px !important;color:#c6c6d0 !important;}
+body:has(app-address) app-address .pt-wallet-page .pt-wallet-fiat-toggle,
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-network-heading > label,
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-title-utilities .pt-display-fiat {font-size:12px !important;color:#bdbdc7 !important;}
+body:has(app-transaction) app-transaction .pt-flow-open .pt-address-find button,
+body:has(app-transaction) app-transaction .pt-flow-open .pt-address-find input {font-size:12px !important;}
+body:has(app-transaction) app-transaction .pt-flow-open .pt-output-fiat {font-size:12px !important;color:#b3b3be !important;}
+body:has(app-dashboard) app-dashboard .pt-network-dashboard app-fees-box .fee-label,
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .quick-filter button,
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .quick-filter label {font-size:12px !important;color:#d6d6de !important;}
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-widget-explanation,
+body:has(app-address) app-address .pt-wallet-page .pt-wallet-caption {font-size:13px !important;color:#b8b8c3 !important;}
