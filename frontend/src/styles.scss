@@ -5175,7 +5175,7 @@ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced.pt-quiet-dept
   .pt-title-utilities .pt-display-fiat input {width:12px;height:12px;margin:0;}
   // One native page surface contains the narrative, actions and compact facts.
   .pt-snapshot-surface {
-    border:1px solid rgba(255,255,255,.045);border-radius:20px;
+    border:1px solid rgba(255,255,255,.14);border-radius:20px;
     background:var(--pt-facetry-surface);
     box-shadow:var(--pt-facetry-shadow) !important;padding:14px 14px 12px;
   }
@@ -5189,13 +5189,13 @@ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced.pt-quiet-dept
     .pt-notification-action {gap:6px !important;}
     .pt-notification-action fa-icon {font-size:12px;line-height:1;}
   }
-  .pt-snapshot-surface > .pt-eight-card-grid {margin:12px 0 0 !important;padding-top:12px !important;border-top:1px solid transparent !important;background-image:linear-gradient(90deg,transparent,#ffffff26 12%,#ffffff26 72%,transparent) !important;background-size:100% 1px !important;background-position:top !important;background-repeat:no-repeat !important;gap:6px 8px !important;}
+  .pt-snapshot-surface > .pt-eight-card-grid {margin:12px 0 0 !important;padding-top:12px !important;border-top:1px solid transparent !important;background-image:linear-gradient(90deg,transparent,#ffffff38 12%,#ffffff38 72%,transparent) !important;background-size:100% 1px !important;background-position:top !important;background-repeat:no-repeat !important;gap:6px 8px !important;}
   // Preserve explorer/wallet density without nesting raised surfaces.
   .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card {
     min-height:37px !important;padding:7px 10px !important;
     background:transparent !important;
-    border:1px solid #ffffff08 !important;box-shadow:none !important;
-    &:hover {background-color:#ffffff04 !important;border-color:#ffffff16 !important;}
+    border:1px solid #ffffff18 !important;box-shadow:none !important;
+    &:hover {background-color:#ffffff04 !important;border-color:#ffffff26 !important;}
     .pt-snapshot-fact > .pt-inline-card-context {font-size:11px !important;color:#9595a0 !important;}
     &.pt-card-stacked-context .pt-inline-card-context {flex-basis:100%;}
   }
