@@ -4923,3 +4923,66 @@ body:has(app-transaction) app-transaction .pt-flow-section.pt-flow-open {
   app-transactions-list > div > ng-container + br {display:none;}
 }
 @media(max-width:767px){body:has(app-transaction) app-transaction .pt-flow-section.pt-flow-open {.pt-flow-header{align-items:flex-start !important;}.pt-flow-total{flex-basis:100%;}.pt-flow-toolbar{gap:10px 16px;}.pt-flow-unified .pt-address-find{flex-basis:100%;}.pt-flow-table-headings{font-size:17px !important;}}}
+
+/* Explorer hierarchy: clear section rhythm and purposeful data colors. */
+body:has(app-transaction),body:has(app-address .pt-wallet-page),body:has(app-dashboard .pt-network-dashboard) {
+  --pt-data-link:#d8bc86;--pt-data-in:#9bcbb0;--pt-data-out:#dfa58d;--pt-data-pending:#dfbd7b;
+}
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-intro h1,
+body:has(app-transaction) app-transaction .pt-flow-header h2,
+body:has(app-transaction) app-transaction .pt-heading-title,
+body:has(app-address) .pt-wallet-page .pt-wallet-heading h1,
+body:has(app-address) .pt-wallet-page .pt-wallet-section-heading h2,
+body:has(app-address) .pt-wallet-page .title-tx h2,
+body:has(app-dashboard) .pt-network-dashboard .pt-network-heading h1,
+body:has(app-dashboard) .pt-network-dashboard .pt-network-section-heading h2 {
+  font-size:32px !important;line-height:1.2 !important;font-weight:600 !important;letter-spacing:-.025em !important;color:#f3f3f5 !important;
+}
+body:has(app-transaction) app-transaction .pt-flow-section,
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle {margin-top:32px !important;}
+body:has(app-address) .pt-wallet-page .pt-wallet-section-heading,
+body:has(app-dashboard) .pt-network-dashboard .pt-network-section-heading {margin-top:32px !important;margin-bottom:12px !important;}
+body:has(app-address) .pt-wallet-page .title-tx {margin-top:32px !important;margin-bottom:12px !important;}
+body:has(app-address) .pt-wallet-page .title-tx h2 {margin-bottom:0 !important;}
+body:has(app-dashboard) .pt-network-dashboard h5.card-title {font-size:21px !important;line-height:1.3 !important;color:#ececf0 !important;}
+body:has(app-dashboard) .pt-network-dashboard app-recent-transactions-list a,
+body:has(app-dashboard) .pt-network-dashboard .lastest-replacements-table a,
+body:has(app-address) .pt-wallet-page .pt-wallet-history-table td:first-child a,
+body:has(app-address) .pt-wallet-page .pt-wallet-raw .address-cell a,
+body:has(app-address) .pt-wallet-page .pt-wallet-raw .tx-link,
+body:has(app-transaction) app-transaction .pt-flow-open .address-cell a {color:var(--pt-data-link) !important;}
+body:has(app-dashboard) .pt-network-dashboard app-recent-transactions-list a:hover,
+body:has(app-dashboard) .pt-network-dashboard .lastest-replacements-table a:hover,
+body:has(app-address) .pt-wallet-page .pt-wallet-history-table td:first-child a:hover,
+body:has(app-transaction) app-transaction .pt-flow-open .address-cell a:hover {color:#f3d9a8 !important;text-decoration:underline;text-underline-offset:3px;}
+body:has(app-address) .pt-wallet-page .pt-wallet-history .pt-wallet-confirmed {color:var(--pt-data-in) !important;}
+body:has(app-address) .pt-wallet-page .pt-wallet-history .pt-wallet-pending {color:var(--pt-data-pending) !important;background:#dfbd7b12;border-radius:4px;padding:3px 6px;}
+body:has(app-address) .pt-wallet-page .pt-value-incoming app-amount,
+body:has(app-address) .pt-wallet-page [data-fact="incoming"].pt-has-value .pt-wallet-fact-line strong {color:var(--pt-data-in) !important;}
+body:has(app-address) .pt-wallet-page .pt-value-outgoing app-amount,
+body:has(app-address) .pt-wallet-page [data-fact="outgoing"].pt-has-value .pt-wallet-fact-line strong {color:var(--pt-data-out) !important;}
+body:has(app-address) .pt-wallet-page [data-fact="pending-txs"].pt-has-value .pt-wallet-fact-line strong,
+body:has(app-address) .pt-wallet-page [data-fact="pending"].pt-has-value .pt-wallet-fact-line strong {color:var(--pt-data-pending) !important;}
+body:has(app-address) .pt-wallet-page .pt-value-incoming app-amount *,
+body:has(app-address) .pt-wallet-page .pt-value-outgoing app-amount *,
+body:has(app-address) .pt-wallet-page [data-fact="incoming"].pt-has-value .pt-wallet-fact-line strong *,
+body:has(app-address) .pt-wallet-page [data-fact="outgoing"].pt-has-value .pt-wallet-fact-line strong * {color:inherit !important;}
+body:has(app-transaction) app-transaction .pt-flow-open .pt-graph-direction-labels span:first-child,
+body:has(app-transaction) app-transaction .pt-flow-open .pt-flow-heading-half:first-child span:first-child {color:var(--pt-data-out) !important;}
+body:has(app-transaction) app-transaction .pt-flow-open .pt-graph-direction-labels span:last-child,
+body:has(app-transaction) app-transaction .pt-flow-open .pt-flow-heading-half:last-child span:first-child {color:var(--pt-data-in) !important;}
+@media(max-width:767px){
+  body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-intro h1,
+  body:has(app-transaction) app-transaction .pt-flow-header h2,
+  body:has(app-transaction) app-transaction .pt-heading-title,
+  body:has(app-address) .pt-wallet-page .pt-wallet-heading h1,
+  body:has(app-address) .pt-wallet-page .pt-wallet-section-heading h2,
+  body:has(app-address) .pt-wallet-page .title-tx h2,
+  body:has(app-dashboard) .pt-network-dashboard .pt-network-heading h1,
+  body:has(app-dashboard) .pt-network-dashboard .pt-network-section-heading h2 {font-size:27px !important;}
+}
+body:has(app-dashboard) .pt-network-dashboard [data-metric="Awaiting confirmation"] .pt-network-fact-line strong,
+body:has(app-dashboard) .pt-network-dashboard [data-metric="Next-block fee"] .pt-network-fact-line strong {color:var(--pt-data-pending) !important;}
+body:has(app-dashboard) .pt-network-dashboard .card-title a {color:var(--pt-data-link) !important;}
+body:has(app-address) .pt-wallet-page .pt-wallet-raw .red {color:var(--pt-data-out) !important;}
+body:has(app-address) .pt-wallet-page .pt-wallet-raw .green {color:var(--pt-data-in) !important;}
