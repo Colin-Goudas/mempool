@@ -1,4 +1,4 @@
-import { transactionNextStep } from './transaction-guidance';
+import { transactionNextStep, replacementHistoryCount } from './transaction-guidance';
 import { transactionSnapshot, transactionSummary, transactionTechnicalFacts } from './transaction-snapshot';
 import { Component, OnInit, AfterViewInit, OnDestroy, HostListener, ViewChild, ElementRef, Inject, ChangeDetectorRef } from '@angular/core';
 import { ElectrsApiService } from '@app/services/electrs-api.service';
@@ -82,6 +82,8 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     if ((event as Event & {newState: string}).newState === 'open') this.activeSummaryQuestion = id;
     else if (this.activeSummaryQuestion === id) this.activeSummaryQuestion = '';
   }
+  showReplacementDiagram = false;
+  get replacementCount(): number { return replacementHistoryCount(this.rbfInfo); }
   showUsd = true;
   selectedAddress = '';
   addressFeedback = '';
@@ -193,7 +195,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   get snapshotFacts() { return this.snapshotFactsFor(null); }
   snapshotFactsFor(eta: ETA | null) {
-    return transactionSnapshot(this.tx, this.latestBlock?.height, this.transactionTime, !!this.replaced || !!this.rbfTransaction, this.pool?.name, this.networkFeeFloor, eta?.wait).map(fact => {
+    const facts = transactionSnapshot(this.tx, this.latestBlock?.height, this.transactionTime, !!this.replaced || !!this.rbfTransaction, this.pool?.name, this.networkFeeFloor, eta?.wait, this.hasEffectiveFeeRate ? this.tx?.effectiveFeePerVsize : undefined).map(fact => {
       if (fact.label === 'Total output' && this.selectedAddress) return {...fact, label:'To selected address', value:(this.selectedOutputSats / 100000000).toFixed(8) + ' BTC', fiatSats:this.selectedOutputSats, meaning:'Total of outputs to the address you selected.', details:'This amount includes every output to the selected address. Selecting an address does not establish who owns it.'};
       if (fact.label === 'Fee rate' && !this.tx?.status?.confirmed) return {...fact, meaning:this.fastFeeRate && this.ownFeeRate !== undefined ? (this.ownFeeRate < this.fastFeeRate ? 'Below' : 'At or above') + ' the first projected block’s median rate.' : 'Current queue comparison unavailable.', details:fact.details + (this.fastFeeRate ? ' First projected block median: ' + this.fastFeeRate.toFixed(2) + ' sat/vB. This is an observed queue benchmark, not a guaranteed recommended fee.' : '')};
       return fact;
@@ -216,8 +218,10 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       const meaning = compact[fact.label];
       return meaning ? {...fact, meaning, details:meaning === fact.meaning ? fact.details : fact.meaning + ' ' + fact.details} : fact;
     });
+    if (this.replacementCount > 0) facts.push({label:'Replacement history', value:this.replacementCount + (this.replacementCount === 1 ? ' replacement' : ' replacements'), meaning:'Earlier and replacement versions were observed for this transaction history.', details:'A replacement spends inputs also used by an earlier version. Compare the versions and verify the receiving outputs; replacement history does not by itself establish who owns a transaction or guarantee that a replacement preserves its recipients. The diagram links to the observed versions and their fee rates.'});
+    return facts;
   }
-  get technicalFacts() { return transactionTechnicalFacts(this.tx, this.pool?.name, this.transactionTime); }
+  get technicalFacts() { return transactionTechnicalFacts(this.tx, this.pool?.name, this.transactionTime).filter(fact => !this.pendingTrackerSnapshot || !['Miner attribution','Observed confirmation duration'].includes(fact.label)); }
   get technicalGroups() {
     const facts = this.technicalFacts || [];
     const groups = [
@@ -772,6 +776,8 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(
         switchMap((params: ParamMap) => {
           this.activeSummaryQuestion = '';
+          this.showReplacementDiagram = false;
+          this.showRbfDiff = false;
           const urlMatch = (params.get('id') || '').split(':');
           if (urlMatch.length === 2 && urlMatch[1].length === 64) {
             const vin = parseInt(urlMatch[0], 10);

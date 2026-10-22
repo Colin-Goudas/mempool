@@ -7,3 +7,19 @@ export function transactionNextStep(state: {confirmed:boolean; confirmations:num
   if (state.confirmed) return 'If the deposit is not showing, check the receiving service’s confirmation requirements and the receiving address.';
   return 'You can wait. If timing matters, check fee-increase options in the sending wallet or contact the sending exchange.';
 }
+
+/** Count distinct observed replacement versions, excluding the history root. */
+export function replacementHistoryCount(root: {tx?: {txid?: string}; replaces?: any[]} | null | undefined): number {
+  if (!root) return 0;
+  const seen = new Set<string>();
+  const stack = [root];
+  const visited = new Set<object>();
+  while (stack.length) {
+    const node = stack.pop();
+    if (!node || visited.has(node)) continue;
+    visited.add(node);
+    if (node.tx?.txid) seen.add(node.tx.txid);
+    for (const child of node.replaces || []) stack.push(child);
+  }
+  return Math.max(0, seen.size - 1);
+}

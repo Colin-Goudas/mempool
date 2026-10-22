@@ -117,6 +117,7 @@
               <div class="pt-snapshot-detail-popover" [style.position-anchor]="'--pt-snapshot-card-' + $index" [id]="'pt-snapshot-detail-' + $index" popover="auto">
                 <div class="pt-snapshot-popover-heading"><strong>Understanding {{ fact.label }}</strong><button type="button" [attr.popovertarget]="'pt-snapshot-detail-' + $index" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
                 <p>{{ fact.meaning }}</p><p>{{ fact.details }}</p>
+                @if (fact.label === 'Replacement history') {<button type="button" class="pt-history-action" (click)="showReplacementDiagram = !showReplacementDiagram" [attr.aria-expanded]="showReplacementDiagram" aria-controls="pt-replacement-diagram" [attr.popovertarget]="'pt-snapshot-detail-' + $index" popovertargetaction="hide">{{ showReplacementDiagram ? 'Hide replacement diagram' : 'View replacement diagram' }}</button>}
               </div>
             </div>
         }
@@ -214,20 +215,21 @@
 
     <br *ngIf="!pendingTrackerSnapshot">
 
-    <ng-container *ngIf="rbfInfo">
+    <section *ngIf="rbfInfo && (!pendingTrackerSnapshot || (replacementCount > 0 && showReplacementDiagram))" class="pt-replacement-history" id="pt-replacement-diagram" aria-label="Replacement history diagram">
       <div class="title float-start">
-        <h2 id="rbf" i18n="transaction.rbf-history|RBF Timeline">RBF Timeline</h2>
+        <h2 id="rbf">Replacement history</h2>
       </div>
 
+      <button *ngIf="pendingTrackerSnapshot" type="button" class="pt-history-action float-end" (click)="showReplacementDiagram = false">Hide diagram</button>
       <button *ngIf="rbfInfo.replaces?.length && !isLiquid" type="button" class="btn btn-outline-info rbf-diff-toggle btn-sm float-end" (click)="showRbfDiff = !showRbfDiff">
         <span *ngIf="!showRbfDiff" i18n="rbf-diff.show">Show structural diff</span>
         <span *ngIf="showRbfDiff" i18n="rbf-diff.hide">Hide structural diff</span>
       </button>
 
       <div class="clearfix"></div>
+      <p class="pt-replacement-caption">Observed transaction versions and their fee rates. Select a version to inspect its status and receiving outputs.</p>
       <app-rbf-timeline [txid]="txId" [replacements]="rbfInfo" [showDiff]="showRbfDiff"></app-rbf-timeline>
-      <br>
-    </ng-container>
+    </section>
 
     <ng-container *ngIf="transactionTime > 0 && tx.acceleratedAt > 0 && (isAcceleration || accelerationCanceled)">
       <div class="title float-start">

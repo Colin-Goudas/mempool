@@ -5,7 +5,7 @@ const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFi
 const number = (n: number, digits = 0) => n.toLocaleString('en-US', { maximumFractionDigits: digits });
 
 /** Present only observed facts; outputs do not identify a recipient's payment. */
-export function transactionSnapshot(tx: Transaction | undefined, tip?: number, firstSeen?: number, replaced = false, miner?: string, networkFeeFloor?: number, etaWait?: number): SnapshotFact[] {
+export function transactionSnapshot(tx: Transaction | undefined, tip?: number, firstSeen?: number, replaced = false, miner?: string, networkFeeFloor?: number, etaWait?: number, effectiveRate?: number): SnapshotFact[] {
   if (!tx) return [];
   const coinbase = tx.vin?.some(input => input.is_coinbase);
   const confirmed = tx.status?.confirmed === true;
@@ -54,8 +54,12 @@ export function transactionSnapshot(tx: Transaction | undefined, tip?: number, f
     const waiting = rows.findIndex(row => row.label === 'Included in block');
     rows[waiting] = { label: 'Waiting', value: replaced ? 'Replaced' : age ? age.replace(' ago', '') : 'Not available', meaning: 'Elapsed time since this provider first observed the transaction.', details: deeper['First seen'] };
   }
-  const order = confirmed ? ['Status','Confirmations','Confirmed at','Included in block','Network fee','Fee rate','Total output','Inputs / outputs'] : ['Status','Estimated confirmation','First seen','Waiting','Network fee','Fee rate','Total output','Inputs / outputs'];
-  return rows.sort((a,b) => order.indexOf(a.label) - order.indexOf(b.label));
+  const selected = rows.filter(row => !['Status', 'Confirmations', 'Waiting'].includes(row.label));
+  if (confirmed && miner) selected.push({label:'Miner attribution', value:miner, meaning:'The pool attributed to the confirming block.', details:deeper['Mining pool']});
+  if (confirmed && finite(firstSeen) && firstSeen > 0 && finite(blockTime) && blockTime >= firstSeen) selected.push({label:'Observed confirmation duration', value:number(Math.round((blockTime - firstSeen) / 60)) + ' minutes', meaning:'Approximate time from provider observation to block timestamp.', details:'Provider first-seen time is not a universal broadcast time, and block timestamps are miner supplied. This is an observed interval, not a guaranteed broadcast-to-confirmation duration.'});
+  if (!coinbase && finite(effectiveRate) && effectiveRate >= 0) selected.push({label:'Effective fee rate', value:number(effectiveRate, 2) + ' sat/vB', meaning:'The fee rate reported for the related transaction package.', details:'Miners can consider related unconfirmed parents and children together. Their combined fees and block-space use can produce a different effective rate from this transaction alone. This provider-reported rate is not a guarantee of confirmation.'});
+  const selectedOrder = confirmed ? ['Confirmed at','Included in block','Network fee','Fee rate','Total output','Inputs / outputs','Miner attribution','Observed confirmation duration','Effective fee rate'] : ['Estimated confirmation','First seen','Network fee','Fee rate','Total output','Inputs / outputs','Effective fee rate'];
+  return selected.sort((a,b) => selectedOrder.indexOf(a.label) - selectedOrder.indexOf(b.label));
 }
 
 export function transactionSummary(tx: Transaction | undefined, replaced = false): string {
