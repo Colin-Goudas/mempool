@@ -187,6 +187,7 @@ const regtestRoutes: Routes = browserWindowEnv.REGTEST_ENABLED ? [
 ] : [];
 
 let routes: Routes = [
+  { path: 'about', loadComponent: () => import('@components/pending-about/pending-about.component').then(m => m.PendingAboutComponent) },
   { path: 'welcome', redirectTo: '', pathMatch: 'full' },
   {
     path: '',
