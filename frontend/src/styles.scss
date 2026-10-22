@@ -4999,3 +4999,17 @@ body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-balanced-overvie
 body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[aria-label="Wallet snapshot"] .pt-wallet-heading h1,
 body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-intro > .title-block h1 {font-size:27px !important;}
 }
+/* Shared semantic accents across all three Bitcoin explorer pages. */
+body:has(app-transaction) app-transaction,
+body:has(app-address) app-address .pt-wallet-page,
+body:has(app-dashboard) app-dashboard .pt-network-dashboard {
+  app-fiat,app-fiat * {color:#a8c8ad !important;}
+  a:focus-visible {outline:2px solid var(--pt-data-link);outline-offset:3px;border-radius:2px;}
+}
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-title-utilities .pt-identity-confirmed {color:var(--pt-data-in) !important;border-color:#9bcbb04d !important;background:#9bcbb010 !important;}
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-title-utilities .pt-identity-status:not(.pt-identity-confirmed) {color:var(--pt-data-pending) !important;border-color:#dfbd7b4d !important;background:#dfbd7b10 !important;}
+body:has(app-transaction) app-transaction .tx-link a {color:var(--pt-data-link) !important;}
+body:has(app-address) .pt-wallet-page .pt-wallet-raw .btn-success {background:#9bcbb018 !important;border-color:#9bcbb040 !important;color:var(--pt-data-in) !important;}
+body:has(app-address) .pt-wallet-page .pt-wallet-raw .btn-danger {background:#dfa58d18 !important;border-color:#dfa58d40 !important;color:var(--pt-data-out) !important;}
+body:has(app-address) .pt-wallet-page .pt-wallet-raw .btn-success app-amount *,
+body:has(app-address) .pt-wallet-page .pt-wallet-raw .btn-danger app-amount * {color:inherit !important;}
