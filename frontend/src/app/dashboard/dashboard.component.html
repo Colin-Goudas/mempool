@@ -20,6 +20,8 @@
       <div class="pt-snapshot-body">
       <div class="pt-snapshot-intro">
       <header class="pt-network-heading"><h1>Bitcoin Network Snapshot</h1><span>Bitcoin mainnet</span><label><input type="checkbox" [checked]="showNetworkFiat" (change)="showNetworkFiat = !showNetworkFiat"> Fiat values</label><small [class.pt-feed-warning]="snapshot.reconnecting">{{ snapshot.reconnecting ? 'Reconnecting · values may be stale' : 'Live feed · updated ' + snapshot.updatedAt }}</small></header>
+      </div>
+      <div class="pt-overview-surface">
       <div class="pt-network-summary"><p class="pt-summary-narrative"><strong class="pt-summary-inline-label">In plain English —</strong> {{ snapshot.summary }}</p>
         <div class="pt-network-questions pt-summary-actionbar">
           <span><button type="button" class="pt-send-trigger" style="anchor-name:--pt-network-send" popovertarget="pt-network-send">Sending Bitcoin?</button><div id="pt-network-send" class="pt-network-popover" style="position-anchor:--pt-network-send" popover="auto"><div class="pt-network-popup-heading"><strong>Plan your Bitcoin fee</strong><button type="button" popovertarget="pt-network-send" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
@@ -38,11 +40,11 @@
           }
         </div>
       </div>
-      </div>
       <div class="pt-network-facts">
         @for (row of snapshot.rows; track row.label) {
           <div class="pt-network-fact" [attr.data-metric]="row.label" [style.anchor-name]="'--pt-network-fact-' + $index"><div class="pt-network-fact-line"><span>{{ row.label }}:</span><strong>{{ row.value }}</strong><small class="pt-inline-card-context" *ngIf="showNetworkFiat && row.fiatSats !== undefined">≈ <app-fiat [value]="row.fiatSats" colorClass=""></app-fiat> · 140-vB example, current price</small></div><div class="pt-network-meaning"><p>{{ row.meaning }}</p><button type="button" [attr.popovertarget]="'pt-network-fact-' + $index">Explain <span aria-hidden="true">+</span><span class="visually-hidden"> {{ row.label }}</span></button></div><div class="pt-network-popover" [style.position-anchor]="'--pt-network-fact-' + $index" [id]="'pt-network-fact-' + $index" popover="auto"><div class="pt-network-popup-heading"><strong>Understanding {{ row.label }}</strong><button type="button" [attr.popovertarget]="'pt-network-fact-' + $index" popovertargetaction="hide" aria-label="Close explanation">×</button></div><p>{{ row.meaning }}</p><p>{{ row.details }}</p></div></div>
         }
+      </div>
       </div>
       </div>
     </section>
