@@ -1,3 +1,4 @@
+import { mobileTransactionView, mobileTrackerStage } from './transaction-mobile';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { transactionNextStep, replacementHistoryCount } from './transaction-guidance';
 import { transactionSnapshot, transactionSummary, transactionTechnicalFacts } from './transaction-snapshot';
@@ -73,7 +74,7 @@ const DUPLICATE_TX_BLOCKS: Record<string, [number, number]> = {
 @Component({
   selector: 'app-transaction',
   templateUrl: './transaction.component.html',
-  styleUrls: ['./transaction.component.scss'],
+  styleUrls: ['./transaction.component.scss', './transaction-mobile.scss'],
   standalone: false,
 })
 export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -127,6 +128,13 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedAddress = found ? normalized : '';
     this.addressFeedback = found ? 'Matching rows are highlighted. The diagram selects the first matching input/output; combined strands may group others.' : 'No matching address in this transaction. Check the full address and Bitcoin network.';
   }
+  phoneViewportWidth = Math.min(600, window.innerWidth);
+  phoneLayout = window.innerWidth <= 767.98;
+  mobileDetailsMode = this.route.snapshot.queryParams['mode'] === 'details';
+  get phoneStatusView(): boolean { return this.pendingTrackerSnapshot && mobileTransactionView(this.phoneLayout ? 767 : 768, this.mobileDetailsMode ? 'details' : 'status') === 'status'; }
+  get phoneDetailsView(): boolean { return this.pendingTrackerSnapshot && this.phoneLayout && this.mobileDetailsMode; }
+  mobileStage(eta: any) { return mobileTrackerStage(!!this.tx, !!this.tx?.status?.confirmed, !!(this.replaced || this.rbfTransaction || this.rbfInfo?.mined), this.isCached, eta?.blocks); }
+
   get confirmationCount(): number {
     if (!this.tx?.status?.confirmed) return 0;
     const height = this.tx.status.block_height;
@@ -828,7 +836,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
           if (this.network === '' && this.txId) {
             this.duplicateTxBlocks = DUPLICATE_TX_BLOCKS[this.txId?.toLowerCase()];
           }
-          if (window.innerWidth <= 767.98) {
+          if (window.innerWidth <= 767.98 && !this.pendingTrackerSnapshot) {
             this.router.navigate([this.relativeUrlPipe.transform('/tx'), this.txId], {
               queryParamsHandling: 'merge',
               fragment: this.formatFragment(this.fragmentParams, this.fragmentAnchor),
@@ -1013,6 +1021,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.queryParamsSubscription = this.route.queryParams.subscribe((params) => {
+      this.mobileDetailsMode = params.mode === 'details';
       if (params.showFlow === 'false') {
         this.overrideFlowPreference = false;
       } else if (params.showFlow === 'true') {
@@ -1378,7 +1387,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setFlowEnabled() {
-    this.flowEnabled = (this.overrideFlowPreference != null ? this.overrideFlowPreference : !this.hideFlow);
+    this.flowEnabled = !this.phoneLayout && (this.overrideFlowPreference != null ? this.overrideFlowPreference : !this.hideFlow);
   }
 
   expandGraph() {
@@ -1461,6 +1470,9 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   setGraphSize(): void {
     this.isMobile = window.innerWidth < 850;
+    this.phoneLayout = window.innerWidth <= 767.98;
+    this.phoneViewportWidth = Math.min(600, window.innerWidth);
+    this.setFlowEnabled();
     if (this.graphContainer?.nativeElement && this.stateService.isBrowser) {
       setTimeout(() => {
         if (this.graphContainer?.nativeElement?.clientWidth) {
