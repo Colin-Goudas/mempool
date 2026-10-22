@@ -4835,3 +4835,15 @@ body:has(app-transaction) app-transaction .pt-flow-header h2::before,
 body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary .pt-heading-title::before {
  content:none !important;display:none !important;
 }
+
+/* Summary answers use the same top-layer disclosure behavior as fact cards. */
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact .pt-balanced-answer[popover] {
+ position:fixed !important;inset:0;margin:auto;padding:14px 16px;width:min(1090px,calc(100vw - 48px));height:fit-content;max-height:min(70vh,480px);overflow:auto;
+ border:1px solid #55504a;border-radius:8px;background:#19191c;box-shadow:0 12px 32px #0009;color:#d4d4db;
+}
+@supports (position-area:bottom) {
+ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact .pt-balanced-answer[popover] {
+  inset:auto;margin:6px 0;position-area:bottom;position-try-fallbacks:flip-block,flip-inline;
+  width:min(anchor-size(width),calc(100vw - 48px));
+ }
+}
