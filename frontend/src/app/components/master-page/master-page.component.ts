@@ -65,6 +65,15 @@ export class MasterPageComponent implements OnInit, OnDestroy {
     this.collapse();
   }
 
+  reviewTools = [
+    { label: 'Blocks', path: '/blocks' },
+    { label: 'Charts', path: '/graphs' },
+    { label: 'Mining', path: '/mining' },
+    { label: 'Lightning', path: '/lightning' },
+    { label: 'API Docs', path: '/docs' },
+    { label: 'About', path: '/about' },
+  ];
+
   env: Env;
   network$: Observable<string>;
   connectionState$: Observable<number>;
