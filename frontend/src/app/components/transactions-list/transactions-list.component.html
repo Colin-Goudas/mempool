@@ -306,7 +306,7 @@
               </tr>
             </ng-template>
             <tr *ngIf="compactFlow && tx.vin.length > 5" class="pt-flow-expand-row">
-              <td colspan="4">
+              <td [attr.colspan]="tx['_showSignatures'] ? 4 : 3">
                 <div class="pt-flow-expand-control">
                   <span>Showing {{ getVinLimit(tx) }} of {{ tx.vin.length }} inputs</span>
                   <button type="button" class="btn btn-outline-info btn-sm" (click)="toggleFlowInputs(tx)" [attr.aria-expanded]="expandedInputs.has(tx.txid)">
@@ -512,7 +512,7 @@
               </tr>
             </ng-template>
             <tr *ngIf="compactFlow && tx.vout.length > 5" class="pt-flow-expand-row">
-              <td colspan="4">
+              <td colspan="3">
                 <div class="pt-flow-expand-control">
                   <span>Showing {{ getVoutLimit(tx) }} of {{ tx.vout.length }} outputs</span>
                   <button type="button" class="btn btn-outline-info btn-sm" (click)="toggleFlowOutputs(tx)" [attr.aria-expanded]="expandedOutputs.has(tx.txid)">
