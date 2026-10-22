@@ -60,10 +60,10 @@
         <p class="pt-summary-narrative"><strong class="pt-summary-inline-label">In plain English —</strong> {{ summaryStatus() }} {{ summaryContext(ETA$ | async) }}
           {{ selectedAddress ? 'Outputs to the selected address total' : 'Its outputs total' }} <strong class="pt-summary-btc-amount">{{ displayAmountSats / 100000000 | number:'1.8-8' }} BTC</strong><span *ngIf="showUsd"> (approximately <app-fiat [value]="displayAmountSats" colorClass=""></app-fiat> at the current price)</span>{{ selectedAddress ? '.' : ', which may include change returned to the sender.' }}
         </p>
-        <div class="pt-summary-questions" aria-label="Questions and next steps">
-          <button type="button" class="pt-next-step-link" (click)="toggleSummaryQuestion('next')" [attr.aria-expanded]="activeSummaryQuestion === 'next'" aria-controls="pt-answer-next">Next step <span aria-hidden="true">{{ activeSummaryQuestion === 'next' ? '▴' : '▾' }}</span></button>
+        <div class="pt-summary-questions" style="anchor-name:--pt-summary-toolbar" aria-label="Questions and next steps">
+          <button type="button" class="pt-next-step-link" popovertarget="pt-answer-next" [attr.aria-expanded]="activeSummaryQuestion === 'next'" aria-controls="pt-answer-next">Next step <span aria-hidden="true">{{ activeSummaryQuestion === 'next' ? '▴' : '▾' }}</span></button>
           @for (question of summaryQuestions; track question.id) {
-            <button type="button" (click)="toggleSummaryQuestion(question.id)" [attr.aria-expanded]="activeSummaryQuestion === question.id" [attr.aria-controls]="'pt-answer-' + question.id">{{ question.label }} <span aria-hidden="true">{{ activeSummaryQuestion === question.id ? '▴' : '▾' }}</span></button>
+            <button type="button" [attr.popovertarget]="'pt-answer-' + question.id" [attr.aria-expanded]="activeSummaryQuestion === question.id" [attr.aria-controls]="'pt-answer-' + question.id">{{ question.label }} <span aria-hidden="true">{{ activeSummaryQuestion === question.id ? '▴' : '▾' }}</span></button>
           }
           @if ((!tx.status.confirmed || alertTxid === tx.txid) && !replaced && !rbfTransaction && !rbfInfo?.mined) {
             <span class="pt-summary-question">
@@ -84,16 +84,13 @@
             </span>
           }
         </div>
-        @if (activeSummaryQuestion === 'next') {
-          <div id="pt-answer-next" class="pt-balanced-answer" role="region" aria-label="Next step">
-            <button type="button" class="pt-answer-close" (click)="activeSummaryQuestion = ''" aria-label="Close next step">×</button>
+          <div id="pt-answer-next" class="pt-balanced-answer" style="position-anchor:--pt-summary-toolbar" popover="auto" (toggle)="onSummaryToggle('next', $event)" role="region" aria-label="Next step">
+            <button type="button" class="pt-answer-close" popovertarget="pt-answer-next" popovertargetaction="hide" aria-label="Close next step">×</button>
             <strong>Next step</strong><p>{{ nextStep((stateService.connectionState$ | async) === 2) }}</p>
           </div>
-        }
         @for (question of summaryQuestions; track question.id) {
-          @if (activeSummaryQuestion === question.id) {
-            <div class="pt-balanced-answer" [id]="'pt-answer-' + question.id" role="region" [attr.aria-label]="question.label">
-              <button type="button" class="pt-answer-close" (click)="activeSummaryQuestion = ''" aria-label="Close explanation">×</button>
+            <div class="pt-balanced-answer" [id]="'pt-answer-' + question.id" style="position-anchor:--pt-summary-toolbar" popover="auto" (toggle)="onSummaryToggle(question.id, $event)" role="region" [attr.aria-label]="question.label">
+              <button type="button" class="pt-answer-close" [attr.popovertarget]="'pt-answer-' + question.id" popovertargetaction="hide" aria-label="Close explanation">×</button>
               <strong>{{ question.label }}</strong><p>{{ question.text }}</p>
               @if (question.id === 'speed') {
                   <div class="pt-help-roles"><button type="button" (click)="helpRole = 'sent'" [attr.aria-pressed]="helpRole === 'sent'">I sent this</button><button type="button" (click)="helpRole = 'receiving'" [attr.aria-pressed]="helpRole === 'receiving'">I am receiving it</button><button type="button" (click)="helpRole = 'exchange'" [attr.aria-pressed]="helpRole === 'exchange'">Sent through an exchange</button></div>
@@ -103,7 +100,6 @@
 
                 }
             </div>
-          }
         }
         <small *ngIf="(stateService.connectionState$ | async) !== 2" class="pt-update-note" role="status">Live updates disconnected; displayed data may be stale.</small>
       </div>
