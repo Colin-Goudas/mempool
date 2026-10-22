@@ -8,7 +8,7 @@
       <div class="pt-explorer-examples"><a [routerLink]="['/tx' | relativeUrl, '00079568fd91c81ecb530a15225e8590f4bb9c0c37eb5b3160d6daf064352d08']">Try a transaction example →</a><a [routerLink]="['/address' | relativeUrl, '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa']">Try a wallet example →</a></div>
       <small>No wallet connection needed.</small>
     </section>
-    <section class="pt-network-snapshot" aria-label="Bitcoin network snapshot" *ngIf="networkSnapshot$ | async as snapshot">
+    <section class="pt-network-snapshot pt-balanced-overview" aria-label="Bitcoin network snapshot" *ngIf="networkSnapshot$ | async as snapshot">
       <div class="pt-snapshot-body">
       <div class="pt-snapshot-intro">
       <header class="pt-network-heading"><h1>Bitcoin Network Snapshot</h1><span>Bitcoin mainnet</span><label><input type="checkbox" [checked]="showNetworkFiat" (change)="showNetworkFiat = !showNetworkFiat"> Fiat values</label><small [class.pt-feed-warning]="snapshot.reconnecting">{{ snapshot.reconnecting ? 'Reconnecting · values may be stale' : 'Live feed · updated ' + snapshot.updatedAt }}</small></header>
@@ -33,7 +33,7 @@
       </div>
       <div class="pt-network-facts">
         @for (row of snapshot.rows; track row.label) {
-          <div class="pt-network-fact" [style.anchor-name]="'--pt-network-fact-' + $index"><div class="pt-network-fact-line"><span>{{ row.label }}:</span><strong>{{ row.value }}</strong><small class="pt-inline-card-context" *ngIf="showNetworkFiat && row.fiatSats !== undefined">≈ <app-fiat [value]="row.fiatSats" colorClass=""></app-fiat> · 140-vB example, current price</small></div><div class="pt-network-meaning"><p>{{ row.meaning }}</p><button type="button" [attr.popovertarget]="'pt-network-fact-' + $index">Explore more <span aria-hidden="true">▾</span><span class="visually-hidden"> about {{ row.label }}</span></button></div><div class="pt-network-popover" [style.position-anchor]="'--pt-network-fact-' + $index" [id]="'pt-network-fact-' + $index" popover="auto"><div class="pt-network-popup-heading"><strong>Understanding {{ row.label }}</strong><button type="button" [attr.popovertarget]="'pt-network-fact-' + $index" popovertargetaction="hide" aria-label="Close explanation">×</button></div><p>{{ row.meaning }}</p><p>{{ row.details }}</p></div></div>
+          <div class="pt-network-fact" [style.anchor-name]="'--pt-network-fact-' + $index"><div class="pt-network-fact-line"><span>{{ row.label }}:</span><strong>{{ row.value }}</strong><small class="pt-inline-card-context" *ngIf="showNetworkFiat && row.fiatSats !== undefined">≈ <app-fiat [value]="row.fiatSats" colorClass=""></app-fiat> · 140-vB example, current price</small></div><div class="pt-network-meaning"><p>{{ row.meaning }}</p><button type="button" [attr.popovertarget]="'pt-network-fact-' + $index">Explain <span aria-hidden="true">+</span><span class="visually-hidden"> {{ row.label }}</span></button></div><div class="pt-network-popover" [style.position-anchor]="'--pt-network-fact-' + $index" [id]="'pt-network-fact-' + $index" popover="auto"><div class="pt-network-popup-heading"><strong>Understanding {{ row.label }}</strong><button type="button" [attr.popovertarget]="'pt-network-fact-' + $index" popovertargetaction="hide" aria-label="Close explanation">×</button></div><p>{{ row.meaning }}</p><p>{{ row.details }}</p></div></div>
         }
       </div>
       </div>
