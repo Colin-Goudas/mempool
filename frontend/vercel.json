@@ -6,42 +6,8 @@
   "outputDirectory": "dist/mempool/browser",
   "routes": [
     {
-      "src": "/(.*)",
-      "headers": {
-        "X-Robots-Tag": "noindex, nofollow"
-      },
-      "continue": true
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
       "src": "/mempool/api/(.*)",
       "dest": "https://mempool.space/api/$1"
-    },
-    {
-      "src": "/mempool/resources/mining-pools/(.*)",
-      "dest": "https://mempool.space/resources/mining-pools/$1"
-    },
-    {
-      "src": "/mempool/welcome/?",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/mempool/?",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/mempool/tx/(.*)",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/mempool/address/(.*)",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/mempool/(.*)",
-      "dest": "/$1"
     },
     {
       "src": "/api/explain",
@@ -52,8 +18,51 @@
       "dest": "https://mempool.space/api/$1"
     },
     {
-      "src": "/resources/mining-pools/(.*)",
+      "src": "/(?:mempool/)?resources/mining-pools/(.*)",
       "dest": "https://mempool.space/resources/mining-pools/$1"
+    },
+    {
+      "src": "/(?:ethereum|eth|faq)(?:/.*)?",
+      "dest": "/retired.html",
+      "status": 410
+    },
+    {
+      "src": "/(?:mempool/)?welcome/?",
+      "headers": {
+        "Location": "/"
+      },
+      "status": 308
+    },
+    {
+      "src": "/mempool/?",
+      "headers": {
+        "Location": "/bitcoin"
+      },
+      "status": 308
+    },
+    {
+      "src": "/btc/(.*)",
+      "headers": {
+        "Location": "/tx/$1"
+      },
+      "status": 308
+    },
+    {
+      "src": "/wallet/(.*)",
+      "headers": {
+        "Location": "/address/$1"
+      },
+      "status": 308
+    },
+    {
+      "src": "/mempool/(.*)",
+      "headers": {
+        "Location": "/$1"
+      },
+      "status": 308
+    },
+    {
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
