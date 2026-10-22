@@ -1,5 +1,5 @@
 <div class="container-xl">
-  <section [class.pt-snapshot]="pendingTrackerSnapshot" [attr.aria-label]="pendingTrackerSnapshot ? 'Transaction snapshot' : null">
+  <section [class.pt-snapshot]="pendingTrackerSnapshot" [class.pt-balanced]="pendingTrackerSnapshot" [attr.aria-label]="pendingTrackerSnapshot ? 'Transaction snapshot' : null">
 
   <div class="pt-snapshot-panel">
   <div class="pt-snapshot-intro">
@@ -21,7 +21,7 @@
       </span>
 
       <div class="pt-title-utilities"><span *ngIf="pendingTrackerSnapshot" class="pt-network-label">Bitcoin mainnet</span><label *ngIf="pendingTrackerSnapshot" class="pt-display-fiat"><input type="checkbox" [checked]="showUsd" (change)="showUsd = !showUsd"> Fiat values</label>
-      <div class="container-buttons"><span *ngIf="pendingTrackerSnapshot && tx && !tx.status.confirmed" class="pt-pending-badge">{{ replaced || rbfTransaction ? 'Replaced' : 'Pending' }}</span>
+      <div class="container-buttons" [hidden]="pendingTrackerSnapshot"><span *ngIf="pendingTrackerSnapshot && tx && !tx.status.confirmed" class="pt-pending-badge">{{ replaced || rbfTransaction ? 'Replaced' : 'Pending' }}</span>
         <app-confirmations
           *ngIf="tx && (!pendingTrackerSnapshot || tx.status.confirmed)"
           [chainTip]="latestBlock?.height"
@@ -60,25 +60,12 @@
         <p class="pt-summary-narrative"><strong class="pt-summary-inline-label">In plain English —</strong> {{ summaryStatus() }} {{ summaryContext(ETA$ | async) }}
           {{ selectedAddress ? 'Outputs to the selected address total' : 'Its outputs total' }} <strong class="pt-summary-btc-amount">{{ displayAmountSats / 100000000 | number:'1.8-8' }} BTC</strong><span *ngIf="showUsd"> (approximately <app-fiat [value]="displayAmountSats" colorClass=""></app-fiat> at the current price)</span>{{ selectedAddress ? '.' : ', which may include change returned to the sender.' }}
         </p>
-        <p class="pt-next-step"><span>Next step</span> {{ nextStep((stateService.connectionState$ | async) === 2) }}</p>
-        <div class="pt-summary-questions" aria-label="Questions about this transaction">
+        <div class="pt-summary-questions" aria-label="Questions and next steps">
+          <button type="button" class="pt-next-step-link" (click)="toggleSummaryQuestion('next')" [attr.aria-expanded]="activeSummaryQuestion === 'next'" aria-controls="pt-answer-next">Next step <span aria-hidden="true">{{ activeSummaryQuestion === 'next' ? '▴' : '▾' }}</span></button>
           @for (question of summaryQuestions; track question.id) {
-            <span class="pt-summary-question">
-              <button type="button" [style.anchor-name]="'--pt-question-' + question.id" [attr.popovertarget]="'pt-question-' + question.id">{{ question.label }}</button>
-              <div class="pt-question-popover" [id]="'pt-question-' + question.id" [style.position-anchor]="'--pt-question-' + question.id" popover="auto">
-                <div class="pt-question-heading"><strong>{{ question.label }}</strong><button type="button" [attr.popovertarget]="'pt-question-' + question.id" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
-                <p>{{ question.text }}</p>
-                @if (question.id === 'speed') {
-                  <div class="pt-help-roles"><button type="button" (click)="helpRole = 'sent'" [attr.aria-pressed]="helpRole === 'sent'">I sent this</button><button type="button" (click)="helpRole = 'receiving'" [attr.aria-pressed]="helpRole === 'receiving'">I am receiving it</button><button type="button" (click)="helpRole = 'exchange'" [attr.aria-pressed]="helpRole === 'exchange'">Sent through an exchange</button></div>
-                  <p *ngIf="helpRole === 'sent'">Check your sending wallet for Increase fee or Replace by fee. Availability depends on wallet support, control of the inputs and node policy; signaling RBF does not guarantee acceptance or confirmation.</p>
-                  <p *ngIf="helpRole === 'receiving'">Ask the sender about fee-increase options. Some wallets support spending a suitable unconfirmed output with a higher fee (CPFP); this needs control of that output and wallet support. You cannot assume you can replace the sender’s transaction.</p>
-                  <p *ngIf="helpRole === 'exchange'">The sending platform controls the withdrawal. Check its withdrawal status or official support; you usually cannot increase its fee yourself.</p>
-
-                }
-              </div>
-            </span>
+            <button type="button" (click)="toggleSummaryQuestion(question.id)" [attr.aria-expanded]="activeSummaryQuestion === question.id" [attr.aria-controls]="'pt-answer-' + question.id">{{ question.label }} <span aria-hidden="true">{{ activeSummaryQuestion === question.id ? '▴' : '▾' }}</span></button>
           }
-          @if (!replaced && !rbfTransaction && !rbfInfo?.mined) {
+          @if ((!tx.status.confirmed || alertTxid === tx.txid) && !replaced && !rbfTransaction && !rbfInfo?.mined) {
             <span class="pt-summary-question">
               <button type="button" class="pt-notification-action" style="anchor-name:--pt-confirmation-alert" popovertarget="pt-confirmation-alert">{{ confirmationAlertLabel }}</button>
               <div id="pt-confirmation-alert" class="pt-question-popover" style="position-anchor:--pt-confirmation-alert" popover="auto">
@@ -97,6 +84,27 @@
             </span>
           }
         </div>
+        @if (activeSummaryQuestion === 'next') {
+          <div id="pt-answer-next" class="pt-balanced-answer" role="region" aria-label="Next step">
+            <button type="button" class="pt-answer-close" (click)="activeSummaryQuestion = ''" aria-label="Close next step">×</button>
+            <strong>Next step</strong><p>{{ nextStep((stateService.connectionState$ | async) === 2) }}</p>
+          </div>
+        }
+        @for (question of summaryQuestions; track question.id) {
+          @if (activeSummaryQuestion === question.id) {
+            <div class="pt-balanced-answer" [id]="'pt-answer-' + question.id" role="region" [attr.aria-label]="question.label">
+              <button type="button" class="pt-answer-close" (click)="activeSummaryQuestion = ''" aria-label="Close explanation">×</button>
+              <strong>{{ question.label }}</strong><p>{{ question.text }}</p>
+              @if (question.id === 'speed') {
+                  <div class="pt-help-roles"><button type="button" (click)="helpRole = 'sent'" [attr.aria-pressed]="helpRole === 'sent'">I sent this</button><button type="button" (click)="helpRole = 'receiving'" [attr.aria-pressed]="helpRole === 'receiving'">I am receiving it</button><button type="button" (click)="helpRole = 'exchange'" [attr.aria-pressed]="helpRole === 'exchange'">Sent through an exchange</button></div>
+                  <p *ngIf="helpRole === 'sent'">Check your sending wallet for Increase fee or Replace by fee. Availability depends on wallet support, control of the inputs and node policy; signaling RBF does not guarantee acceptance or confirmation.</p>
+                  <p *ngIf="helpRole === 'receiving'">Ask the sender about fee-increase options. Some wallets support spending a suitable unconfirmed output with a higher fee (CPFP); this needs control of that output and wallet support. You cannot assume you can replace the sender’s transaction.</p>
+                  <p *ngIf="helpRole === 'exchange'">The sending platform controls the withdrawal. Check its withdrawal status or official support; you usually cannot increase its fee yourself.</p>
+
+                }
+            </div>
+          }
+        }
         <small *ngIf="(stateService.connectionState$ | async) !== 2" class="pt-update-note" role="status">Live updates disconnected; displayed data may be stale.</small>
       </div>
     }
@@ -109,7 +117,7 @@
                 @if (fact.secondary) { <small class="pt-fact-secondary pt-inline-card-context">{{ fact.secondary }}</small> }
                 @if (showUsd && fact.fiatSats !== undefined) { <small class="pt-fact-secondary pt-inline-card-context">≈ <app-fiat [value]="fact.fiatSats" colorClass=""></app-fiat> · current price</small> }
               </div>
-              <div class="pt-snapshot-meaning"><p class="pt-meaning-preview">{{ fact.meaning }}</p> <button type="button" class="pt-explore-more pt-snapshot-popover-trigger" [attr.popovertarget]="'pt-snapshot-detail-' + $index">Explore more <span aria-hidden="true">▾</span><span class="visually-hidden"> about {{ fact.label }}</span></button></div>
+              <div class="pt-snapshot-meaning"><button type="button" class="pt-explore-more pt-snapshot-popover-trigger" [attr.popovertarget]="'pt-snapshot-detail-' + $index">Explain <span aria-hidden="true">+</span><span class="visually-hidden"> {{ fact.label }}</span></button></div>
               <div class="pt-snapshot-detail-popover" [style.position-anchor]="'--pt-snapshot-card-' + $index" [id]="'pt-snapshot-detail-' + $index" popover="auto">
                 <div class="pt-snapshot-popover-heading"><strong>Understanding {{ fact.label }}</strong><button type="button" [attr.popovertarget]="'pt-snapshot-detail-' + $index" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
                 <p>{{ fact.meaning }}</p><p>{{ fact.details }}</p>
