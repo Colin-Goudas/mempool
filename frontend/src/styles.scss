@@ -5177,7 +5177,7 @@ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced.pt-quiet-dept
   .pt-snapshot-surface {
     border:1px solid rgba(255,255,255,.045);border-radius:20px;
     background:var(--pt-facetry-surface);
-    box-shadow:var(--pt-facetry-shadow);padding:14px 14px 12px;
+    box-shadow:var(--pt-facetry-shadow) !important;padding:14px 14px 12px;
   }
   .pt-snapshot-surface .pt-snapshot-summary.pt-summary-compact {padding:0 4px !important;margin:0 !important;}
   .pt-snapshot-surface .pt-snapshot-summary.pt-summary-compact > p.pt-summary-narrative {font-size:18px !important;line-height:1.6 !important;margin:0 0 8px !important;}
