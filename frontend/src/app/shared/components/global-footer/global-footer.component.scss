@@ -389,3 +389,8 @@ footer .nowrap {
     width: unset;
   }
 }
+
+.main-logo .pending-tracker-wordmark { display:block; font-size:30px; font-weight:650; color:#f1f1f3; text-align:center; white-space:nowrap; }
+footer a[aria-disabled="true"] { cursor:not-allowed; opacity:.55; text-decoration:none; }
+.pt-footer-coming-soon { font-size:11px; color:#93939e; }
+.pt-footer-source { text-align:center; font-size:12px; margin:20px 0 8px; }
