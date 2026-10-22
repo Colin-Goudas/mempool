@@ -78,7 +78,10 @@ const DUPLICATE_TX_BLOCKS: Record<string, [number, number]> = {
 export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   get pendingTrackerSnapshot() { return this.network === '' && !!this.stateService.env.PENDING_TRACKER_EXPLANATIONS; }
   activeSummaryQuestion = '';
-  toggleSummaryQuestion(id: string): void { this.activeSummaryQuestion = this.activeSummaryQuestion === id ? '' : id; }
+  onSummaryToggle(id: string, event: Event): void {
+    if ((event as Event & {newState: string}).newState === 'open') this.activeSummaryQuestion = id;
+    else if (this.activeSummaryQuestion === id) this.activeSummaryQuestion = '';
+  }
   showUsd = true;
   selectedAddress = '';
   addressFeedback = '';
