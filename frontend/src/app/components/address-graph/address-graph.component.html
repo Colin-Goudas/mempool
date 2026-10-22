@@ -5,16 +5,14 @@
       (chartInit)="onChartInit($event)">
     </div>
     <div class="text-center loadingGraphs" *ngIf="isLoading">
-      <div class="spinner-border text-light"></div>
+      <div class="spinner-border text-light" aria-hidden="true"></div><p role="status">Loading balance history…</p>
     </div>
   </ng-container>
   <ng-container *ngIf="error">
     <div class="error-wrapper">
-      <p class="error">{{ error }}</p>
+      <p class="error" role="status">{{ error }}</p><button type="button" class="btn btn-outline-info" (click)="retryHistory()">Try again</button>
     </div>
   </ng-container>
 
-  <div class="text-center loadingGraphs" *ngIf="!stateService.isBrowser || isLoading">
-    <div class="spinner-border text-light"></div>
-  </div>
+
 </div>
