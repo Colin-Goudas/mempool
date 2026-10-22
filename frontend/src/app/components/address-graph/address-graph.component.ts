@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Input, LOCALE_ID, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Input, LOCALE_ID, NgZone, OnChanges, OnDestroy, SimpleChanges, SimpleChange } from '@angular/core';
 import { echarts, EChartsOption } from '@app/graphs/echarts';
-import { BehaviorSubject, Observable, Subscription, combineLatest, of } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, combineLatest, of, timeout } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { AddressTxSummary, ChainStats } from '@interfaces/electrs.interface';
 import { ElectrsApiService } from '@app/services/electrs-api.service';
@@ -103,8 +103,9 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
         (this.addressSummary$ || (this.isPubkey
           ? this.electrsApiService.getScriptHashSummary$((this.address.length === 66 ? '21' : '41') + this.address + 'ac')
           : this.electrsApiService.getAddressSummary$(this.address)).pipe(
+          timeout(15000),
           catchError(e => {
-            this.error = `Failed to fetch address balance history: ${e?.status || ''} ${e?.statusText || 'unknown error'}`;
+            this.error = 'Balance history is temporarily unavailable. Your address snapshot and transaction list are still available.';
             return of(null);
           }),
         )),
@@ -115,6 +116,7 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
           if (addressSummary) {
             let extendedSummary = this.extendSummary(addressSummary);
             return this.priceService.getPriceByBulk$(extendedSummary.map(d => d.time), 'USD').pipe(
+              timeout(15000),
               tap((prices) => {
                 if (prices.length !== extendedSummary.length) {
                   extendedSummary = extendedSummary.map(item => ({ ...item, price: 0 }));
@@ -136,7 +138,10 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
             return of([redraw, addressSummary, conversions]);
           }
         })
-      ).subscribe(([redraw, addressSummary, conversions]) => {
+      ).pipe(catchError(() => {
+        this.error = 'Balance history is temporarily unavailable. Your address snapshot and transaction list are still available.';
+        return of([false, null, null]);
+      })).subscribe(([redraw, addressSummary, conversions]) => {
         if (addressSummary) {
           this.error = null;
           this.allowZoom = addressSummary.length > 100 && !this.widget;
@@ -149,6 +154,11 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
       // re-trigger subscription
       this.redraw$.next(true);
     }
+  }
+
+  retryHistory(): void {
+    this.error = null;
+    this.ngOnChanges({ address: new SimpleChange(this.address, this.address, false) });
   }
 
   prepareChartOptions(summary: AddressTxSummary[]) {
@@ -323,26 +333,15 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
           position: 'left',
           axisLabel: {
             show: this.showYAxis,
-            color: 'rgb(110, 112, 121)',
+            color: '#a1a1aa',
             formatter: (val): string => {
-              const valSpan = maxValue - (this.period === 'all' ? 0 : minValue);
-              if (valSpan > 100_000_000_000) {
-                return `${this.amountShortenerPipe.transform(Math.round(val / 100_000_000), 0, undefined, true)} BTC`;
+              const span = maxValue - (this.period === 'all' ? 0 : minValue);
+              if (Math.abs(maxValue) >= 100_000_000) {
+                const stepBtc = Math.max(span / 10 / 100_000_000, 0.00000001);
+                const digits = Math.min(8, Math.max(0, Math.ceil(-Math.log10(stepBtc)) + 1));
+                return `${(val / 100_000_000).toLocaleString(this.locale, { minimumFractionDigits: digits, maximumFractionDigits: digits })} BTC`;
               }
-              else if (valSpan > 1_000_000_000) {
-                return `${this.amountShortenerPipe.transform(Math.round(val / 100_000_000), 2, undefined, true)} BTC`;
-              } else if (valSpan > 100_000_000) {
-                return `${(val / 100_000_000).toFixed(1)} BTC`;
-              } else if (valSpan > 10_000_000) {
-                return `${(val / 100_000_000).toFixed(2)} BTC`;
-              } else if (valSpan > 1_000_000) {
-                if (maxValue > 100_000_000_000) {
-                  return `${this.amountShortenerPipe.transform(Math.round(val / 100_000_000), 3, undefined, true)} BTC`;
-                }
-                return `${(val / 100_000_000).toFixed(3)} BTC`;
-              } else {
-                return `${this.amountShortenerPipe.transform(val, 0, undefined, true)} sats`;
-              }
+              return `${Math.round(val).toLocaleString(this.locale)} sats`;
             }
           },
           splitLine: {
@@ -354,7 +353,7 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
           type: 'value',
           axisLabel: {
             show: this.showYAxis,
-            color: 'rgb(110, 112, 121)',
+            color: '#a1a1aa',
             formatter: function(val) {
               return `$${this.amountShortenerPipe.transform(val, 3, undefined, true, true)}`;
             }.bind(this)
