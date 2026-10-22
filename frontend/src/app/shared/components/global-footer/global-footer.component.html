@@ -11,7 +11,8 @@
               <app-svg-images name="blocks-3-2" width="500" height="126" style="display: block; width: 100%; height: auto; transform: scale(1.22);"></app-svg-images>
               <span class="footer-logo-reg">&trade;</span>
             </a>
-            <app-svg-images *ngIf="!officialMempoolSpace" name="mempoolSpace" viewBox="0 0 500 126"></app-svg-images>
+            <a *ngIf="env.PENDING_TRACKER_EXPLANATIONS" routerLink="/" class="pending-tracker-wordmark">Pending Tracker</a>
+            <app-svg-images *ngIf="!officialMempoolSpace && !env.PENDING_TRACKER_EXPLANATIONS" name="mempoolSpace" viewBox="0 0 500 126"></app-svg-images>
           }
         </div>
         @if (!enterpriseInfo?.footer_img) {
