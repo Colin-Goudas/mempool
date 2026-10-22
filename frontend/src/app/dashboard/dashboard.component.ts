@@ -36,6 +36,7 @@ interface MempoolStatsData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
+  phoneLayout = window.innerWidth <= 767.98;
   network$: Observable<string>;
   networkSnapshot$: Observable<NetworkSnapshot>;
   showNetworkFiat = true;
@@ -465,6 +466,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(): void {
+    this.phoneLayout = window.innerWidth <= 767.98;
     if (window.innerWidth >= 992) {
       this.incomingGraphHeight = this.showPendingTrackerSnapshot ? 230 : 300;
       this.goggleResolution = 82;
