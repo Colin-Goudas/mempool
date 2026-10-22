@@ -5175,7 +5175,7 @@ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced.pt-quiet-dept
   .pt-title-utilities .pt-display-fiat input {width:12px;height:12px;margin:0;}
   // One native page surface contains the narrative, actions and compact facts.
   .pt-snapshot-surface {
-    border:1px solid rgba(255,255,255,.14);border-radius:20px;
+    border:1px solid rgba(255,255,255,.18);border-radius:20px;
     background:var(--pt-facetry-surface);
     box-shadow:var(--pt-facetry-shadow) !important;padding:14px 14px 12px;
   }
@@ -5194,8 +5194,8 @@ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced.pt-quiet-dept
   .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card {
     min-height:37px !important;padding:7px 10px !important;
     background:transparent !important;
-    border:1px solid #ffffff18 !important;box-shadow:none !important;
-    &:hover {background-color:#ffffff04 !important;border-color:#ffffff26 !important;}
+    border:1px solid #ffffff20 !important;box-shadow:none !important;
+    &:hover {background-color:#ffffff04 !important;border-color:#ffffff30 !important;}
     .pt-snapshot-fact > .pt-inline-card-context {font-size:11px !important;color:#9595a0 !important;}
     &.pt-card-stacked-context .pt-inline-card-context {flex-basis:100%;}
   }
