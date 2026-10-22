@@ -20,6 +20,11 @@ export class MasterPageComponent implements OnInit, OnDestroy {
   @Input() headerVisible = true;
   @Input() footerVisibleOverride: boolean | null = null;
 
+  focusLookup(): void {
+    this.lookupError = '';
+    this.stateService.searchFocus$.next(true);
+  }
+
   lookupLoading = false;
   lookupError = '';
   // Public large-address selection: ChainQuery rich-list snapshot, 2026-10-18.
