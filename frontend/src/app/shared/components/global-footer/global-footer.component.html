@@ -17,7 +17,9 @@
         </div>
         @if (!enterpriseInfo?.footer_img) {
           <p class="explore-tagline-mobile">
-            @if (officialMempoolSpace) {
+            @if (env.PENDING_TRACKER_EXPLANATIONS) {
+              <span>Track. Explore. Understand.</span>
+            } @else if (officialMempoolSpace) {
               <ng-container i18n="@@7deec1c1520f06170e1f8e8ddfbe4532312f638f">Explore the full Bitcoin ecosystem</ng-container>
               <ng-template [ngIf]="locale.substr(0, 2) === 'en'"><sup>&reg;</sup></ng-template>
             } @else {
@@ -55,7 +57,9 @@
         @if (!enterpriseInfo?.footer_img) {
           <ng-container *ngTemplateOutlet="servicesCta; context: { classes: isServicesPage ? 'd-flex d-lg-none ms-auto me-auto mt-0 mb-2' : 'd-flex d-md-none ms-auto me-auto mt-0 mb-2' }"></ng-container>
           <p class="explore-tagline-desktop">
-            @if (officialMempoolSpace) {
+            @if (env.PENDING_TRACKER_EXPLANATIONS) {
+              <span>Track. Explore. Understand.</span>
+            } @else if (officialMempoolSpace) {
               <ng-container i18n="@@7deec1c1520f06170e1f8e8ddfbe4532312f638f">Explore the full Bitcoin ecosystem</ng-container>
               <ng-template [ngIf]="locale.substr(0, 2) === 'en'"><sup>&reg;</sup></ng-template>
             } @else {
@@ -69,24 +73,26 @@
     <div class="row col-md-12 link-tree" [class]="{'services': isServicesPage}">
         <div class="links">
           <p class="category" i18n="footer.explore">Explore</p>
-          <p><a *ngIf="env.MINING_DASHBOARD" [routerLink]="['/mining' | relativeUrl]" i18n="mining.mining-dashboard">Mining Dashboard</a></p>
-          <p><a *ngIf="stateService.networkSupportsLightning()" [routerLink]="['/lightning' | relativeUrl]" i18n="master-page.lightning">Lightning Explorer</a></p>
-          <p><a [routerLink]="['/blocks' | relativeUrl]" i18n="dashboard.recent-blocks">Recent Blocks</a></p>
-          <p><a [routerLink]="['/tx/push' | relativeUrl]" i18n="shared.broadcast-transaction|Broadcast Transaction">Broadcast Transaction</a></p>
-          <p><a [routerLink]="['/tx/test' | relativeUrl]" i18n="shared.test-transaction|Test Transaction">Test Transaction</a></p>
-          <p><a [routerLink]="['/tx/preview' | relativeUrl]" i18n="shared.preview-transaction|Preview Transaction">Preview Transaction</a></p>
-          <p *ngIf="officialMempoolSpace"><a [routerLink]="['/lightning/group/the-mempool-open-source-project' | relativeUrl]" i18n="footer.connect-to-our-nodes">Connect to our Nodes</a></p>
-          <p><a [routerLink]="['/docs/api' | relativeUrl]" i18n="footer.api-documentation">API Documentation</a></p>
+          <p *ngIf="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS" class="pt-footer-coming-soon">Links coming soon</p>
+          <p><a *ngIf="env.MINING_DASHBOARD" [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/mining' | relativeUrl])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="mining.mining-dashboard">Mining Dashboard</a></p>
+          <p><a *ngIf="env.PENDING_TRACKER_EXPLANATIONS || stateService.networkSupportsLightning()" [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/lightning' | relativeUrl])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="master-page.lightning">Lightning Explorer</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/blocks' | relativeUrl])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="dashboard.recent-blocks">Recent Blocks</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/graphs' | relativeUrl])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" >Network Charts</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/tx/push' | relativeUrl])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="shared.broadcast-transaction|Broadcast Transaction">Broadcast Transaction</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/tx/test' | relativeUrl])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="shared.test-transaction|Test Transaction">Test Transaction</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/tx/preview' | relativeUrl])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="shared.preview-transaction|Preview Transaction">Preview Transaction</a></p>
+          <p *ngIf="officialMempoolSpace"><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/lightning/group/the-mempool-open-source-project' | relativeUrl])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="footer.connect-to-our-nodes">Connect to our Nodes</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/docs/api' | relativeUrl])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="footer.api-documentation">API Documentation</a></p>
         </div>
         <div class="links">
           <p class="category" i18n="footer.learn">Learn</p>
-          <p><a [routerLink]="['/docs/faq']" fragment="what-is-a-mempool" i18n="faq.what-is-a-mempool">What is a mempool?</a></p>
-          <p><a [routerLink]="['/docs/faq']" fragment="what-is-a-block-explorer" i18n="faq.what-is-a-block-exlorer">What is a block explorer?</a></p>
-          <p><a [routerLink]="['/docs/faq']" fragment="what-is-a-mempool-explorer" i18n="faq.what-is-a-mempool-exlorer">What is a mempool explorer?</a></p>
-          <p><a [routerLink]="['/docs/faq']" fragment="why-is-transaction-stuck-in-mempool" i18n="faq.why-isnt-my-transaction-confirming">Why isn't my transaction confirming?</a></p>
-          <p><a [routerLink]="['/docs/faq']" fragment="host-my-own-instance-raspberry-pi"><ng-container i18n="shared.be-your-own-explorer">Be your own explorer</ng-container><ng-template [ngIf]="locale.substr(0, 2) === 'en'">&trade;</ng-template></a></p>
-          <p><a [routerLink]="['/docs/faq' | relativeUrl]" i18n="faq.more-faq">More FAQs &raquo;</a></p>
-          <p *ngIf="mempoolSpaceBuild"><a [routerLink]="['/research' | relativeUrl]" i18n="mempool-research">Research</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/docs/faq'])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" fragment="what-is-a-mempool" i18n="faq.what-is-a-mempool">What is a mempool?</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/docs/faq'])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" fragment="what-is-a-block-explorer" i18n="faq.what-is-a-block-exlorer">What is a block explorer?</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/docs/faq'])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" fragment="what-is-a-mempool-explorer" i18n="faq.what-is-a-mempool-exlorer">What is a mempool explorer?</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/docs/faq'])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" fragment="why-is-transaction-stuck-in-mempool" i18n="faq.why-isnt-my-transaction-confirming">Why isn't my transaction confirming?</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/docs/faq'])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" fragment="host-my-own-instance-raspberry-pi"><ng-container i18n="shared.be-your-own-explorer">Be your own explorer</ng-container><ng-template [ngIf]="locale.substr(0, 2) === 'en'">&trade;</ng-template></a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/docs/faq' | relativeUrl])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="faq.more-faq">More FAQs &raquo;</a></p>
+          <p *ngIf="mempoolSpaceBuild"><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/research' | relativeUrl])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="mempool-research">Research</a></p>
         </div>
 
         <div class="links" *ngIf="officialMempoolSpace || env.TESTNET_ENABLED || env.TESTNET4_ENABLED || env.SIGNET_ENABLED || env.REGTEST_ENABLED || env.LIQUID_ENABLED || env.LIQUID_TESTNET_ENABLED else toolBox" >
@@ -102,22 +108,22 @@
         <ng-template #toolBox>
         <div class="links">
           <p class="category" i18n="footer.tools">Tools</p>
-          <p><a [routerLink]="['/clock/mempool/0']" i18n="footer.clock-mempool">Clock (Mempool)</a></p>
-          <p><a [routerLink]="['/clock/mined/0']" i18n="footer.clock-mined">Clock (Mined)</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/clock/mempool/0'])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="footer.clock-mempool">Clock (Mempool)</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/clock/mined/0'])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="footer.clock-mined">Clock (Mined)</a></p>
           @if (currentNetwork === '') { <!-- Does not make sense to have calculator for testnets since price is always 0 -->
-            <p><a [routerLink]="['/tools/calculator']" i18n="shared.calculator">Calculator</a></p>
+            <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/tools/calculator'])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="shared.calculator">Calculator</a></p>
           }
         </div>
         </ng-template>
         <div class="links">
           <p class="category" i18n="footer.legal">Legal</p>
-          <p><a [routerLink]="['/terms-of-service']" i18n="shared.terms-of-service|Terms of Service">Terms of Service</a></p>
-          <p><a [routerLink]="['/privacy-policy']" i18n="shared.privacy-policy|Privacy Policy">Privacy Policy</a></p>
-          <p><a [routerLink]="['/trademark-policy']" i18n="shared.trademark-policy|Trademark Policy">Trademark Policy</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/terms-of-service'])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="shared.terms-of-service|Terms of Service">Terms of Service</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/privacy-policy'])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="shared.privacy-policy|Privacy Policy">Privacy Policy</a></p>
+          <p><a [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/trademark-policy'])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null" i18n="shared.trademark-policy|Trademark Policy">Trademark Policy</a></p>
           <p><a href="/3rdpartylicenses.txt" i18n="shared.trademark-policy|Third-party Licenses">Third-party Licenses</a></p>
         </div>
     </div>
-    <div class="row social-links">
+    <div *ngIf="!env.PENDING_TRACKER_EXPLANATIONS" class="row social-links">
       <div class="col-sm-12">
         <a href="https://github.com/mempool" target="_blank" rel="noopener noreferrer" aria-label="mempool on GitHub"><svg fill="var(--fg)" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
         <a href="https://x.com/mempool" target="_blank" rel="noopener noreferrer" aria-label="mempool on X"><svg width="20" height="20" style="width: 17px" viewBox="0 0 1200 1227" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z" fill="var(--fg)"/></svg></a>
@@ -128,13 +134,14 @@
         <a href="https://mempool.chat" target="_blank" rel="noopener noreferrer" aria-label="mempool on Matrix"><svg fill="var(--fg)" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Matrix</title><path d="M.632.55v22.9H2.28V24H0V0h2.28v.55zm7.043 7.26v1.157h.033c.309-.443.683-.784 1.117-1.024.433-.245.936-.365 1.5-.365.54 0 1.033.107 1.481.314.448.208.785.582 1.02 1.108.254-.374.6-.706 1.034-.992.434-.287.95-.43 1.546-.43.453 0 .872.056 1.26.167.388.11.716.286.993.53.276.245.489.559.646.951.152.392.23.863.23 1.417v5.728h-2.349V11.52c0-.286-.01-.559-.032-.812a1.755 1.755 0 0 0-.18-.66 1.106 1.106 0 0 0-.438-.448c-.194-.11-.457-.166-.785-.166-.332 0-.6.064-.803.189a1.38 1.38 0 0 0-.48.499 1.946 1.946 0 0 0-.231.696 5.56 5.56 0 0 0-.06.785v4.768h-2.35v-4.8c0-.254-.004-.503-.018-.752a2.074 2.074 0 0 0-.143-.688 1.052 1.052 0 0 0-.415-.503c-.194-.125-.476-.19-.854-.19-.111 0-.259.024-.439.074-.18.051-.36.143-.53.282-.171.138-.319.337-.439.595-.12.259-.18.6-.18 1.02v4.966H5.46V7.81zm15.693 15.64V.55H21.72V0H24v24h-2.28v-.55z"/></svg></a>
       </div>
     </div>
+    <div *ngIf="env.PENDING_TRACKER_EXPLANATIONS" class="pt-footer-source"><a href="https://github.com/Colin-Goudas/mempool">Pending Tracker source code</a></div>
     <div class="row version" [style]="{'background-color': isServicesPage ? 'var(--bg)' : ''}">
       <div class="col-sm-12">
         <p *ngIf="officialMempoolSpace">
           <span>{{ (backendInfo$ | async)?.hostname }} (v{{ (backendInfo$ | async )?.version }}) [<a target="_blank" href="https://github.com/mempool/mempool/commit/{{ (backendInfo$ | async )?.gitCommit | slice:0:8 }}">{{ (backendInfo$ | async )?.gitCommit | slice:0:8 }}</a>]</span>
           <span *ngIf="stateService.env.GIT_COMMIT_HASH_MEMPOOL_SPACE">[{{ (servicesBackendInfo$ | async )?.gitCommit | slice:0:8 }}]</span>
         </p>
-        <p *ngIf="!officialMempoolSpace">v{{ packetJsonVersion }} [<a target="_blank" href="https://github.com/mempool/mempool/commit/{{ frontendGitCommitHash }}">{{ frontendGitCommitHash }}</a>]</p>
+        <p *ngIf="!officialMempoolSpace">v{{ packetJsonVersion }} [<a target="_blank" [href]="(env.PENDING_TRACKER_EXPLANATIONS ? 'https://github.com/Colin-Goudas/mempool/commit/' : 'https://github.com/mempool/mempool/commit/') + frontendGitCommitHash">{{ frontendGitCommitHash }}</a>]</p>
       </div>
     </div>
   </div>
@@ -143,7 +150,7 @@
 
 <ng-template #servicesCta let-classes="classes">
   @if (stateService.isMempoolSpaceBuild && user) {
-    <a class="btn btn-purple sponsor justify-content-center" [ngClass]="classes" [routerLink]="['/services/landing']">
+    <a class="btn btn-purple sponsor justify-content-center" [ngClass]="classes" [routerLink]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? null : (['/services/landing'])" [attr.aria-disabled]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? true : null" [attr.tabindex]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? -1 : null" [attr.title]="env.PENDING_TRACKER_EXPLANATIONS && !env.PENDING_TRACKER_REVIEW_TOOLS ? 'Coming soon' : null">
       <span i18n="shared.my-account" class="nowrap">My Account</span>
     </a>
   } @else if (stateService.isMempoolSpaceBuild) {
