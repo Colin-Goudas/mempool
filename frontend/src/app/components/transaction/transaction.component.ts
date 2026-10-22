@@ -77,6 +77,8 @@ const DUPLICATE_TX_BLOCKS: Record<string, [number, number]> = {
 })
 export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   get pendingTrackerSnapshot() { return this.network === '' && !!this.stateService.env.PENDING_TRACKER_EXPLANATIONS; }
+  activeSummaryQuestion = '';
+  toggleSummaryQuestion(id: string): void { this.activeSummaryQuestion = this.activeSummaryQuestion === id ? '' : id; }
   showUsd = true;
   selectedAddress = '';
   addressFeedback = '';
@@ -155,7 +157,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.rbfInfo?.mined && !this.tx?.status?.confirmed) return 'A conflicting transaction has confirmed.';
     if (this.tx?.vin?.some(v => v.is_coinbase)) return 'This is a Bitcoin mining reward transaction.';
     if (!this.tx?.status?.confirmed) return 'This Bitcoin transaction is waiting for its first confirmation.';
-    return 'This Bitcoin transaction is confirmed.';
+    return 'This transaction is confirmed on Bitcoin.';
   }
   nextStep(connected: boolean): string {
     return transactionNextStep({confirmed:!!this.tx?.status?.confirmed, confirmations:this.confirmationCount,
@@ -169,14 +171,15 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.tx.vin?.some(v => v.is_coinbase)) return 'It creates the block subsidy and collects transaction fees; it does not pay a normal network fee.';
     const fee = this.tx.fee.toLocaleString('en-US') + (this.tx.fee === 1 ? ' sat' : ' sats');
     const rate = this.ownFeeRate?.toLocaleString('en-US', {maximumFractionDigits:2});
-    const timing = this.tx.status.confirmed ? 'It was included in block ' + this.tx.status.block_height?.toLocaleString('en-US') + '. ' : eta && Number.isFinite(eta.wait) && eta.wait >= 0 ? 'The current estimate is about ' + Math.max(1, Math.ceil(eta.wait / 60000)) + ' minutes, but it can change. ' : 'A reliable confirmation-time estimate is currently unavailable. ';
-    return timing + (this.tx.status.confirmed ? 'It paid ' : 'It pays ') + fee + ' in network fees at ' + rate + ' sat/vB.';
+    const timing = this.tx.status.confirmed ? '' : eta && Number.isFinite(eta.wait) && eta.wait >= 0 ? 'The current estimate is about ' + Math.max(1, Math.ceil(eta.wait / 60000)) + ' minutes, but it can change. ' : 'A reliable confirmation-time estimate is currently unavailable. ';
+    return timing + (this.tx.status.confirmed ? 'It paid ' : 'It pays ') + fee + ' in network fees' + (this.tx.status.confirmed ? '.' : ' at ' + rate + ' sat/vB.');
   }
   get summaryQuestions() {
     if (this.tx?.status?.confirmed) return [
-      {id:'confirmations', label:'What do confirmations mean?', text:'The containing block is the first confirmation. Each later block adds another, making a reversal through a chain reorganization progressively less likely. The transaction is already confirmed at one confirmation. Six is a common example tracking target, not a universal requirement: receiving platforms may require fewer or more confirmations before crediting a deposit. You can set your own alert target with the notification button beside these questions. Confirmation does not prove the recipient is correct or a payment is legitimate.'},
-      {id:'missing', label:'Why aren’t my funds showing?', text:'A confirmed transaction is recorded on Bitcoin, but the receiving service may still be processing the deposit. Check the receiving address, supported network and its confirmation requirements. If those match, contact the receiving service through official support. We cannot see its internal account status.'},
-      {id:'amount', label:'Which amount is mine?', text:'A Bitcoin transaction can pay several addresses and return change to the sender. The total output is not necessarily your payment. Use Find an address in this transaction below to highlight an address and total its matching outputs. Selecting an address does not establish ownership. Fiat values use the current price.'}
+      {id:'missing', label:'Funds not showing?', text:'A confirmed transaction is recorded on Bitcoin, but the receiving service may still be processing the deposit. Check the receiving address, supported network and its confirmation requirements. If those match, contact the receiving service through official support. We cannot see its internal account status.'},
+      {id:'amount', label:'Which amount is mine?', text:'A Bitcoin transaction can pay several addresses and return change to the sender. The total output is not necessarily your payment. Use Find an address in this transaction below to highlight an address and total its matching outputs. Selecting an address does not establish ownership. Fiat values use the current price.'},
+      {id:'confirmations', label:'What do confirmations mean?', text:'The containing block is the first confirmation. Each later block adds another, making a reversal through a chain reorganization progressively less likely. The transaction is already confirmed at one confirmation. Six is a common example tracking target, not a universal requirement: receiving platforms may require fewer or more confirmations before crediting a deposit. Confirmation does not prove the recipient is correct or a payment is legitimate.'},
+      {id:'fee', label:'Why this fee?', text:'The network fee pays miners for including this transaction. Wallets normally choose a fee rate based on transaction size and current demand. This transaction has already confirmed, so no fee increase is needed. Fiat equivalents use the current price, not necessarily the price at the time of confirmation.'}
     ];
     return [
       {id:'pending', label:'Why is it pending?', text:this.feeInterpretation + ' Miners choose which transactions to include. Transactions that spend unconfirmed outputs also depend on their parents, and related package fees can affect priority. The comparison shown uses the first projected block’s median rate, not a guaranteed fee recommendation.'},
@@ -765,6 +768,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription = this.zoneService.wrapObservable(this.route.paramMap
       .pipe(
         switchMap((params: ParamMap) => {
+          this.activeSummaryQuestion = '';
           const urlMatch = (params.get('id') || '').split(':');
           if (urlMatch.length === 2 && urlMatch[1].length === 64) {
             const vin = parseInt(urlMatch[0], 10);
