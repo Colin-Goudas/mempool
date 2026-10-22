@@ -4930,7 +4930,7 @@ body:has(app-transaction),body:has(app-address .pt-wallet-page),body:has(app-das
 }
 body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-intro h1,
 body:has(app-transaction) app-transaction .pt-flow-header h2,
-body:has(app-transaction) app-transaction .pt-heading-title,
+body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary .pt-heading-title,
 body:has(app-address) .pt-wallet-page .pt-wallet-heading h1,
 body:has(app-address) .pt-wallet-page .pt-wallet-section-heading h2,
 body:has(app-address) .pt-wallet-page .title-tx h2,
@@ -4974,7 +4974,7 @@ body:has(app-transaction) app-transaction .pt-flow-open .pt-flow-heading-half:la
 @media(max-width:767px){
   body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-intro h1,
   body:has(app-transaction) app-transaction .pt-flow-header h2,
-  body:has(app-transaction) app-transaction .pt-heading-title,
+  body:has(app-transaction) app-transaction .pt-dive-deeper-toggle > summary .pt-heading-title,
   body:has(app-address) .pt-wallet-page .pt-wallet-heading h1,
   body:has(app-address) .pt-wallet-page .pt-wallet-section-heading h2,
   body:has(app-address) .pt-wallet-page .title-tx h2,
