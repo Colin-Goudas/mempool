@@ -4753,3 +4753,5 @@ app-pending-home app-search-form input.form-control:focus-visible {outline:2px s
 app-pending-home app-search-form .search-submit {height:44px;min-width:108px;border:1px solid #ffffff40 !important;border-radius:8px !important;background:linear-gradient(180deg,#fbfbfb,#cccbcb 55%,#9e9d9d) !important;color:#111113 !important;font-size:13px;font-weight:600;}
 app-pending-home app-search-form .search-submit:focus-visible {outline:2px solid #bc975f;outline-offset:3px;}
 app-pending-home app-search-form .dropdown-menu {width:100%;}
+
+.pt-release-footer {max-width:1110px;width:calc(100% - 48px);margin:28px auto 0;padding:18px 0 28px;border-top:1px solid #ffffff12;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#84848f;font-size:11px;}.pt-release-footer nav {display:flex;gap:20px;}.pt-release-footer a {color:#b4b4bc;}
