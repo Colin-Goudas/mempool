@@ -4788,8 +4788,8 @@ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced {
  .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact {
   border:0 !important;background:transparent !important;box-shadow:none !important;border-radius:0 !important;
   padding:10px 0 0 !important;margin:0 !important;
-  > p.pt-summary-narrative {max-width:76ch !important;margin:0 0 5px !important;padding:0 !important;font-size:14px !important;font-weight:400 !important;line-height:1.7 !important;color:#b7b7c0 !important;}
-  > p.pt-summary-narrative .pt-summary-inline-label {font-size:14px !important;font-weight:600 !important;color:#f2f2f4 !important;}
+  > p.pt-summary-narrative {max-width:none !important;width:100% !important;margin:0 0 5px !important;padding:0 !important;font-size:16px !important;font-weight:400 !important;line-height:1.65 !important;color:#b7b7c0 !important;}
+  > p.pt-summary-narrative .pt-summary-inline-label {font-size:16px !important;font-weight:600 !important;color:#f2f2f4 !important;}
   .pt-summary-btc-amount {font-weight:500 !important;color:#dddde3 !important;}
   .pt-summary-questions {display:flex !important;flex-wrap:wrap !important;align-items:center !important;gap:4px 17px !important;min-height:34px !important;padding:4px 10px !important;margin:0 -10px !important;background:#111113 !important;border:0 !important;border-radius:6px !important;}
   .pt-summary-questions > button,.pt-summary-questions > span > button {
@@ -4814,8 +4814,8 @@ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced {
   min-height:37px !important;padding:7px 10px !important;border-radius:8px !important;
   background:linear-gradient(145deg,#1b1b1e,#0f0f11 80%) !important;border:1px solid #ffffff19 !important;box-shadow:inset 0 1px 0 #ffffff06 !important;
   .pt-snapshot-fact {flex:1;min-width:0;display:flex !important;flex-wrap:wrap !important;align-items:baseline !important;gap:5px !important;margin:0 !important;padding:0 !important;}
-  .pt-snapshot-fact > span {font-size:13px !important;font-weight:650 !important;line-height:1.4 !important;color:#eeeeef !important;margin:0 !important;}
-  .pt-snapshot-fact > strong {font-size:13px !important;font-weight:500 !important;line-height:1.4 !important;color:#c9c9d1 !important;}
+  .pt-snapshot-fact > span {font-size:17px !important;font-weight:650 !important;line-height:1.4 !important;color:#eeeeef !important;margin:0 !important;}
+  .pt-snapshot-fact > strong {font-size:16px !important;font-weight:500 !important;line-height:1.4 !important;color:#c9c9d1 !important;}
   .pt-snapshot-fact > strong.pt-confirmed-value {color:#b3d0bd !important;}
   .pt-snapshot-fact > strong.pt-pending-value {color:#dfc18d !important;}
   .pt-snapshot-fact > .pt-inline-card-context {font-size:11px !important;font-weight:400 !important;color:#9595a0 !important;margin:0 !important;}
