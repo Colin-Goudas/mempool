@@ -4850,7 +4850,7 @@ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-
 
 /* Balanced explorer and wallet snapshots share the approved transaction rhythm. */
 body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-balanced-overview,
-body:has(app-address) app-address .pt-wallet-page .pt-balanced-overview {
+body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[aria-label="Wallet snapshot"] {
  .pt-snapshot-intro {padding:0 10px !important;margin:0 0 12px !important;}
  .pt-snapshot-intro::before {content:none !important;display:none !important;}
  .pt-network-heading,.pt-wallet-heading {display:flex !important;flex-wrap:wrap;align-items:baseline !important;gap:8px 14px !important;padding:0 0 9px !important;margin:0 !important;border:0 !important;border-bottom:1px solid #c2a26b66 !important;}
