@@ -11,6 +11,7 @@ fs.writeFileSync('mempool-frontend-config.json', JSON.stringify({
   ACCELERATOR: false, ACCELERATOR_BUTTON: false,
   WEBSOCKET_URL: 'wss://mempool.space{network}/api/v1/ws',
   PENDING_TRACKER_EXPLANATIONS: true,
+  PENDING_TRACKER_REVIEW_TOOLS: !publicBuild,
 }, null, 2));
 execFileSync(process.execPath, ['generate-themes.js'], { stdio: 'inherit' });
 execFileSync(process.execPath, ['generate-config.js'], { stdio: 'inherit' });
