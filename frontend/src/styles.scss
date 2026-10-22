@@ -5184,7 +5184,7 @@ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced.pt-quiet-dept
     .pt-notification-action {gap:6px !important;}
     .pt-notification-action fa-icon {font-size:12px;line-height:1;}
   }
-  .pt-snapshot-surface > .pt-eight-card-grid {margin:12px 0 0 !important;padding-top:12px !important;border-top:1px solid #ffffff22;gap:6px 8px !important;}
+  .pt-snapshot-surface > .pt-eight-card-grid {margin:12px 0 0 !important;padding-top:12px !important;border-top:1px solid #ffffff22 !important;gap:6px 8px !important;}
   // Share the explorer/wallet density; keep depth on cards, not the outer surface.
   .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card {
     min-height:37px !important;padding:7px 10px !important;
