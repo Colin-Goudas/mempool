@@ -3,7 +3,7 @@ a {color:inherit;text-decoration:none;}
 button {font:inherit;}
 a:focus-visible,button:focus-visible {outline:2px solid #c2a26b;outline-offset:5px;}
 .pt-home {min-height:100vh;display:flex;flex-direction:column;}
-.home-nav {width:calc(100% - 48px);max-width:1112px;min-height:72px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid #ffffff14;}
+.home-nav {width:calc(100% - 80px);max-width:none;min-height:72px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid #ffffff14;}
 .wordmark {display:flex;align-items:center;gap:10px;font-size:18px;font-weight:650;color:#fafafa;letter-spacing:-.025em;white-space:nowrap;}
 .brand-mark {width:17px;height:17px;border:2px solid #bc975f;border-radius:50%;position:relative;}
 .brand-mark::after {content:'';position:absolute;width:5px;height:5px;border-left:1.5px solid #bc975f;border-bottom:1.5px solid #bc975f;left:6px;top:2px;}
@@ -11,7 +11,7 @@ a:focus-visible,button:focus-visible {outline:2px solid #c2a26b;outline-offset:5
 .home-nav nav a {color:#e4e4e7;}.home-nav nav a:hover {color:#bfe6ff;}
 .unavailable {color:#aaaab4;display:flex;align-items:center;gap:8px;}.unavailable small {font-size:10px;border:1px solid #ffffff20;border-radius:5px;padding:3px 6px;}
 main {width:100%;max-width:1000px;padding:0 24px;margin:0 auto;flex:1;display:flex;align-items:center;justify-content:center;}
-.hero {width:100%;text-align:center;padding:72px 0 80px;}
+.hero {width:100%;text-align:center;padding:48px 0 80px;transform:translateY(-44px);}
 .eyebrow {font-size:14px;font-weight:500;color:#dfc89f;margin:0 0 20px;letter-spacing:.025em;}
 h1 {font-size:clamp(38px,4.6vw,58px);line-height:1.12;letter-spacing:-.04em;font-weight:650;color:#fafafa;margin:0 0 24px;}
 h1 span {color:#e9e9ee;}
@@ -24,25 +24,26 @@ a.chain-button:hover {border-color:#c2a26b;background-color:#bc975f0b;}
 .chain-copy {display:flex;flex-direction:column;gap:7px;min-width:0;}.chain-copy strong {font-size:18px;font-weight:600;color:#f4f4f5;letter-spacing:-.015em;}.chain-copy small {font-size:12px;line-height:1.5;color:#b8b8c3;}
 .chain-arrow {margin-left:auto;color:#efd394;font-size:22px;}
 .chain-soon {cursor:default;border-color:#ffffff18;box-shadow:none;background:#ffffff03;}.chain-soon .chain-copy strong {color:#b8b8c3;}.chain-soon .chain-icon {color:#a1a1aa;border-color:#ffffff20;}.chain-soon .chain-copy small {color:#aaaab4;}
-.hero-note {font-size:13px;line-height:1.6;color:#aaaab4;margin:24px 0 0;}
-.home-footer {width:calc(100% - 48px);max-width:1112px;margin:0 auto;border-top:1px solid #ffffff14;padding:20px 0 24px;display:flex;justify-content:space-between;align-items:center;gap:18px;color:#92929e;font-size:12px;}
+.home-footer {width:calc(100% - 80px);max-width:none;margin:0 auto;border-top:1px solid #ffffff14;padding:20px 0 24px;display:flex;justify-content:space-between;align-items:center;gap:18px;color:#92929e;font-size:12px;}
 .home-footer nav {display:flex;gap:22px;}.home-footer a:hover {color:#e4edf4;text-decoration:underline;text-underline-offset:4px;}
-@media(max-width:700px) {.home-nav {padding:16px 0;min-height:76px;flex-wrap:wrap;gap:16px;}.home-nav nav {gap:18px;font-size:12px;}.hero {padding:48px 0;}.hero-description {font-size:16px;}.chain-selection {grid-template-columns:1fr;max-width:440px;}.chain-button {min-height:96px;padding:20px 18px;}.home-footer {align-items:flex-start;flex-wrap:wrap;}.home-footer nav {gap:16px;}}
+@media(max-width:700px) {.home-nav {width:calc(100% - 40px);padding:16px 0;min-height:76px;flex-wrap:wrap;gap:16px;}.home-nav nav {gap:18px;font-size:12px;}.hero {padding:48px 0;transform:none;}.hero-description {font-size:16px;}.chain-selection {grid-template-columns:1fr;max-width:440px;}.chain-button {min-height:96px;padding:20px 18px;}.home-footer {width:calc(100% - 40px);align-items:flex-start;flex-wrap:wrap;}.home-footer nav {gap:16px;}}
 
 /* Restrained metal, warm gold and cool blue give the entry page depth. */
 .pt-home {background:radial-gradient(ellipse at 25% 44%,#b58b3b09,transparent 48%),radial-gradient(ellipse at 76% 48%,#587cc20a,transparent 46%);}
 h1 {text-shadow:0 2px 20px #ffffff08;}
 @supports(background-clip:text) {
-  h1 {background:linear-gradient(175deg,#fff 15%,#e8e8eb 55%,#b9b9c2 100%);background-clip:text;-webkit-background-clip:text;color:transparent;}
+  h1 {background:linear-gradient(180deg,#fff 8%,#dedee4 54%,#9999a5 100%);background-clip:text;-webkit-background-clip:text;color:transparent;}
   h1 span {color:inherit;}
 }
 .chain-button {position:relative;overflow:hidden;}
 .chain-button::before {content:'';position:absolute;top:0;left:16px;right:16px;height:1px;background:linear-gradient(90deg,transparent,#ffffff35,transparent);pointer-events:none;}
-.chain-bitcoin {border-color:#c2a26b66;background:radial-gradient(ellipse at 15% 0%,#d4a84e22,transparent 75%),linear-gradient(145deg,#241e15,#11100f 90%);box-shadow:inset 0 1px 0 #f2d59b12,0 10px 28px #0003;}
+.chain-bitcoin {border-color:#c2a26b66;background:radial-gradient(ellipse at 10% 0%,#d4a84e1c,transparent 55%),linear-gradient(145deg,#1b1915,#101011 78%);box-shadow:inset 0 1px 0 #f2d59b12,0 10px 28px #0003;}
 .chain-bitcoin .chain-copy strong {color:#f2ddb2;}
 a.chain-bitcoin:hover {border-color:#d5b572aa;background-color:#c2a26b0c;box-shadow:inset 0 1px 0 #f2d59b22,0 10px 30px #bc975f0d;}
-.chain-ethereum {border-color:#789bd34d;background:radial-gradient(ellipse at 15% 0%,#799de222,transparent 75%),linear-gradient(145deg,#161e2c,#101217 90%);box-shadow:inset 0 1px 0 #b6d0ff0e,0 10px 28px #0003;}
+.chain-ethereum {border-color:#789bd34d;background:radial-gradient(ellipse at 10% 0%,#799de21c,transparent 55%),linear-gradient(145deg,#171b23,#101113 78%);box-shadow:inset 0 1px 0 #b6d0ff0e,0 10px 28px #0003;}
 .chain-ethereum .chain-icon {border-color:#91b6ef55;background:#7c9fdf0c;color:#b1c9f0;}
 .chain-ethereum .chain-copy strong {color:#c5d5ed;}
 .chain-ethereum .chain-copy small {color:#b0bdd1;}
 .chain-ethereum::before {background:linear-gradient(90deg,transparent,#9bbef03b,transparent);}
+
+@media(min-width:701px) and (max-height:760px) {.hero {transform:none;padding:36px 0 48px;}}
