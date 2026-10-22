@@ -5118,3 +5118,24 @@ body:has(app-address) app-address .pt-wallet-page app-utxo-graph .full-container
 body:has(app-transaction) app-transaction .pt-eight-details .pt-snapshot-meaning,
 body:has(app-address) app-address .pt-wallet-page .pt-wallet-deeper .pt-wallet-meaning p,
 body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-network-deeper .pt-network-meaning p {font-size:14px !important;line-height:1.5 !important;color:#c8c8d1 !important;}
+
+/* Keep explorer lookup compact so live network information comes into view sooner. */
+body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-explorer-intro {
+  display:grid;grid-template-columns:minmax(280px, .85fr) minmax(0, 1.4fr);gap:24px;align-items:start;
+  padding:8px 0 20px;margin-bottom:24px;text-align:left;
+  .pt-explorer-lookup-copy {padding-top:5px;}
+  h2 {font-size:28px;line-height:1.2;letter-spacing:-.025em;margin-bottom:8px;}
+  .pt-explorer-lookup-copy p {font-size:15px;line-height:1.5;color:#c8c8d1;margin:0;}
+  app-search-form {max-width:none;margin:0 0 8px;}
+  .pt-explorer-example-trigger {display:block;margin-left:auto;padding:2px 0;border:0;background:transparent;color:#c8c8d1;font-size:13px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
+  .pt-explorer-example-trigger:hover {color:#e4edf4;}
+  .pt-explorer-example-trigger:focus-visible {outline:2px solid #bc975f;outline-offset:4px;}
+  .pt-explorer-examples {display:none;position:fixed;inset:auto;top:anchor(bottom);right:anchor(right);margin:8px 0 0;padding:14px 16px;width:290px;max-width:calc(100vw - 32px);background:#19191e;color:#e8e8ed;border:1px solid #ffffff30;border-radius:12px;box-shadow:0 12px 35px #0009;}
+  .pt-explorer-examples:popover-open {display:flex;flex-direction:column;gap:12px;}
+  .pt-explorer-example-heading {display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .pt-explorer-example-heading strong {font-size:14px;}
+  .pt-explorer-example-heading button {background:transparent;border:0;color:#e4e4e7;font-size:22px;line-height:1;padding:0 3px;cursor:pointer;}
+  .pt-explorer-examples a {display:flex;justify-content:space-between;color:var(--pt-data-link,#8bc9e8);font-size:14px;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;}
+  .pt-explorer-examples a:hover {color:#d6edfa;}
+  @media(max-width:850px) {grid-template-columns:1fr;gap:14px;.pt-explorer-lookup-copy {padding-top:0;}h2 {font-size:26px;}}
+}
