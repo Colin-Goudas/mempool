@@ -4048,7 +4048,7 @@ body:has(app-transaction) app-transaction {
   .pt-heading-title::before,.pt-flow-header h2::before,.title-block h1::before {color:#a1a1aa !important;}
   button:focus-visible,a:focus-visible,summary:focus-visible {outline:2px solid #d4d4d8 !important;outline-offset:4px;}
 }
-body:is(:has(app-transaction),:has(app-block)) .navbar {
+body:is(:has(app-transaction),:has(app-block),:has(app-mempool-block)) .navbar {
   background:rgba(18,18,21,.92) !important;border-bottom:1px solid rgba(255,255,255,.06);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   box-shadow:0 16px 32px -8px rgba(0,0,0,.7) !important;
@@ -4075,7 +4075,7 @@ body:has(app-transaction) app-transaction .pt-deeper > summary {
   .pt-heading-description {color:#a1a1aa !important;font-size:13px !important;}
   &::before {color:#a1a1aa !important;}
 }
-body:is(:has(app-transaction),:has(app-block)) .navbar .pending-tracker-wordmark {color:#f4f4f5 !important;font-size:17px;letter-spacing:-.015em;}
+body:is(:has(app-transaction),:has(app-block),:has(app-mempool-block)) .navbar .pending-tracker-wordmark {color:#f4f4f5 !important;font-size:17px;letter-spacing:-.015em;}
 @media(prefers-reduced-motion:reduce) {
   body:has(app-transaction) app-transaction .pt-metric-card {transition:none !important;}
 }
@@ -4388,7 +4388,7 @@ body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-explorer-intro {
 }
 
 /* Make the shared Bitcoin lookup prominent on explorer, transaction and wallet pages. */
-body:is(:has(app-transaction),:has(app-block)) .navbar app-search-form.search-form-container,
+body:is(:has(app-transaction),:has(app-block),:has(app-mempool-block)) .navbar app-search-form.search-form-container,
 body:has(app-dashboard .pt-network-dashboard) .navbar app-search-form.search-form-container,
 body:has(app-address .pt-wallet-page) .navbar app-search-form.search-form-container {
   @media(min-width:992px) {max-width:640px !important;width:52vw !important;flex:0 1 640px;padding-left:20px;}
@@ -5243,7 +5243,7 @@ body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[a
 .navbar .pt-nav-label {font-size:12px;line-height:1.2;margin-left:6px;color:#e4e4e7;}
 .navbar .pt-lookup-nav .nav-link {padding-left:10px;padding-right:10px;}
 @media(min-width:992px) {
-  body:is(:has(app-transaction),:has(app-dashboard),:has(app-address),:has(app-block)) .navbar app-search-form.search-form-container {max-width:540px !important;width:40vw !important;flex:1 1 320px;min-width:220px;}
+  body:is(:has(app-transaction),:has(app-dashboard),:has(app-address),:has(app-block),:has(app-mempool-block)) .navbar app-search-form.search-form-container {max-width:540px !important;width:40vw !important;flex:1 1 320px;min-width:220px;}
 }
 .pt-footer-live-links {display:flex;flex-wrap:wrap;justify-content:center;gap:14px 26px;padding:20px 12px 8px;}
 .pt-footer-live-links a {color:#d4d4d8;font-size:14px;}
@@ -5257,7 +5257,7 @@ body:has(app-pending-about) {background:#09090b;}
 .pt-network-dashboard .pt-map-unavailable .graph-card {min-height:0 !important;height:auto !important;}
 .pt-network-dashboard .pt-map-unavailable .card-body {min-height:0 !important;}
 .pt-network-dashboard .pt-map-unavailable .pt-widget-explanation {color:#b8b8c3;line-height:1.6;}
-body:has(app-block) {
+body:is(:has(app-block),:has(app-mempool-block)) {
   --pt-facetry-metal:linear-gradient(180deg,#fbfbfb 0%,#e4e4e4 18%,#cccbcb 55%,#9e9d9d 100%);
   --pt-facetry-surface:radial-gradient(130% 130% at 50% 0%,rgba(255,255,255,.05) 0%,rgba(255,255,255,.01) 60%,rgba(0,0,0,.4) 100%);
   --pt-facetry-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 0 0 1px rgba(255,255,255,.04),0 30px 60px -12px rgba(0,0,0,.95);
@@ -5265,13 +5265,17 @@ body:has(app-block) {
   background:#09090b;color:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;
   .navbar .pending-tracker-wordmark {color:#f4f4f5 !important;font-size:17px;}
   .navbar app-search-form .search-submit {background:var(--pt-facetry-metal) !important;color:#0b0b0c !important;}
-  app-block .title-block h1 {font-size:30px;font-weight:650;color:#f4f4f5;}
-  app-block .title-block {border-color:#ffffff26 !important;}
-  app-block .box,app-block .table-responsive {background:var(--pt-facetry-surface);border:1px solid #ffffff20;border-radius:20px;box-shadow:var(--pt-facetry-shadow);}
-  app-block .table {color:#d4d4d8;--bs-table-bg:transparent;--bs-table-striped-bg:#ffffff03;}
-  app-block .table td {border-color:#ffffff12;}
-  app-block .table tr {background:transparent;}
-  app-block .pagination .page-link {background:#121215;border-color:#ffffff20;color:#d4d4d8;}
-  app-block .pagination .active .page-link {background:#c1a16b;color:#111;}
+  :is(app-block,app-mempool-block) .title-block h1 {font-size:30px;font-weight:650;color:#f4f4f5;}
+  :is(app-block,app-mempool-block) .title-block {border-color:#ffffff26 !important;}
+  :is(app-block,app-mempool-block) .box,:is(app-block,app-mempool-block) .table-responsive {background:var(--pt-facetry-surface);border:1px solid #ffffff20;border-radius:20px;box-shadow:var(--pt-facetry-shadow);}
+  :is(app-block,app-mempool-block) .table {color:#d4d4d8;--bs-table-bg:transparent;--bs-table-striped-bg:#ffffff03;}
+  :is(app-block,app-mempool-block) .table td {border-color:#ffffff12;}
+  :is(app-block,app-mempool-block) .table tr {background:transparent;}
+  :is(app-block,app-mempool-block) .pagination .page-link {background:#121215;border-color:#ffffff20;color:#d4d4d8;}
+  :is(app-block,app-mempool-block) .pagination .active .page-link {background:#c1a16b;color:#111;}
   footer {background:#09090b;color:#a1a1aa;}
 }
+
+body:is(:has(app-block),:has(app-mempool-block)) :is(app-block,app-mempool-block) .table-striped > tbody > tr > td {background:transparent !important;box-shadow:none !important;}
+body:is(:has(app-block),:has(app-mempool-block)) :is(app-block,app-mempool-block) .table-striped > tbody > tr:nth-of-type(odd) > td {background:#ffffff04 !important;}
+.pt-block-strip-key {display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px;margin:0 16px 10px;color:#b8b8c3;font-size:12px;line-height:1.5;}
