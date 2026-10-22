@@ -117,7 +117,7 @@
               <div class="pt-snapshot-detail-popover" [style.position-anchor]="'--pt-snapshot-card-' + $index" [id]="'pt-snapshot-detail-' + $index" popover="auto">
                 <div class="pt-snapshot-popover-heading"><strong>Understanding {{ fact.label }}</strong><button type="button" [attr.popovertarget]="'pt-snapshot-detail-' + $index" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
                 <p>{{ fact.meaning }}</p><p>{{ fact.details }}</p>
-                @if (fact.label === 'Replacement history') {<button type="button" class="pt-history-action" (click)="showReplacementDiagram = true" [attr.aria-expanded]="showReplacementDiagram" aria-controls="pt-replacement-diagram" [attr.popovertarget]="'pt-snapshot-detail-' + $index" popovertargetaction="hide">View replacement diagram</button>}
+                @if (fact.label === 'Replacement history') {<button type="button" class="pt-history-action" (click)="revealReplacementDiagram($event)" [attr.aria-expanded]="showReplacementDiagram" aria-controls="pt-replacement-diagram">View replacement diagram</button>}
               </div>
             </div>
         }

@@ -84,6 +84,14 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   showReplacementDiagram = false;
   get replacementCount(): number { return replacementHistoryCount(this.rbfInfo); }
+  revealReplacementDiagram(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    const answer = (event.currentTarget as HTMLElement)?.closest('[popover]') as HTMLElement & {hidePopover?: () => void};
+    answer?.hidePopover?.();
+    this.showReplacementDiagram = true;
+    this.cd.detectChanges();
+  }
   showUsd = true;
   selectedAddress = '';
   addressFeedback = '';
@@ -785,8 +793,10 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(
         switchMap((params: ParamMap) => {
           this.activeSummaryQuestion = '';
-          this.showReplacementDiagram = false;
-          this.showRbfDiff = false;
+          if (this.txId !== (params.get('id') || '').split(':')[0]) {
+            this.showReplacementDiagram = false;
+            this.showRbfDiff = false;
+          }
           const urlMatch = (params.get('id') || '').split(':');
           if (urlMatch.length === 2 && urlMatch[1].length === 64) {
             const vin = parseInt(urlMatch[0], 10);
