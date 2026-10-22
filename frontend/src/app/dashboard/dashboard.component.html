@@ -181,6 +181,7 @@
         </div>
       </div>
     </div>
+    <details *ngIf="showPendingTrackerSnapshot" class="pt-mobile-deeper" [open]="!phoneLayout"><summary class="pt-mobile-deeper-summary">Dive Deeper</summary>
     <section *ngIf="showPendingTrackerSnapshot" class="pt-network-deeper" aria-label="Bitcoin network dive deeper">
       <header class="pt-network-section-heading"><h2>Dive Deeper</h2></header>
       <div class="pt-network-facts" *ngIf="networkSnapshot$ | async as snapshot">
@@ -189,6 +190,7 @@
         }
       </div>
     </section>
+    </details>
     <ng-container>
       <div class="col card-wrapper pt-fee-widget">
         <div class="main-title" i18n="fees-box.transaction-fees">Transaction Fees</div>
