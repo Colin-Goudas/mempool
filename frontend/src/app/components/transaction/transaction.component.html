@@ -297,7 +297,7 @@
       <section class="pt-snapshot pt-deeper-snapshot pt-eight-details pt-snapshot-panel" aria-label="Transaction dive deeper">
         <div class="pt-snapshot-rows pt-eight-card-grid">
           @for (fact of technicalFacts; track fact.label) {
-            @if (fact.label === 'Size' || fact.label === 'Virtual size' || fact.label === 'Adjusted vsize' || fact.label === 'Weight' || fact.label === 'Version' || fact.label === 'Locktime' || fact.label === 'Sigops' || fact.label === 'Transaction hex' || fact.label === 'Miner attribution' || fact.label === 'Observed confirmation duration' || fact.label === 'Fee replacement') {
+            @if (fact.label === 'Size' || fact.label === 'Virtual size' || fact.label === 'Adjusted vsize' || fact.label === 'Weight' || fact.label === 'Version' || fact.label === 'Locktime' || fact.label === 'Sigops' || fact.label === 'Transaction hex' || fact.label === 'Miner attribution' || fact.label === 'Observed confirmation duration' || fact.label === 'Fee replacement' || fact.label === 'Transaction features' || fact.label === 'Transaction tags' || fact.label === 'Block audit') {
             <div class="pt-snapshot-row pt-metric-card" [style.anchor-name]="'--pt-deeper-card-' + $index">
               <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
               <div class="pt-snapshot-meaning"><p class="pt-meaning-preview">{{ fact.meaning }}</p> <button type="button" class="pt-explore-more pt-snapshot-popover-trigger" [attr.popovertarget]="'pt-deeper-detail-' + $index">Explore more <span aria-hidden="true">▾</span><span class="visually-hidden"> about {{ fact.label }}</span></button></div>
@@ -319,7 +319,7 @@
             }
           }
           @for (fact of technicalFacts; track fact.label) {
-            @if (fact.label !== 'Size' && fact.label !== 'Virtual size' && fact.label !== 'Adjusted vsize' && fact.label !== 'Weight' && fact.label !== 'Version' && fact.label !== 'Locktime' && fact.label !== 'Sigops' && fact.label !== 'Transaction hex' && fact.label !== 'Miner attribution' && fact.label !== 'Observed confirmation duration' && fact.label !== 'Fee replacement') {
+            @if (fact.label !== 'Size' && fact.label !== 'Virtual size' && fact.label !== 'Adjusted vsize' && fact.label !== 'Weight' && fact.label !== 'Version' && fact.label !== 'Locktime' && fact.label !== 'Sigops' && fact.label !== 'Transaction hex' && fact.label !== 'Miner attribution' && fact.label !== 'Observed confirmation duration' && fact.label !== 'Fee replacement' && fact.label !== 'Transaction features' && fact.label !== 'Transaction tags' && fact.label !== 'Block audit') {
               <div class="pt-additional-fact"><strong>{{ fact.label }}</strong><span>{{ fact.value }}</span><p>{{ fact.meaning }}</p><details><summary>Explore more</summary><p>{{ fact.details }}</p></details></div>
             }
           }

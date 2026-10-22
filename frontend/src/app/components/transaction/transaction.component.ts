@@ -221,7 +221,16 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.replacementCount > 0) facts.push({label:'Replacement history', value:this.replacementCount + (this.replacementCount === 1 ? ' replacement' : ' replacements'), meaning:'Earlier and replacement versions were observed for this transaction history.', details:'A replacement spends inputs also used by an earlier version. Compare the versions and verify the receiving outputs; replacement history does not by itself establish who owns a transaction or guarantee that a replacement preserves its recipients. The diagram links to the observed versions and their fee rates.'});
     return facts;
   }
-  get technicalFacts() { return transactionTechnicalFacts(this.tx, this.pool?.name, this.transactionTime).filter(fact => !this.pendingTrackerSnapshot || !['Miner attribution','Observed confirmation duration'].includes(fact.label)); }
+  get technicalFacts() {
+    const facts = transactionTechnicalFacts(this.tx, this.pool?.name, this.transactionTime).filter(fact => !this.pendingTrackerSnapshot || !['Miner attribution','Observed confirmation duration'].includes(fact.label));
+    if (this.filters.length) facts.push({label:'Transaction tags', value:this.filters.map(filter => filter.label).join(' · '), meaning:'Characteristics identified by Mempool’s transaction analysis.', details:'These tags describe observed transaction patterns and technical properties. They do not establish ownership, legitimacy or whether a payment is safe. The original technical analysis remains available below.'});
+    if (this.auditStatus && this.tx?.status?.confirmed) {
+      const audit = this.auditStatus;
+      const labels = [audit.coinbase ? 'Mining reward' : audit.expected ? 'Expected in block' : audit.seen ? 'Seen before mining' : !audit.conflict ? 'Not seen before mining' : '', audit.added ? 'Added' : '', audit.prioritized ? 'Prioritized' : '', audit.conflict ? 'Conflict observed' : ''].filter(Boolean);
+      facts.push({label:'Block audit', value:labels.join(' · '), meaning:'How this transaction compared with the provider’s observed queue and projected block.', details:'This is Mempool’s observation, not a global view of every Bitcoin node. Expected means projected for inclusion; seen means observed before mining. Added or prioritized can indicate out-of-band inclusion; a conflict means another version was observed. These labels alone do not prove censorship, misconduct or payment legitimacy.'});
+    }
+    return facts;
+  }
   get technicalGroups() {
     const facts = this.technicalFacts || [];
     const groups = [
