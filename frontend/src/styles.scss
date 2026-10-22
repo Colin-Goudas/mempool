@@ -5281,3 +5281,5 @@ body:is(:has(app-block),:has(app-mempool-block)) :is(app-block,app-mempool-block
 .pt-block-strip-key {display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px;margin:0 16px 10px;color:#b8b8c3;font-size:12px;line-height:1.5;}
 
 body:is(:has(app-block),:has(app-mempool-block)) :is(app-block,app-mempool-block) .table-striped > tbody > tr {background:transparent !important;}
+
+body:has(app-address) .pt-block-strip-key {display:none;}
