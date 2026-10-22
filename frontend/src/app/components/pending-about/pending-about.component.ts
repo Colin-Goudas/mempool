@@ -1,0 +1,8 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+@Component({
+  selector: 'app-pending-about', standalone: true, imports: [RouterModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `<main class="pt-about-page"><a routerLink="/">Pending Tracker</a><h1>Blockchain data. In plain English.</h1><p>Pending Tracker helps you understand Bitcoin transactions, address activity and network conditions. Ethereum is coming soon.</p><section><h2>Where the data comes from</h2><p>Bitcoin transaction, block and network data comes from Mempool's public services. Pending Tracker is built on the open-source Mempool explorer, with added plain-English summaries and guidance.</p><p>We do not hold your funds, send transactions or control confirmation times. An address view describes one public address, which may not represent an entire wallet.</p></section><section><h2>Understanding estimates</h2><p>Fees and confirmation estimates can change as transactions arrive and miners find blocks. USD amounts are approximate; current-price equivalents are not the original payment value.</p><p>If the live feed disconnects, retained data may be out of date. Browser alerts require permission and an open, connected page; there is no email or background notification service.</p></section><section><h2>Open source</h2><p><a href="https://github.com/Colin-Goudas/mempool">Pending Tracker source code</a> · <a href="/3rdpartylicenses.txt">Third-party licenses</a> · <a href="https://mempool.space">Mempool data provider</a></p></section><a routerLink="/bitcoin">Explore Bitcoin →</a></main>`
+})
+export class PendingAboutComponent {}
