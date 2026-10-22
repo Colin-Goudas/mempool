@@ -5151,3 +5151,16 @@ body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-explorer-intro {
   .pt-explorer-examples a:hover {color:#d6edfa;}
   @media(max-width:850px) {grid-template-columns:1fr;gap:14px;.pt-explorer-lookup-copy {padding-top:0;}h2 {font-size:26px;}}
 }
+
+/* Align explorer lookup as one utility row beside its heading and subtitle. */
+body:has(app-dashboard .pt-network-dashboard) app-dashboard .pt-explorer-intro {
+  align-items:center;gap:24px;padding-bottom:20px;
+  .pt-explorer-lookup-copy {padding-top:0;}
+  .pt-explorer-lookup-search {display:flex;align-items:center;gap:16px;min-width:0;}
+  app-search-form {flex:1;min-width:0;margin:0;}
+  app-search-form form > .d-flex {height:44px;padding:4px;border-radius:10px;box-sizing:border-box;}
+  app-search-form input {height:34px;font-size:14px;padding-left:10px;}
+  app-search-form .search-submit {height:34px;min-height:34px;width:90px;border-radius:7px;}
+  .pt-explorer-example-trigger {flex:none;margin:0;padding:4px 0;line-height:20px;white-space:nowrap;}
+  @media(max-width:850px) {.pt-explorer-lookup-search {gap:12px;}}
+}
