@@ -187,8 +187,10 @@ const regtestRoutes: Routes = browserWindowEnv.REGTEST_ENABLED ? [
 ] : [];
 
 let routes: Routes = [
+  { path: 'welcome', redirectTo: '', pathMatch: 'full' },
   {
-    path: 'welcome',
+    path: '',
+    pathMatch: 'full',
     loadComponent: () => import('@components/pending-home/pending-home.component').then(m => m.PendingHomeComponent),
   },
   ...testnetRoutes,
@@ -196,8 +198,7 @@ let routes: Routes = [
   ...signetRoutes,
   ...regtestRoutes,
   {
-    path: '',
-    pathMatch: 'full',
+    path: 'bitcoin',
     loadChildren: () => import('@app/bitcoin-graphs.module').then(m => m.BitcoinGraphsModule),
     data: { preload: true },
   },
