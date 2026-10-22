@@ -8,6 +8,8 @@ fs.writeFileSync('mempool-frontend-config.json', JSON.stringify({
   TESTNET_ENABLED: false, TESTNET4_ENABLED: false, SIGNET_ENABLED: false,
   LIQUID_ENABLED: false, LIQUID_TESTNET_ENABLED: false,
   OFFICIAL_MEMPOOL_SPACE: false, MINING_DASHBOARD: true,
+  AUDIT: true, MAINNET_BLOCK_AUDIT_START_HEIGHT: 773911,
+  MAINNET_TX_FIRST_SEEN_START_HEIGHT: 838316,
   ACCELERATOR: false, ACCELERATOR_BUTTON: false,
   WEBSOCKET_URL: 'wss://mempool.space{network}/api/v1/ws',
   PENDING_TRACKER_EXPLANATIONS: true,
