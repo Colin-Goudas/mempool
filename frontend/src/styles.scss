@@ -5095,13 +5095,25 @@ body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-
   app-amount,app-amount * {font-size:inherit !important;color:inherit !important;}
   app-fiat,app-fiat * {font-size:inherit !important;}
 }
-body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-balanced-overview .pt-network-questions,
-body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[aria-label="Wallet snapshot"] .pt-wallet-questions,
-body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact .pt-summary-questions {
-  min-height:42px !important;background:#151519 !important;gap:5px 20px !important;padding:5px 12px !important;
-  > button,> span > button {font-size:14px !important;font-weight:500 !important;min-height:30px !important;color:#e4edf4 !important;line-height:20px !important;text-decoration-color:#b9cbd580 !important;}
+/* One action-bar treatment for the network, transaction and wallet summaries. */
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-balanced-overview .pt-summary-actionbar,
+body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[aria-label="Wallet snapshot"] .pt-summary-actionbar,
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact .pt-summary-actionbar {
+  display:flex !important;flex-wrap:wrap !important;align-items:center !important;justify-content:flex-start !important;
+  min-height:42px !important;background:#151519 !important;gap:5px 20px !important;padding:5px 12px !important;margin:0 !important;border:0 !important;border-radius:6px !important;
+  > span {display:inline-flex;align-items:center;margin:0 !important;flex:0 1 auto;min-width:0;}
+  > button,> span > button {
+    display:inline-flex !important;align-items:center !important;gap:5px !important;flex:0 1 auto !important;
+    font-family:inherit !important;font-size:14px !important;font-weight:500 !important;min-height:30px !important;line-height:20px !important;
+    margin:0 !important;padding:4px 0 !important;color:#e4edf4 !important;background:transparent !important;border:0 !important;border-radius:0 !important;box-shadow:none !important;
+    text-decoration:underline !important;text-decoration-color:#b9cbd580 !important;text-underline-offset:4px;cursor:pointer;
+  }
   > button:hover,> span > button:hover {color:#bfe6ff !important;text-decoration-color:#bfe6ff !important;}
+  > button:focus-visible,> span > button:focus-visible {outline:2px solid #c2a26b;outline-offset:3px;}
   > button.pt-next-step-link,> span:first-child > button {color:#efd394 !important;text-decoration-color:#efd39499 !important;font-weight:600 !important;}
+  > button[aria-expanded="true"],> span:has(> :popover-open) > button {color:#ead7b4 !important;text-decoration-color:#c2a26b !important;}
+  .pt-alert-chevron {color:#bca57c;font-size:12px;}
+  > span:has(> :popover-open) > button .pt-alert-chevron {transform:rotate(180deg);}
 }
 body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-eight-card-grid .pt-snapshot-popover-trigger,
 body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[aria-label="Wallet snapshot"] .pt-wallet-meaning button,
