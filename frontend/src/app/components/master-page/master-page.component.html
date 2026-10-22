@@ -163,8 +163,7 @@
     </main>
 
     <div class="flex-grow-1"></div>
-    <footer *ngIf="footerVisible && env.PENDING_TRACKER_EXPLANATIONS" class="pt-release-footer"><span>Pending Tracker · Track. Explore. Understand.</span><nav aria-label="Footer"><a routerLink="/">Home</a><a routerLink="/bitcoin">Bitcoin explorer</a><a href="https://github.com/Colin-Goudas/mempool">Source code</a></nav></footer>
-    <app-global-footer *ngIf="footerVisible && !env.PENDING_TRACKER_EXPLANATIONS" [user]="user"></app-global-footer>
+    <app-global-footer *ngIf="footerVisible" [user]="user"></app-global-footer>
   </div>
 </div>
 
