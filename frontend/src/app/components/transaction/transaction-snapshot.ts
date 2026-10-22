@@ -92,5 +92,16 @@ export function transactionTechnicalFacts(tx: Transaction | undefined, miner?: s
   if (!tx.status?.confirmed && !tx.vin?.some(input => input.is_coinbase)) add('Fee replacement', signalsRbf ? 'RBF signaled' : 'No opt-in RBF signal', 'Fee increases depend on wallet support, control of the inputs and node policy.', 'Opt-in signaling does not guarantee a replacement will be accepted. Some nodes use full-RBF policy. A recipient cannot assume they can replace the sender’s transaction.');
   if (features.length) add('Transaction features', features.join(' · '), 'The transaction input data indicates ' + features.join(' and ') + '. These features describe how the transaction is structured or may be replaced before confirmation; they do not reveal the recipient’s identity.', 'Witness data indicates SegWit-style serialization, but does not by itself establish that a transaction uses Taproot. An input sequence below 0xfffffffe signals opt-in replaceability under the original BIP125 rules; current node replacement policy can differ.');
   add('Transaction hex', 'Raw transaction', 'This is the complete transaction encoded as hexadecimal data. It is mainly useful for developers, wallets, and advanced users who need to inspect or independently verify the exact transaction bytes.', 'Raw transaction hex represents the exact serialized bytes that Bitcoin nodes process. It can be decoded into fields such as version, inputs, outputs, witness data and locktime. It is not encrypted and should not be confused with a private key. Open the raw hex link in Advanced Technical Tools if you need to inspect it.');
-  return rows;
+  const concise: Record<string,string> = {
+  "Size": "The transaction’s serialized data size. Fee comparisons mainly use virtual size, which accounts for SegWit’s witness discount.",
+  "Virtual size": "The block space this transaction uses after accounting for weight. Fee rates compare the fee paid with this size.",
+  "Adjusted vsize": "Virtual size calculated from weight. Transactions with unusually costly signature checks can have a different policy-adjusted size.",
+  "Weight": "The transaction’s share of Bitcoin block capacity, measured in weight units. Witness data receives a discount under SegWit.",
+  "Version": "A protocol field describing how Bitcoin software interprets the transaction. It does not identify its sender or wallet.",
+  "Locktime": "A potential height or time restriction on block inclusion. Whether it applies also depends on the input sequences.",
+  "Sigops": "The attributed signature-checking operations. These validation costs can affect resource limits and policy-adjusted transaction size.",
+  "Transaction features": "Observed input features describe transaction structure and replacement signaling. They do not identify the sender, recipient or wallet.",
+  "Transaction hex": "The exact serialized transaction in hexadecimal form. Advanced users can decode it to inspect inputs, outputs and scripts."
+};
+  return rows.map(fact => concise[fact.label] ? {...fact, meaning:concise[fact.label], details:fact.meaning + ' ' + fact.details} : fact);
 }

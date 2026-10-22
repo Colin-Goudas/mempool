@@ -5079,3 +5079,42 @@ body:has(app-dashboard) app-dashboard .pt-network-dashboard .quick-filter button
 body:has(app-dashboard) app-dashboard .pt-network-dashboard .quick-filter label {font-size:12px !important;color:#d6d6de !important;}
 body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-widget-explanation,
 body:has(app-address) app-address .pt-wallet-page .pt-wallet-caption {font-size:13px !important;color:#b8b8c3 !important;}
+
+/* Shared editorial hierarchy: identity, explanation and next actions. */
+body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[aria-label="Wallet snapshot"] .pt-wallet-address code,
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-intro > .title-block .tx-link,
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-intro > .title-block .tx-link a,
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-intro > .title-block .tx-link .txid {
+  font-size:18px !important;font-weight:500 !important;line-height:1.4 !important;color:var(--pt-data-link) !important;
+}
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-balanced-overview .pt-network-summary > p.pt-summary-narrative,
+body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[aria-label="Wallet snapshot"] .pt-wallet-summary > p.pt-summary-narrative,
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact > p.pt-summary-narrative {
+  font-size:18px !important;line-height:1.6 !important;color:#e8e8ed !important;margin-bottom:10px !important;
+  .pt-summary-inline-label {font-size:19px !important;font-weight:700 !important;color:#fff !important;line-height:inherit !important;}
+  app-amount,app-amount * {font-size:inherit !important;color:inherit !important;}
+  app-fiat,app-fiat * {font-size:inherit !important;}
+}
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-balanced-overview .pt-network-questions,
+body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[aria-label="Wallet snapshot"] .pt-wallet-questions,
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-snapshot-panel .pt-snapshot-summary.pt-summary-compact .pt-summary-questions {
+  min-height:42px !important;background:#151519 !important;gap:5px 20px !important;padding:5px 12px !important;
+  > button,> span > button {font-size:14px !important;font-weight:500 !important;min-height:30px !important;color:#e4edf4 !important;line-height:20px !important;text-decoration-color:#b9cbd580 !important;}
+  > button:hover,> span > button:hover {color:#bfe6ff !important;text-decoration-color:#bfe6ff !important;}
+  > button.pt-next-step-link,> span:first-child > button {color:#efd394 !important;text-decoration-color:#efd39499 !important;font-weight:600 !important;}
+}
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-eight-card-grid .pt-snapshot-popover-trigger,
+body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[aria-label="Wallet snapshot"] .pt-wallet-meaning button,
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-balanced-overview .pt-network-meaning button {
+  font-size:14px !important;color:#e2e8f0 !important;font-weight:500 !important;
+}
+body:has(app-address) app-address .pt-wallet-page .pt-wallet-chart-heading {
+  display:flex !important;justify-content:space-between;align-items:baseline !important;flex-wrap:wrap;gap:8px 20px;padding:0 !important;margin-bottom:12px !important;
+  h2 {margin:0 !important;}
+  .pt-wallet-caption {margin:0 !important;font-size:13px !important;color:#b8b8c3 !important;}
+}
+body:has(app-address) app-address .pt-wallet-page app-address-graph .full-container {height:260px !important;min-height:0 !important;}
+body:has(app-address) app-address .pt-wallet-page app-utxo-graph .full-container {height:240px !important;min-height:0 !important;}
+body:has(app-transaction) app-transaction .pt-eight-details .pt-snapshot-meaning,
+body:has(app-address) app-address .pt-wallet-page .pt-wallet-deeper .pt-wallet-meaning p,
+body:has(app-dashboard) app-dashboard .pt-network-dashboard .pt-network-deeper .pt-network-meaning p {font-size:14px !important;line-height:1.5 !important;color:#c8c8d1 !important;}
