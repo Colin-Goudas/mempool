@@ -20,7 +20,7 @@
         </span>
       </span>
 
-      <div class="pt-title-utilities"><span *ngIf="pendingTrackerSnapshot" class="pt-network-label">Bitcoin mainnet</span><label *ngIf="pendingTrackerSnapshot" class="pt-display-fiat"><input type="checkbox" [checked]="showUsd" (change)="showUsd = !showUsd"> Fiat values</label>
+      <div class="pt-title-utilities"><span *ngIf="pendingTrackerSnapshot && tx" class="pt-identity-status" [class.pt-identity-confirmed]="tx.status.confirmed" [class.pt-identity-warning]="!tx.status.confirmed && (replaced || rbfTransaction || rbfInfo?.mined || isCached)" role="status">@if (tx.status.confirmed) {Confirmed@if (latestBlock?.height >= tx.status.block_height) { · {{ confirmationCount | number }} {{ confirmationCount === 1 ? 'confirmation' : 'confirmations' }}}} @else { {{ replaced || rbfTransaction ? 'Replaced' : rbfInfo?.mined ? 'Conflicting transaction mined' : isCached ? 'Cached · status unverified' : 'Pending · unconfirmed' }} }</span><span *ngIf="pendingTrackerSnapshot" class="pt-network-label">Bitcoin mainnet</span><label *ngIf="pendingTrackerSnapshot" class="pt-display-fiat"><input type="checkbox" [checked]="showUsd" (change)="showUsd = !showUsd"> Fiat values</label>
       <div class="container-buttons" [hidden]="pendingTrackerSnapshot"><span *ngIf="pendingTrackerSnapshot && tx && !tx.status.confirmed" class="pt-pending-badge">{{ replaced || rbfTransaction ? 'Replaced' : 'Pending' }}</span>
         <app-confirmations
           *ngIf="tx && (!pendingTrackerSnapshot || tx.status.confirmed)"

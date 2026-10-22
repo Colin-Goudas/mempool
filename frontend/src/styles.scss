@@ -4885,3 +4885,8 @@ body:has(app-address) app-address .pt-wallet-page section.pt-balanced-overview[a
 /* Section labels align with the snapshot titles without decorative leading bars. */
 .pt-network-dashboard .pt-network-section-heading h2,.pt-wallet-page .pt-wallet-section-heading h2,.pt-wallet-page .title-tx h2 {font-size:24px !important;line-height:1.2 !important;}
 .pt-network-dashboard .pt-network-section-heading h2::before,.pt-wallet-page .pt-wallet-section-heading h2::before,.pt-wallet-page .title-tx h2::before {content:none !important;display:none !important;}
+
+/* Transaction identity status stays beside the hash, outside the card grid. */
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-title-utilities .pt-identity-status {display:inline-flex;align-items:center;white-space:nowrap;padding:5px 9px;border:1px solid #b89b6066;border-radius:6px;background:#b89b6014;color:#dfc18d;font-size:12px;line-height:1.3;font-weight:600;}
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-title-utilities .pt-identity-status.pt-identity-confirmed {color:#b3d0bd;border-color:#86ad9566;background:#86ad9514;}
+body:has(app-transaction) app-transaction .pt-snapshot.pt-balanced .pt-title-utilities .pt-identity-status.pt-identity-warning {color:#e0bd91;border-color:#b78a6366;background:#b78a6314;}
