@@ -579,3 +579,28 @@
   .pt-fees-stale {font-size:10px;line-height:1.4;color:var(--pt-data-pending);margin:0 0 5px;}
  }
 }
+
+.pt-fee-inline-unit {display:none;}
+@media(max-width:767.98px) {
+ body:has(app-dashboard #pt-network-layout.pt-network-dashboard) {
+  app-blockchain .blockchain-wrapper {height:145px!important;}
+  app-blockchain #divider {height:140px!important;}
+  app-dashboard #pt-network-layout {
+   margin-top:2px!important;
+   .pt-compact-fees {margin:2px 0 12px!important;padding:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;}
+   .pt-fees-connector {top:-5px;width:6px;height:6px;background:transparent;}
+   .pt-compact-fees-heading {margin:0 0 2px!important;min-height:24px;}
+   .pt-compact-fees-heading h2 {font-size:11px!important;line-height:1.3!important;font-weight:500!important;color:#c7c7ce;}
+   .pt-compact-fees-heading h2 small {display:none;}
+   .pt-fees-explain {font-size:10px;min-height:24px;padding:1px 0 1px 6px;}
+   .pt-fee-tiers {padding-top:9px;}
+   .pt-fee-tiers::before {height:5px;border-radius:3px;}
+   .pt-fee-tier {gap:0;padding:0 4px;}
+   .pt-fee-tier + .pt-fee-tier {border:0;}
+   .pt-fee-tier-label {font-size:10px;line-height:1.4;}
+   .pt-fee-tier-rate {font-size:12px;line-height:1.3;font-weight:500;white-space:nowrap;}
+   .pt-fee-inline-unit {display:inline;font-size:9px;font-weight:400;color:#a6a6b0;margin-left:1px;}
+   .pt-fee-tier-fiat,.pt-fee-example-caption {display:none;}
+  }
+ }
+}
