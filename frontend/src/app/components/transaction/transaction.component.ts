@@ -127,6 +127,8 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedAddress = found ? normalized : '';
     this.addressFeedback = found ? 'Matching rows are highlighted. The diagram selects the first matching input/output; combined strands may group others.' : 'No matching address in this transaction. Check the full address and Bitcoin network.';
   }
+  phoneLayout = window.innerWidth <= 767.98;
+
   get confirmationCount(): number {
     if (!this.tx?.status?.confirmed) return 0;
     const height = this.tx.status.block_height;
@@ -1461,6 +1463,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   setGraphSize(): void {
     this.isMobile = window.innerWidth < 850;
+    this.phoneLayout = window.innerWidth <= 767.98;
     if (this.graphContainer?.nativeElement && this.stateService.isBrowser) {
       setTimeout(() => {
         if (this.graphContainer?.nativeElement?.clientWidth) {
