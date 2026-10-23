@@ -715,3 +715,13 @@ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-he
  }
  body:has(app-transaction) app-global-footer footer select option {background-color:#18181b;color:#d4d4d8;}
 }
+
+@media(max-width:767.98px) {
+ body:is(:has(#pt-transaction-layout),:has(#pt-network-layout),:has(#pt-wallet-layout),:has(app-pending-home)) .navbar .navbar-nav .pt-labeled-link {
+  flex-direction:column!important;gap:2px!important;padding:3px 2px!important;
+ }
+ body:is(:has(#pt-transaction-layout),:has(#pt-network-layout),:has(#pt-wallet-layout),:has(app-pending-home)) .navbar .navbar-nav .pt-labeled-link .pt-nav-label {
+  display:inline!important;visibility:visible!important;font-size:9px!important;line-height:1.2!important;color:#a6a6b0;white-space:nowrap;
+ }
+ body:has(#pt-transaction-layout) app-global-footer footer select {background-color:#18181b!important;border-color:#18181b!important;color:#d4d4d8!important;}
+}
