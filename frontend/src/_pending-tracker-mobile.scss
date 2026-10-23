@@ -681,3 +681,16 @@ body:is(:has(#pt-network-layout),:has(#pt-wallet-layout),:has(#pt-transaction-la
   #pt-transaction-layout .pt-deeper > summary,.pt-mobile-deeper > .pt-mobile-deeper-summary {padding-left:13px!important;}
  }
 }
+
+/* Account for Bootstrap row gutters and keep long example titles on one row. */
+body:has(#pt-network-layout) #pt-network-layout .pt-network-snapshot .pt-network-heading {padding-left:19px!important;}
+body:has(#pt-network-layout) #pt-network-layout > .row > .pt-network-section-heading {padding-left:32px!important;}
+@media(max-width:767.98px) {
+ body:has(#pt-network-layout) #pt-network-layout .pt-network-snapshot .pt-network-heading {padding-left:13px!important;}
+ body:has(#pt-network-layout) #pt-network-layout > .row > .pt-network-section-heading {padding-left:28px!important;}
+ body:has(app-transaction) app-transaction #pt-transaction-layout.pt-example-page .pt-snapshot-intro > .title-block > h1 {font-size:clamp(20px,6vw,24px)!important;}
+}
+@media(max-width:359.98px) {
+ body:has(app-transaction) app-transaction #pt-transaction-layout.pt-example-page .pt-snapshot-intro > .title-block > h1 {font-size:18px!important;}
+ body:has(app-transaction) app-transaction #pt-transaction-layout.pt-example-page .pt-example-lookup {font-size:9px;}
+}
