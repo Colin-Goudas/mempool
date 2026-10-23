@@ -28,7 +28,7 @@
         @for (tier of compactFeeTiers((stateService.recommendedFees$ | async)); track tier.label) {
           <div class="pt-fee-tier" [attr.aria-label]="tier.label + ': ' + (tier.rate === null ? 'unavailable' : tier.rate + ' satoshis per virtual byte')">
             <span class="pt-fee-tier-label">{{ tier.label }}</span>
-            <strong class="pt-fee-tier-rate">@if (tier.rate === null) {<span class="pt-fee-unavailable">—</span>} @else { {{ tier.rate | number:'1.0-2' }} }</strong>
+            <strong class="pt-fee-tier-rate">@if (tier.rate === null) {<span class="pt-fee-unavailable">—</span>} @else { {{ tier.rate | number:'1.0-2' }} <small class="pt-fee-inline-unit">sat/vB</small> }</strong>
             <span class="pt-fee-tier-fiat">@if (tier.exampleSats === null) {<span class="pt-fee-unavailable">Unavailable</span>} @else {<app-fiat [value]="tier.exampleSats" colorClass=""></app-fiat>}</span>
           </div>
         }
