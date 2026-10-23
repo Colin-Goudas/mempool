@@ -36,6 +36,48 @@ interface MempoolStatsData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  private mobilePopoverAutoScroll = false;
+  positionMobilePopover(event: Event): void {
+    if (window.innerWidth > 767.98 || (event as Event & {newState?: string}).newState !== 'open') return;
+    const panel = event.target as HTMLElement;
+    const trigger = Array.from(document.querySelectorAll<HTMLButtonElement>('#pt-network-layout button[popovertarget], #pt-wallet-layout button[popovertarget]'))
+      .find(button => button.getAttribute('popovertarget') === panel.id && button.getAttribute('popovertargetaction') !== 'hide');
+    if (!trigger) return;
+    panel.classList.add('pt-anchored-mobile-popover');
+    const viewportHeight = window.visualViewport?.height || window.innerHeight;
+    if (viewportHeight - trigger.getBoundingClientRect().bottom - 84 < 140) {
+      this.mobilePopoverAutoScroll = true;
+      trigger.scrollIntoView({block:'center', behavior:'auto'});
+    }
+    requestAnimationFrame(() => {
+      this.mobilePopoverAutoScroll = false;
+      if (!panel.matches(':popover-open')) return;
+      const rect = trigger.getBoundingClientRect();
+      const anchor = trigger.closest('.pt-network-fact, .pt-wallet-fact, .pt-summary-actionbar, .pt-explorer-lookup-search, .pt-wallet-address')?.getBoundingClientRect() || rect;
+      const viewportWidth = document.documentElement.clientWidth;
+      const width = Math.min(Math.max(anchor.width, 260), viewportWidth - 24);
+      const left = Math.max(12, Math.min(anchor.left, viewportWidth - width - 12));
+      const top = Math.max(8, rect.bottom + 6);
+      panel.style.setProperty('--pt-popover-top', top + 'px');
+      panel.style.setProperty('--pt-popover-left', left + 'px');
+      panel.style.setProperty('--pt-popover-width', width + 'px');
+      panel.style.setProperty('--pt-popover-height', Math.max(80, Math.min(420, viewportHeight - top - 76)) + 'px');
+    });
+  }
+  @HostListener('window:scroll')
+  closeMobileExplanationsOnPageScroll(): void {
+    if (window.innerWidth > 767.98 || this.mobilePopoverAutoScroll) return;
+    document.querySelectorAll<HTMLElement>('#pt-network-layout .pt-anchored-mobile-popover:popover-open, #pt-wallet-layout .pt-anchored-mobile-popover:popover-open').forEach(panel =>
+      (panel as HTMLElement & {hidePopover?: () => void}).hidePopover?.());
+  }
+
+  mobileQuestionLabel(id: string): string {
+    return ({busy:'How busy?',timing:'Timing',visuals:'The visuals',arrived:'My payment?',missing:'My balance?',spend:'Use funds?'} as Record<string,string>)[id] || id;
+  }
+  mobileMetricLabel(label: string): string {
+    return ({'Example payment fee':'Example fee','Confirmation targets':'Target','Awaiting confirmation':'Waiting','Confirmed balance':'Balance','Pending balance':'Pending','Total transactions':'Transactions'} as Record<string,string>)[label] || label;
+  }
   network$: Observable<string>;
   networkSnapshot$: Observable<NetworkSnapshot>;
   showNetworkFiat = true;
