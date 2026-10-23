@@ -706,3 +706,12 @@ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-he
  .navbar .pt-labeled-link {flex-direction:column!important;gap:2px!important;padding:3px 2px!important;}
  .navbar .pt-labeled-link .pt-nav-label {display:inline!important;font-size:9px!important;line-height:1.2;color:#a6a6b0;}
 }
+
+/* Match the mobile transaction footer preferences to explorer and wallet. */
+@media(max-width:767.98px) {
+ body:has(app-transaction) app-global-footer footer select.form-select,
+ body:has(app-transaction) app-global-footer footer select {
+  background-color:#18181b!important;border-color:#18181b!important;color:#d4d4d8!important;color-scheme:dark;
+ }
+ body:has(app-transaction) app-global-footer footer select option {background-color:#18181b;color:#d4d4d8;}
+}
