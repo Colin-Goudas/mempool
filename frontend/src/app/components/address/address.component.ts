@@ -267,7 +267,7 @@ export class AddressComponent implements OnInit, OnDestroy {
     return ({busy:'How busy?',timing:'Timing',visuals:'The visuals',arrived:'My payment?',missing:'My balance?',spend:'Use funds?'} as Record<string,string>)[id] || id;
   }
   mobileMetricLabel(label: string): string {
-    return ({'Example payment fee':'Example fee','Confirmation targets':'Target','Awaiting confirmation':'Waiting','Confirmed balance':'Balance','Pending balance':'Pending','Total transactions':'Transactions'} as Record<string,string>)[label] || label;
+    return ({'Example payment fee':'Example fee','Confirmation targets':'Target','Awaiting confirmation':'Waiting','Confirmed balance':'Balance','Pending balance':'Pending','Incoming (pending)':'Pending in','Pending transactions':'Pending txs','Outputs being spent':'Being spent','Net balance change':'Net pending','Balance after confirmation':'After confirmation','Total transactions':'Transactions'} as Record<string,string>)[label] || label;
   }
   ngOnInit(): void {
     this.network = this.stateService.network;
