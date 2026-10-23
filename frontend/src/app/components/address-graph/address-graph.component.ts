@@ -72,6 +72,13 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
   error: any;
   isLoading = true;
   chartInstance: any = undefined;
+  private chartResizeObserver?: ResizeObserver;
+  private chartResizeFrame?: number;
+
+  private chartGrid() {
+    const mobile = this.isMobile();
+    return {top:mobile ? 40 : 20, bottom:this.allowZoom ? 65 : 20, left:mobile ? 8 : this.adjustedLeft, right:mobile ? 8 : this.adjustedRight, containLabel:mobile};
+  }
 
   constructor(
     @Inject(LOCALE_ID) public locale: string,
@@ -213,12 +220,7 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
         ]),
       ],
       animation: false,
-      grid: {
-        top: 20,
-        bottom: this.allowZoom ? 65 : 20,
-        right: this.adjustedRight,
-        left: this.adjustedLeft,
-      },
+      grid: this.chartGrid(),
       graphic: graphicElements.length > 0 ? graphicElements : undefined,
       legend: (this.showLegend && !this.stateService.isAnyTestnet()) ? {
         top: 'top',
@@ -331,7 +333,10 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
         {
           type: 'value',
           position: 'left',
+          splitNumber: this.isMobile() ? 3 : 5,
           axisLabel: {
+            fontSize: this.isMobile() ? 10 : 12,
+            hideOverlap: true,
             show: this.showYAxis,
             color: '#a1a1aa',
             formatter: (val): string => {
@@ -339,7 +344,7 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
               if (Math.abs(maxValue) >= 100_000_000) {
                 const stepBtc = Math.max(span / 10 / 100_000_000, 0.00000001);
                 const digits = Math.min(8, Math.max(0, Math.ceil(-Math.log10(stepBtc)) + 1));
-                return `${(val / 100_000_000).toLocaleString(this.locale, { minimumFractionDigits: digits, maximumFractionDigits: digits })} BTC`;
+                return (val / 100_000_000).toLocaleString(this.locale, { minimumFractionDigits: digits, maximumFractionDigits: digits }) + (this.isMobile() ? '' : ' BTC');
               }
               return `${Math.round(val).toLocaleString(this.locale)} sats`;
             }
@@ -351,7 +356,10 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
         },
         {
           type: 'value',
+          splitNumber: this.isMobile() ? 3 : 5,
           axisLabel: {
+            fontSize: this.isMobile() ? 10 : 12,
+            hideOverlap: true,
             show: this.showYAxis,
             color: '#a1a1aa',
             formatter: function(val) {
@@ -445,10 +453,7 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
     const graphicElements = this.graphicElements();
 
     this.chartOptions = {
-      grid: {
-        right: this.adjustedRight,
-        left: this.adjustedLeft,
-      },
+      grid: this.chartGrid(),
       graphic: graphicElements.length > 0 ? graphicElements : undefined,
       legend: {
         top: 'top',
@@ -470,12 +475,29 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
 
   onChartInit(ec) {
     this.chartInstance = ec;
+    this.chartResizeObserver?.disconnect();
+    if (typeof ResizeObserver !== 'undefined') {
+      this.zone.runOutsideAngular(() => {
+        this.chartResizeObserver = new ResizeObserver(() => {
+          if (this.chartResizeFrame !== undefined) cancelAnimationFrame(this.chartResizeFrame);
+          this.chartResizeFrame = requestAnimationFrame(() => {
+            if (ec.isDisposed()) return;
+            const mobile = this.isMobile();
+            ec.setOption({grid:this.chartGrid(), yAxis:[{splitNumber:mobile ? 3 : 5, axisLabel:{fontSize:mobile ? 10 : 12}}, {splitNumber:mobile ? 3 : 5, axisLabel:{fontSize:mobile ? 10 : 12}}]});
+            ec.resize();
+          });
+        });
+        this.chartResizeObserver.observe(ec.getDom());
+      });
+    }
     this.chartInstance.on('showTip', this.onTooltip.bind(this));
     this.chartInstance.on('click', 'series', this.onChartClick.bind(this));
     this.chartInstance.on('legendselectchanged', this.onLegendSelectChanged.bind(this));
   }
 
   ngOnDestroy(): void {
+    this.chartResizeObserver?.disconnect();
+    if (this.chartResizeFrame !== undefined) cancelAnimationFrame(this.chartResizeFrame);
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
