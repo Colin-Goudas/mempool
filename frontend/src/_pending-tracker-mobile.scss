@@ -604,3 +604,10 @@
   }
  }
 }
+
+@media(max-width:767.98px) {
+ body:has(app-dashboard #pt-network-layout.pt-network-dashboard) app-dashboard #pt-network-layout {
+  .pt-compact-fees {margin-bottom:20px!important;}
+  .pt-fee-tiers > .pt-fees-connector {top:-4px;z-index:1;background:#101012;}
+ }
+}
