@@ -644,3 +644,40 @@ body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot-in
  body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot-intro::after {top:-16px;height:2px;}
  body:has(app-transaction) app-transaction #pt-transaction-layout:has(.pt-phone-confirmed) .pt-snapshot-intro::after {top:-6px;}
 }
+
+/* Align section titles with the text inset inside their rounded surfaces. */
+body:has(#pt-network-layout) #pt-network-layout .pt-network-heading {padding-left:19px!important;}
+body:has(#pt-wallet-layout) #pt-wallet-layout .pt-wallet-heading {padding-left:19px!important;}
+body:has(#pt-transaction-layout) #pt-transaction-layout .pt-snapshot-intro > .title-block {padding-left:19px!important;}
+body:is(:has(#pt-network-layout),:has(#pt-wallet-layout),:has(#pt-transaction-layout)) {
+ .pt-network-section-heading,.pt-wallet-chart-heading,.pt-wallet-section-heading {padding-left:20px!important;}
+ #pt-transaction-layout .pt-flow-header {padding-left:20px!important;}
+ #pt-transaction-layout .pt-deeper > summary,.pt-mobile-deeper > .pt-mobile-deeper-summary {padding-left:20px!important;}
+}
+@media (min-width:768px) {
+ body:has(app-transaction) app-transaction #pt-transaction-layout.pt-example-page .pt-snapshot-intro > .title-block {
+  display:grid!important;grid-template-columns:auto minmax(120px,1fr) auto auto!important;align-items:center!important;gap:8px 12px!important;
+  >h1 {grid-column:1!important;grid-row:1!important;white-space:nowrap;}
+  >.tx-link {grid-column:2!important;grid-row:1!important;min-width:0;}
+  >.pt-title-utilities {grid-column:3!important;grid-row:1!important;}
+  >.pt-example-lookup {grid-column:4!important;grid-row:1!important;align-self:center;justify-self:end;}
+  .pt-network-label,.pt-display-fiat {display:none!important;}
+ }
+ body:has(#pt-wallet-layout) #pt-wallet-layout.pt-example-page .pt-wallet-heading {
+  display:flex!important;flex-wrap:nowrap!important;align-items:center!important;
+  >h1 {order:0;flex:0 0 auto;}
+  >.pt-wallet-address {order:1;flex:0 1 auto;min-width:0;}
+  >.pt-example-lookup {order:2;flex:0 0 auto;}
+  >.pt-wallet-fiat-toggle {display:none!important;}
+ }
+}
+@media (max-width:767.98px) {
+ body:has(#pt-network-layout) #pt-network-layout .pt-network-heading,
+ body:has(#pt-wallet-layout) #pt-wallet-layout .pt-wallet-heading,
+ body:has(#pt-transaction-layout) #pt-transaction-layout .pt-snapshot-intro > .title-block {padding-left:13px!important;}
+ body:is(:has(#pt-network-layout),:has(#pt-wallet-layout),:has(#pt-transaction-layout)) {
+  .pt-network-section-heading,.pt-wallet-chart-heading,.pt-wallet-section-heading {padding-left:13px!important;}
+  #pt-transaction-layout .pt-flow-header {padding-left:13px!important;}
+  #pt-transaction-layout .pt-deeper > summary,.pt-mobile-deeper > .pt-mobile-deeper-summary {padding-left:13px!important;}
+ }
+}
