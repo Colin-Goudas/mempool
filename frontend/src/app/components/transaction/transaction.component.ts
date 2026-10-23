@@ -197,6 +197,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     if (label === 'Estimated confirmation') return value.replace(/^About /, '~').replace(/ minutes?/g, ' min').replace(/ hours?/g, ' hr');
     return value;
   }
+  private mobilePopoverAutoScroll = false;
   positionMobilePopover(event: Event): void {
     if (window.innerWidth > 767.98 || (event as Event & {newState?: string}).newState !== 'open') return;
     const panel = event.target as HTMLElement;
@@ -205,8 +206,12 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!trigger) return;
     panel.classList.add('pt-anchored-mobile-popover');
     const viewportHeight = window.visualViewport?.height || window.innerHeight;
-    if (viewportHeight - trigger.getBoundingClientRect().bottom - 84 < 140) trigger.scrollIntoView({block:'center', behavior:'auto'});
+    if (viewportHeight - trigger.getBoundingClientRect().bottom - 84 < 140) {
+      this.mobilePopoverAutoScroll = true;
+      trigger.scrollIntoView({block:'center', behavior:'auto'});
+    }
     requestAnimationFrame(() => {
+      this.mobilePopoverAutoScroll = false;
       if (!panel.matches(':popover-open')) return;
       const rect = trigger.getBoundingClientRect();
       const anchor = trigger.closest('.pt-metric-card, .pt-summary-actionbar')?.getBoundingClientRect() || rect;
@@ -222,7 +227,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   @HostListener('window:scroll')
   closeMobileExplanationsOnPageScroll(): void {
-    if (window.innerWidth > 767.98) return;
+    if (window.innerWidth > 767.98 || this.mobilePopoverAutoScroll) return;
     document.querySelectorAll<HTMLElement>('#pt-transaction-layout .pt-anchored-mobile-popover:popover-open').forEach(panel =>
       (panel as HTMLElement & {hidePopover?: () => void}).hidePopover?.());
   }
