@@ -466,3 +466,27 @@
   .pt-summary-actionbar > button,.pt-summary-actionbar > span > button {min-height:30px!important;padding:2px 0!important;}
  }
 }
+
+@media(max-width:767.98px) {
+ body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) {
+  #pt-network-layout,#pt-wallet-layout {
+   .pt-overview-surface .pt-summary-narrative {margin-bottom:0!important;}
+   .pt-overview-surface .pt-summary-actionbar {padding-top:0!important;padding-bottom:4px!important;row-gap:0!important;grid-auto-rows:minmax(30px,auto);}
+   .pt-overview-surface .pt-summary-actionbar > span > button,.pt-overview-surface .pt-summary-actionbar > button {min-height:30px!important;padding:2px 0!important;}
+   .pt-overview-surface > .pt-network-facts,.pt-overview-surface > .pt-wallet-facts {margin-top:6px!important;padding-top:6px!important;}
+  }
+ }
+ body:has(app-dashboard #pt-network-layout.pt-network-dashboard) app-dashboard #pt-network-layout {
+  .pt-network-summary .pt-summary-narrative {margin-bottom:0!important;}
+  .pt-network-summary .pt-summary-actionbar {padding:0 0 4px!important;row-gap:0!important;grid-auto-rows:minmax(30px,auto);}
+  .pt-network-summary .pt-summary-actionbar > span > button {min-height:30px!important;padding:2px 0!important;}
+  .pt-overview-surface > .pt-network-facts {margin-top:6px!important;padding-top:6px!important;}
+ }
+ body:has(app-transaction) app-transaction #pt-transaction-layout {
+  .pt-flow-section.pt-flow-open > .pt-flow-header {display:flex!important;flex-wrap:nowrap!important;align-items:baseline!important;gap:6px!important;margin:0 0 4px!important;padding:0!important;min-width:0;}
+  .pt-flow-heading-copy {flex:0 0 auto;min-width:0;}
+  .pt-flow-header h2 {font-size:22px!important;line-height:1.25!important;white-space:nowrap;}
+  .pt-flow-mobile-subtitle {display:block;flex:1 1 auto;min-width:0;font-size:11.5px!important;line-height:1.4!important;white-space:nowrap;}
+  .pt-flow-header .pt-flow-total {display:none!important;}
+ }
+}
