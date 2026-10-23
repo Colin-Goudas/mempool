@@ -15,7 +15,7 @@ class GuardService {
     const preferredRoute = this.router.getCurrentNavigation()?.extractedUrl.queryParams?.mode;
     const path = this.router.getCurrentNavigation()?.extractedUrl.root.children.primary.segments;
     // Pending Tracker uses the full paired snapshot on mobile, too.
-    if (window['__env']?.PENDING_TRACKER_EXPLANATIONS && path?.[0]?.path === 'tx' && preferredRoute !== 'status') return false;
+    if (window['__env']?.PENDING_TRACKER_EXPLANATIONS && path?.[0]?.path === 'tx') return false;
     return (preferredRoute === 'status' || (preferredRoute !== 'details' && this.navigationService.isInitialLoad())) && window.innerWidth <= 767.98 && !(path.length === 2 && ['push', 'test', 'preview'].includes(path[1].path));
   }
 }
