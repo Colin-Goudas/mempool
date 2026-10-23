@@ -644,7 +644,7 @@
    background:var(--nav-icon);transform:translateX(-50%);pointer-events:none;
   }
   app-blockchain-blocks #arrow-up::before {
-   top:calc(var(--block-size) * -.28);height:calc(var(--block-size) * .28 + 1px);
+   top:-8px;height:9px;
   }
  }
 }
