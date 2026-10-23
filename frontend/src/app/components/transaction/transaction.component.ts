@@ -191,10 +191,14 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     const timing = this.tx.status.confirmed ? '' : eta && Number.isFinite(eta.wait) && eta.wait >= 0 ? 'The current estimate is about ' + Math.max(1, Math.ceil(eta.wait / 60000)) + ' minutes, but it can change. ' : 'A reliable confirmation-time estimate is currently unavailable. ';
     return timing + (this.tx.status.confirmed ? 'It paid ' : 'It pays ') + fee + ' in network fees' + (this.tx.status.confirmed ? '.' : ' at ' + rate + ' sat/vB.');
   }
-  mobileSnapshotLabel(label: string): string { return label === 'Estimated confirmation' ? 'ETA' : label; }
+  mobileSnapshotLabel(label: string): string {
+    return ({'Estimated confirmation':'ETA','Confirmed at':'Confirmed','Included in block':'Block','Miner attribution':'Miner','Observed confirmation duration':'Observed wait','Effective fee rate':'Effective rate','Replacement history':'Replacements'} as Record<string,string>)[label] || label;
+  }
   mobileSnapshotValue(label: string, value: string, secondary?: string): string {
-    if (label === 'First seen' && secondary) return secondary.replace('Less than a minute ago', 'Just now').replace(/minutes?/g, 'min').replace(/hours?/g, 'hr');
+    if ((label === 'First seen' || label === 'Confirmed at') && secondary) return secondary.replace('Less than a minute ago', 'Just now').replace(/minutes?/g, 'min').replace(/hours?/g, 'hr');
     if (label === 'Estimated confirmation') return value.replace(/^About /, '~').replace(/ minutes?/g, ' min').replace(/ hours?/g, ' hr');
+    if (label === 'Observed confirmation duration') return '~' + value.replace(/ minutes?/g, ' min').replace(/ hours?/g, ' hr');
+    if (label === 'Replacement history') return value.replace(/ replacements?$/, '');
     return value;
   }
   private mobilePopoverAutoScroll = false;
