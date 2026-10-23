@@ -38,7 +38,12 @@
         <div class="pt-network-popup-heading"><strong>Understanding transaction fees</strong><button type="button" popovertarget="pt-compact-fees-help" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
         <p>These are live fee-rate estimates from the provider’s observed Bitcoin queue. The small chevron connects this panel to the projected blocks above; it does not track a particular transaction.</p>
         <p><strong>Economy:</strong> lower priority, with no fixed deadline. <strong>Standard:</strong> targets roughly three blocks. <strong>Fast:</strong> targets the next block. New demand, related transactions and irregular block times can change the wait.</p>
-        <p>The values under each rate are illustrative fees for a 140-vB payment, rounded up to whole satoshis and converted at the current price. Your actual fee depends on transaction size. Wallet or exchange charges may differ.</p>
+        <p>The examples below use a 140-vB payment, rounded up to whole satoshis and converted at the current price. Your actual fee depends on transaction size. Wallet or exchange charges may differ.</p>
+        <div class="pt-fee-help-examples">
+          @for (tier of compactFeeTiers((stateService.recommendedFees$ | async)); track tier.label) {
+            <p><strong>{{ tier.label }}:</strong> @if (tier.exampleSats === null) {Unavailable} @else { {{ tier.exampleSats | number }} sats · <app-fiat [value]="tier.exampleSats" colorClass=""></app-fiat> }</p>
+          }
+        </div>
       </div>
     </section>
     <section class="pt-network-snapshot pt-balanced-overview" aria-label="Bitcoin network snapshot" *ngIf="networkSnapshot$ | async as snapshot">
