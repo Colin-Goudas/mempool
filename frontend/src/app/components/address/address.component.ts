@@ -269,6 +269,12 @@ export class AddressComponent implements OnInit, OnDestroy {
   mobileMetricLabel(label: string): string {
     return ({'Example payment fee':'Example fee','Confirmation targets':'Target','Awaiting confirmation':'Waiting','Confirmed balance':'Balance','Pending balance':'Pending','Incoming (pending)':'Pending in','Pending transactions':'Pending txs','Outputs being spent':'Being spent','Net balance change':'Net pending','Balance after confirmation':'After confirmation','Total transactions':'Transactions'} as Record<string,string>)[label] || label;
   }
+
+  readonly exampleId$ = this.route.queryParamMap.pipe(map(params => params.get('example')));
+  focusOwnLookup(): void {
+    window.scrollTo({top:0, behavior:'auto'});
+    this.stateService.searchFocus$.next(true);
+  }
   ngOnInit(): void {
     this.network = this.stateService.network;
     this.networkChangeSubscription = this.stateService.networkChanged$.subscribe((network) => {
