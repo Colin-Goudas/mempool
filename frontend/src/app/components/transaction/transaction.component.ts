@@ -191,6 +191,24 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     const timing = this.tx.status.confirmed ? '' : eta && Number.isFinite(eta.wait) && eta.wait >= 0 ? 'The current estimate is about ' + Math.max(1, Math.ceil(eta.wait / 60000)) + ' minutes, but it can change. ' : 'A reliable confirmation-time estimate is currently unavailable. ';
     return timing + (this.tx.status.confirmed ? 'It paid ' : 'It pays ') + fee + ' in network fees' + (this.tx.status.confirmed ? '.' : ' at ' + rate + ' sat/vB.');
   }
+  mobileDetailMeaning(label: string, fallback: string): string {
+    return ({
+      'Size':'Actual transaction data size.',
+      'Virtual size':'Block space used after the witness discount.',
+      'Adjusted vsize':'Virtual size used for fee comparisons.',
+      'Weight':'This transaction’s share of block capacity.',
+      'Version':'The transaction’s protocol format.',
+      'Locktime':'A height or time condition on inclusion.',
+      'Sigops':'Signature checks needed to validate it.',
+      'Transaction hex':'The complete raw transaction data.',
+      'Miner attribution':'Pool attributed to the containing block.',
+      'Observed confirmation duration':'Provider-observed wait before confirmation.',
+      'Fee replacement':'Whether a fee replacement was observed.',
+      'Transaction features':'Observed witness and replacement features.',
+      'Transaction tags':'Tags describe the transaction’s structure.',
+      'Block audit':'How the mined block matched predictions.'
+    } as Record<string,string>)[label] || fallback;
+  }
   mobileSnapshotLabel(label: string): string {
     return ({'Estimated confirmation':'ETA','Confirmed at':'Confirmed','Included in block':'Block','Miner attribution':'Miner','Observed confirmation duration':'Observed wait','Effective fee rate':'Effective rate','Replacement history':'Replacements'} as Record<string,string>)[label] || label;
   }
