@@ -236,3 +236,79 @@
   }
  }
 }
+
+.pt-flow-mobile-subtitle {display:none;}
+@media(max-width:767.98px) {
+ body:has(#pt-transaction-layout) {
+  app-blockchain .blockchain-wrapper {height:200px!important;}
+  app-blockchain .position-container {top:20px!important;}
+  app-blockchain #divider {top:-20px;height:172px;}
+  app-mempool-blocks #arrow-up,app-blockchain-blocks #arrow-up {border-bottom-color:transparent!important;}
+  app-mempool-blocks #arrow-up::after,app-blockchain-blocks #arrow-up::after {
+    content:'';display:block;position:absolute;left:0;top:0;width:0;height:0;transform:translateX(-50%);pointer-events:none;
+    border-left:calc(var(--block-size) * .225) solid transparent;
+    border-right:calc(var(--block-size) * .225) solid transparent;
+    border-bottom:calc(var(--block-size) * .225) solid var(--nav-icon);
+  }
+  app-blockchain-blocks #arrow-up::after {
+    border-left-width:calc(var(--block-size) * .15);
+    border-right-width:calc(var(--block-size) * .15);
+    border-bottom-width:calc(var(--block-size) * .15);
+  }
+ }
+ body:has(app-transaction) app-transaction #pt-transaction-layout {
+  margin-bottom:18px!important;padding-bottom:0!important;
+  .pt-snapshot.pt-balanced .pt-summary-actionbar > button,.pt-snapshot.pt-balanced .pt-summary-actionbar > span > button {min-height:34px!important;padding:3px 0!important;}
+  .pt-snapshot.pt-balanced .pt-summary-narrative {margin-bottom:2px!important;}
+  .pt-snapshot.pt-balanced .pt-snapshot-surface > .pt-eight-card-grid {margin-top:4px!important;padding-top:4px!important;}
+  .pt-flow-section.pt-flow-open,.pt-deeper.pt-dive-deeper-toggle {margin-top:18px!important;}
+  .pt-flow-section.pt-flow-open > .pt-flow-header {display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:baseline!important;gap:2px 8px!important;margin-bottom:4px!important;padding:0!important;}
+  .pt-flow-heading-copy {grid-column:1/-1;}
+  .pt-flow-header h2 {font-size:22px!important;line-height:1.25!important;margin:0!important;}
+  .pt-flow-desktop-subtitle {display:none;}
+  .pt-flow-mobile-subtitle {display:block;font-size:12px;line-height:1.4;}
+  .pt-flow-header .pt-flow-total {font-size:11.5px!important;line-height:1.4;max-width:190px;min-width:0;text-align:right;flex-basis:auto!important;color:#bca16e!important;}
+  .pt-flow-total app-amount,.pt-flow-total app-amount span {font-size:inherit!important;color:inherit!important;}
+  .pt-flow-toolbar {gap:2px 12px!important;padding:10px!important;min-width:0;}
+  .pt-flow-toolbar .pt-address-find {width:100%;max-width:100%;min-width:0!important;}
+  .pt-flow-toolbar .pt-address-find > div {display:flex!important;flex-wrap:nowrap!important;gap:6px!important;min-width:0;}
+  .pt-flow-toolbar .pt-address-find input {width:0!important;min-width:0!important;flex:1 1 0!important;}
+  .pt-flow-toolbar .pt-address-find button {flex-shrink:0;min-width:44px;}
+  .pt-flow-toolbar > button {font-size:12px;min-height:34px!important;padding:4px 0!important;}
+  .pt-phone-io-heading {font-size:18px!important;padding-top:10px;}
+  app-transactions-list .table-tx-vin {margin-bottom:16px!important;}
+  .pt-deeper.pt-dive-deeper-toggle > summary {margin:0!important;padding:0 0 6px!important;min-height:32px;}
+  .pt-deeper-snapshot {margin:0!important;}
+  .pt-deeper-snapshot .pt-eight-card-grid {gap:6px!important;}
+  .pt-deeper-snapshot .pt-metric-card {padding:5px 9px!important;gap:2px 8px!important;}
+  .pt-deeper-snapshot .pt-snapshot-fact {grid-column:1;grid-row:1;}
+  .pt-deeper-snapshot .pt-snapshot-meaning {display:contents!important;}
+  .pt-deeper-snapshot .pt-snapshot-meaning > .pt-meaning-preview {display:block!important;grid-column:1/-1;grid-row:2;margin:0!important;padding:0!important;font-size:12px!important;line-height:1.4!important;max-width:100%;color:#b4b4bc;}
+  .pt-deeper-snapshot .pt-snapshot-meaning > button {grid-column:2;grid-row:1;min-height:32px!important;align-self:center;}
+  .pt-advanced-card {margin-top:12px!important;}
+ }
+ body:has(#pt-transaction-layout) app-global-footer {
+  footer {margin-top:18px!important;padding:18px 14px 12px!important;}
+  .container-fluid {padding:0!important;min-width:0;}
+  footer .row.main {max-width:100%!important;padding:0 0 14px!important;margin:0!important;}
+  footer .branding {padding:0!important;margin:0!important;width:100%;}
+  footer .main-logo {width:auto;max-width:100%;}
+  footer .pending-tracker-wordmark {font-size:23px!important;}
+  footer .explore-tagline-mobile {font-size:12px!important;margin:4px 0 10px!important;}
+  footer .site-options.language-selector {display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:0!important;float:none!important;}
+  footer .site-options > .selector {margin:0!important;min-width:0;max-width:100%;}
+  footer .site-options > .selector:nth-child(3) {grid-column:1/-1;}
+  footer select {width:100%!important;max-width:100%!important;min-width:0!important;font-size:12px!important;min-height:36px;padding:6px 9px!important;}
+  footer .branding > .selector.d-flex {margin:6px 0 0!important;gap:6px;}
+  footer .branding > .selector.d-flex .add-margin {flex:1;min-width:0;margin:0!important;}
+  footer .row.link-tree {display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 14px!important;width:100%;max-width:100%!important;margin:0!important;padding:0!important;text-align:left!important;}
+  footer .link-tree .links {width:auto!important;max-width:100%;min-width:0;padding:0!important;margin:0!important;}
+  footer .link-tree .links p {padding:0!important;margin:0!important;}
+  footer .link-tree .category {font-size:13px!important;line-height:1.4;margin-bottom:5px!important;}
+  footer .link-tree a {display:flex;align-items:center;min-height:32px;padding:4px 0;font-size:12px;line-height:1.35;overflow-wrap:anywhere;}
+  footer .row.social-links {margin-top:14px!important;}
+  footer .row.version {padding:12px 0 0!important;}
+  footer .pt-footer-live-links {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px;}
+  footer .pt-footer-disclosure {font-size:12px;line-height:1.45;margin:12px 0 0;}
+ }
+}
