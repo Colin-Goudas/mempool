@@ -634,17 +634,13 @@
  }
 }
 
-/* Keep the mobile transaction marker connected to the block it tracks. */
+
+/* The transaction triangle slides along this horizontal track. */
+body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot-intro {
+ position:relative;
+ &::after {content:'';position:absolute;left:0;right:0;top:-8px;height:3px;background:var(--nav-icon);pointer-events:none;}
+}
 @media (max-width:767.98px) {
- body:has(app-transaction) {
-  app-mempool-blocks #arrow-up::before,
-  app-blockchain-blocks #arrow-up::before {
-   content:'';display:block;position:absolute;left:0;width:2px;
-   top:calc(var(--block-size) * -.12);height:calc(var(--block-size) * .12 + 1px);
-   background:var(--nav-icon);transform:translateX(-50%);pointer-events:none;
-  }
-  app-blockchain-blocks #arrow-up::before {
-   top:-8px;height:9px;
-  }
- }
+ body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot-intro::after {top:-16px;height:2px;}
+ body:has(app-transaction) app-transaction #pt-transaction-layout:has(.pt-phone-confirmed) .pt-snapshot-intro::after {top:-6px;}
 }
