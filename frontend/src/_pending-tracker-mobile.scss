@@ -541,3 +541,10 @@
   .pt-wallet-raw > summary {font-size:12px;min-height:30px;}
  }
 }
+
+@media(max-width:767.98px) {
+ body:has(#pt-wallet-layout) #pt-wallet-layout .pt-wallet-chart-heading + .box .widget-toggler {
+  position:static!important;inset:auto!important;display:flex!important;justify-content:flex-end;align-items:center;gap:6px;min-height:28px;margin:0 0 4px!important;padding:0!important;
+  a {display:inline-flex;align-items:center;min-height:28px;padding:0 3px;font-size:12px;}
+ }
+}
