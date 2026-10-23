@@ -1,0 +1,141 @@
+.pt-phone-io-heading {display:none;}
+// Mempool iPhone reference: one scrolling page, flat alternating rows,
+// native stacked transaction lists, and the original charts/flow retained.
+.pt-mobile-deeper-summary {display:none;}
+@media (max-width:767.98px) {
+  body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-layout)) {
+    --pt-phone-panel:#141416;
+    --pt-phone-row:#0c0c0e;
+    padding-bottom:calc(68px + env(safe-area-inset-bottom));
+    overflow-x:clip;
+    .sticky-header {position:sticky;top:0;z-index:1030;background:#101012;}
+    .navbar {display:flex;flex-wrap:wrap;padding:10px 14px 12px;gap:8px;}
+    .navbar-brand {justify-content:flex-start!important;margin:0!important;min-height:36px;}
+    .pending-tracker-wordmark {font-size:21px!important;letter-spacing:-.5px;}
+    .navbar .navbar-collapse {flex-basis:100%;}
+    .navbar .search-form-container {display:block;width:100%!important;margin:0!important;max-width:none!important;}
+    .navbar app-search-form input {font-size:16px!important;min-width:0;}
+    .navbar app-search-form .search-submit {min-height:42px!important;min-width:68px;}
+    .navbar .navbar-nav {position:fixed!important;inset:auto 0 0!important;display:flex!important;flex-direction:row!important;justify-content:space-around;align-items:center;width:100%!important;min-height:56px;padding:4px 4px calc(4px + env(safe-area-inset-bottom))!important;margin:0!important;border-top:1px solid #ffffff20;background:#101012!important;z-index:1040;}
+    .navbar .navbar-nav .nav-item {flex:1;min-width:0;padding:0!important;}
+    .navbar .navbar-nav .nav-link {display:flex!important;align-items:center;justify-content:center;min-height:44px;gap:0;padding:8px 4px!important;width:100%;}
+    .navbar .pt-nav-label {display:none!important;}
+    .navbar .navbar-nav fa-icon {font-size:22px;}
+    .navbar .navbar-nav .dropdown-menu {position:absolute;top:auto!important;bottom:calc(100% + 8px);right:8px;left:auto;max-height:65dvh;overflow:auto;}
+    .pt-block-strip-key {font-size:11px;gap:4px 12px;margin:8px 12px;}
+    [popover] {position:fixed!important;inset:auto 12px calc(76px + env(safe-area-inset-bottom))!important;position-anchor:auto!important;margin:0 auto!important;width:calc(100vw - 24px)!important;max-width:560px!important;max-height:65dvh!important;overflow:auto;overscroll-behavior:contain;border-radius:14px!important;background:#161619!important;padding:16px!important;box-sizing:border-box;}
+    [popover] button[popovertargetaction="hide"] {min-width:40px;min-height:40px;}
+    [popover] input,[popover] select {font-size:16px;}
+    [popover]:popover-open::backdrop {background:#0006;}
+  }
+
+  #pt-transaction-layout, #pt-wallet-layout, #pt-network-layout {
+    width:100%;max-width:100%;padding:0 14px!important;min-width:0;
+    h1 {font-size:28px!important;line-height:1.2!important;letter-spacing:-.6px;}
+    h2,.pt-heading-title {font-size:23px!important;line-height:1.3!important;}
+    .pt-snapshot-intro {margin:0 0 12px!important;padding:0!important;}
+    .pt-summary-narrative {font-size:16px!important;line-height:1.55!important;margin:0 0 8px!important;overflow-wrap:break-word;}
+    .pt-summary-inline-label {font-size:17px!important;}
+    .pt-summary-actionbar {display:flex!important;flex-wrap:wrap!important;gap:0 16px!important;align-items:center;}
+    .pt-summary-actionbar > span {max-width:100%;}
+    .pt-summary-actionbar > button,.pt-summary-actionbar > span > button {min-height:40px!important;padding:8px 0!important;font-size:14px!important;white-space:normal!important;text-align:left;}
+    .pt-snapshot-surface,.pt-overview-surface {padding:14px 0 0!important;background:var(--pt-phone-panel)!important;border:1px solid #ffffff24!important;border-radius:12px!important;box-shadow:none!important;overflow:hidden;}
+    .pt-snapshot-summary.pt-summary-compact,.pt-network-summary,.pt-wallet-summary {padding:0 14px!important;}
+    .pt-eight-card-grid,.pt-network-facts,.pt-wallet-facts {display:flex!important;flex-direction:column!important;gap:0!important;margin:0!important;padding:0!important;border:0!important;}
+    .pt-snapshot-surface > .pt-eight-card-grid,.pt-overview-surface > .pt-network-facts,.pt-overview-surface > .pt-wallet-facts {margin-top:8px!important;padding-top:8px!important;background-image:linear-gradient(90deg,transparent,#ffffff38 12%,#ffffff38 72%,transparent)!important;background-position:top!important;background-repeat:no-repeat!important;background-size:100% 1px!important;}
+    .pt-metric-card,.pt-network-fact,.pt-wallet-fact {
+      display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:6px 10px!important;align-items:center!important;min-width:0!important;min-height:56px!important;padding:10px 12px!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;transform:none!important;
+      &:nth-of-type(odd) {background:var(--pt-phone-row)!important;}
+    }
+    .pt-snapshot-fact,.pt-network-fact-line,.pt-wallet-fact-line {display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)!important;align-items:baseline!important;gap:4px 8px!important;min-width:0!important;flex:none!important;width:100%!important;}
+    .pt-snapshot-fact > span,.pt-network-fact-line > span,.pt-wallet-fact-line > span {font-size:15px!important;line-height:1.4!important;font-weight:550!important;min-width:0;white-space:normal!important;}
+    .pt-snapshot-fact > strong,.pt-network-fact-line > strong,.pt-wallet-fact-line > strong {font-size:15px!important;line-height:1.4!important;font-weight:500!important;text-align:right!important;min-width:0!important;white-space:normal!important;overflow-wrap:anywhere;}
+    .pt-inline-card-context,.pt-fact-secondary {grid-column:1/-1!important;font-size:12px!important;line-height:1.4!important;min-width:0!important;text-align:right!important;}
+    .pt-snapshot-meaning,.pt-network-meaning,.pt-wallet-meaning {display:block!important;width:auto!important;min-width:0!important;align-self:center!important;padding:0!important;margin:0!important;}
+    .pt-snapshot-meaning > p,.pt-network-meaning > p,.pt-wallet-meaning > p {display:none!important;}
+    .pt-snapshot-meaning > button,.pt-network-meaning > button,.pt-wallet-meaning > button {min-height:44px!important;padding:6px 0 6px 4px!important;font-size:12px!important;white-space:nowrap!important;}
+    .pt-snapshot-meaning > button.pt-explore-more {font-size:0!important;}
+    .pt-explore-more::before {content:'Explain';font-size:12px;}
+    .pt-explore-more > span[aria-hidden] {font-size:12px;}
+    .pt-network-heading,.pt-wallet-heading {display:flex!important;flex-wrap:wrap!important;gap:8px 12px!important;align-items:center!important;}
+    .pt-network-heading h1,.pt-wallet-heading h1 {flex-basis:100%;margin:0!important;}
+    .pt-network-heading small {flex-basis:100%;}
+    .pt-network-heading label,.pt-wallet-heading label {margin-left:auto!important;min-height:30px;display:inline-flex;align-items:center;gap:6px;}
+    .pt-network-deeper,.pt-wallet-deeper {margin-top:24px!important;}
+    .pt-deeper-snapshot,.pt-network-deeper > .pt-network-facts,.pt-wallet-deeper > .pt-wallet-facts {padding:0!important;border:1px solid #ffffff24!important;border-radius:12px!important;background:var(--pt-phone-panel)!important;box-shadow:none!important;overflow:hidden;}
+    .pt-advanced-bitcoin {grid-column:1/-1;}
+  }
+
+  #pt-transaction-layout {
+    .pt-snapshot {margin-top:12px!important;}
+    .pt-snapshot-intro > .title-block {display:flex!important;flex-wrap:wrap!important;gap:8px!important;align-items:center!important;}
+    .title-block h1 {flex-basis:100%;margin:0!important;}
+    .title-block .tx-link {flex-basis:100%;width:100%;min-width:0;font-size:14px!important;}
+    .title-block .txid {display:block;min-width:0;}
+    .pt-title-utilities {flex-basis:100%;display:flex!important;flex-wrap:wrap!important;gap:8px 12px!important;align-items:center!important;}
+    .pt-title-utilities .pt-identity-status {font-size:13px!important;padding:6px 9px!important;}
+    .pt-title-utilities .pt-display-fiat {margin-left:auto;}
+    .pt-flow-section {margin-top:24px!important;}
+    .pt-flow-header {display:flex!important;flex-wrap:wrap!important;gap:6px!important;}
+    .pt-flow-header h2 {font-size:22px!important;}
+    .pt-flow-total {font-size:12px!important;}
+    .pt-flow-unified {border-radius:12px!important;}
+    .pt-flow-toolbar {display:flex!important;flex-wrap:wrap!important;gap:4px 16px!important;padding:12px!important;}
+    .pt-flow-toolbar .pt-address-find {flex-basis:100%!important;min-width:0!important;}
+    .pt-address-find input {font-size:16px!important;min-width:0;}
+    .pt-flow-toolbar button {min-height:40px!important;}
+    .pt-flow-visual {width:100%;min-width:0;}
+    .pt-flow-content {padding:0!important;}
+    .pt-flow-table-headings {display:none!important;}
+    .pt-phone-io-heading {display:block;font-size:20px!important;padding:12px 12px 0;margin:0;}
+    app-transactions-list .header-bg.box {padding:12px!important;margin:0!important;border:0!important;border-radius:0!important;background:var(--pt-phone-panel)!important;}
+    app-transactions-list .row {display:flex!important;flex-direction:column!important;margin:0!important;}
+    app-transactions-list .row > .col {flex:0 0 100%!important;width:100%!important;max-width:100%!important;padding:0!important;}
+    app-transactions-list .table-tx-vin {margin-bottom:22px!important;}
+    app-transactions-list td {font-size:13px!important;}
+    app-transactions-list .summary {display:none!important;}
+    .pt-deeper {margin-top:24px!important;}
+  }
+
+  #pt-wallet-layout {
+    .pt-wallet-address {display:flex!important;align-items:center;gap:8px;width:100%;min-width:0;}
+    .pt-wallet-address code {flex:1;min-width:0;max-width:100%;font-size:13px!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .pt-wallet-address > button {min-width:40px;min-height:40px;}
+    .pt-wallet-chart-heading {margin-top:24px!important;}
+    .pt-wallet-caption {font-size:13px!important;line-height:1.5;}
+    .pt-mobile-deeper {margin-top:24px;}
+    .pt-mobile-deeper-summary {display:block;font-size:23px;padding:10px 0;cursor:pointer;}
+    .pt-mobile-deeper-summary::marker {color:#c1a16b;}
+    .pt-mobile-deeper .pt-wallet-section-heading {display:none;}
+    .pt-mobile-deeper .pt-wallet-deeper {margin-top:0!important;}
+    .pt-wallet-history {margin-top:24px!important;}
+    .pt-wallet-history-heading,.pt-wallet-history-context {display:block!important;}
+    .pt-wallet-history-context {font-size:12px!important;line-height:1.5;}
+    .pt-wallet-history app-transactions-list .header-bg {border-radius:10px!important;background:var(--pt-phone-panel)!important;border:1px solid #ffffff18!important;}
+    .pt-wallet-history app-transactions-list .tx-page-container {display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:20px!important;}
+    .pt-wallet-history app-transactions-list td {font-size:13px!important;}
+    .pt-wallet-history-actions {display:flex!important;flex-wrap:wrap!important;gap:10px!important;font-size:13px;}
+    .pt-wallet-history-actions button,.pt-wallet-history-actions select {min-height:42px;}
+    .box {border-radius:12px!important;}
+  }
+
+  #pt-network-layout {
+    .pt-explorer-intro {display:block!important;padding-bottom:16px!important;}
+    .pt-explorer-lookup-search {margin-top:12px!important;min-width:0;}
+    .pt-explorer-lookup-copy p {font-size:14px;}
+    .pt-network-section-heading {margin-top:24px!important;}
+    .row.row-cols-1 > .col {flex:0 0 100%;max-width:100%;}
+    .graph-card {border-radius:12px!important;}
+    .quick-filter .btn-group {display:flex;flex-wrap:wrap;}
+    .quick-filter label {flex:1;font-size:12px;min-height:36px;}
+    .pt-widget-explanation {font-size:13px!important;line-height:1.5;}
+    .table {font-size:13px;}
+  }
+}
+@media(max-width:359px){
+ #pt-transaction-layout,#pt-wallet-layout,#pt-network-layout {
+  padding:0 10px!important;
+  .pt-metric-card,.pt-network-fact,.pt-wallet-fact {grid-template-columns:1fr!important;}
+  .pt-snapshot-meaning,.pt-network-meaning,.pt-wallet-meaning {justify-self:end;}
+ }
+}
