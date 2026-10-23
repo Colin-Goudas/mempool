@@ -24,6 +24,11 @@
   position: relative;
 
   .reset-scroll {
+    border:0;
+    padding:0;
+    color:inherit;
+    min-width:44px;
+    min-height:44px;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -225,3 +230,5 @@ body {
     margin-left: 58%;
   }
 }
+
+.reset-scroll:focus-visible {outline:2px solid #c1a16b;outline-offset:3px;}
