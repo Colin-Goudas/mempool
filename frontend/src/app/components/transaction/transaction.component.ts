@@ -495,6 +495,12 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(ZONE_SERVICE) private zoneService: any,
   ) {}
 
+
+  readonly exampleId$ = this.route.queryParamMap.pipe(map(params => params.get('example')));
+  focusOwnLookup(): void {
+    window.scrollTo({top:0, behavior:'auto'});
+    this.stateService.searchFocus$.next(true);
+  }
   ngOnInit() {
     this.setupPartnerCode();
 
