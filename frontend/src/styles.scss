@@ -5283,3 +5283,7 @@ body:is(:has(app-block),:has(app-mempool-block)) :is(app-block,app-mempool-block
 body:is(:has(app-block),:has(app-mempool-block)) :is(app-block,app-mempool-block) .table-striped > tbody > tr {background:transparent !important;}
 
 body:has(app-address) .pt-block-strip-key {display:none;}
+
+
+// Keep the approved desktop surfaces; phone layout has its own scoped rules.
+@import "pending-tracker-mobile";
