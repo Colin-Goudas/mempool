@@ -76,11 +76,11 @@
     <ul class="navbar-nav {{ network.val }}">
 
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" id="btn-home">
-        <a class="nav-link" ngbTooltip="Home" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Home" [routerLink]="['/' | relativeUrl]" (click)="collapse()">
-          <div class="svg-wrapper"><app-svg-images name="nav-tachometer" width="21.59" height="100%"></app-svg-images></div>
+        <a class="nav-link pt-labeled-link" ngbTooltip="Home" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Home" [routerLink]="['/' | relativeUrl]" (click)="collapse()">
+          <div class="svg-wrapper"><app-svg-images name="nav-tachometer" width="21.59" height="100%"></app-svg-images></div><span *ngIf="env.PENDING_TRACKER_EXPLANATIONS" class="pt-nav-label">Home</span>
         </a>
       </li>
-      <li class="nav-item pt-lookup-nav" *ngIf="env.PENDING_TRACKER_EXPLANATIONS"><a class="nav-link" routerLink="/bitcoin" ngbTooltip="Bitcoin explorer" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Bitcoin explorer"><span style="font-size:24px">₿</span><span class="pt-nav-label">Bitcoin</span></a></li>
+      <li class="nav-item pt-lookup-nav" *ngIf="env.PENDING_TRACKER_EXPLANATIONS"><a class="nav-link pt-labeled-link" routerLink="/bitcoin" ngbTooltip="Bitcoin explorer" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Bitcoin explorer"><span style="font-size:24px">₿</span><span class="pt-nav-label">Bitcoin Explorer</span></a></li>
       <li class="nav-item pt-lookup-nav" id="btn-transaction-search" *ngIf="env.PENDING_TRACKER_EXPLANATIONS && network.val === ''">
         <button type="button" class="nav-link pt-lookup-button" ngbTooltip="Explore an example transaction" triggers="mouseenter:mouseleave focusin:focusout" placement="bottom" container="body" tooltipClass="pt-nav-tooltip" aria-label="Transaction search" [disabled]="lookupLoading" [attr.aria-busy]="lookupLoading" (click)="openRecentTransaction()"><fa-icon [icon]="['fas','exchange-alt']" [fixedWidth]="true" aria-hidden="true"></fa-icon><span class="pt-nav-label">Transaction</span></button>
       </li>
