@@ -9,3 +9,15 @@ test('zero queue and zero incoming rate remain real observations',()=>{ const s=
 test('example payment cost rounds up and is qualified as an illustration',()=>{const s=build();assert.equal(s.exampleFee,281);assert.match(s.rows.find(r=>r.label==='Example payment fee').details,/not a measured network average/);assert.match(s.rows.find(r=>r.label==='Confirmation targets').details,/not a universal send time/);});
 test('missing and disconnected data never becomes a healthy-network assertion',()=>{const s=build(null,null,true);assert.match(s.summary,/out of date/);assert.equal(s.exampleFee,undefined);assert.equal(s.rows.find(r=>r.label==='Next-block fee').value,'Connecting…');assert.doesNotMatch(s.summary,/healthy|safe/);});
 test('fee competition depends on rate spread, not pending transaction count',()=>{assert.equal(build({...mempool,size:100000}, {...fees,fastestFee:1,hourFee:1}).rows[0].value,'Similar fee tiers');assert.equal(build().rows[0].value,'Fast tier costs more');});
+test('mobile summary groups retain estimates, loading warnings and reconnecting context',()=>{
+ const loaded=build({...mempool,size:12,loaded:false});
+ assert.equal(loaded.summary,[loaded.summaryLead,loaded.summaryDetail].filter(Boolean).join(' '));
+ assert.match(loaded.summaryLead,/2 sat\/vB/);
+ assert.match(loaded.summaryDetail,/12 transactions waiting/);
+ assert.match(loaded.summaryDetail,/estimates/);
+ assert.match(loaded.summaryDetail,/incomplete/);
+ const disconnected=build(mempool,fees,true);
+ assert.equal(disconnected.summaryLead,disconnected.summary);
+ assert.equal(disconnected.summaryDetail,'');
+ assert.doesNotMatch(disconnected.summaryLead,/2 sat\/vB/);
+});
