@@ -22,7 +22,7 @@
       <header class="pt-network-heading"><h1>Bitcoin Network Snapshot</h1><span>Bitcoin mainnet</span><label><input type="checkbox" [checked]="showNetworkFiat" (change)="showNetworkFiat = !showNetworkFiat"> Fiat values</label><small [class.pt-feed-warning]="snapshot.reconnecting">{{ snapshot.reconnecting ? 'Reconnecting · values may be stale' : 'Live feed · updated ' + snapshot.updatedAt }}</small></header>
       </div>
       <div class="pt-overview-surface">
-      <div class="pt-network-summary"><p class="pt-summary-narrative"><strong class="pt-summary-inline-label">In plain English —</strong> {{ snapshot.summary }}</p>
+      <div class="pt-network-summary"><p class="pt-summary-narrative"><span class="pt-summary-lead"><strong class="pt-summary-inline-label">In plain English —</strong> {{ snapshot.summaryLead }}</span> <span class="pt-summary-support" *ngIf="snapshot.summaryDetail">{{ snapshot.summaryDetail }}</span></p>
         <div class="pt-network-questions pt-summary-actionbar">
           <span><button type="button" class="pt-send-trigger" style="anchor-name:--pt-network-send" popovertarget="pt-network-send">Sending Bitcoin?</button><div id="pt-network-send" class="pt-network-popover" style="position-anchor:--pt-network-send" popover="auto"><div class="pt-network-popup-heading"><strong>Plan your Bitcoin fee</strong><button type="button" popovertarget="pt-network-send" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
             <p>Choose your urgency, then use your wallet’s actual transaction size for the most useful estimate.</p>
