@@ -1,19 +1,17 @@
 .pt-phone-io-heading {display:none;}
-// Mempool iPhone reference: one scrolling page, flat alternating rows,
-// native stacked transaction lists, and the original charts/flow retained.
+// Phone sizing only: preserve the approved Pending Tracker surfaces and type.
+// Stack cards, keep lookup visible, and retain the original charts and flow.
 .pt-mobile-deeper-summary {display:none;}
 @media (max-width:767.98px) {
   body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-layout)) {
-    --pt-phone-panel:#141416;
-    --pt-phone-row:#0c0c0e;
     padding-bottom:calc(68px + env(safe-area-inset-bottom));
     overflow-x:clip;
     .sticky-header {position:sticky;top:0;z-index:1030;background:#101012;}
-    .navbar {display:flex;flex-wrap:wrap;padding:10px 14px 12px;gap:8px;}
+    .navbar {display:flex;flex-wrap:wrap;padding:8px 14px 10px;gap:6px;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;transform:none!important;filter:none!important;}
     .navbar-brand {justify-content:flex-start!important;margin:0!important;min-height:36px;}
     .pending-tracker-wordmark {font-size:21px!important;letter-spacing:-.5px;}
-    .navbar .navbar-collapse {flex-basis:100%;}
-    .navbar .search-form-container {display:block;width:100%!important;margin:0!important;max-width:none!important;}
+    .navbar .navbar-collapse {display:flex!important;flex-basis:100%!important;width:100%;min-width:0;}
+    .navbar .search-form-container {display:block!important;width:100%!important;margin:0!important;max-width:none!important;}
     .navbar app-search-form input {font-size:16px!important;min-width:0;}
     .navbar app-search-form .search-submit {display:inline-flex;align-items:center;justify-content:center;min-height:44px!important;min-width:90px!important;width:90px!important;padding:8px 10px!important;white-space:nowrap!important;font-size:14px!important;}
     app-search-form .search-submit span {white-space:nowrap;}
@@ -48,26 +46,25 @@
     .pt-snapshot-intro {margin:0 0 12px!important;padding:0!important;}
     .pt-summary-narrative {font-size:16px!important;line-height:1.55!important;margin:0 0 8px!important;overflow-wrap:break-word;}
     .pt-summary-inline-label {font-size:16px!important;font-weight:650!important;}
-    .pt-summary-lead {line-height:1.5;}
-    .pt-summary-support {display:block;margin-top:8px;font-size:14px!important;line-height:1.5!important;color:#bdbdc7;}
-    .pt-summary-support .pt-summary-btc-amount {font-size:inherit!important;color:#f0f0f3;}
+    .pt-summary-lead {font:inherit!important;color:inherit!important;}
+    .pt-summary-support {display:inline;margin:0;font:inherit!important;color:inherit!important;}
+    .pt-summary-support .pt-summary-btc-amount {font-size:inherit!important;}
     .pt-summary-actionbar {padding-top:4px!important;}
 
     .pt-summary-actionbar {display:flex!important;flex-wrap:wrap!important;gap:0 16px!important;align-items:center;}
     .pt-summary-actionbar > span {max-width:100%;}
     .pt-summary-actionbar > button,.pt-summary-actionbar > span > button {min-height:40px!important;padding:8px 0!important;font-size:14px!important;white-space:normal!important;text-align:left;}
-    .pt-snapshot-surface,.pt-overview-surface {padding:14px 0 0!important;background:var(--pt-phone-panel)!important;border:1px solid #ffffff24!important;border-radius:12px!important;box-shadow:none!important;overflow:hidden;}
-    .pt-snapshot-summary.pt-summary-compact,.pt-network-summary,.pt-wallet-summary {padding:0 14px!important;}
-    .pt-eight-card-grid,.pt-network-facts,.pt-wallet-facts {display:flex!important;flex-direction:column!important;gap:0!important;margin:0!important;padding:0!important;border:0!important;}
+    .pt-snapshot-surface,.pt-overview-surface {padding:14px!important;border-radius:18px!important;overflow:visible;}
+    .pt-snapshot-summary.pt-summary-compact,.pt-network-summary,.pt-wallet-summary {padding:0!important;}
+    .pt-eight-card-grid,.pt-network-facts,.pt-wallet-facts {display:flex!important;flex-direction:column!important;gap:7px!important;margin:0!important;padding:0!important;border:0!important;}
     .pt-snapshot-surface > .pt-eight-card-grid,.pt-overview-surface > .pt-network-facts,.pt-overview-surface > .pt-wallet-facts {margin-top:8px!important;padding-top:8px!important;background-image:linear-gradient(90deg,transparent,#ffffff38 12%,#ffffff38 72%,transparent)!important;background-position:top!important;background-repeat:no-repeat!important;background-size:100% 1px!important;}
     .pt-metric-card,.pt-network-fact,.pt-wallet-fact {
-      display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:6px 10px!important;align-items:center!important;min-width:0!important;min-height:52px!important;padding:4px 10px!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;transform:none!important;
-      &:nth-of-type(odd) {background:var(--pt-phone-row)!important;}
+      display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:6px 10px!important;align-items:center!important;min-width:0!important;min-height:48px!important;padding:6px 10px!important;border:1px solid #ffffff20!important;border-radius:10px!important;background:var(--pt-facetry-surface)!important;box-shadow:var(--pt-facetry-shadow)!important;transform:none!important;
     }
-    .pt-snapshot-fact,.pt-network-fact-line,.pt-wallet-fact-line {display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)!important;align-items:baseline!important;gap:4px 8px!important;min-width:0!important;flex:none!important;width:100%!important;}
+    .pt-snapshot-fact,.pt-network-fact-line,.pt-wallet-fact-line {display:flex!important;flex-wrap:wrap!important;align-items:baseline!important;gap:3px 5px!important;min-width:0!important;flex:none!important;width:100%!important;}
     .pt-snapshot-fact > span,.pt-network-fact-line > span,.pt-wallet-fact-line > span {font-size:14.5px!important;line-height:1.4!important;font-weight:550!important;min-width:0;white-space:normal!important;}
-    .pt-snapshot-fact > strong,.pt-network-fact-line > strong,.pt-wallet-fact-line > strong {font-size:14.5px!important;line-height:1.4!important;font-weight:500!important;text-align:right!important;min-width:0!important;white-space:normal!important;overflow-wrap:anywhere;}
-    .pt-inline-card-context,.pt-fact-secondary {grid-column:1/-1!important;font-size:12px!important;line-height:1.4!important;min-width:0!important;text-align:right!important;}
+    .pt-snapshot-fact > strong,.pt-network-fact-line > strong,.pt-wallet-fact-line > strong {font-size:14.5px!important;line-height:1.4!important;font-weight:500!important;text-align:left!important;min-width:0!important;white-space:normal!important;overflow-wrap:anywhere;}
+    .pt-inline-card-context,.pt-fact-secondary {grid-column:1/-1!important;flex-basis:100%!important;font-size:12px!important;line-height:1.4!important;min-width:0!important;text-align:left!important;}
     .pt-snapshot-meaning,.pt-network-meaning,.pt-wallet-meaning {display:block!important;width:auto!important;min-width:0!important;align-self:center!important;padding:0!important;margin:0!important;}
     .pt-snapshot-meaning > p,.pt-network-meaning > p,.pt-wallet-meaning > p {display:none!important;}
     .pt-snapshot-meaning > button,.pt-network-meaning > button,.pt-wallet-meaning > button {min-height:44px!important;padding:6px 0 6px 4px!important;font-size:12px!important;white-space:nowrap!important;}
@@ -79,7 +76,7 @@
     .pt-network-heading small {flex-basis:100%;}
     .pt-network-heading label,.pt-wallet-heading label {margin-left:auto!important;min-height:30px;display:inline-flex;align-items:center;gap:6px;}
     .pt-network-deeper,.pt-wallet-deeper {margin-top:24px!important;}
-    .pt-deeper-snapshot,.pt-network-deeper > .pt-network-facts,.pt-wallet-deeper > .pt-wallet-facts {padding:0!important;border:1px solid #ffffff24!important;border-radius:12px!important;background:var(--pt-phone-panel)!important;box-shadow:none!important;overflow:hidden;}
+    .pt-deeper-snapshot,.pt-network-deeper > .pt-network-facts,.pt-wallet-deeper > .pt-wallet-facts {padding:0!important;overflow:visible;}
     .pt-advanced-bitcoin {grid-column:1/-1;}
   }
 
@@ -110,7 +107,7 @@
     .pt-flow-content {padding:0!important;}
     .pt-flow-table-headings {display:none!important;}
     .pt-phone-io-heading {display:block;font-size:20px!important;padding:12px 12px 0;margin:0;}
-    app-transactions-list .header-bg.box {padding:12px!important;margin:0!important;border:0!important;border-radius:0!important;background:var(--pt-phone-panel)!important;}
+    app-transactions-list .header-bg.box {padding:12px!important;margin:0!important;border:0!important;border-radius:0!important;background:var(--pt-facetry-surface)!important;}
     app-transactions-list .row {display:flex!important;flex-direction:column!important;margin:0!important;}
     app-transactions-list .row > .col {flex:0 0 100%!important;width:100%!important;max-width:100%!important;padding:0!important;}
     app-transactions-list .table-tx-vin {margin-bottom:22px!important;}
@@ -133,7 +130,7 @@
     .pt-wallet-history {margin-top:24px!important;}
     .pt-wallet-history-heading,.pt-wallet-history-context {display:block!important;}
     .pt-wallet-history-context {font-size:12px!important;line-height:1.5;}
-    .pt-wallet-history app-transactions-list .header-bg {border-radius:10px!important;background:var(--pt-phone-panel)!important;border:1px solid #ffffff18!important;}
+    .pt-wallet-history app-transactions-list .header-bg {border-radius:10px!important;background:var(--pt-facetry-surface)!important;border:1px solid #ffffff18!important;}
     .pt-wallet-history app-transactions-list .tx-page-container {display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:20px!important;}
     .pt-wallet-history app-transactions-list td {font-size:13px!important;}
     .pt-wallet-history-actions {display:flex!important;flex-wrap:wrap!important;gap:10px!important;font-size:13px;}
@@ -144,7 +141,8 @@
   #pt-network-layout {
     .pt-explorer-intro {display:block!important;padding-bottom:16px!important;}
     .pt-explorer-lookup-search {margin-top:8px!important;min-width:0;}
-    .pt-explorer-lookup-search app-search-form {display:none!important;}
+    .pt-explorer-lookup-search {display:flex!important;flex-wrap:wrap!important;gap:8px 14px!important;}
+    .pt-explorer-lookup-search app-search-form {display:block!important;flex-basis:100%!important;width:100%!important;max-width:none!important;}
     .pt-explorer-example-trigger {min-height:40px!important;}
     .pt-explorer-lookup-copy p {font-size:14px;}
     .pt-network-section-heading {margin-top:24px!important;}
