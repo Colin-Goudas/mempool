@@ -556,7 +556,7 @@
 .pt-compact-fees {display:none;}
 @media(max-width:767.98px) {
  body:is(:has(#pt-network-layout),:has(#pt-wallet-layout),:has(#pt-transaction-layout)) .navbar app-search-form input::placeholder {
-  font-size:clamp(9px,2.8vw,11px)!important;letter-spacing:-.1px;opacity:1;
+  font-size:clamp(9px,calc(6.2vw - 10.6px),16px)!important;letter-spacing:-.1px;opacity:1;
  }
  body:has(app-dashboard #pt-network-layout.pt-network-dashboard) app-dashboard #pt-network-layout {
   .pt-explorer-intro,.pt-fee-widget {display:none!important;}
