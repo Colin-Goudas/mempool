@@ -316,3 +316,33 @@
 @media (max-width:767.98px) {
  body:has(#pt-transaction-layout) #pt-transaction-layout .pt-deeper.pt-dive-deeper-toggle > summary .pt-heading-title {display:inline!important;font-size:22px!important;line-height:1.25!important;}
 }
+
+
+// Final mobile readability pass; retain the original surfaces and typography.
+@media(max-width:767.98px) {
+ body:has(#pt-transaction-layout) {
+  app-blockchain .blockchain-wrapper {height:190px!important;}
+  app-blockchain .position-container {top:12px!important;}
+  app-blockchain #divider {top:-12px;height:164px;}
+ }
+ body:has(app-transaction) app-transaction #pt-transaction-layout {
+  .pt-snapshot.pt-balanced .pt-summary-narrative {margin-bottom:6px!important;}
+  .pt-snapshot.pt-balanced .pt-summary-actionbar {padding-top:2px!important;padding-bottom:4px!important;}
+  .pt-snapshot.pt-balanced .pt-snapshot-surface > .pt-eight-card-grid {margin-top:6px!important;padding-top:6px!important;}
+  .pt-snapshot-fact {min-width:0;overflow-wrap:anywhere;}
+  .pt-snapshot-fact > strong {min-width:0;font-variant-numeric:tabular-nums;}
+  .pt-snapshot-fact > strong > .pt-card-mobile-text {white-space:normal;overflow-wrap:anywhere;}
+  .pt-snapshot-meaning > button.pt-explore-more {
+   color:#d5d5dc!important;min-width:76px;min-height:36px!important;flex-shrink:0;
+  }
+  .pt-explore-more::before {font-weight:500;}
+  .pt-explore-more:focus-visible,.pt-summary-actionbar button:focus-visible {
+   outline:2px solid #c1a16b;outline-offset:3px;border-radius:3px;
+  }
+  [popover].pt-anchored-mobile-popover {
+   max-height:min(var(--pt-popover-height,50dvh),calc(100dvh - var(--pt-popover-top,12px) - 76px))!important;
+   -webkit-overflow-scrolling:touch;
+  }
+  [popover].pt-anchored-mobile-popover .pt-popover-close {min-width:36px;min-height:36px;}
+ }
+}
