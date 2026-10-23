@@ -1,3 +1,4 @@
+import { blockTouchAxis, BlockTouchAxis } from './mobile-block-gesture';
 import { Component, ElementRef, HostListener, OnInit, OnDestroy, ViewChild, Input, ChangeDetectorRef, ChangeDetectionStrategy, AfterViewChecked } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MarkBlockState, StateService } from '@app/services/state.service';
@@ -22,6 +23,8 @@ export class StartComponent implements OnInit, AfterViewChecked, OnDestroy {
   countdown = 0;
   specialEvent = false;
   eventName = '';
+  private phoneGesture: {id:number; x:number; y:number; axis:BlockTouchAxis} | null = null;
+  private get phoneTouchLayout(): boolean { return this.stateService.env.PENDING_TRACKER_EXPLANATIONS && window.innerWidth <= 767.98; }
   mouseDragStartX: number;
   blockchainScrollLeftInit: number;
   timeLtrSubscription: Subscription;
@@ -258,6 +261,13 @@ export class StartComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
   }
   onPointerDown(event: PointerEvent) {
+    if (this.phoneTouchLayout && event.pointerType === 'touch') {
+      if (!this.phoneGesture) {
+        this.phoneGesture = {id:event.pointerId, x:event.clientX, y:event.clientY, axis:'pending'};
+        this.velocity = 0;
+      }
+      return;
+    }
     if (this.isiOS) {
       event.preventDefault();
       this.onMouseDown(event);
@@ -267,6 +277,7 @@ export class StartComponent implements OnInit, AfterViewChecked, OnDestroy {
     event.preventDefault();
   }
   onTouchMove(event: TouchEvent) {
+    if (this.phoneTouchLayout) return;
     // disable native scrolling on iOS
     if (this.isiOS) {
       event.preventDefault();
@@ -291,13 +302,35 @@ export class StartComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
   @HostListener('document:pointermove', ['$event'])
   onPointerMove(event: PointerEvent): void {
+    if (this.phoneGesture) {
+      const gesture = this.phoneGesture;
+      if (gesture.id !== event.pointerId) return;
+      const previousAxis = gesture.axis;
+      gesture.axis = blockTouchAxis(event.clientX - gesture.x, event.clientY - gesture.y, gesture.axis);
+      if (gesture.axis === 'horizontal') {
+        if (previousAxis === 'pending') {
+          this.mouseDragStartX = gesture.x;
+          this.blockchainScrollLeftInit = this.scrollLeft;
+          this.resetMomentum(gesture.x);
+        }
+        this.onMouseMove(event);
+      }
+      return;
+    }
     if (this.isiOS) {
       this.onMouseMove(event);
     }
   }
-  @HostListener('document:pointerup', [])
-  @HostListener('document:pointercancel', [])
-  onPointerUp() {
+  @HostListener('document:pointerup', ['$event'])
+  @HostListener('document:pointercancel', ['$event'])
+  onPointerUp(event: PointerEvent) {
+    if (this.phoneGesture) {
+      if (this.phoneGesture.id !== event.pointerId) return;
+      const dragged = this.phoneGesture.axis === 'horizontal';
+      this.phoneGesture = null;
+      if (dragged) this.onMouseUp();
+      return;
+    }
     if (this.isiOS) {
       this.onMouseUp();
     }
