@@ -191,19 +191,6 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     const timing = this.tx.status.confirmed ? '' : eta && Number.isFinite(eta.wait) && eta.wait >= 0 ? 'The current estimate is about ' + Math.max(1, Math.ceil(eta.wait / 60000)) + ' minutes, but it can change. ' : 'A reliable confirmation-time estimate is currently unavailable. ';
     return timing + (this.tx.status.confirmed ? 'It paid ' : 'It pays ') + fee + ' in network fees' + (this.tx.status.confirmed ? '.' : ' at ' + rate + ' sat/vB.');
   }
-  mobileSummary(eta: ETA | null): string {
-    if (!this.tx) return '';
-    if (!this.tx.status.confirmed && (this.replaced || this.rbfTransaction || this.rbfInfo?.mined)) return this.summaryStatus() + ' Follow the status notice above.';
-    if (!this.tx.status.confirmed && this.isCached) return 'Cached record; current network presence is unverified. Check the status notice above.';
-    if (this.tx.vin?.some(v => v.is_coinbase)) return 'Bitcoin mining reward: the block subsidy and collected transaction fees.';
-    const status = this.tx.status.confirmed ? 'Confirmed on Bitcoin.' : 'Waiting for its first confirmation.';
-    const timing = this.tx.status.confirmed ? '' : eta && Number.isFinite(eta.wait) && eta.wait >= 0
-      ? ' Estimated ~' + Math.max(1, Math.ceil(eta.wait / 60000)) + ' minutes; timing can change.'
-      : ' Confirmation timing is currently unavailable.';
-    const fee = this.tx.fee.toLocaleString('en-US') + (this.tx.fee === 1 ? ' sat' : ' sats');
-    const rate = Number.isFinite(this.ownFeeRate) ? ' (' + this.ownFeeRate.toLocaleString('en-US', {maximumFractionDigits:2}) + ' sat/vB)' : '';
-    return status + timing + ' Network fee: ' + fee + rate + '.';
-  }
   mobileQuestionLabel(id: string): string {
     return ({pending:'Why pending?', time:'Timing', speed:'Speed up', lost:'Funds safe?', missing:'Missing funds?', amount:'My amount?', confirmations:'Confirmations', fee:'Fee'} as Record<string, string>)[id] || id;
   }
