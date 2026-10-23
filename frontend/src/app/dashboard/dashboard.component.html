@@ -18,13 +18,13 @@
     </section>
 
     <section class="pt-compact-fees" aria-labelledby="pt-compact-fees-title" *ngIf="networkSnapshot$ | async as feeSnapshot">
-      <span class="pt-fees-connector" aria-hidden="true"></span>
       <header class="pt-compact-fees-heading">
         <h2 id="pt-compact-fees-title">Transaction fees <small>sat/vB</small></h2>
         <button type="button" class="pt-fees-explain" popovertarget="pt-compact-fees-help" (click)="$event.stopPropagation()">Explain fees <span aria-hidden="true">▾</span></button>
       </header>
       <p class="pt-fees-stale" *ngIf="feeSnapshot.reconnecting" role="status">Reconnecting · estimates may be stale</p>
       <div class="pt-fee-tiers">
+        <span class="pt-fees-connector" aria-hidden="true"></span>
         @for (tier of compactFeeTiers((stateService.recommendedFees$ | async)); track tier.label) {
           <div class="pt-fee-tier" [attr.aria-label]="tier.label + ': ' + (tier.rate === null ? 'unavailable' : tier.rate + ' satoshis per virtual byte')">
             <span class="pt-fee-tier-label">{{ tier.label }}</span>
