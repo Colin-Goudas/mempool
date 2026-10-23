@@ -2,7 +2,7 @@ import type { BlockExtended, DifficultyAdjustment } from '@interfaces/node-api.i
 import type { MempoolInfo, Recommendedfees } from '@interfaces/websocket.interface';
 
 export interface NetworkSnapshotRow { label: string; value: string; meaning: string; details: string; fiatSats?: number; }
-export interface NetworkSnapshot { summary: string; rows: NetworkSnapshotRow[]; deeper: NetworkSnapshotRow[]; questions: {id: string; label: string; text: string}[]; reconnecting: boolean; updatedAt: string; exampleFee?: number; sending: {label: string; rate: number | null; target: string}[]; }
+export interface NetworkSnapshot { summary: string; summaryLead: string; summaryDetail: string; rows: NetworkSnapshotRow[]; deeper: NetworkSnapshotRow[]; questions: {id: string; label: string; text: string}[]; reconnecting: boolean; updatedAt: string; exampleFee?: number; sending: {label: string; rate: number | null; target: string}[]; }
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 const fmt = (n: number, digits = 0) => finite(n) ? n.toLocaleString('en-US', {maximumFractionDigits: digits}) : 'Unavailable';
 
@@ -42,6 +42,7 @@ export function networkSnapshot(mempool: MempoolInfo | null, fees: Recommendedfe
   ];
   let summary = fee === null || hour === null ? 'Waiting for current fee recommendations.' : fee > hour * 1.5 ? 'Faster confirmation currently costs more.' : 'Fees are similar across faster and slower confirmation targets.';
   if (fee !== null) summary += ' The current next-block recommendation is ' + fmt(fee,2) + ' sat/vB' + (economy === null ? '.' : ', while economy is ' + fmt(economy,2) + ' sat/vB if you can wait.');
+  const leadLength = summary.length;
   if (pending !== null) summary += ' This provider sees ' + fmt(pending) + ' transactions waiting.';
   summary += ' These are estimates: new demand and irregular block times can change your wait.';
   if (mempool?.loaded === false) summary += ' The provider is still loading its queue, so counts may be incomplete.';
@@ -53,7 +54,7 @@ export function networkSnapshot(mempool: MempoolInfo | null, fees: Recommendedfe
     'Latest block':'Newest block received from this provider.', 'Last block':'Age of the latest block’s reported timestamp.'
   };
   const compactRows = rows.map(fact => ({...fact, meaning:compactMeanings[fact.label], details:fact.meaning + ' ' + fact.details}));
-  return {summary, rows:compactRows, deeper, reconnecting, sending:[{label:"Need it soon",rate:fee,target:"Targets the next block; timing is not guaranteed."},{label:"Can wait",rate:economy,target:"Economy priority; no fixed confirmation deadline."}], exampleFee:example, updatedAt:receivedAt ? new Date(receivedAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : 'Waiting for data', questions:[
+  return {summary, summaryLead:reconnecting ? summary : summary.slice(0,leadLength), summaryDetail:reconnecting ? '' : summary.slice(leadLength).trim(), rows:compactRows, deeper, reconnecting, sending:[{label:"Need it soon",rate:fee,target:"Targets the next block; timing is not guaranteed."},{label:"Can wait",rate:economy,target:"Economy priority; no fixed confirmation deadline."}], exampleFee:example, updatedAt:receivedAt ? new Date(receivedAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : 'Waiting for data', questions:[
     {id:'busy',label:'How busy is Bitcoin?',text:'Use fee tiers, waiting data and incoming activity together. A large low-fee backlog can coexist with inexpensive fast payments. A mempool is one provider’s observed queue, not a single worldwide waiting list or a network-health score.'},
     {id:'timing',label:'How long could a payment take?',text:'Fee recommendations target blocks, not fixed deadlines. Bitcoin targets about ten minutes per block over the long term, but gaps vary. Your fee rate, related transactions and new arrivals influence the wait. Look up your transaction ID for its specific status and estimate.'},
     {id:'visuals',label:'What do the visuals show?',text:'The ribbon above separates projected blocks from mined blocks. The block map below shows transactions in the next projected block; its filters change which types are highlighted. Incoming activity shows data arriving over time. Select blocks and transactions to inspect the original Mempool detail views.'}
