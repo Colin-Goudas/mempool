@@ -210,3 +210,29 @@
 @media (max-width:359px) {
  body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot.pt-balanced .pt-summary-actionbar {grid-template-columns:repeat(2,minmax(0,1fr))!important;}
 }
+
+.pt-card-mobile-text,.pt-card-mobile-fiat {display:none;}
+@media(max-width:767.98px) {
+ body:has(app-transaction) app-transaction #pt-transaction-layout {
+  .pt-card-desktop-text,.pt-card-desktop-fiat,.pt-mobile-secondary-redundant {display:none!important;}
+  .pt-card-mobile-text {display:inline!important;}
+  .pt-card-mobile-fiat {display:inline-flex!important;align-items:baseline;gap:3px;margin-left:4px;font-size:12px!important;line-height:1.4;white-space:nowrap;color:var(--pt-data-in);}
+  .pt-snapshot.pt-balanced .pt-snapshot-surface .pt-metric-card {min-height:44px!important;padding:4px 8px!important;gap:2px 8px!important;}
+  .pt-snapshot.pt-balanced .pt-snapshot-surface .pt-eight-card-grid {gap:5px!important;}
+  .pt-snapshot-fact {gap:2px 5px!important;}
+  .pt-snapshot-fact > span,.pt-snapshot-fact > strong {font-size:13px!important;line-height:1.4!important;}
+  .pt-snapshot-fact > strong {display:inline-flex!important;flex-wrap:wrap;align-items:baseline;max-width:100%;}
+  .pt-snapshot-fact > strong > .pt-card-mobile-text {white-space:nowrap;}
+  .pt-snapshot-meaning > button.pt-explore-more {min-height:36px!important;font-size:0!important;padding:4px 0!important;}
+  .pt-explore-more::before {content:'Explain more';font-size:11px;}
+  .pt-explore-more > span[aria-hidden] {font-size:0;}
+  [popover].pt-anchored-mobile-popover {
+    position:fixed!important;position-anchor:auto!important;position-area:none!important;
+    inset:var(--pt-popover-top,12px) auto auto var(--pt-popover-left,12px)!important;
+    margin:0!important;width:var(--pt-popover-width,calc(100vw - 24px))!important;
+    max-width:calc(100vw - 24px)!important;max-height:var(--pt-popover-height,50dvh)!important;
+    height:auto!important;transform:none!important;overflow:auto;overscroll-behavior:contain;
+    border-radius:12px!important;padding:14px!important;
+  }
+ }
+}
