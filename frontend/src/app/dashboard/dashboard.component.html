@@ -4,7 +4,7 @@
     <section class="pt-explorer-intro" aria-labelledby="pt-explorer-intro-title">
       <div class="pt-explorer-lookup-copy">
         <h2 id="pt-explorer-intro-title">Bitcoin Explorer</h2>
-        <p>Transactions, addresses and fees—in plain English.</p>
+        <p><span class="pt-desktop-question">Transactions, addresses and fees—in plain English.</span><span class="pt-phone-question">Find a transaction or Bitcoin address.</span></p>
       </div>
       <div class="pt-explorer-lookup-search">
         <app-search-form placeholder="Search transaction ID or Bitcoin address" buttonLabel="Search"></app-search-form>
@@ -19,7 +19,7 @@
     <section class="pt-network-snapshot pt-balanced-overview" aria-label="Bitcoin network snapshot" *ngIf="networkSnapshot$ | async as snapshot">
       <div class="pt-snapshot-body">
       <div class="pt-snapshot-intro">
-      <header class="pt-network-heading"><h1>Bitcoin Network Snapshot</h1><span>Bitcoin mainnet</span><label><input type="checkbox" [checked]="showNetworkFiat" (change)="showNetworkFiat = !showNetworkFiat"> Fiat values</label><small [class.pt-feed-warning]="snapshot.reconnecting">{{ snapshot.reconnecting ? 'Reconnecting · values may be stale' : 'Live feed · updated ' + snapshot.updatedAt }}</small></header>
+      <header class="pt-network-heading"><h1>Bitcoin Network Snapshot</h1><span>Bitcoin mainnet</span><label><input type="checkbox" [checked]="showNetworkFiat" (change)="showNetworkFiat = !showNetworkFiat"> Fiat values</label><small [class.pt-feed-warning]="snapshot.reconnecting" [attr.aria-label]="snapshot.reconnecting ? 'Reconnecting: values may be stale' : 'Live feed updated ' + snapshot.updatedAt" [attr.title]="snapshot.reconnecting ? 'Reconnecting: values may be stale' : 'Live feed updated ' + snapshot.updatedAt"><span class="pt-desktop-question">{{ snapshot.reconnecting ? 'Reconnecting · values may be stale' : 'Live feed · updated ' + snapshot.updatedAt }}</span><span class="pt-phone-question"><span class="pt-live-dot" aria-hidden="true"></span>{{ snapshot.reconnecting ? 'Reconnecting' : 'Live' }}</span></small></header>
       </div>
       <div class="pt-overview-surface">
       <div class="pt-network-summary"><p class="pt-summary-narrative"><span class="pt-summary-lead"><strong class="pt-summary-inline-label">In plain English —</strong> {{ snapshot.summaryLead }}</span>&ngsp;<span class="pt-summary-support" *ngIf="snapshot.summaryDetail">{{ snapshot.summaryDetail }}</span></p>
