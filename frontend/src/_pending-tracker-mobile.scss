@@ -458,3 +458,11 @@
   .pt-network-summary .pt-summary-actionbar > span > button {min-height:34px!important;}
  }
 }
+
+@media(max-width:767.98px) {
+ body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot.pt-balanced .pt-snapshot-surface {
+  .pt-summary-narrative {margin-bottom:0!important;}
+  .pt-summary-actionbar {padding-top:0!important;padding-bottom:4px!important;row-gap:0!important;grid-auto-rows:minmax(30px,auto);}
+  .pt-summary-actionbar > button,.pt-summary-actionbar > span > button {min-height:30px!important;padding:2px 0!important;}
+ }
+}
