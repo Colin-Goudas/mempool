@@ -1,4 +1,4 @@
-<div class="container-xl">
+<div id="pt-transaction-layout" class="container-xl">
   <section [class.pt-snapshot]="pendingTrackerSnapshot" [class.pt-balanced]="pendingTrackerSnapshot" [class.pt-quiet-depth]="pendingTrackerSnapshot" [attr.aria-label]="pendingTrackerSnapshot ? 'Transaction snapshot' : null">
 
   <div class="pt-snapshot-panel">
@@ -266,7 +266,7 @@
           [tx]="tx"
           [cached]="isCached"
           [width]="graphWidth"
-          [height]="graphHeight"
+          [height]="phoneLayout && !graphExpanded ? (maxInOut > 6 ? 300 : 180) : graphHeight"
           [lineLimit]="inOutLimit"
           [maxStrands]="graphExpanded ? maxInOut : 24"
           [network]="network"
@@ -293,7 +293,8 @@
           <div class="pt-flow-heading-half"><span>Outputs ({{ tx.vout.length }})</span><span>Value (BTC)</span></div>
         </div>
       </div>
-    <app-transactions-list #txList [transactions]="[tx]" [cached]="isCached" [errorUnblinded]="errorUnblinded" [addresses]="addressMatches" [inputIndex]="matchedInputIndex" [outputIndex]="matchedOutputIndex" [transactionPage]="true" [compactFlow]="pendingTrackerSnapshot" [showCurrentFiat]="showUsd"></app-transactions-list>
+    <h3 class="pt-phone-io-heading">Inputs &amp; Outputs</h3>
+    <app-transactions-list #txList [transactions]="[tx]" [cached]="isCached" [errorUnblinded]="errorUnblinded" [addresses]="addressMatches" [inputIndex]="matchedInputIndex" [outputIndex]="matchedOutputIndex" [transactionPage]="true" [compactFlow]="pendingTrackerSnapshot && !phoneLayout" [showCurrentFiat]="showUsd"></app-transactions-list>
       <div class="pt-flow-bottom-rule" aria-hidden="true"></div>
     </div>
     </div>
