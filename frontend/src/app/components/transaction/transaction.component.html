@@ -12,6 +12,11 @@
     <ng-container *ngIf="!rbfTransaction || rbfTransaction?.size || tx">
       <h1 i18n="shared.transaction">Transaction Snapshot</h1>
 
+      <div *ngIf="pendingTrackerSnapshot" class="pt-phone-identity">
+        <span class="pt-phone-txid"><a [routerLink]="['/tx/' | relativeUrl, txId]" [attr.title]="txId" aria-label="Transaction ID">{{ txId.slice(0, 6) }}…{{ txId.slice(-6) }}</a><app-clipboard [text]="txId"></app-clipboard></span>
+        <span *ngIf="tx" class="pt-phone-status" [class.pt-phone-confirmed]="tx.status.confirmed" role="status">{{ tx.status.confirmed ? 'Confirmed' : replaced || rbfTransaction ? 'Replaced' : rbfInfo?.mined ? 'Conflict mined' : isCached ? 'Unverified' : 'Pending' }}</span>
+      </div>
+
       <span class="tx-link">
         <span class="txid">
           <app-truncate [text]="txId" [lastChars]="12" [link]="['/tx/' | relativeUrl, txId]">
@@ -59,17 +64,18 @@
 
     @if (tx && network === '' && stateService.env.PENDING_TRACKER_EXPLANATIONS) {
       <div class="pt-snapshot-summary pt-summary-compact">
+        <p class="pt-phone-summary"><strong>In plain English —</strong> {{ mobileSummary(ETA$ | async) }}</p>
         <p class="pt-summary-narrative"><span class="pt-summary-lead"><strong class="pt-summary-inline-label">In plain English —</strong> {{ summaryStatus() }} {{ summaryContext(ETA$ | async) }}</span><span class="pt-summary-support">
           {{ selectedAddress ? 'Outputs to the selected address total' : 'Its outputs total' }} <strong class="pt-summary-btc-amount">{{ displayAmountSats / 100000000 | number:'1.8-8' }} BTC</strong><span *ngIf="showUsd"> (approximately <app-fiat [value]="displayAmountSats" colorClass=""></app-fiat> at the current price)</span>{{ selectedAddress ? '.' : ', which may include change returned to the sender.' }}</span>
         </p>
         <div class="pt-summary-questions pt-summary-actionbar" style="anchor-name:--pt-summary-toolbar" aria-label="Questions and next steps">
           <button type="button" class="pt-next-step-link" popovertarget="pt-answer-next" [attr.aria-expanded]="activeSummaryQuestion === 'next'" aria-controls="pt-answer-next">Next step <span aria-hidden="true">{{ activeSummaryQuestion === 'next' ? '▴' : '▾' }}</span></button>
           @for (question of summaryQuestions; track question.id) {
-            <button type="button" [attr.popovertarget]="'pt-answer-' + question.id" [attr.aria-expanded]="activeSummaryQuestion === question.id" [attr.aria-controls]="'pt-answer-' + question.id">{{ question.label }} <span aria-hidden="true">{{ activeSummaryQuestion === question.id ? '▴' : '▾' }}</span></button>
+            <button type="button" [attr.popovertarget]="'pt-answer-' + question.id" [attr.aria-expanded]="activeSummaryQuestion === question.id" [attr.aria-controls]="'pt-answer-' + question.id" [attr.aria-label]="question.label"><span class="pt-desktop-question">{{ question.label }}</span><span class="pt-phone-question">{{ mobileQuestionLabel(question.id) }}</span> <span aria-hidden="true">{{ activeSummaryQuestion === question.id ? '▴' : '▾' }}</span></button>
           }
           @if ((!tx.status.confirmed || alertTxid === tx.txid) && !replaced && !rbfTransaction && !rbfInfo?.mined) {
             <span class="pt-summary-question">
-              <button type="button" class="pt-notification-action" style="anchor-name:--pt-confirmation-alert" popovertarget="pt-confirmation-alert"><fa-icon [icon]="confirmationBellIcon" aria-hidden="true"></fa-icon>{{ confirmationAlertLabel }}<span class="pt-alert-chevron" aria-hidden="true">▾</span></button>
+              <button type="button" class="pt-notification-action" style="anchor-name:--pt-confirmation-alert" [attr.aria-label]="confirmationAlertLabel" popovertarget="pt-confirmation-alert"><fa-icon [icon]="confirmationBellIcon" aria-hidden="true"></fa-icon><span class="pt-desktop-question">{{ confirmationAlertLabel }}</span><span class="pt-phone-question">{{ alertTxid === tx.txid ? 'Alert set' : 'Notify me' }}</span><span class="pt-alert-chevron" aria-hidden="true">▾</span></button>
               <div id="pt-confirmation-alert" class="pt-question-popover" style="position-anchor:--pt-confirmation-alert" popover="auto">
                 <div class="pt-question-heading"><strong>Track confirmations</strong><button type="button" popovertarget="pt-confirmation-alert" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
                 <p><strong>Current: {{ confirmationCount }} {{ confirmationCount === 1 ? 'confirmation' : 'confirmations' }} · Alert target: {{ confirmationTarget }}</strong></p>
