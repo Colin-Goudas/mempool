@@ -490,3 +490,27 @@
   .pt-flow-header .pt-flow-total {display:none!important;}
  }
 }
+
+@media(max-width:767.98px) {
+ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-layout)) {
+  app-transaction,app-address,app-dashboard {display:block;min-width:0;}
+  app-transaction > br,app-address > br,app-dashboard > br {display:none;}
+  #pt-transaction-layout,#pt-wallet-layout,#pt-network-layout {
+   margin-bottom:8px!important;
+   .pt-deeper-snapshot .pt-metric-card,.pt-wallet-deeper .pt-wallet-fact,.pt-network-deeper .pt-network-fact {padding:4px 9px!important;row-gap:2px!important;min-height:0!important;}
+   .pt-deeper-snapshot .pt-snapshot-fact,.pt-wallet-deeper .pt-wallet-fact-line,.pt-network-deeper .pt-network-fact-line {margin:0!important;padding:0!important;}
+   .pt-deeper-snapshot .pt-snapshot-meaning > button,.pt-wallet-deeper .pt-wallet-meaning > button,.pt-network-deeper .pt-network-meaning > button {min-height:30px!important;margin:0!important;padding:2px 0!important;align-self:center;}
+   .pt-deeper-snapshot .pt-meaning-preview,.pt-wallet-deeper .pt-wallet-meaning > p,.pt-network-deeper .pt-network-meaning > p {margin:0!important;padding:0!important;}
+   .pt-wallet-chart-heading h2,.pt-wallet-section-heading h2,.pt-network-section-heading h2,.pt-mobile-deeper-summary,.pt-deeper .pt-heading-title {font-size:22px!important;line-height:1.25!important;font-weight:650!important;color:#f3f3f5!important;}
+  }
+  app-global-footer footer {margin-top:8px!important;padding-top:12px!important;}
+  app-global-footer .container-fluid > .row.main {padding-top:0!important;}
+ }
+ body:has(#pt-wallet-layout) #pt-wallet-layout {
+  app-address-graph,app-utxo-graph {display:block!important;position:relative;min-width:0;width:100%;isolation:isolate;}
+  app-address-graph .full-container,app-utxo-graph .full-container {min-width:0;position:relative;}
+  app-address-graph .chart,app-utxo-graph .chart {min-width:0;min-height:0;}
+  .pt-wallet-chart-heading {margin-bottom:6px!important;gap:4px 12px!important;}
+  .pt-wallet-caption {margin:0!important;font-size:12px!important;line-height:1.4!important;}
+ }
+}
