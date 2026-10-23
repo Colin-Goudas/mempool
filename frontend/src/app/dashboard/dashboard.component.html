@@ -1,5 +1,5 @@
 
-<div class="container-xl dashboard-container" [class.pt-network-dashboard]="showPendingTrackerSnapshot" *ngIf="(network$ | async) !== 'liquid'; else liquidDashboard">
+<div id="pt-network-layout" class="container-xl dashboard-container" [class.pt-network-dashboard]="showPendingTrackerSnapshot" *ngIf="(network$ | async) !== 'liquid'; else liquidDashboard">
   <ng-container *ngIf="showPendingTrackerSnapshot">
     <section class="pt-explorer-intro" aria-labelledby="pt-explorer-intro-title">
       <div class="pt-explorer-lookup-copy">
