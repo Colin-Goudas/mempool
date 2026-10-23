@@ -611,3 +611,25 @@
   .pt-fee-tiers > .pt-fees-connector {top:-4px;z-index:1;background:#101012;}
  }
 }
+
+.pt-example-lookup {display:inline-flex;align-items:center;justify-content:flex-end;gap:3px;border:0;background:none;color:#92929d;font-size:11px;line-height:1.25;min-height:28px;padding:2px 0;white-space:nowrap;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#92929d66;}
+.pt-example-lookup:hover {color:#b4b4bc;}
+.pt-example-lookup:focus-visible {outline:2px solid #c1a16b;outline-offset:3px;border-radius:3px;}
+@media(max-width:767.98px) {
+ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-layout)) {
+  .navbar .pt-lookup-button {flex-direction:column;gap:2px!important;padding:3px 4px!important;}
+  .navbar .pt-lookup-button .pt-nav-label {display:inline!important;font-size:9px;line-height:1.2;color:#a6a6b0;}
+  .pt-example-lookup {font-size:10px;min-height:28px;}
+ }
+ body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot.pt-balanced {
+  .pt-snapshot-intro > .title-block:has(> .pt-example-lookup) {grid-template-columns:minmax(0,1fr) auto!important;column-gap:6px!important;}
+  .title-block > .pt-example-lookup {grid-column:2;grid-row:1;justify-self:end;align-self:center;}
+  .title-block > .pt-phone-identity {grid-column:1/-1!important;}
+ }
+ body:has(#pt-wallet-layout) #pt-wallet-layout .pt-wallet-heading:has(> .pt-example-lookup) {
+  display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:2px 6px!important;
+  h1 {grid-column:1;grid-row:1;flex-basis:auto!important;}
+  > .pt-example-lookup {grid-column:2;grid-row:1;justify-self:end;}
+  > .pt-wallet-address {grid-column:1/-1;}
+ }
+}
