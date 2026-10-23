@@ -11,6 +11,7 @@
 
     <ng-container *ngIf="!rbfTransaction || rbfTransaction?.size || tx">
       <h1 i18n="shared.transaction">Transaction Snapshot</h1>
+      <button *ngIf="pendingTrackerSnapshot && (exampleId$ | async) === txId" type="button" class="pt-example-lookup" aria-label="Viewing an example. Search your own transaction" (click)="focusOwnLookup()">Search your own <span aria-hidden="true">↑</span></button>
 
       <div *ngIf="pendingTrackerSnapshot" class="pt-phone-identity">
         <span class="pt-phone-txid"><app-truncate [text]="txId" [lastChars]="8" [link]="['/tx/' | relativeUrl, txId]"><app-clipboard [text]="txId"></app-clipboard></app-truncate></span>
