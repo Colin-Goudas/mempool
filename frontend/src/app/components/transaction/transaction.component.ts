@@ -191,6 +191,41 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     const timing = this.tx.status.confirmed ? '' : eta && Number.isFinite(eta.wait) && eta.wait >= 0 ? 'The current estimate is about ' + Math.max(1, Math.ceil(eta.wait / 60000)) + ' minutes, but it can change. ' : 'A reliable confirmation-time estimate is currently unavailable. ';
     return timing + (this.tx.status.confirmed ? 'It paid ' : 'It pays ') + fee + ' in network fees' + (this.tx.status.confirmed ? '.' : ' at ' + rate + ' sat/vB.');
   }
+  mobileSnapshotLabel(label: string): string { return label === 'Estimated confirmation' ? 'ETA' : label; }
+  mobileSnapshotValue(label: string, value: string, secondary?: string): string {
+    if (label === 'First seen' && secondary) return secondary.replace('Less than a minute ago', 'Just now').replace(/minutes?/g, 'min').replace(/hours?/g, 'hr');
+    if (label === 'Estimated confirmation') return value.replace(/^About /, '~').replace(/ minutes?/g, ' min').replace(/ hours?/g, ' hr');
+    return value;
+  }
+  positionMobilePopover(event: Event): void {
+    if (window.innerWidth > 767.98 || (event as Event & {newState?: string}).newState !== 'open') return;
+    const panel = event.target as HTMLElement;
+    const trigger = Array.from(document.querySelectorAll<HTMLButtonElement>('#pt-transaction-layout button[popovertarget]'))
+      .find(button => button.getAttribute('popovertarget') === panel.id && button.getAttribute('popovertargetaction') !== 'hide');
+    if (!trigger) return;
+    panel.classList.add('pt-anchored-mobile-popover');
+    const viewportHeight = window.visualViewport?.height || window.innerHeight;
+    if (viewportHeight - trigger.getBoundingClientRect().bottom - 84 < 140) trigger.scrollIntoView({block:'center', behavior:'auto'});
+    requestAnimationFrame(() => {
+      if (!panel.matches(':popover-open')) return;
+      const rect = trigger.getBoundingClientRect();
+      const anchor = trigger.closest('.pt-metric-card, .pt-summary-actionbar')?.getBoundingClientRect() || rect;
+      const viewportWidth = document.documentElement.clientWidth;
+      const width = Math.min(Math.max(anchor.width, 260), viewportWidth - 24);
+      const left = Math.max(12, Math.min(anchor.left, viewportWidth - width - 12));
+      const top = Math.max(8, rect.bottom + 6);
+      panel.style.setProperty('--pt-popover-top', top + 'px');
+      panel.style.setProperty('--pt-popover-left', left + 'px');
+      panel.style.setProperty('--pt-popover-width', width + 'px');
+      panel.style.setProperty('--pt-popover-height', Math.max(80, Math.min(420, viewportHeight - top - 76)) + 'px');
+    });
+  }
+  @HostListener('window:scroll')
+  closeMobileExplanationsOnPageScroll(): void {
+    if (window.innerWidth > 767.98) return;
+    document.querySelectorAll<HTMLElement>('#pt-transaction-layout .pt-anchored-mobile-popover:popover-open').forEach(panel =>
+      (panel as HTMLElement & {hidePopover?: () => void}).hidePopover?.());
+  }
   mobileQuestionLabel(id: string): string {
     return ({pending:'Why pending?', time:'Timing', speed:'Speed up', lost:'Funds safe?', missing:'Missing funds?', amount:'My amount?', confirmations:'Confirmations', fee:'Fee'} as Record<string, string>)[id] || id;
   }
