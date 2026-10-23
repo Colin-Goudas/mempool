@@ -1,4 +1,4 @@
-<div id="pt-transaction-layout" class="container-xl">
+<div id="pt-transaction-layout" [class.pt-example-page]="(exampleId$ | async) === txId" class="container-xl">
   <section [class.pt-snapshot]="pendingTrackerSnapshot" [class.pt-balanced]="pendingTrackerSnapshot" [class.pt-quiet-depth]="pendingTrackerSnapshot" [attr.aria-label]="pendingTrackerSnapshot ? 'Transaction snapshot' : null">
 
   <div class="pt-snapshot-panel">
