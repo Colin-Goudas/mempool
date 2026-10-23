@@ -250,8 +250,9 @@
 <section class="pt-flow-section pt-flow-open" aria-label="Transaction Flow and Inputs and Outputs">
     <div class="pt-flow-header">
       <div class="pt-flow-heading-copy">
-        <h2 id="flow" #flow class="anchor">Transaction Flow (Inputs &amp; Outputs)</h2>
+        <h2 id="flow" #flow class="anchor">Transaction Flow <span class="pt-flow-desktop-subtitle">(Inputs &amp; Outputs)</span></h2>
       </div>
+      <span class="pt-flow-mobile-subtitle">Inputs &amp; outputs</span>
       <span class="pt-flow-total">Total output: <app-amount [satoshis]="totalOutputSats"></app-amount></span>
     </div>
     <div class="pt-flow-unified">
@@ -313,7 +314,7 @@
             @if (fact.label === 'Size' || fact.label === 'Virtual size' || fact.label === 'Adjusted vsize' || fact.label === 'Weight' || fact.label === 'Version' || fact.label === 'Locktime' || fact.label === 'Sigops' || fact.label === 'Transaction hex' || fact.label === 'Miner attribution' || fact.label === 'Observed confirmation duration' || fact.label === 'Fee replacement' || fact.label === 'Transaction features' || fact.label === 'Transaction tags' || fact.label === 'Block audit') {
             <div class="pt-snapshot-row pt-metric-card" [style.anchor-name]="'--pt-deeper-card-' + $index">
               <div class="pt-snapshot-fact"><span>{{ fact.label }}</span><strong>{{ fact.value }}</strong></div>
-              <div class="pt-snapshot-meaning"><p class="pt-meaning-preview">{{ fact.meaning }}</p> <button type="button" class="pt-explore-more pt-snapshot-popover-trigger" [attr.popovertarget]="'pt-deeper-detail-' + $index">Explore more <span aria-hidden="true">▾</span><span class="visually-hidden"> about {{ fact.label }}</span></button></div>
+              <div class="pt-snapshot-meaning"><p class="pt-meaning-preview"><span class="pt-card-desktop-text">{{ fact.meaning }}</span><span class="pt-card-mobile-text">{{ mobileDetailMeaning(fact.label, fact.meaning) }}</span></p> <button type="button" class="pt-explore-more pt-snapshot-popover-trigger" [attr.popovertarget]="'pt-deeper-detail-' + $index">Explore more <span aria-hidden="true">▾</span><span class="visually-hidden"> about {{ fact.label }}</span></button></div>
               <div class="pt-snapshot-detail-popover" [style.position-anchor]="'--pt-deeper-card-' + $index" [id]="'pt-deeper-detail-' + $index" popover="auto" (toggle)="positionMobilePopover($event)">
                 <div class="pt-snapshot-popover-heading"><strong>Understanding {{ fact.label }}</strong><button type="button" [attr.popovertarget]="'pt-deeper-detail-' + $index" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
                 <p>{{ fact.meaning }}</p><p>{{ fact.details }}</p>
