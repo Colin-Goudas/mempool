@@ -52,7 +52,7 @@ export class MasterPageComponent implements OnInit, OnDestroy {
         try {
           const tx = await firstValueFrom(this.electrsApiService.getTransaction$(candidate.txid).pipe(timeout(4000)));
           if (!tx.status.confirmed) {
-            await this.router.navigate(['/tx', tx.txid]);
+            await this.router.navigate(['/tx', tx.txid], {queryParams:{example:tx.txid}});
             this.collapse();
             return;
           }
@@ -66,7 +66,7 @@ export class MasterPageComponent implements OnInit, OnDestroy {
   openPublicWallet(): void {
     this.lookupError = '';
     this.lookupAddressIndex = this.lookupAddressIndex < 0 ? Math.floor(Math.random() * this.lookupAddresses.length) : (this.lookupAddressIndex + 1) % this.lookupAddresses.length;
-    this.router.navigate(['/address', this.lookupAddresses[this.lookupAddressIndex]]);
+    this.router.navigate(['/address', this.lookupAddresses[this.lookupAddressIndex]], {queryParams:{example:this.lookupAddresses[this.lookupAddressIndex]}});
     this.collapse();
   }
 
