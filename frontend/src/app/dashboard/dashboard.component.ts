@@ -3,7 +3,7 @@ import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, H
 import { combineLatest, EMPTY, fromEvent, interval, merge, Observable, of, Subject, Subscription, timer } from 'rxjs';
 import { catchError, delayWhen, distinctUntilChanged, filter, map, retry, scan, share, shareReplay, startWith, switchMap, takeUntil, tap, throttleTime } from 'rxjs/operators';
 import { AuditStatus, BlockExtended, CurrentPegs, FederationAddress, FederationUtxo, OptimizedMempoolStats, RecentPeg } from '@interfaces/node-api.interface';
-import { MempoolInfo, ReplacementInfo } from '@interfaces/websocket.interface';
+import { MempoolInfo, ReplacementInfo, Recommendedfees } from '@interfaces/websocket.interface';
 import { ApiService } from '@app/services/api.service';
 import { StateService } from '@app/services/state.service';
 import { WebsocketService } from '@app/services/websocket.service';
@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       this.mobilePopoverAutoScroll = false;
       if (!panel.matches(':popover-open')) return;
       const rect = trigger.getBoundingClientRect();
-      const anchor = trigger.closest('.pt-network-fact, .pt-wallet-fact, .pt-summary-actionbar, .pt-explorer-lookup-search, .pt-wallet-address')?.getBoundingClientRect() || rect;
+      const anchor = trigger.closest('.pt-compact-fees, .pt-network-fact, .pt-wallet-fact, .pt-summary-actionbar, .pt-explorer-lookup-search, .pt-wallet-address')?.getBoundingClientRect() || rect;
       const viewportWidth = document.documentElement.clientWidth;
       const width = Math.min(Math.max(anchor.width, 260), viewportWidth - 24);
       const left = Math.max(12, Math.min(anchor.left, viewportWidth - width - 12));
@@ -91,6 +91,18 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     const size = Number(value);
     this.paymentVbytes = Number.isFinite(size) && size >= 1 && size <= 100000 ? Math.ceil(size) : 0;
   }
+
+  compactFeeTiers(fees: Recommendedfees | null | undefined) {
+    return [
+      {label:'Economy', value:fees?.economyFee},
+      {label:'Standard', value:fees?.halfHourFee},
+      {label:'Fast', value:fees?.fastestFee},
+    ].map(tier => {
+      const rate = typeof tier.value === 'number' && Number.isFinite(tier.value) && tier.value >= 0 ? tier.value : null;
+      return {label:tier.label, rate, exampleSats:rate === null ? null : Math.ceil(rate * 140)};
+    });
+  }
+
   paymentFee(rate: number): number { return Math.ceil(rate * this.paymentVbytes); }
 
   get showPendingTrackerSnapshot(): boolean {
