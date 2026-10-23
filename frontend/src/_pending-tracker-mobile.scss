@@ -21,6 +21,8 @@
     .navbar .navbar-nav .nav-link {display:flex!important;align-items:center;justify-content:center;min-height:44px;gap:0;padding:8px 4px!important;width:100%;}
     .navbar .pt-nav-label {display:none!important;}
     .navbar .navbar-nav fa-icon {font-size:22px;}
+    .navbar .pt-more-menu > summary {display:flex;align-items:center;justify-content:center;min-height:44px;padding:8px 4px;font-size:14px;}
+    .navbar .pt-more-panel {top:auto!important;bottom:calc(100% + 8px)!important;left:auto!important;right:4px;max-height:65dvh;overflow:auto;width:min(270px,calc(100vw - 24px));}
     .navbar .navbar-nav .dropdown-menu {position:absolute;top:auto!important;bottom:calc(100% + 8px);right:8px;left:auto;max-height:65dvh;overflow:auto;}
     .pt-block-strip-key {font-size:11px;gap:4px 12px;margin:8px 12px;}
     [popover] {position:fixed!important;inset:auto 12px calc(76px + env(safe-area-inset-bottom))!important;position-anchor:auto!important;margin:0 auto!important;width:calc(100vw - 24px)!important;max-width:560px!important;max-height:65dvh!important;overflow:auto;overscroll-behavior:contain;border-radius:14px!important;background:#161619!important;padding:16px!important;box-sizing:border-box;}
