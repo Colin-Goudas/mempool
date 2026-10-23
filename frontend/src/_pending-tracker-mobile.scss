@@ -552,3 +552,30 @@
 @media(max-width:767.98px) {
  body:has(#pt-wallet-layout) #pt-wallet-layout .pt-wallet-history-context {display:flex!important;flex-direction:column;gap:2px;line-height:1.4!important;}
 }
+
+.pt-compact-fees {display:none;}
+@media(max-width:767.98px) {
+ body:is(:has(#pt-network-layout),:has(#pt-wallet-layout),:has(#pt-transaction-layout)) .navbar app-search-form input::placeholder {
+  font-size:clamp(9px,2.8vw,11px)!important;letter-spacing:-.1px;opacity:1;
+ }
+ body:has(app-dashboard #pt-network-layout.pt-network-dashboard) app-dashboard #pt-network-layout {
+  .pt-explorer-intro,.pt-fee-widget {display:none!important;}
+  .pt-compact-fees {display:block;position:relative;min-width:0;margin:6px 0 16px;padding:9px 11px 8px;border:1px solid #ffffff20;border-radius:12px;background:var(--pt-facetry-surface);box-shadow:var(--pt-facetry-shadow);}
+  .pt-fees-connector {position:absolute;top:-5px;left:50%;width:8px;height:8px;border-left:1px solid #c1a16b;border-top:1px solid #c1a16b;transform:translateX(-50%) rotate(45deg);background:#101012;pointer-events:none;}
+  .pt-compact-fees-heading {display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 6px;padding:0;}
+  .pt-compact-fees-heading h2 {font-size:14px!important;line-height:1.3!important;letter-spacing:0!important;margin:0!important;font-weight:600!important;color:#f3f3f5;}
+  .pt-compact-fees-heading h2 small {font-size:10px;font-weight:400;color:#a6a6b0;margin-left:4px;}
+  .pt-fees-explain {border:0;background:none;color:#d5d5dc;padding:2px 0 2px 6px;font-size:11px;line-height:1.4;min-height:28px;white-space:nowrap;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#ffffff40;}
+  .pt-fees-explain:focus-visible {outline:2px solid #c1a16b;outline-offset:3px;border-radius:3px;}
+  .pt-fee-tiers {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;position:relative;padding-top:7px;}
+  .pt-fee-tiers::before {content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:2px;background:linear-gradient(90deg,#4d956c,#9b9e58 50%,#c1a16b);}
+  .pt-fee-tier {display:flex;flex-direction:column;align-items:center;min-width:0;gap:1px;padding:0 5px;}
+  .pt-fee-tier + .pt-fee-tier {border-left:1px solid #ffffff10;}
+  .pt-fee-tier-label {font-size:12px;line-height:1.4;color:#c7c7ce;}
+  .pt-fee-tier-rate {font-size:20px;line-height:1.25;font-weight:600;color:#f3f3f5;font-variant-numeric:tabular-nums;max-width:100%;overflow-wrap:anywhere;}
+  .pt-fee-tier-fiat {font-size:12px;line-height:1.4;color:var(--pt-data-in);font-variant-numeric:tabular-nums;max-width:100%;overflow-wrap:anywhere;}
+  .pt-fee-example-caption {font-size:10px;line-height:1.4;color:#a6a6b0;text-align:center;padding:0;margin:6px 0 0;}
+  .pt-fee-unavailable {font-size:12px;color:#a6a6b0;}
+  .pt-fees-stale {font-size:10px;line-height:1.4;color:var(--pt-data-pending);margin:0 0 5px;}
+ }
+}
