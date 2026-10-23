@@ -202,3 +202,7 @@
   .pt-snapshot-surface > .pt-eight-card-grid {margin-top:6px!important;padding-top:6px!important;}
  }
 }
+
+@media (max-width:359px) {
+ body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot.pt-balanced .pt-summary-actionbar {grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+}
