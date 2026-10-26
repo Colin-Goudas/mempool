@@ -5,12 +5,16 @@ import { CommonModule } from '@angular/common';
   selector: 'app-summary-disclosure',
   standalone: true,
   imports: [CommonModule],
-  template: `<p #paragraph class="pt-summary-narrative pt-four-line-copy"><strong #label class="pt-summary-inline-label">In plain English —</strong> <span #full class="pt-disclosure-full" [hidden]="!expanded && truncated"><ng-content></ng-content></span><span *ngIf="!expanded && truncated">{{ preview }}</span><span #ending class="pt-disclosure-ending" *ngIf="truncated"><span *ngIf="!expanded" aria-hidden="true">… </span><button type="button" class="pt-summary-expand-toggle" [attr.aria-expanded]="expanded" (click)="toggle()">{{ expanded ? 'Show less' : 'Read more' }} <span aria-hidden="true">{{ expanded ? '▴' : '▾' }}</span></button></span></p>`,
+  template: `<p #paragraph class="pt-summary-narrative pt-four-line-copy"><strong *ngIf="labelText" #label class="pt-summary-inline-label">{{ labelText }}</strong> <span #full class="pt-disclosure-full" [hidden]="!expanded && truncated"><ng-content></ng-content></span><span *ngIf="!expanded && truncated">{{ labelText ? ' ' + preview : preview }}</span><span #ending class="pt-disclosure-ending" *ngIf="truncated || alwaysShowAction"><span *ngIf="!expanded && truncated" aria-hidden="true">… </span><span *ngIf="!truncated" aria-hidden="true"> </span><button type="button" class="pt-summary-expand-toggle" [attr.aria-expanded]="popoverTarget ? null : expanded" [attr.popovertarget]="popoverTarget || null" [attr.aria-controls]="popoverTarget || null" (click)="toggle()">{{ expanded ? 'Show less' : moreLabel }} <span aria-hidden="true">{{ expanded ? '▴' : '▾' }}</span></button></span></p>`,
   styles: [`:host{display:block;min-width:0}.pt-disclosure-full[hidden]{display:none!important}.pt-disclosure-ending{white-space:nowrap}.pt-disclosure-ending:has(button[aria-expanded="true"]){margin-left:4px}`]
 })
 export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() resetKey = '';
   @Input() maxLines = 4;
+  @Input() labelText = 'In plain English —';
+  @Input() moreLabel = 'Read more';
+  @Input() popoverTarget = '';
+  @Input() alwaysShowAction = false;
   @ViewChild('paragraph') paragraph!: ElementRef<HTMLElement>;
   @ViewChild('full') full!: ElementRef<HTMLElement>;
   @ViewChild('label') label!: ElementRef<HTMLElement>;
@@ -36,7 +40,7 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
     });
     this.schedule();
   }
-  toggle(): void { this.expanded = !this.expanded; }
+  toggle(): void { if (!this.popoverTarget) this.expanded = !this.expanded; }
   private schedule(): void {
     if (this.destroyed || !this.paragraph || this.frame) return;
     this.zone.runOutsideAngular(() => {
@@ -53,19 +57,20 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
     const probe = paragraph.cloneNode(false) as HTMLElement;
     probe.removeAttribute('id');
     Object.assign(probe.style, {position:'absolute', visibility:'hidden', pointerEvents:'none', width:paragraph.clientWidth + 'px', height:'auto', maxHeight:'none', margin:'0', padding:'0', top:'0', left:'0'});
-    probe.appendChild(this.label.nativeElement.cloneNode(true));
+    if (this.label) probe.appendChild(this.label.nativeElement.cloneNode(true));
     const copy = document.createElement('span');
     const ending = document.createElement('span');
     ending.className = 'pt-disclosure-ending';
     ending.style.whiteSpace = 'nowrap';
     const button = document.createElement('button');
     button.className = 'pt-summary-expand-toggle';
-    button.textContent = 'Read more ▾';
+    button.textContent = this.moreLabel + ' ▾';
     ending.append('… ', button);
     probe.append(' ', copy);
     paragraph.parentElement!.appendChild(probe);
     const fits = () => probe.getBoundingClientRect().height <= lineHeight * this.maxLines + 0.5;
     copy.textContent = text;
+    if (this.alwaysShowAction) probe.appendChild(ending);
     let truncated = !fits();
     let preview = text;
     if (truncated) {
