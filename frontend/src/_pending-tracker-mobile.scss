@@ -1432,3 +1432,15 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
   body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact.pt-wallet-fact .pt-wallet-meaning,
   body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact.pt-network-fact .pt-network-meaning { position: static !important; grid-column: 1 !important; grid-row: 2 !important; justify-self: start !important; }
 }
+
+@media (max-width: 767.98px) {
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-meaning button::after,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-meaning button::after,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-meaning button::after {
+    content: ' ▾' !important;
+    display: inline !important;
+    color: #c8ac73 !important;
+    font-size: 12px !important;
+    margin-left: 3px !important;
+  }
+}
