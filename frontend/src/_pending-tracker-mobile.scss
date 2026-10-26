@@ -1193,3 +1193,42 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
     background: #18181b !important;
   }
 }
+
+/* Mobile wallet amounts: keep BTC beside the label and reserve the second line for fiat. */
+@media (max-width: 767.98px) {
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact:has(.pt-inline-card-context) {
+    position: relative;
+    display: block !important;
+    padding: 7px 9px !important;
+  }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact:has(.pt-inline-card-context) .pt-wallet-fact-line {
+    display: grid !important;
+    grid-template-columns: auto minmax(0, 1fr) !important;
+    align-items: baseline !important;
+    gap: 2px 5px !important;
+    width: 100% !important;
+  }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact:has(.pt-inline-card-context) .pt-wallet-fact-line > span {
+    font-size: 14px !important;
+    white-space: nowrap !important;
+  }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact:has(.pt-inline-card-context) .pt-wallet-fact-line > strong {
+    font-size: clamp(11px, 3.4vw, 14px) !important;
+    text-align: right !important;
+    white-space: nowrap !important;
+    overflow-wrap: normal !important;
+    min-width: 0 !important;
+  }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact:has(.pt-inline-card-context) .pt-inline-card-context {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    padding-right: 84px !important;
+    white-space: normal !important;
+    text-align: left !important;
+  }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact:has(.pt-inline-card-context) .pt-wallet-meaning {
+    position: absolute !important;
+    right: 9px !important;
+    bottom: 3px !important;
+  }
+}
