@@ -1475,3 +1475,6 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
     grid-template-rows: auto auto !important;
   }
 }
+
+// Shared indicator also applies outside phone breakpoints.
+@import "pending-tracker-chevrons";

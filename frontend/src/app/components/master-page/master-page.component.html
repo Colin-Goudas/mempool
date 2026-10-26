@@ -89,7 +89,7 @@
       </li>
       <li class="nav-item pt-more-nav" *ngIf="env.PENDING_TRACKER_EXPLANATIONS">
         <details class="pt-more-menu" #moreMenu>
-          <summary aria-label="More explorer sections">More <span aria-hidden="true">▾</span></summary>
+          <summary aria-label="More explorer sections">More<span aria-hidden="true" class="pt-chevron"></span></summary>
           <div class="pt-more-panel">
             <p>{{ env.PENDING_TRACKER_REVIEW_TOOLS ? 'Review tools' : 'More to explore' }}</p>
             <ng-container *ngIf="!env.PENDING_TRACKER_REVIEW_TOOLS"><button type="button" (click)="openRecentTransaction(); moreMenu.open = false" [disabled]="lookupLoading">Example pending transaction</button><button type="button" (click)="openPublicWallet(); moreMenu.open = false">Example wallet</button><a routerLink="/about" (click)="collapse()">About &amp; data sources</a></ng-container>

@@ -1,0 +1,56 @@
+// Shared dropdown indicator: the same close-set chevron at every screen size.
+@mixin pt-dropdown-chevron {
+  content: '' !important;
+  display: inline-block !important;
+  width: 14px !important;
+  height: 14px !important;
+  min-width: 14px !important;
+  margin: 0 0 0 -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: currentColor !important;
+  color: inherit !important;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 14px 14px no-repeat !important;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 14px 14px no-repeat !important;
+  vertical-align: -2px !important;
+  position: static !important;
+  flex: 0 0 14px !important;
+  transform: none !important;
+  transition: transform .16s ease;
+}
+
+body .pt-chevron,
+body .dropdown-toggle::after,
+body .pt-explore-more:not(:has(.pt-chevron))::after,
+body .pt-inline-explanation > summary:not(:has(.pt-chevron))::after,
+body .pt-network-questions > span > button::after,
+body .pt-wallet-questions > span > button::after,
+body :is(#pt-transaction-layout, #pt-wallet-layout, #pt-network-layout) .pt-explore-more:not(:has(.pt-chevron))::after,
+body :is(#pt-transaction-layout, #pt-wallet-layout, #pt-network-layout) .pt-inline-explanation > summary:not(:has(.pt-chevron))::after,
+body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-meaning button:not(:has(.pt-chevron))::after,
+body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-meaning button:not(:has(.pt-chevron))::after,
+body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-meaning button:not(:has(.pt-chevron))::after {
+  @include pt-dropdown-chevron;
+}
+
+body :is(button, summary):has(> .pt-chevron) {
+  column-gap: 0 !important;
+}
+body :is(button, summary):has(.pt-chevron)::after { content: none !important; display: none !important; }
+body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-meaning button:has(.pt-chevron)::after,
+body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-meaning button:has(.pt-chevron)::after,
+body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-meaning button:has(.pt-chevron)::after { content: none !important; display: none !important; }
+body button.pt-explore-more > span[aria-hidden="true"]:not(.pt-chevron) { display: none !important; }
+body .pt-chevron.pt-chevron-up,
+body [aria-expanded="true"] > .pt-chevron,
+body details[open] > summary > .pt-chevron,
+body details[open] > summary .pt-advanced-action .pt-chevron,
+body .pt-inline-explanation[open] > summary::after,
+body .dropdown-toggle[aria-expanded="true"]::after,
+body .pt-summary-actionbar > span:has(> :popover-open) > button .pt-chevron,
+body .pt-summary-actionbar > span:has(> :popover-open) > button::after {
+  transform: rotate(180deg) !important;
+}
+body summary:has(.pt-chevron) { list-style: none; }
+body summary:has(.pt-chevron)::-webkit-details-marker { display: none; }
+@media (prefers-reduced-motion: reduce) { body .pt-chevron { transition: none; } }

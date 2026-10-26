@@ -72,7 +72,7 @@
         <ng-template #confirmationNotification>
           @if ((!tx.status.confirmed || alertTxid === tx.txid) && !replaced && !rbfTransaction && !rbfInfo?.mined) {
             <span class="pt-summary-question">
-              <button type="button" class="pt-notification-action" [class.pt-alert-active]="alertTxid === tx.txid" style="anchor-name:--pt-confirmation-alert" [attr.aria-label]="confirmationAlertLabel" popovertarget="pt-confirmation-alert"><fa-icon [icon]="confirmationBellIcon" aria-hidden="true"></fa-icon><span class="pt-desktop-question">{{ confirmationAlertLabel }}</span><span class="pt-phone-question">{{ alertTxid === tx.txid ? 'Alert set' : 'Notify me' }}</span><span class="pt-alert-chevron" aria-hidden="true">▾</span></button>
+              <button type="button" class="pt-notification-action" [class.pt-alert-active]="alertTxid === tx.txid" style="anchor-name:--pt-confirmation-alert" [attr.aria-label]="confirmationAlertLabel" popovertarget="pt-confirmation-alert"><fa-icon [icon]="confirmationBellIcon" aria-hidden="true"></fa-icon><span class="pt-desktop-question">{{ confirmationAlertLabel }}</span><span class="pt-phone-question">{{ alertTxid === tx.txid ? 'Alert set' : 'Notify me' }}</span><span class="pt-alert-chevron pt-chevron" aria-hidden="true"></span></button>
               <div id="pt-confirmation-alert" class="pt-question-popover" style="position-anchor:--pt-confirmation-alert" popover="auto" (toggle)="positionMobilePopover($event)">
                 <div class="pt-question-heading"><strong>Track confirmations</strong><button type="button" popovertarget="pt-confirmation-alert" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
                 <p><strong>Current: {{ confirmationCount }} {{ confirmationCount === 1 ? 'confirmation' : 'confirmations' }} · Alert target: {{ confirmationTarget }}</strong></p>
@@ -92,7 +92,7 @@
         @if (phoneLayout) {
           <div class="pt-mobile-help-toolbar">
             <div class="pt-mobile-help-entry">
-              <button type="button" class="pt-mobile-help-trigger" popovertarget="pt-mobile-help" [attr.aria-expanded]="activeSummaryQuestion === 'help'" aria-controls="pt-mobile-help">Questions &amp; next steps <span aria-hidden="true">{{ activeSummaryQuestion === 'help' ? '▴' : '▾' }}</span></button>
+              <button type="button" class="pt-mobile-help-trigger" popovertarget="pt-mobile-help" [attr.aria-expanded]="activeSummaryQuestion === 'help'" aria-controls="pt-mobile-help">Questions &amp; next steps<span aria-hidden="true" class="pt-chevron"></span></button>
               <small class="pt-mobile-help-preview">{{ tx.status.confirmed ? 'Missing funds? · My amount? · Confirmations…' : 'Why pending? · Speed up · Funds safety…' }}</small>
             </div>
             <ng-container *ngTemplateOutlet="confirmationNotification"></ng-container>
@@ -100,12 +100,12 @@
           <div id="pt-mobile-help" class="pt-balanced-answer pt-mobile-help-panel" popover="auto" (toggle)="onSummaryToggle('help', $event); positionMobilePopover($event)" role="region" aria-label="Questions and next steps">
             <div class="pt-mobile-help-heading"><strong>Questions &amp; next steps</strong><button type="button" popovertarget="pt-mobile-help" popovertargetaction="hide" aria-label="Close questions and next steps">×</button></div>
             <details class="pt-mobile-help-item" name="pt-mobile-transaction-help" (toggle)="onMobileHelpQuestionToggle($event)">
-              <summary>What should I do next?<span aria-hidden="true">⌄</span></summary>
+              <summary>What should I do next?<span aria-hidden="true" class="pt-chevron"></span></summary>
               <p>{{ nextStep((stateService.connectionState$ | async) === 2) }}</p>
             </details>
             @for (question of summaryQuestions; track question.id) {
               <details class="pt-mobile-help-item" name="pt-mobile-transaction-help" (toggle)="onMobileHelpQuestionToggle($event)">
-                <summary>{{ question.label }}<span aria-hidden="true">⌄</span></summary>
+                <summary>{{ question.label }}<span aria-hidden="true" class="pt-chevron"></span></summary>
                 <p>{{ question.text }}</p>
                 @if (question.id === 'speed') {
                   <div class="pt-help-roles"><button type="button" (click)="helpRole = 'sent'" [attr.aria-pressed]="helpRole === 'sent'">I sent this</button><button type="button" (click)="helpRole = 'receiving'" [attr.aria-pressed]="helpRole === 'receiving'">I am receiving it</button><button type="button" (click)="helpRole = 'exchange'" [attr.aria-pressed]="helpRole === 'exchange'">Sent through an exchange</button></div>
@@ -118,9 +118,9 @@
           </div>
         }
         <div *ngIf="!phoneLayout" class="pt-summary-questions pt-summary-actionbar" style="anchor-name:--pt-summary-toolbar" aria-label="Questions and next steps">
-          <button type="button" class="pt-next-step-link" popovertarget="pt-answer-next" [attr.aria-expanded]="activeSummaryQuestion === 'next'" aria-controls="pt-answer-next"><span class="pt-desktop-question">Next step</span><span class="pt-phone-question">What should I do?</span> <span aria-hidden="true">{{ activeSummaryQuestion === 'next' ? '▴' : '▾' }}</span></button>
+          <button type="button" class="pt-next-step-link" popovertarget="pt-answer-next" [attr.aria-expanded]="activeSummaryQuestion === 'next'" aria-controls="pt-answer-next"><span class="pt-desktop-question">Next step</span><span class="pt-phone-question">What should I do?</span><span aria-hidden="true" class="pt-chevron"></span></button>
           @for (question of summaryQuestions; track question.id) {
-            <button type="button" [attr.popovertarget]="'pt-answer-' + question.id" [attr.aria-expanded]="activeSummaryQuestion === question.id" [attr.aria-controls]="'pt-answer-' + question.id" [attr.aria-label]="question.label"><span class="pt-desktop-question">{{ question.label }}</span><span class="pt-phone-question">{{ mobileQuestionLabel(question.id) }}</span> <span aria-hidden="true">{{ activeSummaryQuestion === question.id ? '▴' : '▾' }}</span></button>
+            <button type="button" [attr.popovertarget]="'pt-answer-' + question.id" [attr.aria-expanded]="activeSummaryQuestion === question.id" [attr.aria-controls]="'pt-answer-' + question.id" [attr.aria-label]="question.label"><span class="pt-desktop-question">{{ question.label }}</span><span class="pt-phone-question">{{ mobileQuestionLabel(question.id) }}</span><span aria-hidden="true" class="pt-chevron"></span></button>
           }
           <ng-container *ngTemplateOutlet="confirmationNotification"></ng-container>
         </div>
@@ -296,7 +296,7 @@
         <small *ngIf="addressFeedback" role="status">{{ addressFeedback }}</small>
       </form>
       <button type="button" class="pt-flow-control flow-toggle" (click)="toggleGraph()" [attr.aria-expanded]="flowEnabled">{{ flowEnabled ? 'Hide diagram' : 'Show diagram' }}</button>
-      <button type="button" class="pt-flow-control pt-flow-details-button" (click)="toggleDetailsFromTxPage()" [attr.aria-expanded]="isDetailsOpen">{{ isDetailsOpen ? 'Hide technical details' : 'Technical details' }} {{ isDetailsOpen ? '▴' : '▾' }}</button>
+      <button type="button" class="pt-flow-control pt-flow-details-button" (click)="toggleDetailsFromTxPage()" [attr.aria-expanded]="isDetailsOpen">{{ isDetailsOpen ? 'Hide technical details' : 'Technical details' }}<span class="pt-chevron" aria-hidden="true"></span></button>
     </div>
     <ng-container *ngIf="flowEnabled; else ptFlowPlaceholder">
       <div class="pt-original-graph" #graphContainer>
@@ -356,7 +356,7 @@
             }
           }
       <details class="pt-advanced-card" aria-label="Advanced Bitcoin technical tools">
-        <summary><span class="pt-advanced-desktop"><span class="pt-snapshot-fact" ptMobileFitAmount><span>Advanced transaction details</span><strong>View raw data</strong></span><span class="pt-advanced-description">Inspect scripts, input sequences and raw transaction data.</span><span class="pt-advanced-action">Show details ▾</span></span><span class="pt-advanced-mobile"><span class="pt-snapshot-fact" ptMobileFitAmount><span class="pt-card-label">Advanced details</span><strong>View raw data</strong></span><span class="pt-advanced-mobile-description">Inspect scripts, input sequences and raw transaction data<span class="pt-advanced-inline-action">… <span class="pt-advanced-open-label">Explain more ▾</span><span class="pt-advanced-close-label">Show less ▴</span></span></span></span></summary><div class="pt-advanced-body">
+        <summary><span class="pt-advanced-desktop"><span class="pt-snapshot-fact" ptMobileFitAmount><span>Advanced transaction details</span><strong>View raw data</strong></span><span class="pt-advanced-description">Inspect scripts, input sequences and raw transaction data.</span><span class="pt-advanced-action">Show details<span class="pt-chevron" aria-hidden="true"></span></span></span><span class="pt-advanced-mobile"><span class="pt-snapshot-fact" ptMobileFitAmount><span class="pt-card-label">Advanced details</span><strong>View raw data</strong></span><span class="pt-advanced-mobile-description">Inspect scripts, input sequences and raw transaction data<span class="pt-advanced-inline-action">… <span class="pt-advanced-open-label">Explain more<span class="pt-chevron" aria-hidden="true"></span></span><span class="pt-advanced-close-label">Show less<span class="pt-chevron pt-chevron-up" aria-hidden="true"></span></span></span></span></span></summary><div class="pt-advanced-body">
         <p class="pt-deeper-intro">Optional original Mempool analysis for experienced users, including fee diagnostics, timing and transaction features.</p>
         <p class="pt-deeper-intro" *ngIf="tx"><a [href]="'/mempool/api/tx/' + tx.txid + '/hex'" target="_blank" rel="noopener noreferrer">View raw transaction hex ↗</a></p>
         <div class="pt-additional-facts">
