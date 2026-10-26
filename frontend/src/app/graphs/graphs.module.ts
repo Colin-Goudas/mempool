@@ -1,3 +1,4 @@
+import { SummaryDisclosureComponent } from '@app/shared/summary-disclosure.component';
 import { NgModule } from '@angular/core';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { GraphsRoutingModule } from '@app/graphs/graphs.routing.module';
@@ -97,6 +98,7 @@ import { CommonModule } from '@angular/common';
     AddressesTreemap,
   ],
   imports: [
+    SummaryDisclosureComponent,
     CommonModule,
     SharedModule,
     TaprootAddressScriptsModule,

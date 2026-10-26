@@ -37,7 +37,23 @@ interface MempoolStatsData {
 })
 export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  private mobilePopoverAutoScroll = false;
+  mobileHelpOpen = false;
+  private positionOpenMobilePopover(panel: HTMLElement, trigger: HTMLButtonElement): void {
+    const viewportHeight = window.visualViewport?.height || window.innerHeight;
+    const rect = trigger.getBoundingClientRect();
+    const anchor = trigger.closest('.pt-network-fact, .pt-wallet-fact, .pt-compact-fees, .pt-summary-actionbar, .pt-mobile-help-toolbar')?.getBoundingClientRect() || rect;
+    const viewportWidth = document.documentElement.clientWidth;
+    const width = Math.min(Math.max(anchor.width, 260), viewportWidth - 24);
+    const left = Math.max(12, Math.min(anchor.left, viewportWidth - width - 12));
+    const anchorBottom = (panel.id === 'pt-mobile-help' || panel.id === 'pt-network-help' || panel.id === 'pt-wallet-help') ? anchor.bottom : rect.bottom;
+    const top = Math.max(8, Math.min(anchorBottom + 8, viewportHeight - 160));
+    const pointer = Math.max(16, Math.min(width - 20, rect.left + rect.width / 2 - left));
+    panel.style.setProperty('--pt-popover-top', top + 'px');
+    panel.style.setProperty('--pt-popover-left', left + 'px');
+    panel.style.setProperty('--pt-popover-width', width + 'px');
+    panel.style.setProperty('--pt-popover-height', Math.max(120, Math.min(420, viewportHeight - top - 76)) + 'px');
+    panel.style.setProperty('--pt-popover-pointer-x', pointer + 'px');
+  }
   positionMobilePopover(event: Event): void {
     if (window.innerWidth > 767.98 || (event as Event & {newState?: string}).newState !== 'open') return;
     const panel = event.target as HTMLElement;
@@ -45,31 +61,32 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       .find(button => button.getAttribute('popovertarget') === panel.id && button.getAttribute('popovertargetaction') !== 'hide');
     if (!trigger) return;
     panel.classList.add('pt-anchored-mobile-popover');
-    const viewportHeight = window.visualViewport?.height || window.innerHeight;
-    if (viewportHeight - trigger.getBoundingClientRect().bottom - 84 < 140) {
-      this.mobilePopoverAutoScroll = true;
-      trigger.scrollIntoView({block:'center', behavior:'auto'});
-    }
     requestAnimationFrame(() => {
-      this.mobilePopoverAutoScroll = false;
       if (!panel.matches(':popover-open')) return;
-      const rect = trigger.getBoundingClientRect();
-      const anchor = trigger.closest('.pt-compact-fees, .pt-network-fact, .pt-wallet-fact, .pt-summary-actionbar, .pt-explorer-lookup-search, .pt-wallet-address')?.getBoundingClientRect() || rect;
-      const viewportWidth = document.documentElement.clientWidth;
-      const width = Math.min(Math.max(anchor.width, 260), viewportWidth - 24);
-      const left = Math.max(12, Math.min(anchor.left, viewportWidth - width - 12));
-      const top = Math.max(8, rect.bottom + 6);
-      panel.style.setProperty('--pt-popover-top', top + 'px');
-      panel.style.setProperty('--pt-popover-left', left + 'px');
-      panel.style.setProperty('--pt-popover-width', width + 'px');
-      panel.style.setProperty('--pt-popover-height', Math.max(80, Math.min(420, viewportHeight - top - 76)) + 'px');
+      this.positionOpenMobilePopover(panel, trigger);
+      const viewportHeight = window.visualViewport?.height || window.innerHeight;
+      const anchor = trigger.closest('.pt-mobile-help-toolbar')?.getBoundingClientRect() || trigger.getBoundingClientRect();
+      const desiredHeight = Math.min(panel.scrollHeight, 420, Math.max(120, viewportHeight - 220));
+      const availableBelow = viewportHeight - 76 - anchor.bottom - 8;
+      if (availableBelow < desiredHeight) {
+        const safeTop = 120;
+        const availableScroll = Math.max(0, anchor.top - safeTop);
+        const distance = Math.min(desiredHeight - availableBelow, availableScroll);
+        if (distance > 0) window.scrollBy({top: distance, behavior:'auto'});
+      }
+      requestAnimationFrame(() => {
+        if (panel.matches(':popover-open')) this.positionOpenMobilePopover(panel, trigger);
+      });
     });
   }
   @HostListener('window:scroll')
-  closeMobileExplanationsOnPageScroll(): void {
-    if (window.innerWidth > 767.98 || this.mobilePopoverAutoScroll) return;
-    document.querySelectorAll<HTMLElement>('#pt-network-layout .pt-anchored-mobile-popover:popover-open, #pt-wallet-layout .pt-anchored-mobile-popover:popover-open').forEach(panel =>
-      (panel as HTMLElement & {hidePopover?: () => void}).hidePopover?.());
+  repositionMobileExplanationsOnPageScroll(): void {
+    if (window.innerWidth > 767.98) return;
+    document.querySelectorAll<HTMLElement>('#pt-network-layout .pt-anchored-mobile-popover:popover-open, #pt-wallet-layout .pt-anchored-mobile-popover:popover-open').forEach(panel => {
+      const trigger = Array.from(document.querySelectorAll<HTMLButtonElement>('#pt-network-layout button[popovertarget], #pt-wallet-layout button[popovertarget]'))
+        .find(button => button.getAttribute('popovertarget') === panel.id && button.getAttribute('popovertargetaction') !== 'hide');
+      if (trigger) this.positionOpenMobilePopover(panel, trigger);
+    });
   }
 
   mobileQuestionLabel(id: string): string {

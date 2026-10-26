@@ -1035,3 +1035,30 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
     background:#18181b;pointer-events:none;
   }
 }
+
+/* Shared mobile snapshot treatment for the network and wallet views. */
+.pt-unified-mobile-summary,.pt-crosspage-help,.pt-crosspage-help-panel {display:none;}
+@media(max-width:767.98px) {
+ body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) {
+  .pt-original-desktop-summary {display:none!important;}
+  app-summary-disclosure.pt-unified-mobile-summary {display:block!important;}
+  .pt-network-summary,.pt-wallet-summary {padding:0!important;}
+  .pt-network-questions.pt-summary-actionbar,.pt-wallet-questions.pt-summary-actionbar {display:flex!important;align-items:flex-start!important;justify-content:space-between!important;gap:8px!important;margin:6px 0 0!important;padding:0!important;background:none!important;}
+  .pt-summary-actionbar > span:not(.pt-wallet-track-action) {display:contents!important;}
+  .pt-summary-actionbar > span:not(.pt-wallet-track-action) > button {display:none!important;}
+  .pt-crosspage-help {display:flex!important;flex:1;min-width:0;flex-direction:column;align-items:flex-start;}
+  .pt-summary-actionbar .pt-mobile-help-trigger {display:inline-flex!important;align-items:center;gap:7px;width:auto!important;min-height:20px!important;padding:0!important;border:0!important;background:none!important;color:#dfbd7b!important;font-family:inherit;font-weight:600;font-size:14px;line-height:20px;text-decoration:none!important;}
+  .pt-mobile-help-trigger span {font-size:15px!important;color:inherit!important;line-height:1;}
+  .pt-mobile-help-preview {display:block;margin-top:2px;font-size:11px;line-height:1.45;color:#aaaab5;}
+  .pt-wallet-track-action {display:block!important;flex:none;}
+  .pt-summary-actionbar > .pt-wallet-track-action > .pt-wallet-track {display:inline-flex!important;width:auto!important;min-height:20px!important;padding:0!important;background:none!important;border:0!important;color:#91c5db!important;font-size:14px!important;font-weight:600!important;line-height:20px!important;}
+  .pt-wallet-facts,.pt-network-facts {margin-top:16px!important;padding-top:0!important;}
+  .pt-crosspage-help-panel:popover-open {display:block!important;}
+  [popover].pt-anchored-mobile-popover {padding-top:22px!important;}
+  [popover].pt-anchored-mobile-popover::before {content:"";position:absolute;top:2px;left:var(--pt-popover-pointer-x,24px);width:10px;height:10px;transform:translateX(-50%) rotate(45deg);border-left:1px solid #b89b69;border-top:1px solid #b89b69;background:#18181b;pointer-events:none;}
+  .pt-crosspage-help-panel details {border-bottom:1px solid #ffffff15;}
+  .pt-crosspage-help-panel details > summary,.pt-crosspage-help-panel .pt-help-pending {display:flex;align-items:center;justify-content:space-between;width:100%;min-height:44px;padding:9px 0;border:0;background:none;color:#e0e0e6;font-size:13px;list-style:none;text-align:left;}
+  .pt-crosspage-help-panel details > summary::-webkit-details-marker {display:none;}
+  .pt-crosspage-help-panel details > p {font-size:13px;line-height:1.5;margin:0 0 12px;}
+ }
+}
