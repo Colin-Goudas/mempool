@@ -1,3 +1,4 @@
+import { mobilePopoverVisibleHeight, revealMobileHelpAnswer } from '@app/shared/mobile-popover-visibility';
 import { walletView, addressTransactionChange } from './wallet-view';
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
@@ -245,6 +246,9 @@ export class AddressComponent implements OnInit, OnDestroy {
     panel.style.setProperty('--pt-popover-height', Math.max(120, Math.min(420, viewportHeight - top - 76)) + 'px');
     panel.style.setProperty('--pt-popover-pointer-x', pointer + 'px');
   }
+  onMobileHelpQuestionToggle(event: Event): void {
+    revealMobileHelpAnswer(event);
+  }
   positionMobilePopover(event: Event): void {
     if (window.innerWidth > 767.98 || (event as Event & {newState?: string}).newState !== 'open') return;
     const panel = event.target as HTMLElement;
@@ -257,7 +261,7 @@ export class AddressComponent implements OnInit, OnDestroy {
       this.positionOpenMobilePopover(panel, trigger);
       const viewportHeight = window.visualViewport?.height || window.innerHeight;
       const anchor = trigger.closest('.pt-mobile-help-toolbar')?.getBoundingClientRect() || trigger.getBoundingClientRect();
-      const desiredHeight = Math.min(panel.scrollHeight, 420, Math.max(120, viewportHeight - 220));
+      const desiredHeight = mobilePopoverVisibleHeight(panel, viewportHeight);
       const availableBelow = viewportHeight - 76 - anchor.bottom - 8;
       if (availableBelow < desiredHeight) {
         const safeTop = 120;

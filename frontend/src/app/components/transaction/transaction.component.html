@@ -99,12 +99,12 @@
           </div>
           <div id="pt-mobile-help" class="pt-balanced-answer pt-mobile-help-panel" popover="auto" (toggle)="onSummaryToggle('help', $event); positionMobilePopover($event)" role="region" aria-label="Questions and next steps">
             <div class="pt-mobile-help-heading"><strong>Questions &amp; next steps</strong><button type="button" popovertarget="pt-mobile-help" popovertargetaction="hide" aria-label="Close questions and next steps">×</button></div>
-            <details class="pt-mobile-help-item" name="pt-mobile-transaction-help">
+            <details class="pt-mobile-help-item" name="pt-mobile-transaction-help" (toggle)="onMobileHelpQuestionToggle($event)">
               <summary>What should I do next?<span aria-hidden="true">⌄</span></summary>
               <p>{{ nextStep((stateService.connectionState$ | async) === 2) }}</p>
             </details>
             @for (question of summaryQuestions; track question.id) {
-              <details class="pt-mobile-help-item" name="pt-mobile-transaction-help">
+              <details class="pt-mobile-help-item" name="pt-mobile-transaction-help" (toggle)="onMobileHelpQuestionToggle($event)">
                 <summary>{{ question.label }}<span aria-hidden="true">⌄</span></summary>
                 <p>{{ question.text }}</p>
                 @if (question.id === 'speed') {
