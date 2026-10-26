@@ -1018,7 +1018,7 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
 @media(max-width:767.98px) {
  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot.pt-balanced {
   .pt-mobile-help-trigger::before,.pt-mobile-help-toolbar .pt-notification-action::before {content:"";position:absolute;inset:-12px 0;}
-  .pt-snapshot-surface > .pt-eight-card-grid {margin-top:12px!important;padding-top:0!important;position:relative;background-image:none!important;}
-  .pt-snapshot-surface > .pt-eight-card-grid::before {content:"";position:absolute;top:-6px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(193,161,107,.42) 10%,rgba(193,161,107,.42) 85%,transparent);pointer-events:none;}
+  .pt-snapshot-surface > .pt-eight-card-grid {margin-top:16px!important;padding-top:0!important;position:relative;background-image:none!important;}
+  .pt-snapshot-surface > .pt-eight-card-grid::before {content:"";position:absolute;top:-8px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(193,161,107,.42) 10%,rgba(193,161,107,.42) 85%,transparent);pointer-events:none;}
  }
 }
