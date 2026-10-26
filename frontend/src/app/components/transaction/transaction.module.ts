@@ -1,3 +1,4 @@
+import { SummaryDisclosureComponent } from '@app/shared/summary-disclosure.component';
 import { TransactionExplanationComponent } from '@components/transaction-explanation/transaction-explanation.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -55,6 +56,7 @@ export class TransactionRoutingModule { }
   imports: [
     CommonModule,
     TransactionExplanationComponent,
+    SummaryDisclosureComponent,
     TransactionRoutingModule,
     SharedModule,
     GraphsModule,
