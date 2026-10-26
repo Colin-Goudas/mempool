@@ -1305,3 +1305,81 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
     font-size: 13px !important;
   }
 }
+
+/* Mobile fiat values sit directly below their corresponding BTC or sats. */
+@media (max-width: 767.98px) {
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact:has(.pt-inline-card-context) .pt-inline-card-context {
+    display: block !important;
+    padding-right: 0 !important;
+    padding-left: 84px !important;
+    text-align: right !important;
+    justify-self: stretch !important;
+  }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact:has(.pt-inline-card-context) .pt-wallet-meaning {
+    left: 9px !important;
+    right: auto !important;
+  }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-fact-line .pt-inline-card-context > .pt-card-mobile-text,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-fact-line .pt-inline-card-context > .pt-card-mobile-text,
+  body:has(#pt-transaction-layout) #pt-transaction-layout .pt-fiat-separator { display: none !important; }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact-line:has(.pt-inline-card-context),
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-deeper .pt-network-fact-line:has(.pt-inline-card-context) {
+    display: grid !important;
+    grid-template-columns: auto minmax(0, 1fr) !important;
+    gap: 2px 6px !important;
+  }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact-line .pt-inline-card-context,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-deeper .pt-network-fact-line .pt-inline-card-context {
+    grid-column: 1 / -1 !important;
+    display: block !important;
+    text-align: right !important;
+  }
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card:has(.pt-card-mobile-fiat) {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-rows: auto auto !important;
+    align-items: start !important;
+  }
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card:has(.pt-card-mobile-fiat) .pt-snapshot-fact {
+    display: contents !important;
+  }
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card:has(.pt-card-mobile-fiat) .pt-card-label {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+  }
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card:has(.pt-card-mobile-fiat) .pt-snapshot-fact > strong {
+    grid-column: 2 !important;
+    grid-row: 1 / 3 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    text-align: right !important;
+    margin: 0 !important;
+    gap: 0 !important;
+    font-size: var(--pt-fitted-amount, 16px) !important;
+  }
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card:has(.pt-card-mobile-fiat) .pt-card-mobile-fiat {
+    display: block !important;
+    margin: 0 !important;
+    text-align: right !important;
+  }
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card:has(.pt-card-mobile-fiat) .pt-snapshot-meaning {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    justify-self: start !important;
+  }
+}
+@media (max-width: 767.98px) {
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact-line:has(.pt-inline-card-context) {
+    display: grid !important;
+    grid-template-columns: auto minmax(0, 1fr) !important;
+    align-items: baseline !important;
+    gap: 2px 5px !important;
+  }
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact-line:has(.pt-inline-card-context) .pt-inline-card-context {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    display: block !important;
+    text-align: right !important;
+  }
+}
