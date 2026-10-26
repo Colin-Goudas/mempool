@@ -266,8 +266,15 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     revealMobileHelpAnswer(event);
   }
   positionMobilePopover(event: Event): void {
-    if (window.innerWidth > 767.98 || (event as Event & {newState?: string}).newState !== 'open') return;
+    if (window.innerWidth > 767.98) return;
     const panel = event.target as HTMLElement;
+    if ((event as Event & {newState?: string}).newState !== 'open') {
+      if (['pt-mobile-help', 'pt-network-help', 'pt-wallet-help'].includes(panel.id)) {
+        panel.querySelectorAll<HTMLDetailsElement>('details[open]').forEach(detail => detail.open = false);
+        panel.scrollTop = 0;
+      }
+      return;
+    }
     const trigger = Array.from(document.querySelectorAll<HTMLButtonElement>('#pt-transaction-layout button[popovertarget]'))
       .find(button => button.getAttribute('popovertarget') === panel.id && button.getAttribute('popovertargetaction') !== 'hide');
     if (!trigger) return;

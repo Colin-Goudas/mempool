@@ -12,14 +12,26 @@ export function revealMobileHelpAnswer(event: Event): void {
   if (!panel || !panel.matches(':popover-open')) return;
   requestAnimationFrame(() => {
     if (!details.open || !panel.matches(':popover-open')) return;
-    const panelRect = panel.getBoundingClientRect();
-    const detailsRect = details.getBoundingClientRect();
-    const inset = 12;
-    const available = panel.clientHeight - inset * 2;
-    // For an answer taller than the panel, show its beginning so it can be scrolled naturally.
-    const delta = detailsRect.height > available
-      ? detailsRect.top - panelRect.top - inset
-      : Math.max(0, detailsRect.bottom - panelRect.bottom + inset);
-    if (delta) panel.scrollBy({ top: delta, behavior: 'auto' });
+    const trigger = Array.from(document.querySelectorAll<HTMLButtonElement>('button[popovertarget]'))
+      .find(button => button.getAttribute('popovertarget') === panel.id && button.getClientRects().length > 0 && button.getAttribute('popovertargetaction') !== 'hide');
+    if (trigger) {
+      const viewportHeight = window.visualViewport?.height || window.innerHeight;
+      const anchor = trigger.closest('.pt-summary-actionbar, .pt-mobile-help-toolbar')?.getBoundingClientRect() || trigger.getBoundingClientRect();
+      const desired = mobilePopoverVisibleHeight(panel, viewportHeight);
+      const availableBelow = viewportHeight - 76 - anchor.bottom - 8;
+      const shift = Math.min(Math.max(0, desired - availableBelow), Math.max(0, anchor.top - 120));
+      if (shift) window.scrollBy({top: shift, behavior: 'auto'});
+    }
+    requestAnimationFrame(() => {
+      if (!details.open || !panel.matches(':popover-open')) return;
+      const panelRect = panel.getBoundingClientRect();
+      const detailsRect = details.getBoundingClientRect();
+      const inset = 12;
+      const available = panel.clientHeight - inset * 2;
+      const delta = detailsRect.height > available
+        ? detailsRect.top - panelRect.top - inset
+        : Math.max(0, detailsRect.bottom - panelRect.bottom + inset);
+      if (delta) panel.scrollBy({ top: delta, behavior: 'auto' });
+    });
   });
 }
