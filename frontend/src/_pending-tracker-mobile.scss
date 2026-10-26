@@ -951,3 +951,11 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
 @media(max-width:359.98px) {
  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot.pt-balanced .pt-summary-actionbar {column-gap:10px!important;}
 }
+
+@media(max-width:767.98px) {
+ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot.pt-balanced .pt-summary-actionbar {
+  background-image:linear-gradient(#ffffff17,#ffffff17)!important;
+  background-position:left 30px!important;background-size:100% 1px!important;background-repeat:no-repeat!important;
+  > button:nth-of-type(2), > button:nth-of-type(3) {border-bottom:1px solid #ffffff0d!important;}
+ }
+}
