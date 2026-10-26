@@ -58,7 +58,7 @@ body .pt-summary-actionbar > span:has(> :popover-open) > button::after {
   transform: rotate(180deg) !important;
 }
 body :is(.pt-metric-card, .pt-wallet-fact, .pt-network-fact):has(:popover-open) :is(.pt-snapshot-meaning, .pt-wallet-meaning, .pt-network-meaning) .pt-chevron,
-body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-metric-card:has(:popover-open) .pt-snapshot-meaning button::after,
+body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card:has(:popover-open) .pt-snapshot-meaning button::after,
 body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-fact:has(:popover-open) .pt-network-meaning button::after {
   transform: rotate(180deg) !important;
 }
