@@ -69,11 +69,7 @@
           {{ summaryStatus() }} {{ summaryContext(ETA$ | async) }}
           {{ selectedAddress ? 'Outputs to the selected address total' : 'Its outputs total' }} <strong class="pt-summary-btc-amount">{{ displayAmountSats / 100000000 | number:'1.8-8' }} BTC</strong><span *ngIf="showUsd"> (approximately <app-fiat [value]="displayAmountSats" colorClass=""></app-fiat> at the current price)</span>{{ selectedAddress ? '.' : ', which may include change returned to the sender.' }}
         </app-summary-disclosure>
-        <div class="pt-summary-questions pt-summary-actionbar" style="anchor-name:--pt-summary-toolbar" aria-label="Questions and next steps">
-          <button type="button" class="pt-next-step-link" popovertarget="pt-answer-next" [attr.aria-expanded]="activeSummaryQuestion === 'next'" aria-controls="pt-answer-next"><span class="pt-desktop-question">Next step</span><span class="pt-phone-question">What should I do?</span> <span aria-hidden="true">{{ activeSummaryQuestion === 'next' ? '▴' : '▾' }}</span></button>
-          @for (question of summaryQuestions; track question.id) {
-            <button type="button" [attr.popovertarget]="'pt-answer-' + question.id" [attr.aria-expanded]="activeSummaryQuestion === question.id" [attr.aria-controls]="'pt-answer-' + question.id" [attr.aria-label]="question.label"><span class="pt-desktop-question">{{ question.label }}</span><span class="pt-phone-question">{{ mobileQuestionLabel(question.id) }}</span> <span aria-hidden="true">{{ activeSummaryQuestion === question.id ? '▴' : '▾' }}</span></button>
-          }
+        <ng-template #confirmationNotification>
           @if ((!tx.status.confirmed || alertTxid === tx.txid) && !replaced && !rbfTransaction && !rbfInfo?.mined) {
             <span class="pt-summary-question">
               <button type="button" class="pt-notification-action" [class.pt-alert-active]="alertTxid === tx.txid" style="anchor-name:--pt-confirmation-alert" [attr.aria-label]="confirmationAlertLabel" popovertarget="pt-confirmation-alert"><fa-icon [icon]="confirmationBellIcon" aria-hidden="true"></fa-icon><span class="pt-desktop-question">{{ confirmationAlertLabel }}</span><span class="pt-phone-question">{{ alertTxid === tx.txid ? 'Alert set' : 'Notify me' }}</span><span class="pt-alert-chevron" aria-hidden="true">▾</span></button>
@@ -92,6 +88,41 @@
               </div>
             </span>
           }
+        </ng-template>
+        @if (phoneLayout) {
+          <div class="pt-mobile-help-toolbar">
+            <div class="pt-mobile-help-entry">
+              <button type="button" class="pt-mobile-help-trigger" popovertarget="pt-mobile-help" [attr.aria-expanded]="activeSummaryQuestion === 'help'" aria-controls="pt-mobile-help">Questions &amp; next steps <span aria-hidden="true">{{ activeSummaryQuestion === 'help' ? '▴' : '▾' }}</span></button>
+              <small class="pt-mobile-help-preview">{{ tx.status.confirmed ? 'Missing funds? · My amount? · Confirmations…' : 'Why pending? · Speed up · Funds safety…' }}</small>
+            </div>
+            <ng-container *ngTemplateOutlet="confirmationNotification"></ng-container>
+          </div>
+          <div id="pt-mobile-help" class="pt-balanced-answer pt-mobile-help-panel" popover="auto" (toggle)="onSummaryToggle('help', $event); positionMobilePopover($event)" role="region" aria-label="Questions and next steps">
+            <div class="pt-mobile-help-heading"><strong>Questions &amp; next steps</strong><button type="button" popovertarget="pt-mobile-help" popovertargetaction="hide" aria-label="Close questions and next steps">×</button></div>
+            <details class="pt-mobile-help-item" name="pt-mobile-transaction-help">
+              <summary>What should I do next?<span aria-hidden="true">⌄</span></summary>
+              <p>{{ nextStep((stateService.connectionState$ | async) === 2) }}</p>
+            </details>
+            @for (question of summaryQuestions; track question.id) {
+              <details class="pt-mobile-help-item" name="pt-mobile-transaction-help">
+                <summary>{{ question.label }}<span aria-hidden="true">⌄</span></summary>
+                <p>{{ question.text }}</p>
+                @if (question.id === 'speed') {
+                  <div class="pt-help-roles"><button type="button" (click)="helpRole = 'sent'" [attr.aria-pressed]="helpRole === 'sent'">I sent this</button><button type="button" (click)="helpRole = 'receiving'" [attr.aria-pressed]="helpRole === 'receiving'">I am receiving it</button><button type="button" (click)="helpRole = 'exchange'" [attr.aria-pressed]="helpRole === 'exchange'">Sent through an exchange</button></div>
+                  <p *ngIf="helpRole === 'sent'">Check your sending wallet for Increase fee or Replace by fee. Availability depends on wallet support, control of the inputs and node policy; signaling RBF does not guarantee acceptance or confirmation.</p>
+                  <p *ngIf="helpRole === 'receiving'">Ask the sender about fee-increase options. Some wallets support spending a suitable unconfirmed output with a higher fee (CPFP); this needs control of that output and wallet support. You cannot assume you can replace the sender’s transaction.</p>
+                  <p *ngIf="helpRole === 'exchange'">The sending platform controls the withdrawal. Check its withdrawal status or official support; you usually cannot increase its fee yourself.</p>
+                }
+              </details>
+            }
+          </div>
+        }
+        <div *ngIf="!phoneLayout" class="pt-summary-questions pt-summary-actionbar" style="anchor-name:--pt-summary-toolbar" aria-label="Questions and next steps">
+          <button type="button" class="pt-next-step-link" popovertarget="pt-answer-next" [attr.aria-expanded]="activeSummaryQuestion === 'next'" aria-controls="pt-answer-next"><span class="pt-desktop-question">Next step</span><span class="pt-phone-question">What should I do?</span> <span aria-hidden="true">{{ activeSummaryQuestion === 'next' ? '▴' : '▾' }}</span></button>
+          @for (question of summaryQuestions; track question.id) {
+            <button type="button" [attr.popovertarget]="'pt-answer-' + question.id" [attr.aria-expanded]="activeSummaryQuestion === question.id" [attr.aria-controls]="'pt-answer-' + question.id" [attr.aria-label]="question.label"><span class="pt-desktop-question">{{ question.label }}</span><span class="pt-phone-question">{{ mobileQuestionLabel(question.id) }}</span> <span aria-hidden="true">{{ activeSummaryQuestion === question.id ? '▴' : '▾' }}</span></button>
+          }
+          <ng-container *ngTemplateOutlet="confirmationNotification"></ng-container>
         </div>
           <div id="pt-answer-next" class="pt-balanced-answer" style="position-anchor:--pt-summary-toolbar" popover="auto" (toggle)="onSummaryToggle('next', $event); positionMobilePopover($event)" role="region" aria-label="Next step">
             <button type="button" class="pt-answer-close" popovertarget="pt-answer-next" popovertargetaction="hide" aria-label="Close next step">×</button>

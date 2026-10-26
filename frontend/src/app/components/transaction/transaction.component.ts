@@ -262,11 +262,11 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       this.mobilePopoverAutoScroll = false;
       if (!panel.matches(':popover-open')) return;
       const rect = trigger.getBoundingClientRect();
-      const anchor = trigger.closest('.pt-metric-card, .pt-summary-actionbar')?.getBoundingClientRect() || rect;
+      const anchor = trigger.closest('.pt-metric-card, .pt-summary-actionbar, .pt-mobile-help-toolbar')?.getBoundingClientRect() || rect;
       const viewportWidth = document.documentElement.clientWidth;
       const width = Math.min(Math.max(anchor.width, 260), viewportWidth - 24);
       const left = Math.max(12, Math.min(anchor.left, viewportWidth - width - 12));
-      const top = Math.max(8, rect.bottom + 6);
+      const top = Math.max(8, (panel.id === 'pt-mobile-help' ? anchor.bottom : rect.bottom) + 6);
       panel.style.setProperty('--pt-popover-top', top + 'px');
       panel.style.setProperty('--pt-popover-left', left + 'px');
       panel.style.setProperty('--pt-popover-width', width + 'px');
@@ -893,6 +893,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription = this.zoneService.wrapObservable(this.route.paramMap
       .pipe(
         switchMap((params: ParamMap) => {
+          document.querySelector<HTMLElement>('#pt-mobile-help:popover-open')?.hidePopover();
           this.activeSummaryQuestion = '';
           this.summaryExpanded = false;
           if (this.txId !== (params.get('id') || '').split(':')[0]) {
