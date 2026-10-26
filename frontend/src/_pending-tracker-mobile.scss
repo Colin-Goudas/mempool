@@ -791,3 +791,8 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
   .pt-snapshot-surface > .pt-eight-card-grid {margin-top:6px!important;padding-top:6px!important;}
  }
 }
+
+body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface app-summary-disclosure {
+ .pt-four-line-copy {margin:0 0 4px!important;min-height:0!important;}
+ .pt-summary-expand-toggle {display:inline!important;margin:0!important;padding:0!important;min-height:0!important;min-width:0!important;font-family:inherit!important;font-size:13px!important;font-weight:400;line-height:inherit!important;vertical-align:baseline;white-space:nowrap;}
+}
