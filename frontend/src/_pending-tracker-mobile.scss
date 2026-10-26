@@ -1181,3 +1181,15 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
     white-space: nowrap !important;
   }
 }
+
+/* Keep the help title and close control available while answers scroll. */
+@media (max-width: 767.98px) {
+  #pt-mobile-help.pt-anchored-mobile-popover > .pt-mobile-help-heading,
+  .pt-crosspage-help-panel.pt-anchored-mobile-popover > .pt-network-popup-heading,
+  .pt-crosspage-help-panel.pt-anchored-mobile-popover > .pt-wallet-popup-heading {
+    position: sticky !important;
+    top: -1px !important;
+    z-index: 2 !important;
+    background: #18181b !important;
+  }
+}

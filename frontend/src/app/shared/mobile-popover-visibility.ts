@@ -27,9 +27,11 @@ export function revealMobileHelpAnswer(event: Event): void {
       const panelRect = panel.getBoundingClientRect();
       const detailsRect = details.getBoundingClientRect();
       const inset = 12;
-      const available = panel.clientHeight - inset * 2;
+      const heading = panel.querySelector<HTMLElement>('.pt-mobile-help-heading, .pt-network-popup-heading, .pt-wallet-popup-heading');
+      const topInset = inset + (heading?.offsetHeight || 0);
+      const available = panel.clientHeight - topInset - inset;
       const delta = detailsRect.height > available
-        ? detailsRect.top - panelRect.top - inset
+        ? detailsRect.top - panelRect.top - topInset
         : Math.max(0, detailsRect.bottom - panelRect.bottom + inset);
       if (delta) panel.scrollBy({ top: delta, behavior: 'auto' });
     });
