@@ -796,3 +796,22 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
  .pt-four-line-copy {margin:0 0 4px!important;min-height:0!important;}
  .pt-summary-expand-toggle {display:inline!important;margin:0!important;padding:0!important;min-height:0!important;min-width:0!important;font-family:inherit!important;font-size:13px!important;font-weight:400;line-height:inherit!important;vertical-align:baseline;white-space:nowrap;}
 }
+
+
+/* Transaction detail cards share the snapshot hierarchy and keep explanation actions inline. */
+body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-deeper-snapshot {
+ .pt-metric-card {display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:3px!important;min-height:0!important;padding:9px 12px!important;}
+ .pt-snapshot-fact {display:flex!important;flex-wrap:wrap!important;align-items:baseline!important;gap:3px 6px!important;width:100%!important;min-width:0!important;}
+ .pt-snapshot-fact > span {font-size:16px!important;line-height:1.35!important;font-weight:500!important;color:#f3f3f5;}
+ .pt-snapshot-fact > strong {font-size:16px!important;line-height:1.35!important;font-weight:400!important;color:#d5d5dc;white-space:normal!important;overflow-wrap:anywhere;font-variant-numeric:tabular-nums;}
+ .pt-card-value-unit {font-size:13px!important;font-weight:400;line-height:inherit;color:#b4b4bc;white-space:nowrap;}
+ .pt-deeper-inline-meaning {display:block!important;width:100%!important;min-width:0!important;padding:0!important;margin:0!important;}
+ app-summary-disclosure {display:block;min-width:0;}
+ .pt-four-line-copy {display:block!important;font-size:13px!important;line-height:1.5!important;font-weight:400!important;color:#b4b4bc!important;margin:0!important;padding:0!important;min-height:0!important;max-height:none!important;overflow:visible!important;}
+ .pt-summary-expand-toggle {display:inline!important;min-height:0!important;min-width:0!important;padding:0!important;margin:0!important;border:0;background:none;color:#c4c4cc;font-family:inherit!important;font-size:13px!important;font-weight:400;line-height:inherit!important;vertical-align:baseline;white-space:nowrap;cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#ffffff40;}
+ .pt-summary-expand-toggle:hover {color:#f3f3f5;}
+ .pt-summary-expand-toggle:focus-visible {outline:2px solid #c1a16b;outline-offset:3px;border-radius:3px;}
+}
+@media(max-width:767.98px) {
+ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-deeper-snapshot .pt-metric-card {padding:7px 9px!important;}
+}
