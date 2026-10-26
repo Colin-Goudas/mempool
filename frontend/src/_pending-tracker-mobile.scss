@@ -939,7 +939,7 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
   .pt-summary-actionbar > button[aria-expanded="true"],
   .pt-summary-actionbar > span:has(:popover-open) > button,
   .pt-summary-actionbar .pt-notification-action.pt-alert-active {color:#dfbd7b!important;background:none!important;}
-  .pt-summary-actionbar > .pt-next-step-link:only-child {grid-column:1/-1;}
+  .pt-summary-actionbar:not(:has(> .pt-summary-question)) > .pt-next-step-link {grid-column:1/-1;}
   .pt-snapshot-surface > .pt-eight-card-grid {
    margin-top:6px!important;padding-top:8px!important;
    background-image:linear-gradient(90deg,transparent,rgba(193,161,107,.42) 10%,rgba(193,161,107,.42) 85%,transparent)!important;
