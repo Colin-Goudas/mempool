@@ -1109,3 +1109,7 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
  body:has(#pt-wallet-layout) #pt-wallet-layout .pt-wallet-fact-line strong .symbol,
  body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) .pt-inline-card-context {font-size:13px!important;font-weight:400!important;}
 }
+@media(max-width:767.98px) {
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-fact-line > .pt-inline-card-context,
+ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-fact-line > .pt-inline-card-context {font-size:13px!important;font-weight:400!important;}
+}
