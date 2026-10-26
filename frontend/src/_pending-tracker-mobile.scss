@@ -729,3 +729,26 @@ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-he
 @media(max-width:767.98px) {
  .navbar .pt-labeled-link > span:first-child:not(.pt-nav-label) {line-height:24px;height:24px;}
 }
+
+/* Transaction snapshot reading hierarchy; preview refinement, other pages unchanged. */
+body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot-surface {
+ .pt-summary-expanded[hidden] {display:none!important;}
+ .pt-summary-expanded > p {margin-top:6px!important;}
+ .pt-summary-expand-toggle {display:inline-flex;align-items:center;gap:5px;min-height:32px;padding:3px 0;margin:2px 0 4px;border:0;background:none;color:#b4b4bc;font:inherit;font-size:12px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#ffffff40;}
+ .pt-summary-expand-toggle:hover {color:#f3f3f5;}
+ .pt-summary-expand-toggle:focus-visible {outline:2px solid #c1a16b;outline-offset:3px;border-radius:3px;}
+ > .pt-eight-card-grid .pt-snapshot-fact strong {font-variant-numeric:tabular-nums;}
+}
+@media(max-width:767.98px) {
+ body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot.pt-balanced .pt-snapshot-surface {
+  .pt-summary-narrative {font-size:15px!important;line-height:1.5!important;}
+  > .pt-eight-card-grid .pt-metric-card {min-height:50px!important;padding:7px 9px!important;grid-template-columns:minmax(0,1fr) 76px!important;column-gap:8px!important;align-items:center!important;}
+  > .pt-eight-card-grid .pt-snapshot-fact {align-items:baseline!important;gap:3px 6px!important;}
+  > .pt-eight-card-grid .pt-snapshot-fact > span {font-size:16px!important;line-height:1.35!important;font-weight:500!important;color:#f3f3f5;}
+  > .pt-eight-card-grid .pt-snapshot-fact > strong {font-size:16px!important;line-height:1.35!important;font-weight:400!important;color:#d5d5dc;}
+  > .pt-eight-card-grid .pt-snapshot-fact > strong > .pt-card-mobile-text {font:inherit!important;}
+  > .pt-eight-card-grid .pt-card-mobile-fiat {font-size:13px!important;line-height:1.35!important;margin-left:2px;gap:4px;white-space:nowrap;}
+  > .pt-eight-card-grid .pt-snapshot-meaning {align-self:center!important;justify-self:end!important;width:76px;}
+  > .pt-eight-card-grid .pt-explore-more {font-size:12px!important;min-height:32px!important;padding:3px 0!important;width:100%;text-align:right!important;white-space:nowrap;}
+ }
+}
