@@ -1399,3 +1399,36 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
     padding-left: 84px !important;
   }
 }
+
+/* One mobile snapshot pattern: label/help left, amount/fiat right. */
+@media (max-width: 767.98px) {
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-rows: auto auto !important;
+    align-items: start !important;
+    row-gap: 0 !important;
+  }
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-fact { display: contents !important; }
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-card-label { grid-column: 1 !important; grid-row: 1 !important; }
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-fact > strong { grid-column: 2 !important; grid-row: 1 / 3 !important; text-align: right !important; align-self: start !important; margin: 0 !important; }
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-meaning { grid-column: 1 !important; grid-row: 2 !important; justify-self: start !important; }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact.pt-network-fact {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-rows: auto auto !important;
+    align-items: start !important;
+    row-gap: 0 !important;
+  }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact.pt-wallet-fact .pt-wallet-fact-line,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact.pt-network-fact .pt-network-fact-line { display: contents !important; }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact.pt-wallet-fact .pt-wallet-fact-line > span,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact.pt-network-fact .pt-network-fact-line > span { grid-column: 1 !important; grid-row: 1 !important; }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact.pt-wallet-fact .pt-wallet-fact-line > strong,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact.pt-network-fact .pt-network-fact-line > strong { grid-column: 2 !important; grid-row: 1 !important; text-align: right !important; margin: 0 !important; }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact.pt-wallet-fact .pt-wallet-fact-line > .pt-inline-card-context,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact.pt-network-fact .pt-network-fact-line > .pt-inline-card-context { grid-column: 2 !important; grid-row: 2 !important; padding: 0 !important; text-align: right !important; }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact.pt-wallet-fact .pt-wallet-meaning,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact.pt-network-fact .pt-network-meaning { position: static !important; grid-column: 1 !important; grid-row: 2 !important; justify-self: start !important; }
+}
