@@ -1018,6 +1018,6 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
 @media(max-width:767.98px) {
  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot.pt-balanced {
   .pt-mobile-help-trigger::before,.pt-mobile-help-toolbar .pt-notification-action::before {content:"";position:absolute;inset:-12px 0;}
-  .pt-snapshot-surface > .pt-eight-card-grid {margin-top:6px!important;padding-top:4px!important;}
+  .pt-snapshot-surface > .pt-eight-card-grid {margin-top:8px!important;padding-top:4px!important;}
  }
 }
