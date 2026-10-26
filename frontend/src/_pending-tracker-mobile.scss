@@ -775,3 +775,19 @@ body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot-su
 }
 
 body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface .pt-summary-narrative.pt-summary-with-toggle {margin-bottom:6px!important;}
+
+/* One paragraph, with the continuation cue and disclosure kept together. */
+body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface {
+ .pt-summary-narrative.pt-summary-with-toggle {margin-bottom:4px!important;}
+ .pt-summary-ending {display:inline!important;white-space:nowrap;font:inherit;color:inherit;}
+ .pt-summary-ending .pt-summary-expand-toggle {display:inline!important;margin:0!important;padding:0!important;min-height:0!important;font-family:inherit!important;font-size:13px!important;font-weight:400;line-height:inherit!important;vertical-align:baseline;}
+ .pt-summary-ending:has(button[aria-expanded="true"]) {margin-left:4px;}
+ .pt-summary-with-toggle + .pt-summary-actionbar {margin-top:0!important;padding-top:0!important;padding-bottom:0!important;}
+}
+@media(max-width:767.98px) {
+ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot.pt-balanced {
+  .pt-summary-actionbar {row-gap:0!important;grid-auto-rows:minmax(26px,auto)!important;}
+  .pt-summary-actionbar > button,.pt-summary-actionbar > span > button {min-height:26px!important;padding-top:1px!important;padding-bottom:1px!important;}
+  .pt-snapshot-surface > .pt-eight-card-grid {margin-top:6px!important;padding-top:6px!important;}
+ }
+}
