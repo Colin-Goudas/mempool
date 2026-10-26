@@ -231,6 +231,13 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     if (label === 'Replacement history') return value.replace(/ replacements?$/, '');
     return value;
   }
+  mobileSnapshotMainValue(label: string, value: string, secondary?: string): string {
+    return this.mobileSnapshotValue(label, value, secondary).replace(/\s+(BTC|sat\/vB|sats?)$/, '');
+  }
+  mobileSnapshotUnit(label: string, value: string, secondary?: string): string {
+    const match = this.mobileSnapshotValue(label, value, secondary).match(/\s+(BTC|sat\/vB|sats?)$/);
+    return match ? ' ' + match[1] : '';
+  }
   private mobilePopoverAutoScroll = false;
   positionMobilePopover(event: Event): void {
     if (window.innerWidth > 767.98 || (event as Event & {newState?: string}).newState !== 'open') return;
