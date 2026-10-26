@@ -1103,3 +1103,9 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact-line > span,
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact-line > strong {font-size:16px!important;line-height:1.35!important;overflow-wrap:normal!important;word-break:normal!important;}
 }
+
+@media(max-width:767.98px) {
+ body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) .pt-crosspage-unit,
+ body:has(#pt-wallet-layout) #pt-wallet-layout .pt-wallet-fact-line strong .symbol,
+ body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) .pt-inline-card-context {font-size:13px!important;font-weight:400!important;}
+}

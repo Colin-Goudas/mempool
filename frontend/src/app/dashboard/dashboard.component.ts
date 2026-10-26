@@ -92,6 +92,8 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   mobileQuestionLabel(id: string): string {
     return ({busy:'How busy?',timing:'Timing',visuals:'The visuals',arrived:'My payment?',missing:'My balance?',spend:'Use funds?'} as Record<string,string>)[id] || id;
   }
+  mobileNetworkMainValue(value: string): string { return (value || '').replace(/\s+(sat\/vB|sats|vMB|vB\/s|MB|BTC|blocks|minutes)$/, ''); }
+  mobileNetworkValueUnit(value: string): string { const match = (value || '').match(/\s+(sat\/vB|sats|vMB|vB\/s|MB|BTC|blocks|minutes)$/); return match ? ' ' + match[1] : ''; }
   mobileMetricLabel(label: string): string {
     return ({'Example payment fee':'Example fee','Confirmation targets':'Target','Awaiting confirmation':'Waiting','Confirmed balance':'Balance','Pending balance':'Pending','Total transactions':'Transactions'} as Record<string,string>)[label] || label;
   }
