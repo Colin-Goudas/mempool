@@ -1088,3 +1088,9 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface > .pt-wallet-facts::before,
  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface > .pt-network-facts::before {content:"";position:absolute;top:-8px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(193,161,107,.42) 10%,rgba(193,161,107,.42) 85%,transparent);pointer-events:none;}
 }
+@media(max-width:767.98px) {
+ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-summary app-summary-disclosure.pt-unified-mobile-summary p.pt-four-line-copy,
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-summary app-summary-disclosure.pt-unified-mobile-summary p.pt-four-line-copy {font-size:15px!important;line-height:1.5!important;margin:0!important;}
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-track-action .pt-wallet-track,
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-track-action .pt-wallet-track span {color:#91c5db!important;text-decoration:none!important;}
+}
