@@ -1022,3 +1022,16 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
   .pt-snapshot-surface > .pt-eight-card-grid::before {content:"";position:absolute;top:-8px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(193,161,107,.42) 10%,rgba(193,161,107,.42) 85%,transparent);pointer-events:none;}
  }
 }
+
+/* Mobile popovers point back to their controls and remain readable on scroll. */
+@media(max-width:767.98px) {
+  body:has(app-transaction) app-transaction #pt-transaction-layout [popover].pt-anchored-mobile-popover {
+    padding-top:22px!important;
+  }
+  body:has(app-transaction) app-transaction #pt-transaction-layout [popover].pt-anchored-mobile-popover::before {
+    content:"";position:absolute;top:2px;left:var(--pt-popover-pointer-x,24px);
+    width:10px;height:10px;transform:translateX(-50%) rotate(45deg);
+    border-left:1px solid #b89b69;border-top:1px solid #b89b69;
+    background:#18181b;pointer-events:none;
+  }
+}

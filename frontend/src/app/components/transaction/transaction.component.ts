@@ -245,7 +245,22 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     const match = this.mobileSnapshotValue(label, value, secondary).match(/\s+(BTC|sat\/vB|sats?)$/);
     return match ? ' ' + match[1] : '';
   }
-  private mobilePopoverAutoScroll = false;
+  private positionOpenMobilePopover(panel: HTMLElement, trigger: HTMLButtonElement): void {
+    const viewportHeight = window.visualViewport?.height || window.innerHeight;
+    const rect = trigger.getBoundingClientRect();
+    const anchor = trigger.closest('.pt-metric-card, .pt-summary-actionbar, .pt-mobile-help-toolbar')?.getBoundingClientRect() || rect;
+    const viewportWidth = document.documentElement.clientWidth;
+    const width = Math.min(Math.max(anchor.width, 260), viewportWidth - 24);
+    const left = Math.max(12, Math.min(anchor.left, viewportWidth - width - 12));
+    const anchorBottom = panel.id === 'pt-mobile-help' ? anchor.bottom : rect.bottom;
+    const top = Math.max(8, Math.min(anchorBottom + 8, viewportHeight - 160));
+    const pointer = Math.max(16, Math.min(width - 20, rect.left + rect.width / 2 - left));
+    panel.style.setProperty('--pt-popover-top', top + 'px');
+    panel.style.setProperty('--pt-popover-left', left + 'px');
+    panel.style.setProperty('--pt-popover-width', width + 'px');
+    panel.style.setProperty('--pt-popover-height', Math.max(120, Math.min(420, viewportHeight - top - 76)) + 'px');
+    panel.style.setProperty('--pt-popover-pointer-x', pointer + 'px');
+  }
   positionMobilePopover(event: Event): void {
     if (window.innerWidth > 767.98 || (event as Event & {newState?: string}).newState !== 'open') return;
     const panel = event.target as HTMLElement;
@@ -254,30 +269,21 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!trigger) return;
     panel.classList.add('pt-anchored-mobile-popover');
     const viewportHeight = window.visualViewport?.height || window.innerHeight;
-    if (viewportHeight - trigger.getBoundingClientRect().bottom - 84 < 140) {
-      this.mobilePopoverAutoScroll = true;
+    if (viewportHeight - trigger.getBoundingClientRect().bottom - 84 < 200) {
       trigger.scrollIntoView({block:'center', behavior:'auto'});
     }
     requestAnimationFrame(() => {
-      this.mobilePopoverAutoScroll = false;
-      if (!panel.matches(':popover-open')) return;
-      const rect = trigger.getBoundingClientRect();
-      const anchor = trigger.closest('.pt-metric-card, .pt-summary-actionbar, .pt-mobile-help-toolbar')?.getBoundingClientRect() || rect;
-      const viewportWidth = document.documentElement.clientWidth;
-      const width = Math.min(Math.max(anchor.width, 260), viewportWidth - 24);
-      const left = Math.max(12, Math.min(anchor.left, viewportWidth - width - 12));
-      const top = Math.max(8, (panel.id === 'pt-mobile-help' ? anchor.bottom : rect.bottom) + 6);
-      panel.style.setProperty('--pt-popover-top', top + 'px');
-      panel.style.setProperty('--pt-popover-left', left + 'px');
-      panel.style.setProperty('--pt-popover-width', width + 'px');
-      panel.style.setProperty('--pt-popover-height', Math.max(80, Math.min(420, viewportHeight - top - 76)) + 'px');
+      if (panel.matches(':popover-open')) this.positionOpenMobilePopover(panel, trigger);
     });
   }
   @HostListener('window:scroll')
-  closeMobileExplanationsOnPageScroll(): void {
-    if (window.innerWidth > 767.98 || this.mobilePopoverAutoScroll) return;
-    document.querySelectorAll<HTMLElement>('#pt-transaction-layout .pt-anchored-mobile-popover:popover-open').forEach(panel =>
-      (panel as HTMLElement & {hidePopover?: () => void}).hidePopover?.());
+  repositionMobileExplanationsOnPageScroll(): void {
+    if (window.innerWidth > 767.98) return;
+    document.querySelectorAll<HTMLElement>('#pt-transaction-layout .pt-anchored-mobile-popover:popover-open').forEach(panel => {
+      const trigger = Array.from(document.querySelectorAll<HTMLButtonElement>('#pt-transaction-layout button[popovertarget]'))
+        .find(button => button.getAttribute('popovertarget') === panel.id && button.getAttribute('popovertargetaction') !== 'hide');
+      if (trigger) this.positionOpenMobilePopover(panel, trigger);
+    });
   }
   mobileQuestionLabel(id: string): string {
     return ({pending:'Why pending?', time:'Timing', speed:'Speed up', lost:'Funds safe?', missing:'Missing funds?', amount:'My amount?', confirmations:'Confirmations', fee:'Fee'} as Record<string, string>)[id] || id;
