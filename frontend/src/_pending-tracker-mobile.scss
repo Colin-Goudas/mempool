@@ -1037,7 +1037,7 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
 }
 
 /* Shared mobile snapshot treatment for the network and wallet views. */
-.pt-unified-mobile-summary,.pt-crosspage-help,.pt-crosspage-help-panel {display:none;}
+.pt-unified-mobile-summary,.pt-crosspage-help,.pt-crosspage-help-panel {display:none!important;}
 @media(max-width:767.98px) {
  body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) {
   .pt-original-desktop-summary {display:none!important;}
@@ -1093,4 +1093,13 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-summary app-summary-disclosure.pt-unified-mobile-summary p.pt-four-line-copy {font-size:15px!important;line-height:1.5!important;margin:0!important;}
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-track-action .pt-wallet-track,
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-track-action .pt-wallet-track span {color:#91c5db!important;text-decoration:none!important;}
+}
+
+@media(max-width:767.98px) {
+ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-deeper app-summary-disclosure.pt-unified-mobile-summary p.pt-four-line-copy,
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper app-summary-disclosure.pt-unified-mobile-summary p.pt-four-line-copy {font-size:13px!important;line-height:1.5!important;}
+ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-deeper .pt-network-fact-line > span,
+ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-deeper .pt-network-fact-line > strong,
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact-line > span,
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact-line > strong {font-size:16px!important;line-height:1.35!important;overflow-wrap:normal!important;word-break:normal!important;}
 }
