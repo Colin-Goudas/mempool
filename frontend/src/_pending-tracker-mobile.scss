@@ -1383,3 +1383,19 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
     text-align: right !important;
   }
 }
+
+@media (max-width: 767.98px) {
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact:has(.pt-inline-card-context) {
+    position: relative !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact:has(.pt-inline-card-context) .pt-network-meaning {
+    position: absolute !important;
+    left: 9px !important;
+    bottom: 7px !important;
+    right: auto !important;
+  }
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact:has(.pt-inline-card-context) .pt-inline-card-context {
+    padding-left: 84px !important;
+  }
+}
