@@ -1444,3 +1444,25 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
     margin-left: 3px !important;
   }
 }
+
+@media (max-width: 767.98px) {
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-meaning button,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-meaning button,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-meaning button {
+    min-height: 20px !important;
+    height: auto !important;
+    padding: 0 !important;
+    line-height: 20px !important;
+  }
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-meaning button::after,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-meaning button::after,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-meaning button::after {
+    position: static !important;
+    transform: none !important;
+    width: auto !important;
+    height: auto !important;
+    border: 0 !important;
+    background: none !important;
+    vertical-align: baseline !important;
+  }
+}
