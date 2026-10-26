@@ -182,14 +182,26 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       conflict:!!this.rbfInfo?.mined && !this.tx?.status?.confirmed, cached:!!this.isCached,
       connected});
   }
-  summaryContext(eta: ETA | null): string {
+  summaryExpanded = false;
+  summaryContext(eta: ETA | null, detailOnly = false): string {
     if (!this.tx) return '';
     if (!this.tx.status.confirmed && (this.replaced || this.rbfTransaction || this.rbfInfo?.mined)) return 'Review the status notice and linked transaction above before relying on this record.';
     if (this.tx.vin?.some(v => v.is_coinbase)) return 'It creates the block subsidy and collects transaction fees; it does not pay a normal network fee.';
     const fee = this.tx.fee.toLocaleString('en-US') + (this.tx.fee === 1 ? ' sat' : ' sats');
     const rate = this.ownFeeRate?.toLocaleString('en-US', {maximumFractionDigits:2});
-    const timing = this.tx.status.confirmed ? '' : eta && Number.isFinite(eta.wait) && eta.wait >= 0 ? 'The current estimate is about ' + Math.max(1, Math.ceil(eta.wait / 60000)) + ' minutes, but it can change. ' : 'A reliable confirmation-time estimate is currently unavailable. ';
+    const timing = detailOnly || this.tx.status.confirmed ? '' : eta && Number.isFinite(eta.wait) && eta.wait >= 0 ? 'The current estimate is about ' + Math.max(1, Math.ceil(eta.wait / 60000)) + ' minutes, but it can change. ' : 'A reliable confirmation-time estimate is currently unavailable. ';
     return timing + (this.tx.status.confirmed ? 'It paid ' : 'It pays ') + fee + ' in network fees' + (this.tx.status.confirmed ? '.' : ' at ' + rate + ' sat/vB.');
+  }
+  summaryPreviewContext(eta: ETA | null): string {
+    if (!this.tx) return '';
+    if (this.tx.status.confirmed || this.tx.vin?.some(v => v.is_coinbase) || this.replaced || this.rbfTransaction || this.rbfInfo?.mined) return this.summaryContext(eta);
+    return eta && Number.isFinite(eta.wait) && eta.wait >= 0
+      ? 'The current estimate is about ' + Math.max(1, Math.ceil(eta.wait / 60000)) + ' minutes, but it can change.'
+      : 'A reliable confirmation-time estimate is currently unavailable.';
+  }
+  summaryExtraContext(eta: ETA | null): string {
+    if (!this.tx || this.tx.status.confirmed || this.tx.vin?.some(v => v.is_coinbase) || this.replaced || this.rbfTransaction || this.rbfInfo?.mined) return '';
+    return this.summaryContext(eta, true);
   }
   mobileDetailMeaning(label: string, fallback: string): string {
     return ({
@@ -868,6 +880,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(
         switchMap((params: ParamMap) => {
           this.activeSummaryQuestion = '';
+          this.summaryExpanded = false;
           if (this.txId !== (params.get('id') || '').split(':')[0]) {
             this.showReplacementDiagram = false;
             this.showRbfDiff = false;
