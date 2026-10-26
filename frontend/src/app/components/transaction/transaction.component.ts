@@ -268,12 +268,22 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       .find(button => button.getAttribute('popovertarget') === panel.id && button.getAttribute('popovertargetaction') !== 'hide');
     if (!trigger) return;
     panel.classList.add('pt-anchored-mobile-popover');
-    const viewportHeight = window.visualViewport?.height || window.innerHeight;
-    if (viewportHeight - trigger.getBoundingClientRect().bottom - 84 < 200) {
-      trigger.scrollIntoView({block:'center', behavior:'auto'});
-    }
     requestAnimationFrame(() => {
-      if (panel.matches(':popover-open')) this.positionOpenMobilePopover(panel, trigger);
+      if (!panel.matches(':popover-open')) return;
+      this.positionOpenMobilePopover(panel, trigger);
+      const viewportHeight = window.visualViewport?.height || window.innerHeight;
+      const anchor = trigger.closest('.pt-mobile-help-toolbar')?.getBoundingClientRect() || trigger.getBoundingClientRect();
+      const desiredHeight = Math.min(panel.scrollHeight, 420, Math.max(120, viewportHeight - 220));
+      const availableBelow = viewportHeight - 76 - anchor.bottom - 8;
+      if (availableBelow < desiredHeight) {
+        const safeTop = 120;
+        const availableScroll = Math.max(0, anchor.top - safeTop);
+        const distance = Math.min(desiredHeight - availableBelow, availableScroll);
+        if (distance > 0) window.scrollBy({top: distance, behavior:'auto'});
+      }
+      requestAnimationFrame(() => {
+        if (panel.matches(':popover-open')) this.positionOpenMobilePopover(panel, trigger);
+      });
     });
   }
   @HostListener('window:scroll')
