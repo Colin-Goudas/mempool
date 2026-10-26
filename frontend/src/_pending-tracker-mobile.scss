@@ -1113,3 +1113,60 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-fact-line > .pt-inline-card-context,
  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-fact-line > .pt-inline-card-context {font-size:13px!important;font-weight:400!important;}
 }
+
+/* Keep the two-line description below the complete title/value row. */
+@media (max-width: 767.98px) {
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-deeper .pt-network-fact,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: auto auto !important;
+    align-items: start !important;
+    row-gap: 2px !important;
+  }
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-deeper .pt-network-fact-line,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact-line {
+    grid-column: 1 / -1 !important;
+    grid-row: 1 !important;
+  }
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-deeper .pt-unified-mobile-summary,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-unified-mobile-summary {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+/* Match the Transaction page's mobile card typography and spacing. */
+@media (max-width: 767.98px) {
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-fact,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-fact {
+    padding: 7px 9px !important;
+    border-radius: 10px !important;
+  }
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact {
+    min-height: 50px !important;
+  }
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-deeper .pt-network-fact,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact {
+    row-gap: 3px !important;
+  }
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-fact-line > strong,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-fact-line > strong {
+    font-weight: 400 !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact-line > strong,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact-line > strong {
+    margin-left: auto !important;
+    text-align: right !important;
+    font-variant-numeric: tabular-nums;
+  }
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-inline-card-context,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-inline-card-context {
+    text-align: right !important;
+  }
+}
