@@ -765,3 +765,11 @@ body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot-su
   .pt-explore-more > span[aria-hidden] {font-size:0!important;}
  }
 }
+
+/* Summary disclosure flows with the sentence instead of occupying a padded row. */
+body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot-surface {
+ .pt-summary-narrative.pt-summary-with-toggle {margin-bottom:6px!important;}
+ .pt-summary-with-toggle .pt-summary-expanded:not([hidden]) {display:inline!important;}
+ .pt-summary-with-toggle .pt-summary-expand-toggle {display:inline!important;min-height:0!important;min-width:0!important;padding:0!important;margin:0 0 0 4px!important;font-size:12px!important;line-height:inherit!important;vertical-align:baseline;white-space:nowrap;}
+ .pt-summary-with-toggle + .pt-summary-actionbar {margin-top:0!important;padding-top:0!important;}
+}
