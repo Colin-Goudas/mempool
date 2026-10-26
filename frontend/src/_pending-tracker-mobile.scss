@@ -1439,7 +1439,7 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
   body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-meaning button::after {
     content: ' ▾' !important;
     display: inline !important;
-    color: #c8ac73 !important;
+    color: #000000 !important;
     font-size: 12px !important;
     margin-left: 3px !important;
   }
