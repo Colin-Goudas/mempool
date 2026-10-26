@@ -40,7 +40,8 @@ export class MobileFitAmountDirective implements AfterViewInit, OnDestroy {
     ctx.font = `400 16px ${computed.fontFamily}`;
     const text = value.innerText.replace(/\s*·.*/, '').trim();
     const natural = ctx.measureText(text).width;
-    const available = Math.max(0, el.clientWidth - label.getBoundingClientRect().width - 8);
+    const rowWidth = el.clientWidth || el.parentElement?.clientWidth || 0;
+    const available = Math.max(0, rowWidth - label.getBoundingClientRect().width - 20);
     const size = Math.min(16, Math.max(12, Math.floor((available / Math.max(1, natural)) * 160) / 10));
     el.classList.add('pt-amount-fit');
     el.style.setProperty('--pt-fitted-amount', `${size}px`);

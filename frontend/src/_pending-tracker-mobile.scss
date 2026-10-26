@@ -1279,3 +1279,15 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
     font-size: min(13px, var(--pt-fitted-amount, 16px)) !important;
   }
 }
+/* If a full-precision amount cannot fit at the minimum size, give it its own row. */
+@media (max-width: 767.98px) {
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact .pt-wallet-fact-line.pt-amount-needs-wrap > strong {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    width: 100% !important;
+    text-align: left !important;
+  }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact .pt-wallet-fact-line.pt-amount-needs-wrap > .pt-inline-card-context {
+    grid-row: 3 !important;
+  }
+}
