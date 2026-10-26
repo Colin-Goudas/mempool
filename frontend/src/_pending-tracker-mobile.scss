@@ -1466,3 +1466,12 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
     vertical-align: baseline !important;
   }
 }
+
+@media (max-width: 767.98px) {
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact.pt-wallet-fact.pt-wallet-fact,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact.pt-network-fact.pt-network-fact {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-rows: auto auto !important;
+  }
+}
