@@ -260,7 +260,7 @@
   margin-bottom:18px!important;padding-bottom:0!important;
   .pt-snapshot.pt-balanced .pt-summary-actionbar > button,.pt-snapshot.pt-balanced .pt-summary-actionbar > span > button {min-height:34px!important;padding:3px 0!important;}
   .pt-snapshot.pt-balanced .pt-summary-narrative {margin-bottom:2px!important;}
-  .pt-snapshot.pt-balanced .pt-snapshot-surface > .pt-eight-card-grid {margin-top:6px!important;padding-top:4px!important;}
+  .pt-snapshot.pt-balanced .pt-snapshot-surface > .pt-eight-card-grid {margin-top:4px!important;padding-top:4px!important;}
   .pt-flow-section.pt-flow-open,.pt-deeper.pt-dive-deeper-toggle {margin-top:18px!important;}
   .pt-flow-section.pt-flow-open > .pt-flow-header {display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:baseline!important;gap:2px 8px!important;margin-bottom:4px!important;padding:0!important;}
   .pt-flow-heading-copy {grid-column:1/-1;}
@@ -1018,6 +1018,6 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
 @media(max-width:767.98px) {
  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot.pt-balanced {
   .pt-mobile-help-trigger::before,.pt-mobile-help-toolbar .pt-notification-action::before {content:"";position:absolute;inset:-12px 0;}
-  .pt-snapshot-surface > .pt-eight-card-grid {margin-top:4px!important;padding-top:4px!important;}
+  .pt-snapshot-surface > .pt-eight-card-grid {margin-top:6px!important;padding-top:4px!important;}
  }
 }
