@@ -203,6 +203,13 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.tx || this.tx.status.confirmed || this.tx.vin?.some(v => v.is_coinbase) || this.replaced || this.rbfTransaction || this.rbfInfo?.mined) return '';
     return this.summaryContext(eta, true);
   }
+  detailMainValue(value: string): string {
+    return value.replace(/\s+(kB|MB|B|kvB|vB|kWU|WU|BTC|sat\/vB|sats?)$/, '');
+  }
+  detailValueUnit(value: string): string {
+    const match = value.match(/\s+(kB|MB|B|kvB|vB|kWU|WU|BTC|sat\/vB|sats?)$/);
+    return match ? ' ' + match[1] : '';
+  }
   mobileDetailMeaning(label: string, fallback: string): string {
     return ({
       'Size':'Actual transaction data size.',
