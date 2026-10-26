@@ -970,8 +970,8 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
   .pt-mobile-help-entry {flex:1;min-width:0;}
   .pt-mobile-help-trigger {
    display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:34px;
-   padding:6px 9px!important;border:0!important;border-radius:6px!important;
-   background:#c1a16b!important;color:#171410!important;box-shadow:inset 0 1px 0 #ffffff20;
+   padding:6px 0!important;border:0!important;border-radius:0!important;
+   background:none!important;color:#dfbd7b!important;box-shadow:none!important;
    font-family:inherit;font-weight:500;font-size:13px;line-height:1.3;text-decoration:none!important;white-space:nowrap;
    span {color:inherit!important;font-size:11px;}
   }
@@ -1010,7 +1010,7 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
 @media(max-width:359.98px) {
  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot.pt-balanced {
   .pt-mobile-help-toolbar {gap:7px;}
-  .pt-mobile-help-trigger {font-size:12px!important;padding-left:7px!important;padding-right:7px!important;gap:5px;}
+  .pt-mobile-help-trigger {font-size:12px!important;padding-left:0!important;padding-right:0!important;gap:5px;}
   .pt-mobile-help-toolbar .pt-notification-action {font-size:12px!important;gap:4px;}
  }
 }
