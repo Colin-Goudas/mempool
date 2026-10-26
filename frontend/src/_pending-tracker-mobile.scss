@@ -1291,3 +1291,17 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
     grid-row: 3 !important;
   }
 }
+
+/* Preserve the complete search hint at a readable size on narrow phones. */
+@media (max-width: 767.98px) {
+  body:is(:has(#pt-network-layout), :has(#pt-wallet-layout), :has(#pt-transaction-layout)) .navbar app-search-form input::placeholder {
+    font-size: clamp(11px, 3.4vw, 14px) !important;
+    letter-spacing: -0.1px !important;
+  }
+  body:is(:has(#pt-network-layout), :has(#pt-wallet-layout), :has(#pt-transaction-layout)) .navbar app-search-form .search-submit {
+    width: 68px !important;
+    min-width: 68px !important;
+    padding: 8px 6px !important;
+    font-size: 13px !important;
+  }
+}
