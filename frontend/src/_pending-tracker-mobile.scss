@@ -833,7 +833,7 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
    font-size:12px!important;font-weight:400!important;line-height:1.25!important;
    text-align:center!important;text-decoration:none!important;white-space:nowrap!important;
   }
-  .pt-snapshot.pt-balanced .pt-summary-actionbar button span {text-decoration:none!important;}
+  .pt-snapshot.pt-balanced .pt-summary-actionbar button span {text-decoration:none!important;color:inherit!important;}
   .pt-snapshot.pt-balanced .pt-summary-actionbar > button[aria-expanded="true"],
   .pt-snapshot.pt-balanced .pt-summary-actionbar > span:has(:popover-open) > button {
    border-color:#c1a16b70!important;background:#c1a16b14!important;color:#dfbd7b!important;
@@ -848,7 +848,7 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
     display:flex!important;flex-wrap:wrap!important;justify-content:flex-end!important;
     align-items:baseline!important;gap:1px 3px!important;
    }
-   .pt-snapshot-fact > strong > .pt-card-mobile-text {white-space:nowrap!important;}
+   .pt-snapshot-fact > strong > .pt-card-mobile-text {white-space:normal!important;overflow-wrap:anywhere!important;}
    .pt-card-mobile-fiat {margin-left:0!important;}
    .pt-inline-card-context {text-align:right!important;}
   }
