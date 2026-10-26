@@ -1243,3 +1243,30 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
     font-size: 12px !important;
   }
 }
+
+/* Amounts retain the standard type size until their available row is too short. */
+@media (max-width: 767.98px) {
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact:has(.pt-inline-card-context) .pt-wallet-fact-line > span {
+    font-size: 16px !important;
+  }
+  body:is(:has(#pt-wallet-layout), :has(#pt-transaction-layout), :has(#pt-network-layout)) .pt-amount-fit > strong,
+  body:is(:has(#pt-wallet-layout), :has(#pt-transaction-layout), :has(#pt-network-layout)) .pt-amount-fit > strong app-amount {
+    font-size: var(--pt-fitted-amount, 16px) !important;
+  }
+  body:is(:has(#pt-wallet-layout), :has(#pt-transaction-layout), :has(#pt-network-layout)) .pt-amount-fit > strong app-amount .symbol {
+    font-size: min(13px, var(--pt-fitted-amount, 16px)) !important;
+  }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact .pt-amount-needs-wrap > strong {
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+}
+@media (max-width: 767.98px) {
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-fact-line.pt-amount-fit > strong,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-fact-line.pt-amount-fit > strong app-amount {
+    font-size: var(--pt-fitted-amount, 16px) !important;
+  }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-fact-line.pt-amount-fit > strong app-amount .symbol {
+    font-size: min(13px, var(--pt-fitted-amount, 16px)) !important;
+  }
+}

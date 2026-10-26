@@ -1,3 +1,4 @@
+import { MobileFitAmountDirective } from '@app/shared/mobile-fit-amount.directive';
 import { SummaryDisclosureComponent } from '@app/shared/summary-disclosure.component';
 import { NgModule } from '@angular/core';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -98,6 +99,7 @@ import { CommonModule } from '@angular/common';
     AddressesTreemap,
   ],
   imports: [
+    MobileFitAmountDirective,
     SummaryDisclosureComponent,
     CommonModule,
     SharedModule,

@@ -1,3 +1,4 @@
+import { MobileFitAmountDirective } from '@app/shared/mobile-fit-amount.directive';
 import { SummaryDisclosureComponent } from '@app/shared/summary-disclosure.component';
 import { TransactionExplanationComponent } from '@components/transaction-explanation/transaction-explanation.component';
 import { NgModule } from '@angular/core';
@@ -55,6 +56,7 @@ export class TransactionRoutingModule { }
 @NgModule({
   imports: [
     CommonModule,
+    MobileFitAmountDirective,
     TransactionExplanationComponent,
     SummaryDisclosureComponent,
     TransactionRoutingModule,
