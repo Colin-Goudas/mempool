@@ -1074,3 +1074,17 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
   .pt-network-deeper .pt-unified-mobile-summary .pt-four-line-copy,.pt-wallet-deeper .pt-unified-mobile-summary .pt-four-line-copy {font-size:13px!important;line-height:1.5!important;}
  }
 }
+@media(max-width:767.98px) {
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface > .pt-wallet-facts .pt-wallet-meaning > div {display:contents!important;}
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface > .pt-wallet-facts .pt-wallet-meaning > div > p {display:none!important;}
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface > .pt-wallet-facts .pt-wallet-meaning > div > button {display:inline-flex!important;align-items:center;min-height:32px;padding:2px 0!important;border:0!important;background:none!important;color:#c4c4cc!important;font-size:0!important;white-space:nowrap;}
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface > .pt-wallet-facts .pt-wallet-meaning > div > button::before {content:'Explain more';font-size:12px;}
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface > .pt-wallet-facts .pt-wallet-fact-line > span,
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface > .pt-wallet-facts .pt-wallet-fact-line > strong,
+ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface > .pt-network-facts .pt-network-fact-line > span,
+ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface > .pt-network-facts .pt-network-fact-line > strong {font-size:16px!important;line-height:1.35!important;overflow-wrap:normal!important;word-break:normal!important;}
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface > .pt-wallet-facts,
+ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface > .pt-network-facts {margin-top:16px!important;padding-top:0!important;position:relative;background-image:none!important;}
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface > .pt-wallet-facts::before,
+ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface > .pt-network-facts::before {content:"";position:absolute;top:-8px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(193,161,107,.42) 10%,rgba(193,161,107,.42) 85%,transparent);pointer-events:none;}
+}
