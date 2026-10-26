@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     if (window.innerWidth > 767.98 || (event as Event & {newState?: string}).newState !== 'open') return;
     const panel = event.target as HTMLElement;
     const trigger = Array.from(document.querySelectorAll<HTMLButtonElement>('#pt-network-layout button[popovertarget], #pt-wallet-layout button[popovertarget]'))
-      .find(button => button.getAttribute('popovertarget') === panel.id && button.getAttribute('popovertargetaction') !== 'hide');
+      .find(button => button.getAttribute('popovertarget') === panel.id && button.getAttribute('popovertargetaction') !== 'hide' && button.getClientRects().length > 0);
     if (!trigger) return;
     panel.classList.add('pt-anchored-mobile-popover');
     requestAnimationFrame(() => {
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     if (window.innerWidth > 767.98) return;
     document.querySelectorAll<HTMLElement>('#pt-network-layout .pt-anchored-mobile-popover:popover-open, #pt-wallet-layout .pt-anchored-mobile-popover:popover-open').forEach(panel => {
       const trigger = Array.from(document.querySelectorAll<HTMLButtonElement>('#pt-network-layout button[popovertarget], #pt-wallet-layout button[popovertarget]'))
-        .find(button => button.getAttribute('popovertarget') === panel.id && button.getAttribute('popovertargetaction') !== 'hide');
+        .find(button => button.getAttribute('popovertarget') === panel.id && button.getAttribute('popovertargetaction') !== 'hide' && button.getClientRects().length > 0);
       if (trigger) this.positionOpenMobilePopover(panel, trigger);
     });
   }
