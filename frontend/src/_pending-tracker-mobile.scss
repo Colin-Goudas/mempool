@@ -756,3 +756,12 @@ body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot-su
 @media(max-width:767.98px) {
  body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot.pt-balanced .pt-snapshot-surface .pt-card-value-unit {font-size:13px!important;font-weight:400;line-height:inherit;color:#b4b4bc;white-space:nowrap;}
 }
+
+@media(max-width:767.98px) {
+ body:has(app-transaction) app-transaction #pt-transaction-layout .pt-snapshot.pt-balanced .pt-snapshot-surface > .pt-eight-card-grid {
+  .pt-snapshot-meaning {width:76px!important;min-width:0!important;max-width:76px!important;}
+  .pt-explore-more {font-size:0!important;min-width:0!important;max-width:76px!important;}
+  .pt-explore-more::before {font-size:12px!important;}
+  .pt-explore-more > span[aria-hidden] {font-size:0!important;}
+ }
+}
