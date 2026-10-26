@@ -1062,3 +1062,15 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
   .pt-crosspage-help-panel details > p {font-size:13px;line-height:1.5;margin:0 0 12px;}
  }
 }
+@media(max-width:767.98px) {
+ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-questions.pt-summary-actionbar,
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-questions.pt-summary-actionbar {
+  display:flex!important;grid-template-columns:none!important;grid-template-rows:none!important;gap:8px!important;
+ }
+ body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) {
+  .pt-unified-mobile-summary .pt-four-line-copy {font-family:inherit!important;font-size:15px!important;line-height:1.5!important;margin:0!important;padding:0!important;color:#d1d1d8!important;}
+  .pt-unified-mobile-summary .pt-summary-inline-label {font-size:inherit!important;font-weight:600!important;color:#f2f2f4!important;}
+  .pt-unified-mobile-summary .pt-summary-expand-toggle {display:inline!important;margin:0!important;padding:0!important;min-height:0!important;min-width:0!important;border:0!important;background:none!important;color:#c4c4cc!important;font-family:inherit!important;font-size:13px!important;line-height:inherit!important;text-decoration:underline;text-underline-offset:3px;vertical-align:baseline;}
+  .pt-network-deeper .pt-unified-mobile-summary .pt-four-line-copy,.pt-wallet-deeper .pt-unified-mobile-summary .pt-four-line-copy {font-size:13px!important;line-height:1.5!important;}
+ }
+}
