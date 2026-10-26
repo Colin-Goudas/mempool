@@ -1232,3 +1232,14 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
     bottom: 3px !important;
   }
 }
+@media (max-width: 767.98px) {
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact:has(.pt-inline-card-context) .pt-wallet-fact-line > strong app-amount,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact:has(.pt-inline-card-context) .pt-wallet-fact-line > strong app-amount .symbol {
+    font-size: inherit !important;
+  }
+}
+@media (max-width: 350px) {
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact:has(.pt-inline-card-context) .pt-wallet-fact-line > span {
+    font-size: 12px !important;
+  }
+}
