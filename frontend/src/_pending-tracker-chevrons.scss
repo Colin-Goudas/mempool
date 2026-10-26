@@ -36,6 +36,12 @@ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-s
 body :is(button, summary):has(> .pt-chevron) {
   column-gap: 0 !important;
 }
+body :is(#pt-transaction-layout#pt-transaction-layout, #pt-wallet-layout#pt-wallet-layout, #pt-network-layout#pt-network-layout) .pt-explore-more {
+  gap: 0 !important;
+  width: max-content !important;
+  max-width: none !important;
+  justify-content: flex-start !important;
+}
 body :is(button, summary):has(.pt-chevron)::after { content: none !important; display: none !important; }
 body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-meaning button:has(.pt-chevron)::after,
 body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-meaning button:has(.pt-chevron)::after,
