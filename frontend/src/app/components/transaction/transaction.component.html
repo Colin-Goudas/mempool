@@ -65,9 +65,13 @@
 
     @if (tx && network === '' && stateService.env.PENDING_TRACKER_EXPLANATIONS) {
       <div class="pt-snapshot-summary pt-summary-compact">
-        <p class="pt-summary-narrative"><span class="pt-summary-lead"><strong class="pt-summary-inline-label">In plain English —</strong> {{ summaryStatus() }} {{ summaryContext(ETA$ | async) }}</span><span class="pt-summary-support">
-          {{ selectedAddress ? 'Outputs to the selected address total' : 'Its outputs total' }} <strong class="pt-summary-btc-amount">{{ displayAmountSats / 100000000 | number:'1.8-8' }} BTC</strong><span *ngIf="showUsd"> (approximately <app-fiat [value]="displayAmountSats" colorClass=""></app-fiat> at the current price)</span>{{ selectedAddress ? '.' : ', which may include change returned to the sender.' }}</span>
-        </p>
+        <p class="pt-summary-narrative"><strong class="pt-summary-inline-label">In plain English —</strong> {{ summaryStatus() }} {{ summaryPreviewContext(ETA$ | async) }}</p>
+        <div id="pt-full-summary" class="pt-summary-expanded" [hidden]="!summaryExpanded">
+          <p class="pt-summary-narrative"><span>{{ summaryExtraContext(ETA$ | async) }}</span>
+            {{ selectedAddress ? 'Outputs to the selected address total' : 'Its outputs total' }} <strong class="pt-summary-btc-amount">{{ displayAmountSats / 100000000 | number:'1.8-8' }} BTC</strong><span *ngIf="showUsd"> (approximately <app-fiat [value]="displayAmountSats" colorClass=""></app-fiat> at the current price)</span>{{ selectedAddress ? '.' : ', which may include change returned to the sender.' }}
+          </p>
+        </div>
+        <button type="button" class="pt-summary-expand-toggle" [attr.aria-expanded]="summaryExpanded" aria-controls="pt-full-summary" (click)="summaryExpanded = !summaryExpanded">{{ summaryExpanded ? 'Show less' : 'Read full summary' }} <span aria-hidden="true">{{ summaryExpanded ? '▴' : '▾' }}</span></button>
         <div class="pt-summary-questions pt-summary-actionbar" style="anchor-name:--pt-summary-toolbar" aria-label="Questions and next steps">
           <button type="button" class="pt-next-step-link" popovertarget="pt-answer-next" [attr.aria-expanded]="activeSummaryQuestion === 'next'" aria-controls="pt-answer-next">Next step <span aria-hidden="true">{{ activeSummaryQuestion === 'next' ? '▴' : '▾' }}</span></button>
           @for (question of summaryQuestions; track question.id) {
