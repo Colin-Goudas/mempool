@@ -230,6 +230,7 @@ export class AddressComponent implements OnInit, OnDestroy {
 
 
   mobileHelpOpen = false;
+  mobileQuestionsExpanded = false;
   private positionOpenMobilePopover(panel: HTMLElement, trigger: HTMLButtonElement): void {
     const viewportHeight = window.visualViewport?.height || window.innerHeight;
     const rect = trigger.getBoundingClientRect();
