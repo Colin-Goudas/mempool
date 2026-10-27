@@ -5380,3 +5380,19 @@ body:has(app-address) .pt-block-strip-key {display:none;}
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-facts .pt-wallet-fact .pt-wallet-fact-line > strong app-amount *,
  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-facts .pt-network-fact .pt-network-fact-line > strong .pt-crosspage-unit {font-family:inherit!important;font-size:inherit!important;font-weight:inherit!important;color:inherit!important;}
 }
+
+/* Mobile snapshot: give the summary breathing room and align the heading icon. */
+.pt-phone-bell {display:none;}
+@media(max-width:767.98px) {
+ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-questions,
+ body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) :is(#pt-network-layout#pt-network-layout,#pt-wallet-layout#pt-wallet-layout) .pt-crosspage-inline {margin-top:12px!important;}
+ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-title,
+ body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) :is(#pt-network-layout#pt-network-layout,#pt-wallet-layout#pt-wallet-layout) .pt-crosspage-inline .pt-mobile-inline-title {padding-left:0!important;margin:0 0 2px!important;gap:4px!important;}
+ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-title svg,
+ body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) :is(#pt-network-layout#pt-network-layout,#pt-wallet-layout#pt-wallet-layout) .pt-crosspage-inline .pt-mobile-inline-title svg {width:16px!important;height:16px!important;flex:none;color:#cfc0a7;}
+ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-notification-action fa-icon {display:none!important;}
+ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-phone-bell {display:block;width:12px;height:12px;flex:none;color:#cfc0a7;}
+ body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid::before,
+ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface > .pt-wallet-facts::before,
+ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface > .pt-network-facts::before {background:#ffffff1c!important;}
+}
