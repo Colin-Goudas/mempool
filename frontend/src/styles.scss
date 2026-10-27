@@ -5397,3 +5397,15 @@ body:has(app-address) .pt-block-strip-key {display:none;}
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface > .pt-wallet-facts::before,
  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface > .pt-network-facts::before {background:#ffffff1c!important;}
 }
+
+/* Keep mobile transaction snapshot headings and primary values consistent. */
+@media(max-width:767.98px) {
+ body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > .pt-card-label,
+ body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > strong {
+   font-family:inherit!important;font-size:14px!important;font-weight:650!important;color:#f5f5f5!important;
+ }
+ body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > strong > .pt-card-mobile-text,
+ body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > strong .pt-card-value-unit {
+   font-family:inherit!important;font-size:inherit!important;font-weight:inherit!important;color:inherit!important;
+ }
+}
