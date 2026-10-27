@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-summary-disclosure',
   standalone: true,
   imports: [CommonModule],
-  template: `<p #paragraph class="pt-summary-narrative pt-four-line-copy"><strong *ngIf="labelText" #label class="pt-summary-inline-label">{{ labelText }}</strong> <span #full class="pt-disclosure-full" [hidden]="!expanded && truncated"><ng-content></ng-content></span><span *ngIf="!expanded && truncated">{{ labelText ? ' ' + preview : preview }}</span><span #ending class="pt-disclosure-ending" *ngIf="truncated || alwaysShowAction"><span *ngIf="!expanded && truncated" aria-hidden="true">… </span><span *ngIf="!truncated" aria-hidden="true">{{ ' ' }}</span><button type="button" class="pt-summary-expand-toggle" [attr.aria-expanded]="popoverTarget ? null : expanded" [attr.popovertarget]="popoverTarget || null" [attr.aria-controls]="popoverTarget || null" (click)="toggle()">{{ expanded ? 'Show less' : moreLabel }}<span aria-hidden="true" class="pt-chevron"></span></button></span></p>`,
-  styles: [`:host{display:block;min-width:0}.pt-disclosure-full[hidden]{display:none!important}.pt-disclosure-ending{white-space:nowrap}.pt-disclosure-ending:has(button[aria-expanded="true"]){margin-left:4px}`]
+  template: `<p #paragraph class="pt-summary-narrative pt-four-line-copy" [class.pt-justify-collapsed]="endAtSentence && !expanded && truncated"><strong *ngIf="labelText" #label class="pt-summary-inline-label">{{ labelText }}</strong> <span #full class="pt-disclosure-full" [hidden]="!expanded && truncated"><ng-content></ng-content></span><span *ngIf="!expanded && truncated">{{ labelText ? ' ' + preview : preview }}</span><span #ending class="pt-disclosure-ending" *ngIf="truncated || alwaysShowAction"><span *ngIf="!expanded && truncated" aria-hidden="true">… </span><span *ngIf="!truncated" aria-hidden="true">{{ ' ' }}</span><button type="button" class="pt-summary-expand-toggle" [attr.aria-expanded]="popoverTarget ? null : expanded" [attr.popovertarget]="popoverTarget || null" [attr.aria-controls]="popoverTarget || null" (click)="toggle()">{{ expanded ? 'Show less' : moreLabel }}<span aria-hidden="true" class="pt-chevron"></span></button></span></p>`,
+  styles: [`:host{display:block;min-width:0}.pt-disclosure-full[hidden]{display:none!important}.pt-disclosure-ending{white-space:nowrap}.pt-disclosure-ending:has(button[aria-expanded="true"]){margin-left:4px}.pt-justify-collapsed{text-align:justify;text-align-last:justify}`]
 })
 export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() resetKey = '';
@@ -85,21 +85,6 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
           if (fits()) low = mid; else high = mid - 1;
         }
         this.preview = excerpt(low);
-        if (this.endAtSentence && low > 0) {
-          // Prefer a complete sentence when it fits; retain the ordinary word
-          // fallback when a first sentence is longer than the available space.
-          const complete = words.slice(0, low).join(' ').match(/^([\s\S]*[.!?])(?:\s|$)/);
-          if (complete) {
-            this.preview = complete[1];
-            this.cd.detectChanges();
-            const ending = paragraph.querySelector<HTMLElement>('.pt-disclosure-ending');
-            // Keep the action on the final allowed line. A complete sentence
-            // ending on line one would leave the second line unused.
-            if (ending && effectiveLines > 1 && ending.getBoundingClientRect().top < paragraph.getBoundingClientRect().top + lineHeight * (effectiveLines - 1) - 1) {
-              this.preview = excerpt(low);
-            }
-          }
-        }
         this.cd.detectChanges();
         // Verify the final rendered result rather than trusting a proxy layout.
         while (low > 0 && !fits()) {
