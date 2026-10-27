@@ -1476,5 +1476,48 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
   }
 }
 
+
+/* Mobile snapshot typography: shared reading hierarchy, existing surfaces and spacing. */
+@media (max-width: 767.98px) {
+  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface app-summary-disclosure .pt-four-line-copy,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-summary app-summary-disclosure.pt-unified-mobile-summary p.pt-four-line-copy,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-summary app-summary-disclosure.pt-unified-mobile-summary p.pt-four-line-copy {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    color: #e0e0e6 !important;
+  }
+  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface app-summary-disclosure .pt-summary-expand-toggle,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-summary .pt-summary-expand-toggle,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-summary .pt-summary-expand-toggle {
+    font-size: 14px !important;
+    color: #e0e0e6 !important;
+  }
+  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot.pt-balanced .pt-mobile-help-trigger,
+  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot.pt-balanced .pt-mobile-help-toolbar .pt-notification-action,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-summary-actionbar .pt-mobile-help-trigger,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-summary-actionbar > .pt-wallet-track-action > .pt-wallet-track,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-summary-actionbar .pt-mobile-help-trigger {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    line-height: 20px !important;
+  }
+  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot.pt-balanced .pt-mobile-help-preview,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-mobile-help-preview,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-mobile-help-preview {
+    font-size: 12px !important;
+    color: #dedee4 !important;
+  }
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-fact > strong:not(.pt-confirmed-value):not(.pt-pending-value),
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact-line > strong,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-fact-line > strong {
+    color: #f3f3f5 !important;
+  }
+  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-meaning button,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-meaning button,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-meaning button {
+    color: #dedee4 !important;
+  }
+}
+
 // Shared indicator also applies outside phone breakpoints.
 @import "pending-tracker-chevrons";
