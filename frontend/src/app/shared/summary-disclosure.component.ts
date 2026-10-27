@@ -55,10 +55,13 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
     if (!text || !paragraph.clientWidth) return;
     const style = getComputedStyle(paragraph);
     const width = paragraph.getBoundingClientRect().width;
-    const key = [this.resetKey, text, width, style.fontFamily, style.fontSize, style.fontWeight, style.lineHeight, style.letterSpacing, this.maxLines, this.labelText, this.moreLabel, this.alwaysShowAction].join('|');
+    // Snapshot summaries use three lines on mobile; deeper descriptions retain their own limits.
+    const mobileSnapshot = typeof window !== 'undefined' && window.matchMedia('(max-width: 767.98px)').matches && this.labelText === 'In plain English —' && !this.popoverTarget;
+    const effectiveLines = mobileSnapshot ? Math.min(this.maxLines, 3) : this.maxLines;
+    const key = [this.resetKey, text, width, effectiveLines, style.fontFamily, style.fontSize, style.fontWeight, style.lineHeight, style.letterSpacing, this.maxLines, this.labelText, this.moreLabel, this.alwaysShowAction].join('|');
     if (key === this.measurementKey) return;
     const lineHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.5;
-    const maxHeight = lineHeight * Math.max(1, this.maxLines) + 0.5;
+    const maxHeight = lineHeight * Math.max(1, effectiveLines) + 0.5;
     // Measure the actual rendered text and control, including scoped styles,
     // fractional widths and browser-specific font metrics. All trials happen
     // synchronously before paint; restore the user's expanded state afterward.
