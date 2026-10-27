@@ -1524,5 +1524,45 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
   }
 }
 
+
+/* Mobile Dive Deeper: align values with Snapshot while retaining descriptions below. */
+@media (max-width: 767.98px) {
+  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-deeper-snapshot .pt-snapshot-fact,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact-line,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-deeper .pt-network-fact-line {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, auto) !important;
+    align-items: baseline !important;
+    column-gap: 8px !important;
+    width: 100% !important;
+  }
+  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-deeper-snapshot .pt-snapshot-fact > span,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact-line > span,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-deeper .pt-network-fact-line > span {
+    min-width: 0 !important;
+  }
+  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-deeper-snapshot .pt-snapshot-fact > strong,
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact-line > strong,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-deeper .pt-network-fact-line > strong {
+    grid-column: 2 !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    text-align: right !important;
+    justify-self: end !important;
+    color: #f3f3f5 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact-line > strong app-amount {
+    color: #f3f3f5 !important;
+  }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact-line .pt-inline-card-context,
+  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-network-deeper .pt-network-fact-line .pt-inline-card-context {
+    grid-column: 2 !important;
+    text-align: right !important;
+    justify-self: end !important;
+  }
+}
+
 // Shared indicator also applies outside phone breakpoints.
 @import "pending-tracker-chevrons";
