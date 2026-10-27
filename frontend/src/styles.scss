@@ -5392,6 +5392,7 @@ body:has(app-address) .pt-block-strip-key {display:none;}
  body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) :is(#pt-network-layout#pt-network-layout,#pt-wallet-layout#pt-wallet-layout) .pt-crosspage-inline .pt-mobile-inline-title svg {width:16px!important;height:16px!important;flex:none;color:#cfc0a7;}
  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-notification-action fa-icon {display:none!important;}
  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-phone-bell {display:block;width:12px;height:12px;flex:none;color:#cfc0a7;}
+ body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid {margin-top:12px!important;}
  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid::before,
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface > .pt-wallet-facts::before,
  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface > .pt-network-facts::before {background:#ffffff1c!important;}
