@@ -5324,7 +5324,7 @@ body:has(app-address) .pt-block-strip-key {display:none;}
 /* Mobile transaction: keep action borders compact without overlapping. */
 @media (max-width:767.98px) {
   body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row {
-    justify-content:flex-start; flex-wrap:nowrap; column-gap:2px; row-gap:0;
+    justify-content:flex-start; flex-wrap:nowrap; column-gap:4px; row-gap:0;
   }
   body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-summary-question {
     flex:0 0 auto; position:relative; min-width:0;
@@ -5339,7 +5339,7 @@ body:has(app-address) .pt-block-strip-key {display:none;}
   }
   body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-mobile-inline-chip[aria-expanded="true"]::before { border-color:#c9b496; }
   body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-notification-action .pt-alert-chevron { display:none !important; }
-  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-mobile-more { padding-inline:3px !important; }
+  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-mobile-more { margin-left:auto; padding-inline:3px !important; }
   body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-fact > strong .pt-card-value-unit {
     color:inherit !important; font-family:inherit !important; font-size:inherit !important; font-weight:inherit !important; line-height:inherit !important;
   }
