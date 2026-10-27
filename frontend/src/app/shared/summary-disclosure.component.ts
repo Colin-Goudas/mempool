@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-summary-disclosure',
   standalone: true,
   imports: [CommonModule],
-  template: `<p #paragraph class="pt-summary-narrative pt-four-line-copy" [class.pt-justify-collapsed]="endAtSentence && !expanded && truncated"><strong *ngIf="labelText" #label class="pt-summary-inline-label">{{ labelText }}</strong> <span #full class="pt-disclosure-full" [hidden]="!expanded && truncated"><ng-content></ng-content></span><span *ngIf="!expanded && truncated">{{ labelText ? ' ' + preview : preview }}</span><span #ending class="pt-disclosure-ending" *ngIf="truncated || alwaysShowAction"><span *ngIf="!expanded && truncated" aria-hidden="true">… </span><span *ngIf="!truncated" aria-hidden="true">{{ ' ' }}</span><button type="button" class="pt-summary-expand-toggle" [attr.aria-expanded]="popoverTarget ? null : expanded" [attr.popovertarget]="popoverTarget || null" [attr.aria-controls]="popoverTarget || null" (click)="toggle()">{{ expanded ? 'Show less' : moreLabel }}<span aria-hidden="true" class="pt-chevron"></span></button></span></p>`,
+  template: `<p #paragraph class="pt-summary-narrative pt-four-line-copy" [class.pt-justify-collapsed]="mobileSnapshot && !expanded && truncated"><strong *ngIf="labelText" #label class="pt-summary-inline-label">{{ labelText }}</strong> <span #full class="pt-disclosure-full" [hidden]="!expanded && truncated"><ng-content></ng-content></span><span *ngIf="!expanded && truncated">{{ labelText ? ' ' + preview : preview }}</span><span #ending class="pt-disclosure-ending" *ngIf="truncated || alwaysShowAction"><span *ngIf="!expanded && truncated" aria-hidden="true">… </span><span *ngIf="!truncated" aria-hidden="true">{{ ' ' }}</span><button type="button" class="pt-summary-expand-toggle" [attr.aria-expanded]="popoverTarget ? null : expanded" [attr.popovertarget]="popoverTarget || null" [attr.aria-controls]="popoverTarget || null" (click)="toggle()">{{ expanded ? 'Show less' : moreLabel }}<span aria-hidden="true" class="pt-chevron"></span></button></span></p>`,
   styles: [`:host{display:block;min-width:0}.pt-disclosure-full[hidden]{display:none!important}.pt-disclosure-ending{white-space:nowrap}.pt-disclosure-ending:has(button[aria-expanded="true"]){margin-left:4px}.pt-justify-collapsed{text-align:justify;text-align-last:justify}`]
 })
 export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnDestroy {
@@ -22,6 +22,7 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
   expanded = false;
   truncated = true;
   preview = '';
+  mobileSnapshot = false;
   private resize?: ResizeObserver;
   private mutation?: MutationObserver;
   private frame = 0;
@@ -56,9 +57,10 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
     if (!text || !paragraph.clientWidth) return;
     const style = getComputedStyle(paragraph);
     const width = paragraph.getBoundingClientRect().width;
-    // Snapshot summaries use three lines on mobile; deeper descriptions retain their own limits.
-    const mobileSnapshot = typeof window !== 'undefined' && window.matchMedia('(max-width: 767.98px)').matches && this.labelText === 'In plain English —' && !this.popoverTarget;
-    const effectiveLines = mobileSnapshot ? Math.min(this.maxLines, 3) : this.maxLines;
+    // All mobile Snapshot summaries share two lines and a flush-right action.
+    // Dive Deeper explanations and desktop summaries retain their own limits.
+    const mobileSnapshot = typeof window !== 'undefined' && window.matchMedia('(max-width: 767.98px)').matches && !!paragraph.closest('.pt-snapshot-summary, .pt-network-summary, .pt-wallet-summary') && !this.popoverTarget;
+    const effectiveLines = mobileSnapshot ? Math.min(this.maxLines, 2) : this.maxLines;
     const key = [this.resetKey, text, width, effectiveLines, style.fontFamily, style.fontSize, style.fontWeight, style.lineHeight, style.letterSpacing, this.maxLines, this.labelText, this.moreLabel, this.alwaysShowAction, this.endAtSentence].join('|');
     if (key === this.measurementKey) return;
     const lineHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.5;
@@ -67,6 +69,7 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
     // fractional widths and browser-specific font metrics. All trials happen
     // synchronously before paint; restore the user's expanded state afterward.
     this.zone.run(() => {
+      this.mobileSnapshot = mobileSnapshot;
       const wasExpanded = this.expanded;
       this.expanded = false;
       this.truncated = false;
