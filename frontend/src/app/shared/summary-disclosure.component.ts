@@ -15,6 +15,7 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
   @Input() moreLabel = 'Read more';
   @Input() popoverTarget = '';
   @Input() alwaysShowAction = false;
+  @Input() endAtSentence = false;
   @ViewChild('paragraph') paragraph!: ElementRef<HTMLElement>;
   @ViewChild('full') full!: ElementRef<HTMLElement>;
   @ViewChild('label') label!: ElementRef<HTMLElement>;
@@ -58,7 +59,7 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
     // Snapshot summaries use three lines on mobile; deeper descriptions retain their own limits.
     const mobileSnapshot = typeof window !== 'undefined' && window.matchMedia('(max-width: 767.98px)').matches && this.labelText === 'In plain English —' && !this.popoverTarget;
     const effectiveLines = mobileSnapshot ? Math.min(this.maxLines, 3) : this.maxLines;
-    const key = [this.resetKey, text, width, effectiveLines, style.fontFamily, style.fontSize, style.fontWeight, style.lineHeight, style.letterSpacing, this.maxLines, this.labelText, this.moreLabel, this.alwaysShowAction].join('|');
+    const key = [this.resetKey, text, width, effectiveLines, style.fontFamily, style.fontSize, style.fontWeight, style.lineHeight, style.letterSpacing, this.maxLines, this.labelText, this.moreLabel, this.alwaysShowAction, this.endAtSentence].join('|');
     if (key === this.measurementKey) return;
     const lineHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.5;
     const maxHeight = lineHeight * Math.max(1, effectiveLines) + 0.5;
@@ -84,6 +85,12 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
           if (fits()) low = mid; else high = mid - 1;
         }
         this.preview = excerpt(low);
+        if (this.endAtSentence && low > 0) {
+          // Prefer a complete sentence when it fits; retain the ordinary word
+          // fallback when a first sentence is longer than the available space.
+          const complete = words.slice(0, low).join(' ').match(/^([\s\S]*[.!?])(?:\s|$)/);
+          if (complete) this.preview = complete[1];
+        }
         this.cd.detectChanges();
         // Verify the final rendered result rather than trusting a proxy layout.
         while (low > 0 && !fits()) {
