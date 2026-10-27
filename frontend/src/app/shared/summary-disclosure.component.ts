@@ -89,7 +89,16 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
           // Prefer a complete sentence when it fits; retain the ordinary word
           // fallback when a first sentence is longer than the available space.
           const complete = words.slice(0, low).join(' ').match(/^([\s\S]*[.!?])(?:\s|$)/);
-          if (complete) this.preview = complete[1];
+          if (complete) {
+            this.preview = complete[1];
+            this.cd.detectChanges();
+            const ending = paragraph.querySelector<HTMLElement>('.pt-disclosure-ending');
+            // Keep the action on the final allowed line. A complete sentence
+            // ending on line one would leave the second line unused.
+            if (ending && effectiveLines > 1 && ending.getBoundingClientRect().top < paragraph.getBoundingClientRect().top + lineHeight * (effectiveLines - 1) - 1) {
+              this.preview = excerpt(low);
+            }
+          }
         }
         this.cd.detectChanges();
         // Verify the final rendered result rather than trusting a proxy layout.
