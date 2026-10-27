@@ -5368,14 +5368,14 @@ body:has(app-address) .pt-block-strip-key {display:none;}
   body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) :is(#pt-network-layout#pt-network-layout,#pt-wallet-layout#pt-wallet-layout) .pt-crosspage-inline .pt-mobile-inline-chip svg {width:12px;height:12px;flex:none;color:#cfc0a7;}
   body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) :is(#pt-network-layout#pt-network-layout,#pt-wallet-layout#pt-wallet-layout) :is(.pt-network-questions,.pt-wallet-questions).pt-summary-actionbar {display:contents!important;}
   body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) :is(#pt-network-layout#pt-network-layout,#pt-wallet-layout#pt-wallet-layout) :is(.pt-crosspage-help,.pt-wallet-track-action > .pt-wallet-track) {display:none!important;}
-  body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) :is(#pt-network-layout#pt-network-layout,#pt-wallet-layout#pt-wallet-layout) .pt-overview-surface > :is(.pt-network-facts,.pt-wallet-facts) :is(.pt-network-fact-line,.pt-wallet-fact-line) > :is(span,strong) {font-family:inherit!important;font-size:14px!important;font-weight:650!important;color:#f5f5f5!important;}
+  body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) :is(#pt-network-layout#pt-network-layout,#pt-wallet-layout#pt-wallet-layout) .pt-overview-surface > :is(.pt-network-facts,.pt-wallet-facts) :is(.pt-network-fact-line,.pt-wallet-fact-line) > :is(span,strong) {font-family:inherit!important;font-size:15px!important;font-weight:650!important;color:#f5f5f5!important;}
   body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) :is(#pt-network-layout#pt-network-layout,#pt-wallet-layout#pt-wallet-layout) .pt-overview-surface > :is(.pt-network-facts,.pt-wallet-facts) :is(.pt-network-fact-line,.pt-wallet-fact-line) > strong :is(.pt-crosspage-unit,.symbol) {font-family:inherit!important;font-size:inherit!important;font-weight:inherit!important;color:inherit!important;}
   @media(max-width:360px) {body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) :is(#pt-network-layout#pt-network-layout,#pt-wallet-layout#pt-wallet-layout) .pt-crosspage-inline .pt-mobile-inline-row {gap:1px;} body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) :is(#pt-network-layout#pt-network-layout,#pt-wallet-layout#pt-wallet-layout) .pt-crosspage-inline .pt-mobile-inline-chip {font-size:9px;padding-inline:2px;}}
 }
 @media (max-width:767.98px) {
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-facts .pt-wallet-fact .pt-wallet-fact-line > :is(span,strong),
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-facts .pt-wallet-fact:has(.pt-inline-card-context) .pt-wallet-fact-line.pt-amount-fit > :is(span,strong),
- body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-facts .pt-network-fact .pt-network-fact-line > :is(span,strong) {font-family:inherit!important;font-size:14px!important;font-weight:650!important;color:#f5f5f5!important;}
+ body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-facts .pt-network-fact .pt-network-fact-line > :is(span,strong) {font-family:inherit!important;font-size:15px!important;font-weight:650!important;color:#f5f5f5!important;}
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-facts .pt-wallet-fact .pt-wallet-fact-line > strong app-amount,
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-facts .pt-wallet-fact .pt-wallet-fact-line > strong app-amount *,
  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-overview-surface .pt-network-facts .pt-network-fact .pt-network-fact-line > strong .pt-crosspage-unit {font-family:inherit!important;font-size:inherit!important;font-weight:inherit!important;color:inherit!important;}
@@ -5402,7 +5402,7 @@ body:has(app-address) .pt-block-strip-key {display:none;}
 @media(max-width:767.98px) {
  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > .pt-card-label,
  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > strong {
-   font-family:inherit!important;font-size:14px!important;font-weight:650!important;color:#f5f5f5!important;
+   font-family:inherit!important;font-size:15px!important;font-weight:650!important;color:#f5f5f5!important;
  }
  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > strong > .pt-card-mobile-text,
  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card .pt-snapshot-fact > strong .pt-card-value-unit {
@@ -5415,7 +5415,7 @@ body:has(app-address) .pt-block-strip-key {display:none;}
  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-deeper-snapshot .pt-snapshot-fact > :is(.pt-card-label,strong),
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact .pt-wallet-fact-line > :is(span,strong),
  body:has(#pt-network-layout) #pt-network-layout#pt-network-layout#pt-network-layout .pt-network-deeper .pt-network-fact .pt-network-fact-line > :is(span,strong) {
-  font-family:inherit!important;font-size:14px!important;font-weight:650!important;color:#f5f5f5!important;
+  font-family:inherit!important;font-size:15px!important;font-weight:650!important;color:#f5f5f5!important;
  }
  body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-deeper-snapshot .pt-snapshot-fact > strong .pt-card-value-unit,
  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout#pt-wallet-layout .pt-wallet-deeper .pt-wallet-fact-line > strong app-amount,
