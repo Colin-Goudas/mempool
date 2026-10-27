@@ -5424,3 +5424,12 @@ body:has(app-address) .pt-block-strip-key {display:none;}
   font-family:inherit!important;font-size:inherit!important;font-weight:inherit!important;color:inherit!important;
  }
 }
+
+/* Mobile question rows: use spare horizontal space inside the question buttons. */
+@media (max-width:767.98px) {
+  body:is(:has(#pt-network-layout),:has(#pt-wallet-layout)) :is(#pt-network-layout#pt-network-layout,#pt-wallet-layout#pt-wallet-layout) .pt-crosspage-inline .pt-mobile-inline-row:not(.pt-mobile-inline-extra) > .pt-mobile-inline-chip:not(.pt-mobile-more),
+  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row:has(> .pt-mobile-more[aria-controls="pt-confirmed-more"]) > .pt-mobile-inline-chip:not(.pt-mobile-more) {
+    flex:1 1 auto;
+    min-width:max-content;
+  }
+}
