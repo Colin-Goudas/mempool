@@ -64,7 +64,9 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
     const key = [this.resetKey, text, width, effectiveLines, style.fontFamily, style.fontSize, style.fontWeight, style.lineHeight, style.letterSpacing, this.maxLines, this.labelText, this.moreLabel, this.alwaysShowAction, this.endAtSentence].join('|');
     if (key === this.measurementKey) return;
     const lineHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.5;
-    const maxHeight = lineHeight * Math.max(1, effectiveLines) + 0.5;
+    // Inline controls can make a line box slightly taller than the text.
+    // Allow that baseline difference without admitting another full line.
+    const maxHeight = lineHeight * Math.max(1, effectiveLines) + (mobileSnapshot ? lineHeight * 0.4 : 0.5);
     // Measure the actual rendered text and control, including scoped styles,
     // fractional widths and browser-specific font metrics. All trials happen
     // synchronously before paint; restore the user's expanded state afterward.
