@@ -306,6 +306,9 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       if (trigger) this.positionOpenMobilePopover(panel, trigger);
     });
   }
+  mobileQuestionsExpanded = false;
+  get mobilePrimaryQuestions() { return this.summaryQuestions.filter(q => q.id === 'pending' || q.id === 'speed'); }
+  get mobileExtraQuestions() { return this.summaryQuestions.filter(q => q.id === 'time' || q.id === 'lost'); }
   mobileQuestionLabel(id: string): string {
     return ({pending:'Why pending?', time:'Timing', speed:'Speed up', lost:'Funds safe?', missing:'Missing funds?', amount:'My amount?', confirmations:'Confirmations', fee:'Fee'} as Record<string, string>)[id] || id;
   }
