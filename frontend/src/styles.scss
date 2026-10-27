@@ -5324,14 +5324,14 @@ body:has(app-address) .pt-block-strip-key {display:none;}
 /* Mobile transaction: keep action borders compact without overlapping. */
 @media (max-width:767.98px) {
   body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row {
-    justify-content:flex-start; flex-wrap:wrap; column-gap:4px; row-gap:0;
+    justify-content:flex-start; flex-wrap:nowrap; column-gap:2px; row-gap:0;
   }
   body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-summary-question {
     flex:0 0 auto; position:relative; min-width:0;
   }
   body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-mobile-inline-chip,
   body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-notification-action {
-    position:relative; flex:0 0 auto; min-height:40px !important; padding:8px 5px !important; border:0 !important; background:none !important; box-shadow:none !important; isolation:isolate;
+    position:relative; flex:0 0 auto; min-height:40px !important; padding:8px 3px !important; border:0 !important; background:none !important; box-shadow:none !important; isolation:isolate;
   }
   body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-mobile-inline-chip::before,
   body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-notification-action::before {
@@ -5339,12 +5339,13 @@ body:has(app-address) .pt-block-strip-key {display:none;}
   }
   body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-mobile-inline-chip[aria-expanded="true"]::before { border-color:#c9b496; }
   body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-notification-action .pt-alert-chevron { display:none !important; }
-  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-mobile-more { padding-inline:5px !important; }
+  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-mobile-more { padding-inline:3px !important; }
   body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-fact > strong .pt-card-value-unit {
     color:inherit !important; font-family:inherit !important; font-size:inherit !important; font-weight:inherit !important; line-height:inherit !important;
   }
   @media (max-width:360px) {
+    body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row { column-gap:1px; }
     body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-mobile-inline-chip,
-    body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-notification-action { padding-inline:3px !important; }
+    body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout .pt-mobile-inline-row .pt-notification-action { font-size:9px !important; padding-inline:2px !important; }
   }
 }
