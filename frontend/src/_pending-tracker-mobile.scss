@@ -1566,3 +1566,13 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
 
 // Shared indicator also applies outside phone breakpoints.
 @import "pending-tracker-chevrons";
+
+
+/* Match card values to their headings across Snapshot and Dive Deeper. */
+body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout :is(.pt-snapshot-surface, .pt-deeper-snapshot) .pt-snapshot-fact > strong,
+body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout :is(.pt-overview-surface, .pt-wallet-deeper) .pt-wallet-fact-line > strong,
+body:has(#pt-network-layout) #pt-network-layout#pt-network-layout :is(.pt-overview-surface, .pt-network-deeper) .pt-network-fact-line > strong,
+body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout :is(.pt-overview-surface, .pt-wallet-deeper) .pt-wallet-fact-line > strong app-amount,
+body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout :is(.pt-snapshot-surface, .pt-deeper-snapshot) .pt-snapshot-fact > strong app-amount {
+  font-weight: 600 !important;
+}
