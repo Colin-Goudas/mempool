@@ -66,9 +66,9 @@
     @if (tx && network === '' && stateService.env.PENDING_TRACKER_EXPLANATIONS) {
       <div class="pt-snapshot-summary pt-summary-compact">
         <div *ngIf="phoneLayout" class="pt-mobile-plain-title">In plain English</div>
-        <div *ngIf="phoneLayout && !tx.status.confirmed" class="pt-pending-summary-takeaway">{{ replaced || rbfTransaction || rbfInfo?.mined || isCached ? summaryStatus() : 'Waiting for its first confirmation.' }}</div>
+        <div *ngIf="phoneLayout" class="pt-pending-summary-takeaway">{{ tx.status.confirmed || replaced || rbfTransaction || rbfInfo?.mined || isCached ? summaryStatus() : 'Waiting for its first confirmation.' }}</div>
         <app-summary-disclosure [resetKey]="txId" [labelText]="phoneLayout ? '' : 'In plain English —'" [maxLines]="phoneLayout ? (tx.status.confirmed ? 3 : 2) : (tx.status.confirmed ? 3 : 4)" [endAtSentence]="phoneLayout && !tx.status.confirmed">
-          {{ phoneLayout && !tx.status.confirmed ? '' : summaryStatus() }} {{ summaryContext(ETA$ | async) }}
+          {{ phoneLayout ? '' : summaryStatus() }} {{ summaryContext(ETA$ | async) }}
           {{ selectedAddress ? 'Outputs to the selected address total' : 'Its outputs total' }} <strong class="pt-summary-btc-amount">{{ displayAmountSats / 100000000 | number:'1.8-8' }} BTC</strong><span *ngIf="showUsd"> (approximately <app-fiat [value]="displayAmountSats" colorClass=""></app-fiat> at the current price)</span>{{ selectedAddress ? '.' : ', which may include change returned to the sender.' }}
         </app-summary-disclosure>
         <ng-template #confirmationNotification>
