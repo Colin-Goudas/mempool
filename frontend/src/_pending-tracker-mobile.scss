@@ -1576,3 +1576,9 @@ body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout :is(.pt-overview-
 body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout :is(.pt-snapshot-surface, .pt-deeper-snapshot) .pt-snapshot-fact > strong app-amount {
   font-weight: 600 !important;
 }
+
+body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout :is(.pt-overview-surface, .pt-wallet-deeper) .pt-wallet-fact-line .pt-inline-card-context,
+body:has(#pt-network-layout) #pt-network-layout#pt-network-layout :is(.pt-overview-surface, .pt-network-deeper) .pt-network-fact-line .pt-inline-card-context,
+body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-metric-card .pt-card-mobile-fiat {
+  font-weight: 600 !important;
+}
