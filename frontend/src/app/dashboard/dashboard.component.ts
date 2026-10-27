@@ -39,6 +39,7 @@ interface MempoolStatsData {
 export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   mobileHelpOpen = false;
+  mobileQuestionsExpanded = false;
   private positionOpenMobilePopover(panel: HTMLElement, trigger: HTMLButtonElement): void {
     const viewportHeight = window.visualViewport?.height || window.innerHeight;
     const rect = trigger.getBoundingClientRect();
