@@ -1,4 +1,4 @@
-<div id="pt-transaction-layout" [class.pt-example-page]="(exampleId$ | async) === txId" class="container-xl">
+<div id="pt-transaction-layout" [class.pt-pending-mobile-design]="phoneLayout && tx && !tx.status.confirmed" [class.pt-example-page]="(exampleId$ | async) === txId" class="container-xl">
   <section [class.pt-snapshot]="pendingTrackerSnapshot" [class.pt-balanced]="pendingTrackerSnapshot" [class.pt-quiet-depth]="pendingTrackerSnapshot" [attr.aria-label]="pendingTrackerSnapshot ? 'Transaction snapshot' : null">
 
   <div class="pt-snapshot-panel">
@@ -66,8 +66,9 @@
     @if (tx && network === '' && stateService.env.PENDING_TRACKER_EXPLANATIONS) {
       <div class="pt-snapshot-summary pt-summary-compact">
         <div *ngIf="phoneLayout" class="pt-mobile-plain-title">In plain English</div>
-        <app-summary-disclosure [resetKey]="txId" [labelText]="phoneLayout ? '' : 'In plain English —'" [maxLines]="phoneLayout ? 3 : (tx.status.confirmed ? 3 : 4)">
-          {{ summaryStatus() }} {{ summaryContext(ETA$ | async) }}
+        <div *ngIf="phoneLayout && !tx.status.confirmed" class="pt-pending-summary-takeaway">{{ replaced || rbfTransaction || rbfInfo?.mined || isCached ? summaryStatus() : 'Waiting for its first confirmation.' }}</div>
+        <app-summary-disclosure [resetKey]="txId" [labelText]="phoneLayout ? '' : 'In plain English —'" [maxLines]="phoneLayout ? 3 : (tx.status.confirmed ? 3 : 4)" [endAtSentence]="phoneLayout && !tx.status.confirmed">
+          {{ phoneLayout && !tx.status.confirmed ? '' : summaryStatus() }} {{ summaryContext(ETA$ | async) }}
           {{ selectedAddress ? 'Outputs to the selected address total' : 'Its outputs total' }} <strong class="pt-summary-btc-amount">{{ displayAmountSats / 100000000 | number:'1.8-8' }} BTC</strong><span *ngIf="showUsd"> (approximately <app-fiat [value]="displayAmountSats" colorClass=""></app-fiat> at the current price)</span>{{ selectedAddress ? '.' : ', which may include change returned to the sender.' }}
         </app-summary-disclosure>
         <ng-template #confirmationNotification>
@@ -98,7 +99,7 @@
                 <button type="button" class="pt-mobile-inline-chip" [attr.popovertarget]="'pt-answer-' + question.id" [attr.aria-expanded]="activeSummaryQuestion === question.id" [attr.aria-label]="question.label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">@if (question.id === 'pending') { <circle cx="12" cy="12" r="9"/><path d="M9.7 9a2.4 2.4 0 0 1 4.6.8c0 1.4-2.3 1.7-2.3 3.1M12 16h.01"/> } @else { <path d="m13 2-8 12h6l-1 8 9-13h-6z"/> }</svg>{{ mobileQuestionLabel(question.id) }}</button>
               }
               <ng-container *ngTemplateOutlet="confirmationNotification"></ng-container>
-              <button type="button" class="pt-mobile-inline-chip pt-mobile-more" (click)="mobileQuestionsExpanded = !mobileQuestionsExpanded" [attr.aria-expanded]="mobileQuestionsExpanded" aria-controls="pt-mobile-more-questions">{{ mobileQuestionsExpanded ? 'Less' : 'More 3' }}<span class="pt-chevron" [class.pt-chevron-up]="mobileQuestionsExpanded" aria-hidden="true"></span></button>
+              <button type="button" class="pt-mobile-inline-chip pt-mobile-more" (click)="mobileQuestionsExpanded = !mobileQuestionsExpanded" [attr.aria-expanded]="mobileQuestionsExpanded" [attr.aria-label]="mobileQuestionsExpanded ? 'Show fewer questions' : 'Show 3 more questions'" aria-controls="pt-mobile-more-questions">{{ mobileQuestionsExpanded ? 'Less' : 'More' }}<span *ngIf="!mobileQuestionsExpanded" class="pt-more-count">3</span><span class="pt-chevron" [class.pt-chevron-up]="mobileQuestionsExpanded" aria-hidden="true"></span></button>
             </div>
             <div id="pt-mobile-more-questions" class="pt-mobile-inline-row pt-mobile-inline-extra" [hidden]="!mobileQuestionsExpanded">
               <button type="button" class="pt-mobile-inline-chip" popovertarget="pt-answer-next" [attr.aria-expanded]="activeSummaryQuestion === 'next'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>What next?</button>
