@@ -5480,3 +5480,13 @@ body:has(app-address) .pt-block-strip-key {display:none;}
  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout.pt-pending-mobile-design .pt-mobile-inline-row:not(.pt-mobile-inline-extra) .pt-summary-question:has(.pt-question-popover:popover-open) .pt-notification-action {color:#201b15!important;}
  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout.pt-pending-mobile-design .pt-mobile-inline-row:not(.pt-mobile-inline-extra) .pt-summary-question:has(.pt-question-popover:popover-open) .pt-notification-action svg {color:#201b15!important;}
 }
+/* Preserve the generated “Explain more” label and keep the first action legible. */
+@media(max-width:767.98px) {
+ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout.pt-pending-mobile-design .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-meaning button {font-size:0!important;}
+ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout.pt-pending-mobile-design .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-meaning button::before {font-size:11px!important;text-decoration:underline!important;text-underline-offset:3px;}
+ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout.pt-pending-mobile-design .pt-mobile-inline-row:not(.pt-mobile-inline-extra) :is(.pt-mobile-inline-chip,.pt-notification-action) {font-size:10.5px!important;padding-inline:2px!important;}
+ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout.pt-pending-mobile-design .pt-mobile-inline-row:not(.pt-mobile-inline-extra) > .pt-summary-question {flex-basis:4px!important;}
+ @media(max-width:360px) {
+  body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout.pt-pending-mobile-design .pt-mobile-inline-row:not(.pt-mobile-inline-extra) :is(.pt-mobile-inline-chip,.pt-notification-action) {font-size:9px!important;}
+ }
+}
