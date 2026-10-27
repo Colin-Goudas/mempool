@@ -1506,6 +1506,11 @@ body:has(app-transaction) app-transaction #pt-transaction-layout#pt-transaction-
   body:has(#pt-network-layout) #pt-network-layout#pt-network-layout .pt-mobile-help-preview {
     font-size: 12px !important;
     color: #dedee4 !important;
+    width: max-content;
+    max-width: calc(100vw - 70px);
+  }
+  body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact-line > strong app-amount {
+    color: #f3f3f5 !important;
   }
   body:has(#pt-transaction-layout) #pt-transaction-layout#pt-transaction-layout .pt-snapshot-surface > .pt-eight-card-grid .pt-snapshot-fact > strong:not(.pt-confirmed-value):not(.pt-pending-value),
   body:has(#pt-wallet-layout) #pt-wallet-layout#pt-wallet-layout .pt-overview-surface .pt-wallet-fact-line > strong,
