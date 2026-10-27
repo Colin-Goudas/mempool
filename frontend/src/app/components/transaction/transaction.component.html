@@ -98,12 +98,12 @@
                 <button type="button" class="pt-mobile-inline-chip" [attr.popovertarget]="'pt-answer-' + question.id" [attr.aria-expanded]="activeSummaryQuestion === question.id" [attr.aria-label]="question.label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">@if (question.id === 'pending') { <circle cx="12" cy="12" r="9"/><path d="M9.7 9a2.4 2.4 0 0 1 4.6.8c0 1.4-2.3 1.7-2.3 3.1M12 16h.01"/> } @else { <path d="m13 2-8 12h6l-1 8 9-13h-6z"/> }</svg>{{ mobileQuestionLabel(question.id) }}</button>
               }
               <ng-container *ngTemplateOutlet="confirmationNotification"></ng-container>
-              <button type="button" class="pt-mobile-inline-chip pt-mobile-more" (click)="mobileQuestionsExpanded = !mobileQuestionsExpanded" [attr.aria-expanded]="mobileQuestionsExpanded" aria-controls="pt-mobile-more-questions">{{ mobileQuestionsExpanded ? 'Less' : 'More (3)' }}<span class="pt-chevron" [class.pt-chevron-up]="mobileQuestionsExpanded" aria-hidden="true"></span></button>
+              <button type="button" class="pt-mobile-inline-chip pt-mobile-more" (click)="mobileQuestionsExpanded = !mobileQuestionsExpanded" [attr.aria-expanded]="mobileQuestionsExpanded" aria-controls="pt-mobile-more-questions">{{ mobileQuestionsExpanded ? 'Less' : 'More 3' }}<span class="pt-chevron" [class.pt-chevron-up]="mobileQuestionsExpanded" aria-hidden="true"></span></button>
             </div>
             <div id="pt-mobile-more-questions" class="pt-mobile-inline-row pt-mobile-inline-extra" [hidden]="!mobileQuestionsExpanded">
-              <button type="button" class="pt-mobile-inline-chip" popovertarget="pt-answer-next" [attr.aria-expanded]="activeSummaryQuestion === 'next'">What next?</button>
+              <button type="button" class="pt-mobile-inline-chip" popovertarget="pt-answer-next" [attr.aria-expanded]="activeSummaryQuestion === 'next'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>What next?</button>
               @for (question of mobileExtraQuestions; track question.id) {
-                <button type="button" class="pt-mobile-inline-chip" [attr.popovertarget]="'pt-answer-' + question.id" [attr.aria-expanded]="activeSummaryQuestion === question.id" [attr.aria-label]="question.label">{{ mobileQuestionLabel(question.id) }}</button>
+                <button type="button" class="pt-mobile-inline-chip" [attr.popovertarget]="'pt-answer-' + question.id" [attr.aria-expanded]="activeSummaryQuestion === question.id" [attr.aria-label]="question.label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">@if (question.id === 'time') { <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/> } @else { <path d="M12 3 20 6v5c0 5-3 8-8 10-5-2-8-5-8-10V6z"/><path d="m9 12 2 2 4-4"/> }</svg>{{ mobileQuestionLabel(question.id) }}</button>
               }
             </div>
           </div>
