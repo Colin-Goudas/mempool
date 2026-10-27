@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-summary-disclosure',
   standalone: true,
   imports: [CommonModule],
-  template: `<p #paragraph class="pt-summary-narrative pt-four-line-copy" [class.pt-justify-collapsed]="mobileSnapshot && !expanded && truncated"><strong *ngIf="labelText" #label class="pt-summary-inline-label">{{ labelText }}</strong> <span #full class="pt-disclosure-full" [hidden]="!expanded && truncated"><ng-content></ng-content></span><span *ngIf="!expanded && truncated">{{ labelText ? ' ' + preview : preview }}</span><span #ending class="pt-disclosure-ending" *ngIf="truncated || alwaysShowAction"><span *ngIf="!expanded && truncated" aria-hidden="true">… </span><span *ngIf="!truncated" aria-hidden="true">{{ ' ' }}</span><button type="button" class="pt-summary-expand-toggle" [attr.aria-expanded]="popoverTarget ? null : expanded" [attr.popovertarget]="popoverTarget || null" [attr.aria-controls]="popoverTarget || null" (click)="toggle()">{{ expanded ? 'Show less' : moreLabel }}<span aria-hidden="true" class="pt-chevron"></span></button></span></p>`,
-  styles: [`:host{display:block;min-width:0}.pt-disclosure-full[hidden]{display:none!important}.pt-disclosure-ending{white-space:nowrap}.pt-disclosure-ending:has(button[aria-expanded="true"]){margin-left:4px}.pt-justify-collapsed{text-align:justify;text-align-last:justify}`]
+  template: `<p #paragraph class="pt-summary-narrative pt-four-line-copy" [class.pt-flush-action]="mobileSnapshot && !expanded && truncated"><strong *ngIf="labelText" #label class="pt-summary-inline-label">{{ labelText }}</strong> <span #full class="pt-disclosure-full" [hidden]="!expanded && truncated"><ng-content></ng-content></span><span *ngIf="!expanded && truncated">{{ labelText ? ' ' + preview : preview }}</span><span #ending class="pt-disclosure-ending" [style.left.px]="mobileSnapshot && !expanded && truncated ? endingOffset : null" *ngIf="truncated || alwaysShowAction"><span *ngIf="!expanded && truncated" aria-hidden="true">… </span><span *ngIf="!truncated" aria-hidden="true">{{ ' ' }}</span><button type="button" class="pt-summary-expand-toggle" [attr.aria-expanded]="popoverTarget ? null : expanded" [attr.popovertarget]="popoverTarget || null" [attr.aria-controls]="popoverTarget || null" (click)="toggle()">{{ expanded ? 'Show less' : moreLabel }}<span aria-hidden="true" class="pt-chevron"></span></button></span></p>`,
+  styles: [`:host{display:block;min-width:0}.pt-disclosure-full[hidden]{display:none!important}.pt-disclosure-ending{white-space:nowrap}.pt-disclosure-ending:has(button[aria-expanded="true"]){margin-left:4px}.pt-flush-action{text-align:left;text-align-last:auto;word-spacing:normal}.pt-flush-action .pt-disclosure-ending{position:relative}`]
 })
 export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() resetKey = '';
@@ -23,6 +23,7 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
   truncated = true;
   preview = '';
   mobileSnapshot = false;
+  endingOffset = 0;
   private resize?: ResizeObserver;
   private mutation?: MutationObserver;
   private frame = 0;
@@ -72,6 +73,7 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
     // synchronously before paint; restore the user's expanded state afterward.
     this.zone.run(() => {
       this.mobileSnapshot = mobileSnapshot;
+      this.endingOffset = 0;
       const wasExpanded = this.expanded;
       this.expanded = false;
       this.truncated = false;
@@ -80,9 +82,10 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
       const fits = () => paragraph.getBoundingClientRect().height <= maxHeight;
       if (!fits()) {
         this.truncated = true;
-        const words = text.split(' ');
-        const excerpt = (count: number) => words.slice(0, count).join(' ').replace(/[.,;:!?]+$/, '');
-        let low = 0, high = words.length;
+        // Fill the final line without stretching the spaces between words.
+        const units = mobileSnapshot ? Array.from(text) : text.split(' ');
+        const excerpt = (count: number) => units.slice(0, count).join(mobileSnapshot ? '' : ' ').trimEnd().replace(/[.,;:!?]+$/, '');
+        let low = 0, high = units.length;
         while (low < high) {
           const mid = Math.ceil((low + high) / 2);
           this.preview = excerpt(mid);
@@ -95,6 +98,14 @@ export class SummaryDisclosureComponent implements AfterViewInit, OnChanges, OnD
         while (low > 0 && !fits()) {
           this.preview = excerpt(--low);
           this.cd.detectChanges();
+        }
+      }
+      if (mobileSnapshot && this.truncated) {
+        const ending = paragraph.querySelector<HTMLElement>('.pt-disclosure-ending');
+        if (ending) {
+          // Move only the action across any fractional leftover space.
+          // Its natural inline width remains reserved during measurement.
+          this.endingOffset = Math.max(0, paragraph.getBoundingClientRect().right - ending.getBoundingClientRect().right);
         }
       }
       this.expanded = wasExpanded;
