@@ -441,7 +441,8 @@ h2 .cpfp-beta {
 @media(max-width:767.98px){
  #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-mobile-snapshot-v2 {
   .v2-header h1{font-size:22px!important;font-weight:700!important;line-height:1.2!important;letter-spacing:-.025em!important;margin:0!important;}
-  .v2-card{border-radius:24px!important;box-shadow:0 0 0 1px var(--hair)!important;}
+  /* A mostly opaque neutral base grounds the card while retaining a trace of site texture. */
+  .v2-card{background:linear-gradient(180deg,rgba(20,20,20,.88),rgba(12,12,12,.90)),var(--pt-facetry-surface)!important;border-radius:24px!important;box-shadow:0 0 0 1px var(--hair)!important;}
   /* Translucent neutral shading preserves the site texture beneath both zones. */
   .v2-summary-zone{background:linear-gradient(180deg,rgba(255,255,255,.075) 0%,rgba(255,255,255,.028) 60%,rgba(255,255,255,.012) 100%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important;}
   .v2-data{background:linear-gradient(180deg,rgba(255,255,255,.018),rgba(255,255,255,.004))!important;}
