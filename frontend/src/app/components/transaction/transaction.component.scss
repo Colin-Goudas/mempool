@@ -441,18 +441,11 @@ h2 .cpfp-beta {
 @media(max-width:767.98px){
  #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-mobile-snapshot-v2 {
   .v2-header h1{font-size:22px!important;font-weight:700!important;line-height:1.2!important;letter-spacing:-.025em!important;margin:0!important;}
-  /* Keep a substantial charcoal surface all the way through the final data row. */
-  .v2-card{background:linear-gradient(180deg,rgba(29,29,29,.98),rgba(28,28,28,.98)),var(--pt-facetry-surface)!important;border-radius:24px!important;box-shadow:0 0 0 1px var(--hair)!important;}
+  /* Shared mobile graphite treatment, including pending and confirmed states. */
+  .v2-card{background:var(--pt-snapshot-smoke)!important;border-radius:24px!important;box-shadow:0 0 0 1px var(--hair)!important;}
   /* Summary and buttons share one brighter surface; the fade starts below them. */
-  .v2-summary-zone{background:linear-gradient(180deg,rgba(255,255,255,.075) 0%,rgba(255,255,255,.065) 100%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important;}
-  .v2-data{background:linear-gradient(180deg,rgba(255,255,255,.065) 0px,rgba(255,255,255,.022) 36px,rgba(255,255,255,.016) 100%)!important;}
-  /* Pending-only reference treatment: opaque cool graphite, softly darkening
-     toward the right and bottom. The existing perimeter border stays intact. */
-  &:not(.v2-confirmed){
-   .v2-card{background:radial-gradient(ellipse at 16% 0%,#2b2d30 0%,#202225 34%,#17191c 68%,#101214 100%)!important;}
-   .v2-summary-zone{background:rgba(255,255,255,.035)!important;}
-   .v2-data{background:linear-gradient(180deg,rgba(255,255,255,.035) 0px,rgba(255,255,255,0) 44px)!important;}
-  }
+  .v2-summary-zone{background:var(--pt-snapshot-summary-shade)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important;}
+  .v2-data{background:var(--pt-snapshot-data-shade)!important;}
   .v2-buttons{border-radius:12px!important;box-shadow:0 0 0 1px rgba(255,255,255,.14)!important;}
   .v2-buttons button{padding:0 4px!important;gap:4px!important;min-height:40px!important;font-size:11.5px!important;}
   .v2-buttons .v2-more{flex:0 0 auto;min-width:48px;padding-inline:4px!important;gap:1px!important;}
