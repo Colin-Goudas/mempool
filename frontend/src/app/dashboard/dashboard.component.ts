@@ -40,6 +40,7 @@ interface MempoolStatsData {
 export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   mobileOverview = networkOverview;
+  mobileFeeTotal(rate:number|null):number|null { return rate === null || !this.paymentVbytes ? null : Math.ceil(rate*this.paymentVbytes); }
   mobileHelpOpen = false;
   mobileQuestionsExpanded = false;
   private positionOpenMobilePopover(panel: HTMLElement, trigger: HTMLButtonElement): void {
