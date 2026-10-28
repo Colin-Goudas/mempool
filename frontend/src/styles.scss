@@ -5632,7 +5632,7 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
 
 /* Pending mobile Dive Deeper matches the Snapshot's primary and secondary type. */
 @media(max-width:767.98px){
- body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout:has(.pt-mobile-snapshot-v2:not(.v2-confirmed)) .pt-deeper-snapshot{
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout:has(.pt-mobile-snapshot-v2) .pt-deeper-snapshot{
   .pt-snapshot-fact{align-items:start!important;}
   .pt-snapshot-fact > :is(.pt-card-label,strong){
    font-family:-apple-system,BlinkMacSystemFont,Inter,"Segoe UI",Roboto,sans-serif!important;
@@ -5651,7 +5651,7 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
 
 /* Main pending transaction section headings share one mobile hierarchy. */
 @media(max-width:767.98px){
- body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout.pt-pending-mobile-design{
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout:has(.pt-mobile-snapshot-v2){
   :is(.v2-header h1,.pt-flow-section .pt-flow-heading-copy > h2,.pt-dive-deeper-toggle > summary){
    font-family:-apple-system,BlinkMacSystemFont,Inter,"Segoe UI",Roboto,sans-serif!important;
    font-size:24px!important;font-weight:600!important;line-height:30px!important;
@@ -5660,5 +5660,20 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
   .v2-pending-header{padding-inline:12px;gap:3px;}
   .v2-header.v2-pending-header h1{letter-spacing:-.06em!important;}
   .v2-status-stack .v2-status{padding-inline:3px;font-size:11px;gap:4px;}
+ }
+}
+
+/* Shared mobile section headings and technical fact typography. */
+@media(max-width:767.98px){
+ body :is(#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout){
+  h2{font-family:-apple-system,BlinkMacSystemFont,Inter,"Segoe UI",Roboto,sans-serif!important;font-size:24px!important;font-weight:600!important;line-height:30px!important;letter-spacing:-.025em!important;color:#f4f5f7!important;}
+ }
+ body :is(#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout,#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout) :is(.pt-deeper-snapshot,.pt-wallet-deeper,.pt-network-deeper){
+  :is(.pt-snapshot-fact,.pt-wallet-fact-line,.pt-network-fact-line){align-items:start!important;grid-template-columns:minmax(0,44fr) minmax(0,56fr)!important;}
+  :is(.pt-snapshot-fact,.pt-wallet-fact-line,.pt-network-fact-line)>:is(span,strong){
+   font-family:-apple-system,BlinkMacSystemFont,Inter,"Segoe UI",Roboto,sans-serif!important;font-size:16px!important;font-weight:700!important;line-height:20px!important;letter-spacing:normal!important;color:#f4f5f7!important;
+  }
+  :is(.pt-card-value-unit,.pt-crosspage-unit){font-size:12px!important;font-weight:500!important;line-height:15px!important;color:#98a0ae!important;}
+  :is(.pt-summary-expand-toggle,.pt-advanced-inline-action){color:#98a0ae!important;}
  }
 }
