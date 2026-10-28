@@ -1,3 +1,4 @@
+import { MobileOverviewSnapshotComponent } from '@app/shared/mobile-overview-snapshot.component';
 import { MobileFitAmountDirective } from '@app/shared/mobile-fit-amount.directive';
 import { SummaryDisclosureComponent } from '@app/shared/summary-disclosure.component';
 import { NgModule } from '@angular/core';
@@ -101,6 +102,7 @@ import { CommonModule } from '@angular/common';
   imports: [
     MobileFitAmountDirective,
     SummaryDisclosureComponent,
+    MobileOverviewSnapshotComponent,
     CommonModule,
     SharedModule,
     TaprootAddressScriptsModule,
