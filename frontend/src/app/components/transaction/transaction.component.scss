@@ -457,3 +457,11 @@ h2 .cpfp-beta {
   }
  }
 }
+
+/* Pending mobile facts: align the primary text, with secondary lines below. */
+@media(max-width:767.98px){
+ #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-mobile-snapshot-v2:not(.v2-confirmed){
+  .v2-data-row{align-items:flex-start;}
+  .v2-data-label>span,.v2-value{font-size:16px;font-weight:700;line-height:20px;color:var(--fg);}
+ }
+}
