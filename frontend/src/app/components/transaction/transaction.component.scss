@@ -479,7 +479,7 @@ h2 .cpfp-beta {
 /* Pending mobile identity aligns to the summary's inner text edges. */
 @media(max-width:767.98px){
  #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-mobile-snapshot-v2:not(.v2-confirmed){
-  .v2-pending-header{align-items:flex-end;gap:6px;padding:0 12px;margin:0 0 5px;}
+  .v2-pending-header{align-items:center;gap:6px;padding:0 12px;margin:0 0 5px;}
   .v2-pending-header h1{font-size:22px!important;line-height:1.2!important;}
   .v2-status-stack{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none;}
   .v2-summary-heading{display:flex;align-items:baseline;justify-content:space-between;gap:8px;}
@@ -489,8 +489,8 @@ h2 .cpfp-beta {
   .v2-pending-identity code{display:flex;align-items:baseline;overflow:hidden;text-overflow:clip;}
   .v2-id-start{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .v2-id-end{flex:none;}
-  .v2-pending-identity .v2-copy{width:28px;height:28px;border-radius:7px;border-color:rgba(255,255,255,.2);}
-  .v2-pending-identity .v2-copy::after{inset:-6px;}
-  .v2-pending-identity .v2-copy svg{width:14px;height:14px;}
+  .v2-pending-identity .v2-copy{width:21px;height:21px;border-radius:5px;border-color:rgba(255,255,255,.2);}
+  .v2-pending-identity .v2-copy::after{inset:-10px;}
+  .v2-pending-identity .v2-copy svg{width:13px;height:13px;}
  }
 }
