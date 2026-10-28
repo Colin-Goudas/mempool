@@ -5652,7 +5652,7 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
 /* Main pending transaction section headings share one mobile hierarchy. */
 @media(max-width:767.98px){
  body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout.pt-pending-mobile-design{
-  :is(.v2-header h1,.pt-flow-section > h2,.pt-dive-deeper-toggle > summary){
+  :is(.v2-header h1,.pt-flow-section .pt-flow-heading-copy > h2,.pt-dive-deeper-toggle > summary){
    font-family:-apple-system,BlinkMacSystemFont,Inter,"Segoe UI",Roboto,sans-serif!important;
    font-size:24px!important;font-weight:600!important;line-height:30px!important;
    letter-spacing:-.025em!important;color:#f4f5f7!important;
