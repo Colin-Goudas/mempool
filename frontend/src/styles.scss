@@ -5579,6 +5579,12 @@ body:is(:has(#pt-wallet-layout),:has(#pt-network-layout)) :is(#pt-wallet-layout#
 body:is(:has(#pt-wallet-layout),:has(#pt-network-layout)) :is(#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout) .pt-overview-surface > :is(.pt-wallet-facts,.pt-network-facts) :is(.pt-wallet-meaning,.pt-network-meaning) button{min-height:0!important;padding:0!important;line-height:14.3px!important;}
 }
 
+/* Mobile explanation actions share the Snapshot action color. */
+@media(max-width:767.98px){
+ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-layout)) :is(#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout,#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout) :is(.pt-deeper-snapshot,.pt-wallet-deeper,.pt-network-deeper) :is(.pt-summary-expand-toggle,.pt-advanced-inline-action){color:#aaa398!important;}
+ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-layout)) :is(#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout,#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout) :is(.pt-deeper-snapshot,.pt-wallet-deeper,.pt-network-deeper) :is(.pt-summary-expand-toggle,.pt-advanced-inline-action) .pt-chevron{color:inherit!important;border-color:currentColor!important;}
+}
+
 /* Mobile Dive Deeper: one connected surface, matching Snapshot metric typography. */
 @media(max-width:767.98px){
 body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-layout)) :is(#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout,#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout) .pt-deeper-snapshot{padding:0!important;border:0!important;box-shadow:none!important;}
