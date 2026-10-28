@@ -78,6 +78,92 @@ const DUPLICATE_TX_BLOCKS: Record<string, [number, number]> = {
   standalone: false,
 })
 export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
+  // Mobile Snapshot reference presentation. Existing services remain the data source.
+  summaryOpen = false;
+  moreOpen = false;
+  activeAnswer: string | null = null;
+  snapshotAddressKind: 'sending' | 'receiving' | null = null;
+  snapshotCopyFeedback = '';
+  snapshotClock = Date.now();
+  snapshotLastRefresh = 0;
+  private snapshotViewSubscriptions = new Subscription();
+  private snapshotFeeTiers?: {fastestFee: number; halfHourFee: number};
+  get referenceMobileSnapshot(): boolean {
+    return this.phoneLayout && this.pendingTrackerSnapshot && !!this.tx && !this.error && !this.isCached && !this.replaced && !this.rbfTransaction && !this.rbfInfo?.mined && !this.tx.vin?.some(v => v.is_coinbase);
+  }
+  get snapshotRefreshAge(): number { return Math.max(0, Math.floor((this.snapshotClock - this.snapshotLastRefresh) / 1000)); }
+  snapshotEtaMinutes(eta: ETA | null): number | null { return eta && Number.isFinite(eta.wait) && eta.wait >= 0 ? Math.max(1, Math.ceil(eta.wait / 60000)) : null; }
+  get snapshotFeeSentence(): string {
+    const rate = this.ownFeeRate;
+    const floor = this.networkFeeFloor;
+    const tiers = this.snapshotFeeTiers;
+    if (rate === undefined || floor === undefined || !tiers) return 'A reliable comparison with current network fee tiers is not available yet.';
+    if (rate < floor) return "That's a low fee, and it's below what the next block is taking, so expect a longer wait.";
+    if (rate < tiers.halfHourFee) return "That's a low fee, but it should still make the next block. If the network gets busy, it could be pushed back to a later block, which means a longer wait.";
+    if (rate < tiers.fastestFee) return "That's a standard fee, so it should confirm in about the time shown above.";
+    return "That's a high fee, near the front of the line, so it should confirm in about 10 minutes.";
+  }
+  get snapshotButtons() {
+    return this.tx?.status.confirmed ? [
+      {id:'final',label:'Is it final?',icon:'question'}, {id:'share',label:'Share receipt',icon:'share'}, {id:'notify',label:'Notify at 3',icon:'bell'}
+    ] : [{id:'pending',label:'Why pending?',icon:'question'},{id:'speed',label:'Speed up',icon:'lightning'},{id:'notify',label:'Notify me',icon:'bell'}];
+  }
+  get snapshotMoreButtons() {
+    return this.tx?.status.confirmed ? [{id:'credited',label:'Not credited?',icon:'card'},{id:'howmany',label:'How many?',icon:'layers'},{id:'reversible',label:'Reversible?',icon:'undo'}]
+      : [{id:'safe',label:'Funds safe?',icon:'shield'},{id:'cancel',label:'Can I cancel?',icon:'cancel'},{id:'long',label:'Taking too long?',icon:'clock'}];
+  }
+  snapshotButtonClick(id: string): void {
+    if (id === 'share') return; // TODO: product decision: shareable receipt.
+    if (id === 'notify') {
+      this.selectedAlertTarget = this.tx.status.confirmed ? 3 : 1;
+      document.querySelector<HTMLElement>('#pt-v2-notify')?.showPopover();
+      return;
+    }
+    this.activeAnswer = this.activeAnswer === id ? null : id;
+  }
+  get snapshotAnswer(): {title:string; text:string} | null {
+    const existing = this.summaryQuestions;
+    const answers: Record<string,{title:string;text:string}> = {
+      pending:{title:'Why is it pending?',text:"It's waiting for a miner to put it in a block. Miners pick the highest fees first, so a lower fee can mean a longer wait. " + this.snapshotFeeSentence},
+      speed:{title:'How do I speed it up?',text:(existing.find(q=>q.id==='speed')?.text || '') + ' If you sent it, check your wallet for a fee bump or Replace by fee. Availability depends on wallet support, input control and node policy. If receiving, some wallets support spending an unconfirmed output with a higher fee (CPFP). Be careful with paid recovery services.'},
+      safe:{title:'Are my funds safe?',text:existing.find(q=>q.id==='lost')?.text || "It isn't final until it confirms. If you're receiving it, wait for confirmation before treating it as paid."},
+      cancel:{title:'Can I cancel it?',text:"Bitcoin can't be canceled once sent. If you sent it, you may be able to replace it with a higher-fee version, including one that sends the coins back to you. If you're receiving it, you can't cancel it."},
+      long:{title:"It's taking too long",text:existing.find(q=>q.id==='time')?.text || 'In busy periods a low-fee transaction can take hours or days. If it has waited longer than the ETA, paying a higher fee is the quickest fix.'},
+      final:{title:'Is it final?',text:'One confirmation means it’s in a block. Each new block makes it harder to reverse. For larger amounts, people often wait for 3 to 6.'},
+      credited:{title:"Why hasn't it been credited?",text:existing.find(q=>q.id==='missing')?.text || "Many exchanges wait for a set number of confirmations, often 3, before crediting a deposit. If it's confirmed here but your balance hasn't updated, contact the exchange."},
+      howmany:{title:'How many confirmations do I need?',text:'It depends on the amount and who you ask. A common rule of thumb is 1 for small payments, 3 for medium and 6 for large. Many exchanges require 3.'},
+      reversible:{title:'Can it be reversed?',text:"No. Once a Bitcoin payment is confirmed it can't be reversed. If it went to the wrong address, only the person who received it can send it back."}
+    };
+    return this.activeAnswer ? answers[this.activeAnswer] || null : null;
+  }
+  get snapshotAddresses(): string[] {
+    const all = this.snapshotAddressKind === 'sending' ? this.tx?.vin?.map(v=>v.prevout?.scriptpubkey_address) : this.tx?.vout?.map(v=>v.scriptpubkey_address);
+    return [...new Set((all || []).filter((a): a is string => !!a))];
+  }
+  async copySnapshotText(text: string): Promise<void> {
+    try { await navigator.clipboard.writeText(text); this.snapshotCopyFeedback = 'Copied'; }
+    catch { this.snapshotCopyFeedback = 'Copy unavailable. Select and copy the full text.'; }
+  }
+  referenceSnapshotFacts(eta: ETA | null) {
+    const facts = this.snapshotFactsFor(eta);
+    const wanted = [this.tx.status.confirmed ? 'Confirmations' : 'Estimated confirmation',this.tx.status.confirmed ? 'Confirmed at' : 'First seen','Network fee','Fee rate','Total output','Inputs / outputs'];
+    return wanted.map(label=>facts.find(f=>f.label===label)).filter((f): f is NonNullable<typeof f> => !!f).map(f=> {
+      if (f.label !== 'Confirmed at') return f;
+      const firstSeen = this.transactionTime;
+      const minutes = firstSeen > 0 ? Math.max(0, Math.floor((this.snapshotClock / 1000 - firstSeen) / 60)) : null;
+      return {...f,label:'First seen',value:firstSeen > 0 ? new Date(firstSeen * 1000).toISOString() : 'Not available',secondary:minutes === null ? 'Not available' : minutes < 1 ? 'Just now' : minutes < 60 ? minutes + ' min ago' : minutes < 1440 ? Math.floor(minutes/60) + ' hr ago' : Math.floor(minutes/1440) + ' days ago',meaning:'When this provider first observed the transaction. This is not necessarily when it was broadcast.',details:'First-seen timestamps vary by provider and may not be available for historical transactions.'};
+    });
+  }
+  referenceFactValue(fact: {label:string;value:string;secondary?:string}): string {
+    return this.mobileSnapshotMainValue(fact.label,fact.value,fact.secondary).replace(/\s+(min|hr|days?)$/, '');
+  }
+  referenceFactUnit(fact: {label:string;value:string;secondary?:string}): string {
+    const standard = this.mobileSnapshotUnit(fact.label,fact.value,fact.secondary);
+    if (standard) return standard.trim();
+    return this.mobileSnapshotValue(fact.label,fact.value,fact.secondary).match(/\s+(min|hr|days?)$/)?.[1] || '';
+  }
+
+  snapshotUsdRate: number | null = null;
   readonly confirmationBellIcon = faBell;
   get pendingTrackerSnapshot() { return this.network === '' && !!this.stateService.env.PENDING_TRACKER_EXPLANATIONS; }
   activeSummaryQuestion = '';
@@ -559,6 +645,9 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   ngOnInit() {
     this.setupPartnerCode();
+    this.snapshotViewSubscriptions.add(this.stateService.recommendedFees$.subscribe(fees => { this.snapshotFeeTiers = fees; }));
+    this.snapshotViewSubscriptions.add(this.stateService.conversions$.subscribe(rates => { this.snapshotUsdRate = Number.isFinite(rates.USD) ? rates.USD : null; }));
+    this.snapshotViewSubscriptions.add(timer(0, 1000).subscribe(() => { if (this.phoneLayout) { this.snapshotClock = Date.now(); this.cd.markForCheck(); } }));
 
     this.isDetailsOpen = this.route.snapshot.queryParams['showDetails'] === 'true';
     this.cpfpMode = this.route.snapshot.queryParams['cpfp'] === 'true';
@@ -688,6 +777,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
 
       if (!this.tx) {
         this.tx = tx;
+          this.snapshotLastRefresh = Date.now();
         this.setFeatures();
         this.isCached = true;
         if (tx.fee === undefined) {
@@ -925,6 +1015,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
         switchMap((params: ParamMap) => {
           document.querySelector<HTMLElement>('#pt-mobile-help:popover-open')?.hidePopover();
           this.activeSummaryQuestion = '';
+          this.summaryOpen = false; this.moreOpen = false; this.activeAnswer = null; this.snapshotAddressKind = null; this.snapshotCopyFeedback = '';
           this.summaryExpanded = false;
           if (this.txId !== (params.get('id') || '').split(':')[0]) {
             this.showReplacementDiagram = false;
@@ -1023,6 +1114,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
           this.seoService.clearSoft404();
 
           this.tx = tx;
+          this.snapshotLastRefresh = Date.now();
           this.setFeatures();
           this.isCached = false;
           if (tx.fee === undefined) {
@@ -1157,6 +1249,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.mempoolBlocksSubscription = this.stateService.mempoolBlocks$.subscribe((mempoolBlocks) => {
       this.now = Date.now();
+      this.snapshotLastRefresh = Date.now();
       const firstFeeRange = mempoolBlocks?.[0]?.feeRange;
       this.fastFeeRate = Number.isFinite(mempoolBlocks?.[0]?.medianFee) ? mempoolBlocks[0].medianFee : undefined;
       this.feeUpdatedAt = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
@@ -1649,6 +1742,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.snapshotViewSubscriptions.unsubscribe();
     this.flowResizeObserver?.disconnect();
     this.subscription.unsubscribe();
     this.fetchCpfpSubscription.unsubscribe();
