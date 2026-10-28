@@ -1,3 +1,4 @@
+import { networkOverview } from '@app/shared/overview-content';
 import { mobilePopoverVisibleHeight, revealMobileHelpAnswer } from '@app/shared/mobile-popover-visibility';
 import { NetworkSnapshot, networkSnapshot } from './network-snapshot';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
@@ -38,6 +39,7 @@ interface MempoolStatsData {
 })
 export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
+  mobileOverview = networkOverview;
   mobileHelpOpen = false;
   mobileQuestionsExpanded = false;
   private positionOpenMobilePopover(panel: HTMLElement, trigger: HTMLButtonElement): void {
