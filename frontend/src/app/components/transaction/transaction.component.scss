@@ -460,7 +460,7 @@ h2 .cpfp-beta {
 
 /* Pending mobile facts: align the primary text, with secondary lines below. */
 @media(max-width:767.98px){
- #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-mobile-snapshot-v2:not(.v2-confirmed){
+ #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-mobile-snapshot-v2{
   .v2-data-row{align-items:flex-start;}
   .v2-data-label>span,.v2-value{font-size:16px;font-weight:700;line-height:20px;color:var(--fg);}
  }
@@ -468,7 +468,7 @@ h2 .cpfp-beta {
 
 /* Pending mobile Snapshot accent colors. */
 @media(max-width:767.98px){
- #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-mobile-snapshot-v2:not(.v2-confirmed){
+ #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-mobile-snapshot-v2{
   .v2-label,.v2-read{color:#d5a04c;}
   .v2-buttons svg{stroke:#d5a04c;}
   .v2-status{background:#9c2f3b;border-color:#9c2f3b;color:#fff;}
@@ -478,7 +478,7 @@ h2 .cpfp-beta {
 
 /* Pending mobile identity aligns to the summary's inner text edges. */
 @media(max-width:767.98px){
- #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-mobile-snapshot-v2:not(.v2-confirmed){
+ #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-mobile-snapshot-v2{
   .v2-pending-header{align-items:center;gap:6px;padding:0 12px;margin:0 0 5px;}
   .v2-pending-header h1{font-size:22px!important;line-height:1.2!important;}
   .v2-status-stack{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none;}
@@ -492,5 +492,13 @@ h2 .cpfp-beta {
   .v2-pending-identity .v2-copy{width:21px;height:21px;border-radius:5px;border-color:rgba(255,255,255,.2);}
   .v2-pending-identity .v2-copy::after{inset:-10px;}
   .v2-pending-identity .v2-copy svg{width:13px;height:13px;}
+ }
+}
+
+@media(max-width:767.98px){
+ #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-mobile-snapshot-v2.v2-confirmed{
+  .v2-status{background:#245f85;border-color:#245f85;color:#fff;padding-inline:0;gap:3px;}
+  .v2-status i{width:5px;height:5px;}
+  .v2-status i{background:#fff;animation:none;}
  }
 }
