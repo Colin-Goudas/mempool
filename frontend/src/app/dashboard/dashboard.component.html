@@ -46,7 +46,14 @@
         </div>
       </div>
     </section>
-    <section class="pt-network-snapshot pt-balanced-overview" aria-label="Bitcoin network snapshot" *ngIf="networkSnapshot$ | async as snapshot">
+    @if(networkSnapshot$ | async;as snapshot){
+     @let mobile = mobileOverview(snapshot);
+     <app-mobile-overview-snapshot title="Network Snapshot" prefix="network-v2" [lead]="mobile.lead" [paragraphs]="mobile.paragraphs" [questions]="mobile.questions" [facts]="mobile.facts" [live]="!snapshot.reconnecting" [usdRate]="(stateService.conversions$ | async)?.USD" [showFiat]="showNetworkFiat" footer="Fee and timing estimates can change. This is one provider’s view of the network, not a guaranteed payment ETA.">
+      <span snapshot-summary>{{mobile.body}}</span>
+      <div snapshot-calculator><label>Transaction size (vB)<input type="number" min="1" max="100000" [value]="paymentVbytes" (input)="setCustomPaymentSize($any($event.target).value)"></label>@for(tier of snapshot.sending;track tier.label){<p>{{tier.label}}: @if(tier.rate===null || !paymentVbytes){Unavailable}@else{ {{tier.rate * paymentVbytes | number:'1.0-0'}} sats at {{tier.rate}} sat/vB }</p>}<p>Illustration only. Confirm the actual size and fee in the sending wallet.</p></div>
+     </app-mobile-overview-snapshot>
+    }
+    <section class="pt-legacy-overview pt-network-snapshot pt-balanced-overview" aria-label="Bitcoin network snapshot" *ngIf="networkSnapshot$ | async as snapshot">
       <div class="pt-snapshot-body">
       <div class="pt-snapshot-intro">
       <header class="pt-network-heading"><h1>Bitcoin Network Snapshot</h1><span>Bitcoin mainnet</span><label><input type="checkbox" [checked]="showNetworkFiat" (change)="showNetworkFiat = !showNetworkFiat"> Fiat values</label><small [class.pt-feed-warning]="snapshot.reconnecting" [attr.aria-label]="snapshot.reconnecting ? 'Reconnecting: values may be stale' : 'Live feed updated ' + snapshot.updatedAt" [attr.title]="snapshot.reconnecting ? 'Reconnecting: values may be stale' : 'Live feed updated ' + snapshot.updatedAt"><span class="pt-desktop-question">{{ snapshot.reconnecting ? 'Reconnecting · values may be stale' : 'Live feed · updated ' + snapshot.updatedAt }}</span><span class="pt-phone-question"><span class="pt-live-dot" aria-hidden="true"></span>{{ snapshot.reconnecting ? 'Reconnecting' : 'Live' }}</span></small></header>
