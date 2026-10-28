@@ -4,13 +4,13 @@ export interface OverviewFact { label:string; value:string; unit?:string; fiatSa
 export interface OverviewQuestion { id:string; label:string; title:string; text:string; icon?:string; }
 @Component({selector:'app-mobile-overview-snapshot',standalone:true,imports:[CommonModule],encapsulation:ViewEncapsulation.None,styleUrls:['./mobile-overview-snapshot.component.scss'],template:`
 <section class="pt-overview-v2" [attr.aria-label]="title">
- <header class="ov-header"><h1>{{ title }}</h1><span class="ov-live"><i [class.offline]="!live" aria-hidden="true"></i>{{ live ? 'Live' : 'Reconnecting' }}</span></header>
- @if (identity) {<div class="ov-identity"><code [title]="identity">{{ identity.slice(0,10) }}…{{ identity.slice(-8) }}</code><button class="ov-copy" type="button" (click)="copyIdentity()" aria-label="Copy full address"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V3H3v13h5"/></svg></button><button type="button" class="ov-copy ov-qr" [attr.popovertarget]="prefix+'-qr'" aria-label="Show address QR code">QR</button></div>}
+ <header class="ov-header"><h1>{{ title }}</h1></header>
+ @if (identity) {<div class="ov-identity"><code [title]="identity"><span class="ov-id-start">{{ identity.slice(0,-8) }}</span><span class="ov-id-end">{{ identity.slice(-8) }}</span></code><button class="ov-copy" type="button" (click)="copyIdentity()" aria-label="Copy full address"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V3H3v13h5"/></svg></button><button type="button" class="ov-copy ov-qr" [attr.popovertarget]="prefix+'-qr'" aria-label="Show address QR code">QR</button></div>}
  @else {<p class="ov-subtitle">Bitcoin mainnet · observed network conditions</p>}
  <div class="ov-popover" popover="auto" [id]="prefix+'-qr'"><div class="ov-answer-heading"><strong>Address QR code</strong><button type="button" [attr.popovertarget]="prefix+'-qr'" popovertargetaction="hide" aria-label="Close QR code">Close ×</button></div><ng-content select="[snapshot-qr]"></ng-content></div>
  <span class="visually-hidden" role="status">{{ copyFeedback }}</span>
  <div class="ov-card"><div class="ov-summary">
-  <span class="ov-label">In plain English</span>
+  <div class="ov-summary-heading"><span class="ov-label">In plain English</span><span class="ov-live"><i [class.offline]="!live" aria-hidden="true"></i>{{ live ? 'Live' : 'Reconnecting' }}</span></div>
   <p class="ov-lead"><strong>{{ lead }}</strong>&ngsp;<ng-content select="[snapshot-summary]"></ng-content>&ngsp;<button class="ov-read" type="button" (click)="summaryOpen=!summaryOpen" [attr.aria-expanded]="summaryOpen" [attr.aria-controls]="prefix+'-summary'">{{ summaryOpen?'Read less':'Read more' }} <span aria-hidden="true">{{ summaryOpen?'⌃':'⌄' }}</span></button></p>
   <div class="ov-expand" [class.open]="summaryOpen" [id]="prefix+'-summary'" [attr.inert]="summaryOpen?null:''" [attr.aria-hidden]="!summaryOpen"><div class="ov-expand-inner">@for(p of paragraphs;track $index){<p>{{ p }}</p>}</div></div>
   <p class="ov-caption">Questions? Tap below.</p>
