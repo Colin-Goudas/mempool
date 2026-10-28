@@ -5659,8 +5659,8 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
   }
   .v2-pending-header{padding-right:12px;gap:4px;}
   @media(max-width:389px){
-   .v2-pending-header{padding-left:0;gap:2px;}
-   .v2-status-stack .v2-status{padding-inline:4px;font-size:11px;gap:4px;}
+   .v2-pending-header{padding-left:0;gap:1px;}
+   .v2-status-stack .v2-status{padding-inline:3px;font-size:11px;gap:4px;}
   }
  }
 }
