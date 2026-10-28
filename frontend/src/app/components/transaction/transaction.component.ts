@@ -155,9 +155,14 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
   referenceFactValue(fact: {label:string;value:string;secondary?:string}): string {
+    if (fact.label === 'First seen') {
+      const age = this.mobileSnapshotValue(fact.label,fact.value,fact.secondary);
+      return age.match(/^(\d+)\s+(.+)$/)?.[1] || age;
+    }
     return this.mobileSnapshotMainValue(fact.label,fact.value,fact.secondary).replace(/\s+(min|hr|days?)$/, '');
   }
   referenceFactUnit(fact: {label:string;value:string;secondary?:string}): string {
+    if (fact.label === 'First seen') return this.mobileSnapshotValue(fact.label,fact.value,fact.secondary).match(/^\d+\s+(.+)$/)?.[1] || '';
     const standard = this.mobileSnapshotUnit(fact.label,fact.value,fact.secondary);
     if (standard) return standard.trim();
     return this.mobileSnapshotValue(fact.label,fact.value,fact.secondary).match(/\s+(min|hr|days?)$/)?.[1] || '';
