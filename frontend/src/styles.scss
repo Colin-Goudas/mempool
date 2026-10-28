@@ -5658,7 +5658,7 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
    letter-spacing:-.025em!important;color:#f4f5f7!important;
   }
   .v2-pending-header{padding-inline:12px;gap:3px;}
-  .v2-pending-header h1{letter-spacing:-.06em!important;}
+  .v2-header.v2-pending-header h1{letter-spacing:-.06em!important;}
   .v2-status-stack .v2-status{padding-inline:3px;font-size:11px;gap:4px;}
  }
 }
