@@ -48,9 +48,9 @@
     </section>
     @if(networkSnapshot$ | async;as snapshot){
      @let mobile = mobileOverview(snapshot);
-     <app-mobile-overview-snapshot title="Network Snapshot" prefix="network-v2" [lead]="mobile.lead" [paragraphs]="mobile.paragraphs" [questions]="mobile.questions" [facts]="mobile.facts" [live]="!snapshot.reconnecting" [usdRate]="(stateService.conversions$ | async)?.USD" [showFiat]="showNetworkFiat" footer="Fee and timing estimates can change. This is one provider’s view of the network, not a guaranteed payment ETA.">
+     <app-mobile-overview-snapshot title="Network Snapshot" prefix="network-v2" [lead]="mobile.lead" [paragraphs]="mobile.paragraphs" [questions]="mobile.questions" [facts]="mobile.facts" [live]="!snapshot.reconnecting" [usdRate]="(stateService.conversions$ | async)?.USD" [(showFiat)]="showNetworkFiat" footer="Fee and timing estimates can change. This is one provider’s view of the network, not a guaranteed payment ETA.">
       <span snapshot-summary>{{mobile.body}}</span>
-      <div snapshot-calculator><label>Transaction size (vB)<input type="number" min="1" max="100000" [value]="paymentVbytes" (input)="setCustomPaymentSize($any($event.target).value)"></label>@for(tier of snapshot.sending;track tier.label){<p>{{tier.label}}: @if(tier.rate===null || !paymentVbytes){Unavailable}@else{ {{tier.rate * paymentVbytes | number:'1.0-0'}} sats at {{tier.rate}} sat/vB }</p>}<p>Illustration only. Confirm the actual size and fee in the sending wallet.</p></div>
+      <div snapshot-calculator><label>Transaction size (vB)<input type="number" min="1" max="100000" [value]="paymentVbytes" (input)="setCustomPaymentSize($any($event.target).value)"></label>@for(tier of snapshot.sending;track tier.label){<p>{{tier.label}}: @if(tier.rate===null || !paymentVbytes){Unavailable}@else{ {{mobileFeeTotal(tier.rate) | number:'1.0-0'}} sats at {{tier.rate}} sat/vB }</p>}<p>Illustration only. Confirm the actual size and fee in the sending wallet.</p></div>
      </app-mobile-overview-snapshot>
     }
     <section class="pt-legacy-overview pt-network-snapshot pt-balanced-overview" aria-label="Bitcoin network snapshot" *ngIf="networkSnapshot$ | async as snapshot">
