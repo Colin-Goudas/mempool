@@ -5599,3 +5599,19 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
 body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-layout)) :is(#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout,#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout) :is(.pt-deeper-snapshot > .pt-eight-card-grid,.pt-wallet-deeper > .pt-wallet-facts,.pt-network-deeper > .pt-network-facts) .pt-inline-card-context{font:600 12px/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;color:#9bcbb0!important;}
 body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-layout)) :is(#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout,#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout) :is(.pt-deeper-snapshot > .pt-eight-card-grid,.pt-wallet-deeper > .pt-wallet-facts,.pt-network-deeper > .pt-network-facts) .pt-advanced-card > summary{padding:0!important;}
 }
+
+/* One approved smoky graphite surface across phone Snapshots and Dive Deeper. */
+@media(max-width:767.98px){
+ :is(#pt-transaction-layout,#pt-wallet-layout,#pt-network-layout){
+  --pt-snapshot-smoke:radial-gradient(ellipse at 16% 0%,#2b2d30 0%,#202225 34%,#17191c 68%,#101214 100%);
+  --pt-snapshot-summary-shade:rgba(255,255,255,.035);
+  --pt-snapshot-data-shade:linear-gradient(180deg,rgba(255,255,255,.035) 0px,rgba(255,255,255,0) 44px);
+ }
+ body :is(#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout,#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout){
+  :is(.pt-deeper-snapshot,.pt-wallet-deeper,.pt-network-deeper){background:transparent!important;}
+  :is(.pt-deeper-snapshot > .pt-eight-card-grid,.pt-wallet-deeper > .pt-wallet-facts,.pt-network-deeper > .pt-network-facts,.pt-snapshot-surface){background:var(--pt-snapshot-smoke)!important;}
+  :is(.pt-deeper-snapshot > .pt-eight-card-grid,.pt-wallet-deeper > .pt-wallet-facts,.pt-network-deeper > .pt-network-facts) > :is(.pt-metric-card,.pt-wallet-fact,.pt-network-fact,.pt-advanced-card){background:transparent!important;}
+  .pt-snapshot-surface > .pt-eight-card-grid{background:transparent!important;}
+  .pt-snapshot-surface > .pt-eight-card-grid > .pt-metric-card{background:transparent!important;}
+ }
+}
