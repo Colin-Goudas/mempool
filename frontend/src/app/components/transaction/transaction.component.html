@@ -2,21 +2,12 @@
 @if (referenceMobileSnapshot) {
   @let eta = ETA$ | async;
   <section class="pt-mobile-snapshot-v2" [class.v2-confirmed]="tx.status.confirmed" aria-label="Transaction snapshot">
-    @if (tx.status.confirmed) {
-    <header class="v2-header"><h1>Transaction Snapshot</h1><span class="v2-live" [class.v2-offline]="(stateService.connectionState$ | async) !== 2"><i aria-hidden="true"></i>{{ (stateService.connectionState$ | async) === 2 ? 'Live · ' + snapshotRefreshAge + 's ago' : 'Reconnecting' }}</span></header>
-    <div class="v2-identity"><code [title]="txId">{{ txId.slice(0,10) }}…{{ txId.slice(-8) }}</code><button class="v2-copy" type="button" aria-label="Copy transaction ID" (click)="copySnapshotText(txId)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V3H3v13h5"/></svg></button><span class="v2-status" role="status"><i aria-hidden="true"></i>{{ tx.status.confirmed ? 'Confirmed' : 'Pending' }}</span></div>
-    } @else {
-    <header class="v2-header v2-pending-header"><h1>Transaction Snapshot</h1><div class="v2-status-stack"><span class="v2-status" role="status"><i aria-hidden="true"></i>Pending</span></div></header>
+    <header class="v2-header v2-pending-header"><h1>Transaction Snapshot</h1><div class="v2-status-stack"><span class="v2-status" role="status"><i aria-hidden="true"></i>{{ tx.status.confirmed ? 'Confirmed' : 'Pending' }}</span></div></header>
     <div class="v2-identity v2-pending-identity"><code [title]="txId"><span class="v2-id-start">{{ txId.slice(0, -8) }}</span><span class="v2-id-end">{{ txId.slice(-8) }}</span></code><button class="v2-copy" type="button" aria-label="Copy transaction ID" (click)="copySnapshotText(txId)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V3H3v13h5"/></svg></button></div>
-    }
     <span class="visually-hidden" role="status">{{ snapshotCopyFeedback }}</span>
     <div class="v2-card">
       <div class="v2-summary-zone">
-        @if (tx.status.confirmed) {
-        <span class="v2-label">In plain English</span>
-        } @else {
         <div class="v2-summary-heading"><span class="v2-label">In plain English</span><span class="v2-live" [class.v2-offline]="(stateService.connectionState$ | async) !== 2"><i aria-hidden="true"></i>{{ (stateService.connectionState$ | async) === 2 ? 'Live · ' + snapshotRefreshAge + 's ago' : 'Reconnecting' }}</span></div>
-        }
         <p class="v2-lead"><strong>{{ tx.status.confirmed ? "Confirmed. It's in a block." : 'Waiting for its first confirmation.' }}</strong> @if (tx.status.confirmed) { This payment of {{ displayAmountSats / 100000000 | number:'1.8-8' }} BTC has {{ confirmationCount | number }} {{ confirmationCount === 1 ? 'confirmation' : 'confirmations' }}, so it is on the Bitcoin blockchain. } @else { This @if (snapshotUsdRate !== null) { {{ displayAmountSats / 100000000 * snapshotUsdRate | currency:'USD':'symbol':'1.2-2' }} } payment @if (snapshotEtaMinutes(eta) !== null) { should confirm in about {{ snapshotEtaMinutes(eta) }} {{ snapshotEtaMinutes(eta) === 1 ? 'minute' : 'minutes' }}, but that can change. } @else { is waiting; a reliable confirmation-time estimate is not available yet. } } <button type="button" class="v2-read" (click)="summaryOpen = !summaryOpen" [attr.aria-expanded]="summaryOpen" aria-controls="pt-v2-summary-extra">{{ summaryOpen ? 'Read less' : 'Read more' }} <span aria-hidden="true">{{ summaryOpen ? '⌃' : '⌄' }}</span></button></p>
         <div id="pt-v2-summary-extra" class="v2-expand" [class.open]="summaryOpen" [attr.aria-hidden]="!summaryOpen" [attr.inert]="summaryOpen ? null : ''"><div class="v2-expand-inner">
           <p>This is <strong>{{ displayAmountSats / 100000000 | number:'1.8-8' }} BTC</strong> {{ tx.status.confirmed ? 'that went' : 'going' }} from the <button type="button" class="v2-address-word" title="Show full address" (click)="snapshotAddressKind = snapshotAddressKind === 'sending' ? null : 'sending'">sending address</button> to the <button type="button" class="v2-address-word" title="Show full address" (click)="snapshotAddressKind = snapshotAddressKind === 'receiving' ? null : 'receiving'">receiving address</button>.@if (!tx.status.confirmed) { Follow it in the blocks above. }</p>
