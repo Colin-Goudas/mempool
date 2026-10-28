@@ -1,3 +1,4 @@
+import { walletOverview } from '@app/shared/overview-content';
 import { mobilePopoverVisibleHeight, revealMobileHelpAnswer } from '@app/shared/mobile-popover-visibility';
 import { walletView, addressTransactionChange } from './wallet-view';
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
@@ -100,6 +101,7 @@ class AddressStats implements ChainStats {
   standalone: false,
 })
 export class AddressComponent implements OnInit, OnDestroy {
+  mobileOverview = walletOverview;
   network = '';
   showWalletFiat = true;
   visibleWalletTransactions = 10;
