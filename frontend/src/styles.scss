@@ -5677,3 +5677,7 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
   :is(.pt-summary-expand-toggle,.pt-advanced-inline-action){color:#98a0ae!important;}
  }
 }
+
+@media(max-width:767.98px){
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-mobile-snapshot-v2.v2-confirmed .v2-status-stack .v2-status{padding-inline:0;gap:3px;}
+}
