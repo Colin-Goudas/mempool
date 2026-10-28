@@ -5615,3 +5615,17 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
   .pt-snapshot-surface > .pt-eight-card-grid > .pt-metric-card{background:transparent!important;}
  }
 }
+
+/* Bound both columns so long technical values cannot squeeze labels to a letter. */
+@media(max-width:767.98px){
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-deeper-snapshot .pt-snapshot-fact{
+  grid-template-columns:minmax(0,44fr) minmax(0,56fr)!important;
+  align-items:start!important;
+ }
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-deeper-snapshot .pt-snapshot-fact > .pt-card-label{
+  min-width:0!important;white-space:normal!important;word-break:normal!important;overflow-wrap:normal!important;
+ }
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-deeper-snapshot .pt-snapshot-fact > strong{
+  min-width:0!important;max-width:100%!important;white-space:normal!important;word-break:normal!important;overflow-wrap:anywhere!important;
+ }
+}
