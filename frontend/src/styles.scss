@@ -5648,3 +5648,18 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
   :is(.pt-summary-expand-toggle,.pt-advanced-inline-action) .pt-chevron{color:inherit!important;border-color:currentColor!important;}
  }
 }
+
+/* Main pending transaction section headings share one mobile hierarchy. */
+@media(max-width:767.98px){
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout.pt-pending-mobile-design{
+  :is(.v2-header h1,.pt-flow-section > h2,.pt-dive-deeper-toggle > summary){
+   font-family:-apple-system,BlinkMacSystemFont,Inter,"Segoe UI",Roboto,sans-serif!important;
+   font-size:24px!important;font-weight:600!important;line-height:30px!important;
+   letter-spacing:-.025em!important;color:#f4f5f7!important;
+  }
+  .v2-pending-header{padding-right:0;gap:4px;}
+  @media(max-width:389px){
+   .v2-status-stack .v2-status{padding-inline:4px;font-size:11px;gap:4px;}
+  }
+ }
+}
