@@ -89,7 +89,27 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   private snapshotViewSubscriptions = new Subscription();
   private snapshotFeeTiers?: {fastestFee: number; halfHourFee: number};
   get referenceMobileSnapshot(): boolean {
-    return this.phoneLayout && this.pendingTrackerSnapshot && !!this.tx && !this.error && !this.isCached && !this.replaced && !this.rbfTransaction && !this.rbfInfo?.mined && !this.tx.vin?.some(v => v.is_coinbase);
+    return this.phoneLayout && this.pendingTrackerSnapshot && !!this.tx && !this.error && !this.tx.vin?.some(v => v.is_coinbase);
+  }
+  get snapshotAttention(): boolean { return !this.tx?.status.confirmed && !!(this.replaced || this.rbfTransaction || this.rbfInfo?.mined || this.isCached); }
+  get snapshotStatusLabel(): string { return this.tx?.status.confirmed ? 'Confirmed' : this.replaced || this.rbfTransaction ? 'Replaced' : this.rbfInfo?.mined ? 'Conflict mined' : this.isCached ? 'Unverified' : 'Pending'; }
+  get snapshotStatusLead(): string { return this.tx?.status.confirmed ? "Confirmed. It's in a block." : this.replaced || this.rbfTransaction ? 'A replacement was observed.' : this.rbfInfo?.mined ? 'A conflicting transaction was mined.' : this.isCached ? 'Current status is unverified.' : 'Waiting for confirmation.'; }
+  findSnapshotPayment(): void {
+    this.overrideFlowPreference = true;
+    this.setFlowEnabled();
+    this.cd.detectChanges();
+    const input = document.querySelector<HTMLInputElement>('#pt-address-find');
+    input?.scrollIntoView({behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'center'});
+    input?.focus({preventScroll:true});
+  }
+  async shareSnapshotReceipt(): Promise<void> {
+    const url = window.location.origin + '/tx/' + this.txId;
+    const text = `Bitcoin transaction ${this.txId} · ${this.snapshotStatusLabel} · ${this.confirmationCount} confirmations. Outputs total ${(this.totalOutputSats / 100000000).toFixed(8)} BTC; may include change.`;
+    try {
+      if (navigator.share) { await navigator.share({title:'Bitcoin transaction receipt',text,url}); this.snapshotCopyFeedback = 'Receipt shared.'; }
+      else { await navigator.clipboard.writeText(text + '\n' + url); this.snapshotCopyFeedback = 'Receipt copied. Paste it to share.'; }
+    } catch (error) { this.snapshotCopyFeedback = error?.name === 'AbortError' ? '' : 'Sharing unavailable. Copy the transaction ID instead.'; }
+    this.cd.markForCheck();
   }
   get snapshotRefreshAge(): number { return Math.max(0, Math.floor((this.snapshotClock - this.snapshotLastRefresh) / 1000)); }
   snapshotEtaMinutes(eta: ETA | null): number | null { return eta && Number.isFinite(eta.wait) && eta.wait >= 0 ? Math.max(1, Math.ceil(eta.wait / 60000)) : null; }
@@ -105,7 +125,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   get snapshotButtons() {
     return this.tx?.status.confirmed ? [
-      {id:'final',label:'Is it final?',icon:'question'}, {id:'share',label:'Share receipt',icon:'share'}, {id:'notify',label:'Notify at 3',icon:'bell'}
+      {id:'final',label:'Is it final?',icon:'question'}, {id:'share',label:'Share receipt',icon:'share'}, this.confirmationCount >= 3 ? {id:'block',label:'View block',icon:'layers'} : {id:'notify',label:'Notify at 3',icon:'bell'}
     ] : [{id:'pending',label:'Why pending?',icon:'question'},{id:'speed',label:'Speed up',icon:'lightning'},{id:'notify',label:'Notify me',icon:'bell'}];
   }
   get snapshotMoreButtons() {
@@ -113,7 +133,8 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       : [{id:'safe',label:'Funds safe?',icon:'shield'},{id:'cancel',label:'Can I cancel?',icon:'cancel'},{id:'long',label:'Taking too long?',icon:'clock'}];
   }
   snapshotButtonClick(id: string): void {
-    if (id === 'share') return; // TODO: product decision: shareable receipt.
+    if (id === 'share') { void this.shareSnapshotReceipt(); return; }
+    if (id === 'block') { void this.router.navigate(['/block', this.tx.status.block_hash]); return; }
     if (id === 'notify') {
       this.selectedAlertTarget = this.tx.status.confirmed ? 3 : 1;
       document.querySelector<HTMLElement>('#pt-v2-notify')?.showPopover();
@@ -122,6 +143,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     this.activeAnswer = this.activeAnswer === id ? null : id;
   }
   get snapshotAnswer(): {title:string; text:string} | null {
+    if (this.snapshotAttention && this.activeAnswer) return {title:this.snapshotStatusLabel,text:this.replaced || this.rbfTransaction ? 'A replacement was observed. Follow that transaction to check its outputs, current fee and status. The original transaction’s ETA is no longer reliable.' : this.rbfInfo?.mined ? 'A conflicting transaction was mined. Check the confirmed transaction before treating the payment as received.' : 'Current mempool presence has not been verified. Wait for fresh data before relying on an ETA or enabling an alert.'};
     const existing = this.summaryQuestions;
     const answers: Record<string,{title:string;text:string}> = {
       pending:{title:'Why is it pending?',text:"It's waiting for a miner to put it in a block. Miners pick the highest fees first, so a lower fee can mean a longer wait. " + this.snapshotFeeSentence},
@@ -132,7 +154,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       final:{title:'Is it final?',text:'One confirmation means it’s in a block. Each new block makes it harder to reverse. For larger amounts, people often wait for 3 to 6.'},
       credited:{title:"Why hasn't it been credited?",text:existing.find(q=>q.id==='missing')?.text || "Many exchanges wait for a set number of confirmations, often 3, before crediting a deposit. If it's confirmed here but your balance hasn't updated, contact the exchange."},
       howmany:{title:'How many confirmations do I need?',text:'It depends on the amount and who you ask. A common rule of thumb is 1 for small payments, 3 for medium and 6 for large. Many exchanges require 3.'},
-      reversible:{title:'Can it be reversed?',text:"No. Once a Bitcoin payment is confirmed it can't be reversed. If it went to the wrong address, only the person who received it can send it back."}
+      reversible:{title:'Can it be reversed?',text:"Bitcoin has no chargeback mechanism. More confirmations reduce the risk of a chain reorganization. If a payment went to the wrong address, only someone who controls that address can return it."}
     };
     return this.activeAnswer ? answers[this.activeAnswer] || null : null;
   }
@@ -146,8 +168,9 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   referenceSnapshotFacts(eta: ETA | null) {
     const facts = this.snapshotFactsFor(eta);
-    const wanted = [this.tx.status.confirmed ? 'Confirmations' : 'Estimated confirmation',this.tx.status.confirmed ? 'Confirmed at' : 'First seen','Network fee','Fee rate','Total output','Inputs / outputs'];
+    const wanted = [this.tx.status.confirmed ? 'Confirmations' : 'Estimated confirmation',this.tx.status.confirmed ? 'Confirmed at' : 'First seen','Network fee','Fee rate',this.selectedAddress ? 'To selected address' : 'Total output','Inputs / outputs'];
     return wanted.map(label=>facts.find(f=>f.label===label)).filter((f): f is NonNullable<typeof f> => !!f).map(f=> {
+      if (this.snapshotAttention && f.label === 'Estimated confirmation') return {...f,value:'Unavailable',secondary:'Unavailable',meaning:'A confirmation estimate is not reliable for this transaction state.',details:'Follow the replacement or check again when the live feed reconnects.'};
       if (f.label !== 'Confirmed at') return f;
       const firstSeen = this.transactionTime;
       const minutes = firstSeen > 0 ? Math.max(0, Math.floor((this.snapshotClock / 1000 - firstSeen) / 60)) : null;
