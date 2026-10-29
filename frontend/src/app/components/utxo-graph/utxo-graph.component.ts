@@ -260,6 +260,7 @@ export class UtxoGraphComponent implements OnChanges, OnDestroy {
     ]);
 
     this.chartOptions = {
+      ...(this.isMobile() ? {textStyle:{fontFamily:'-apple-system, BlinkMacSystemFont, Inter, Segoe UI, Roboto, sans-serif',color:'#c6cad2'}} : {}),
       series: [{
         type: 'custom',
         coordinateSystem: undefined,
@@ -302,13 +303,14 @@ export class UtxoGraphComponent implements OnChanges, OnDestroy {
               }
             },
           ];
-          const labelFontSize = Math.min(36, r * scale * 0.3);
-          if (labelFontSize > 8) {
+          const labelFontSize = Math.min(this.isMobile() ? 16 : 36, r * scale * 0.3);
+          if ((this.isMobile() ? labelFontSize >= 12 : labelFontSize > 8) && (!this.isMobile() || valueStr.length * labelFontSize * 0.56 <= r * scale * 1.85)) {
             elements.push({
               type: 'text',
               style: {
                 text: valueStr,
                 fontSize: labelFontSize,
+                ...(this.isMobile() ? {fontWeight:600,fontFamily:'-apple-system, BlinkMacSystemFont, Inter, Segoe UI, sans-serif'} : {}),
                 fill: '#fff',
                 align: 'center',
                 verticalAlign: 'middle',
@@ -328,7 +330,8 @@ export class UtxoGraphComponent implements OnChanges, OnDestroy {
         borderRadius: 4,
         shadowColor: 'rgba(0, 0, 0, 0.5)',
         textStyle: {
-          color: 'var(--tooltip-grey)',
+          color: this.isMobile() ? '#d4d8e0' : 'var(--tooltip-grey)',
+          ...(this.isMobile() ? {fontSize:16,lineHeight:24} : {}),
           align: 'left',
         },
         borderColor: '#000',
