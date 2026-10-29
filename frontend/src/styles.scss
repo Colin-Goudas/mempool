@@ -5789,3 +5789,35 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
  body:has(#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout) app-global-footer footer{margin-top:24px!important;border-top:0!important;}
  body:has(#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout) app-global-footer footer .row.main{padding-top:0!important;margin-top:0!important;}
 }
+
+/* One mobile transaction type system: prose, controls, and section headings. */
+@media(max-width:767.98px){
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout:has(.pt-mobile-snapshot-v2){
+  --pt-type-primary:#f4f5f7;--pt-type-body:#c6cad2;--pt-type-secondary:#98a0ae;
+  :is(.v2-lead,.v2-summary-paragraph,.v2-answer p,.v2-popover p,
+      .pt-deeper-inline-meaning .pt-summary-narrative,
+      .pt-advanced-mobile-description,.pt-snapshot-detail-popover p){
+   font-family:-apple-system,BlinkMacSystemFont,Inter,"Segoe UI",Roboto,sans-serif!important;
+   font-size:16px!important;font-weight:400!important;line-height:24px!important;
+   letter-spacing:normal!important;color:var(--pt-type-body)!important;
+  }
+  :is(.v2-lead strong,.v2-summary-paragraph strong,.v2-answer-heading strong,
+      .pt-snapshot-popover-heading strong){
+   font-family:inherit!important;font-size:16px!important;font-weight:600!important;
+   line-height:24px!important;color:var(--pt-type-primary)!important;
+  }
+  .pt-dive-deeper-toggle > summary .pt-heading-title{
+   font-family:-apple-system,BlinkMacSystemFont,Inter,"Segoe UI",Roboto,sans-serif!important;
+   font-size:24px!important;font-weight:600!important;line-height:30px!important;
+   letter-spacing:-.025em!important;color:var(--pt-type-primary)!important;
+  }
+  :is(.v2-read,.v2-explain,.pt-summary-expand-toggle,.pt-advanced-inline-action){
+   font-size:14px!important;font-weight:500!important;line-height:21px!important;
+  }
+  :is(.v2-explain,.pt-summary-expand-toggle,.pt-advanced-inline-action){color:var(--pt-type-secondary)!important;}
+  .v2-buttons button{font-size:12px!important;min-height:40px!important;}
+  .v2-value small{font-size:12px!important;}
+  .pt-flow-content h3{font-size:16px!important;font-weight:600!important;line-height:24px!important;}
+  .pt-flow-control{font-size:14px!important;font-weight:500!important;line-height:21px!important;}
+ }
+}
