@@ -6107,3 +6107,23 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
 
 .pt-mobile-utxo-legend{display:none}
 @media(max-width:767.98px){.pt-mobile-utxo-legend{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:12px;line-height:18px;color:#c6cad2;margin:8px 0}.pt-mobile-utxo-legend span{display:inline-flex;gap:5px;align-items:center}.pt-mobile-utxo-legend i{width:8px;height:8px;border-radius:50%;display:inline-block}.pt-age-new{background:#1bf4af}.pt-age-old{background:#3c39f4}.pt-age-pending{background:#eba814}.pt-mobile-utxo-legend .pt-age-scale{width:48px;height:6px;border-radius:3px;background:linear-gradient(90deg,#1bf4af,#3c39f4)}}
+
+/* Mobile section definitions expand inside their visualization surfaces. */
+@media(max-width:767.98px){
+ body .pt-visualization-description{display:none!important}
+ body :is(#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout,#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout),body :is(app-block,app-mempool-block){
+  app-mobile-section-help .pt-section-help-trigger,app-mobile-section-help .pt-section-help-close{font-size:14px!important;font-weight:500!important;line-height:21px!important;min-height:40px!important;border:0!important;padding:0!important;background:transparent!important;color:#aeb4c0!important;box-shadow:none!important;text-decoration:none!important}
+  app-mobile-section-help .pt-section-help-answer{background:rgba(0,0,0,.32)!important;border-radius:12px!important}
+  app-mobile-section-help .pt-section-help-answer header strong{font-size:16px!important;font-weight:600!important;line-height:24px!important;color:#f4f5f7!important}
+  app-mobile-section-help .pt-section-help-body p{font-size:16px!important;font-weight:400!important;line-height:24px!important;color:#d4d8e0!important;margin:8px 0 0!important}
+  app-mobile-section-help .pt-section-help-body .pt-mobile-utxo-legend{margin-top:12px!important}
+  .pt-flow-unified>app-mobile-section-help{padding:0 12px;margin-bottom:0}
+  .pt-wallet-history-table>app-mobile-section-help{padding:0 12px;margin-bottom:0}
+ }
+ body #pt-network-layout .row>.col:has(app-mobile-section-help){max-height:none!important}
+ body #pt-network-layout .card:has(app-mobile-section-help){max-height:none!important}
+ body #pt-wallet-layout .pt-wallet-chart-heading+.box:has(app-mobile-section-help){position:relative!important;padding-top:8px!important}
+ body #pt-wallet-layout .pt-wallet-chart-heading+.box>app-mobile-section-help{padding-inline:12px}
+ body #pt-wallet-layout .pt-wallet-chart-heading+.box>.widget-toggler{position:absolute!important;top:8px!important;left:12px!important;right:auto!important;display:flex!important;align-items:center;gap:6px;text-align:left!important;margin:0!important}
+ body :is(app-block,app-mempool-block) app-mobile-section-help{padding-inline:8px}
+}
