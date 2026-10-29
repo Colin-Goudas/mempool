@@ -1,3 +1,4 @@
+import { MobileSectionHelpComponent } from './mobile-section-help.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbCollapseModule, NgbTypeaheadModule, NgbNavModule, NgbTooltipModule, NgbPaginationModule, NgbDropdownModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
@@ -263,6 +264,7 @@ import { GithubLogin } from '@components/github-login.component/github-login.com
     BitcoinInvoiceComponent,
   ],
   imports: [
+    MobileSectionHelpComponent,
     CommonModule,
     RouterModule,
     FormsModule,
@@ -288,6 +290,7 @@ import { GithubLogin } from '@components/github-login.component/github-login.com
     FeeRoundingPipe,
   ],
   exports: [
+    MobileSectionHelpComponent,
     MenuComponent,
     RouterModule,
     ReactiveFormsModule,
