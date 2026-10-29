@@ -5846,3 +5846,11 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
   }
  }
 }
+
+/* Keep the block-strip tracking rail independent of the mobile Snapshot template. */
+@media(max-width:767.98px){
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout:has(.pt-mobile-snapshot-v2)::before{
+  content:"";display:block;position:absolute;left:2px;right:2px;top:-2px;
+  height:2px;background:var(--nav-icon,#fff);pointer-events:none;
+ }
+}
