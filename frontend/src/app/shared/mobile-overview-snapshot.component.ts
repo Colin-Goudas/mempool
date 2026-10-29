@@ -12,7 +12,7 @@ export interface OverviewQuestion { id:string; label:string; title:string; text:
  <div class="ov-card"><div class="ov-summary">
   <div class="ov-summary-heading"><span class="ov-label">In plain English</span><span class="ov-live"><i [class.offline]="!live" aria-hidden="true"></i>{{ live ? 'Live' : 'Reconnecting' }}</span></div>
   <p class="ov-lead"><strong>{{ lead }}</strong>&ngsp;<ng-content select="[snapshot-summary]"></ng-content>&ngsp;<button class="ov-read" type="button" (click)="summaryOpen=!summaryOpen" [attr.aria-expanded]="summaryOpen" [attr.aria-controls]="prefix+'-summary'">{{ summaryOpen?'Read less':'Read more' }} <span aria-hidden="true">{{ summaryOpen?'⌃':'⌄' }}</span></button></p>
-  <div class="ov-expand" [class.open]="summaryOpen" [id]="prefix+'-summary'" [attr.inert]="summaryOpen?null:''" [attr.aria-hidden]="!summaryOpen"><div class="ov-expand-inner">@for(p of paragraphs;track $index){<p>{{ p }}</p>}</div></div>
+  <div class="ov-expand" [class.open]="summaryOpen" [id]="prefix+'-summary'" [attr.inert]="summaryOpen?null:''" [attr.aria-hidden]="!summaryOpen"><div class="ov-expand-inner">@for(p of paragraphs;track $index){<p><strong class="ov-summary-leadin">{{ summaryLeadIns[$index] || 'Details' }}.</strong>&ngsp;{{ p }}</p>}</div></div>
   <p class="ov-caption">Questions? Tap below.</p>
   <div class="ov-buttons">@for(q of questions.slice(0,3);track q.id){<ng-container *ngTemplateOutlet="questionButton;context:{$implicit:q}"></ng-container>}<button type="button" class="ov-more" (click)="moreOpen=!moreOpen" [attr.aria-expanded]="moreOpen" [attr.aria-controls]="prefix+'-more'">{{moreOpen?'Less':'More'}} @if(!moreOpen){<span class="ov-count">{{questions.length-3}}</span>}<span aria-hidden="true">{{moreOpen?'⌃':'⌄'}}</span></button></div>
   <div class="ov-buttons ov-extra" [id]="prefix+'-more'" [hidden]="!moreOpen">@for(q of questions.slice(3);track q.id){<ng-container *ngTemplateOutlet="questionButton;context:{$implicit:q}"></ng-container>}</div>
@@ -26,6 +26,7 @@ export class MobileOverviewSnapshotComponent implements OnChanges {
  @Output() showFiatChange=new EventEmitter<boolean>();
  toggleFiat(){this.showFiat=!this.showFiat;this.showFiatChange.emit(this.showFiat);}
  summaryOpen=false;moreOpen=false;activeAnswer:string|null=null;copyFeedback='';
+ get summaryLeadIns():string[]{return this.prefix.startsWith('wallet') ? ['Balance change','Find a payment','Using funds','Address coverage'] : ['Timing','Fee cost','Network activity','Your payment'];}
  get answer(){return this.questions.find(q=>q.id===this.activeAnswer);}
  ngOnChanges(changes:SimpleChanges){if(changes.identity){this.summaryOpen=false;this.moreOpen=false;this.activeAnswer=null;}}
  async copyIdentity(){try{await navigator.clipboard.writeText(this.identity);this.copyFeedback='Address copied.';}catch{this.copyFeedback='Copy unavailable. Use the full address in the page header.';}}
