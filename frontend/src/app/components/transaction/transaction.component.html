@@ -383,6 +383,7 @@
       <span class="pt-flow-total">Total output: <app-amount [satoshis]="totalOutputSats"></app-amount></span>
     </div>
     <div class="pt-flow-unified">
+    <app-mobile-section-help helpId="pt-transaction-flow-help" heading="Transaction Flow"><p>Inputs are the earlier Bitcoin outputs being spent. Outputs show where the Bitcoin goes next. The difference between the input and output totals pays the network fee.</p><p>Wider paths represent larger amounts. An output can be change returned to the sender, so the total is not necessarily one payment.</p><p>Use Find an address to highlight its inputs and outputs. Open an address or transaction link for more detail.</p></app-mobile-section-help>
     <div class="pt-flow-visual">
     <div class="pt-flow-toolbar">
       <form *ngIf="pendingTrackerSnapshot" class="pt-address-find" (submit)="$event.preventDefault(); findTransactionAddress(addressLookup.value)">
