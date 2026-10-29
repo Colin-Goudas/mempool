@@ -5765,3 +5765,27 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
   .pt-network-section-heading h2{margin-top:0!important;margin-bottom:0!important;}
  }
 }
+
+/* Wallet mobile follows the same unframed Snapshot and 24px section rhythm. */
+@media(max-width:767.98px){
+ body #pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout{
+  margin-bottom:0!important;padding-bottom:0!important;
+  > br{display:none!important;}
+  app-mobile-overview-snapshot .pt-overview-v2{border:0!important;box-shadow:none!important;padding-top:0!important;padding-bottom:0!important;margin-bottom:0!important;}
+  app-mobile-overview-snapshot .pt-overview-v2::before,app-mobile-overview-snapshot .pt-overview-v2::after{content:none!important;display:none!important;}
+  app-mobile-overview-snapshot .ov-footer{margin-top:10px!important;}
+  app-mobile-overview-snapshot .ov-footer label{margin-top:0!important;}
+  .pt-wallet-chart-heading{margin:24px 0 8px!important;padding-top:0!important;padding-bottom:0!important;}
+  .pt-wallet-chart-heading h2{margin:0!important;}
+  .pt-wallet-chart-heading .pt-wallet-caption{margin:4px 0 0!important;}
+  > .box{margin-top:0!important;margin-bottom:0!important;}
+  .pt-mobile-deeper{margin-top:24px!important;margin-bottom:0!important;padding:0!important;}
+  .pt-mobile-deeper-summary{margin:0!important;padding:0 12px 8px!important;border:0!important;}
+  .pt-wallet-deeper{margin:0!important;padding-top:0!important;padding-bottom:0!important;}
+  .pt-wallet-history{margin-top:24px!important;margin-bottom:0!important;padding-top:0!important;padding-bottom:0!important;}
+  .pt-wallet-history-heading{margin:0 0 8px!important;padding-top:0!important;}
+ }
+ body:has(#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout) app-address{min-height:0!important;}
+ body:has(#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout) app-global-footer footer{margin-top:24px!important;border-top:0!important;}
+ body:has(#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout) app-global-footer footer .row.main{padding-top:0!important;margin-top:0!important;}
+}
