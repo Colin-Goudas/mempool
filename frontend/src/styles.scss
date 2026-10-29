@@ -5942,3 +5942,11 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
  }
  body app-global-footer :is(app-theme-selector,.version){display:none!important;}
 }
+
+@media(max-width:767.98px){
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .v2-confirmed .v2-header.v2-pending-header{gap:0!important;}
+ body :is(#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout) .pt-overview-v2{
+  .ov-value{flex:none!important;max-width:65%!important;white-space:nowrap!important;}
+  .ov-data-label{flex:1;min-width:0;}
+ }
+}
