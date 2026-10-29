@@ -5950,3 +5950,42 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
   .ov-data-label{flex:1;min-width:0;}
  }
 }
+
+/* Mobile visualizations and activity widgets share the transaction type hierarchy. */
+@media(max-width:767.98px){
+ body :is(#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout){
+  :is(.pt-widget-explanation,.pt-wallet-caption,.pt-wallet-chart-heading p,.pt-network-section-heading p){font-size:14px!important;font-weight:400!important;line-height:21px!important;color:#c6cad2!important;}
+  :is(.card-title,.card-title span){font-size:16px!important;font-weight:600!important;line-height:24px!important;color:#f4f5f7!important;}
+  :is(.graph-card,.pt-wallet-chart-heading + .box) :is(button,.btn,select),
+  :is(.pt-wallet-history,.pt-wallet-raw) :is(button,.btn,select){
+   font-size:14px!important;font-weight:500!important;line-height:21px!important;min-height:40px!important;border-radius:8px!important;
+  }
+  :is(.graph-card,.pt-wallet-chart-heading + .box) :is(button,.btn),
+  .pt-wallet-history :is(button,.btn){
+   border:1px solid rgba(255,255,255,.2)!important;padding:6px 10px!important;background:rgba(255,255,255,.035)!important;color:#c6cad2!important;
+  }
+  .graph-card .btn-check:checked + .btn{background:rgba(255,255,255,.12)!important;color:#f4f5f7!important;}
+  :is(.pt-wallet-history-table,.card table) th{font-size:14px!important;font-weight:600!important;line-height:21px!important;color:#c6cad2!important;}
+  :is(.pt-wallet-history-table,.card table) td{font-size:14px!important;line-height:21px!important;color:#c6cad2;}
+  :is(.pt-wallet-history-table,.card table) :is(app-amount,app-fee-rate){font-size:16px!important;font-weight:600!important;line-height:24px!important;color:#f4f5f7!important;font-variant-numeric:tabular-nums;}
+  :is(.pt-wallet-history-table,.card table) :is(.symbol,.fee-rate-unit){font-size:14px!important;font-weight:500!important;color:#c6cad2!important;}
+  :is(.pt-wallet-history-table,.card table) :is(app-address-text,app-truncate,a){font-size:14px!important;font-weight:400!important;}
+  :is(.pt-wallet-history-table,.card table) a{color:#86c5ea!important;}
+  :is(.pt-wallet-history-table,.card table) app-fiat{font-size:12.5px!important;font-weight:500!important;color:#86c19b!important;}
+  .pt-wallet-history-table small{font-size:12px!important;color:#aeb4c0;}
+  .pt-compact-fee-labels :is(span,small){font-size:12px!important;color:#aeb4c0!important;}
+  :is(app-address-graph,app-utxo-graph,app-incoming-transactions-graph) :is(.error,.loadingGraphs p){font-size:16px!important;line-height:24px!important;color:#d4d8e0!important;}
+  :is(.pt-wallet-raw > summary,.pt-wallet-history-heading button){font-size:14px!important;font-weight:500!important;line-height:21px!important;color:#c6cad2!important;}
+ }
+}
+
+@media(max-width:767.98px){
+ body :is(#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout){
+  :is(.pt-fee-tier-label,.pt-fee-example-caption){font-size:14px!important;line-height:21px!important;color:#c6cad2!important;}
+  .pt-fee-tier-rate{font-size:16px!important;font-weight:600!important;color:#f4f5f7!important;}
+  .pt-fee-inline-unit{font-size:14px!important;font-weight:500!important;color:#c6cad2!important;}
+  .pt-fees-explain{font-size:14px!important;font-weight:500!important;line-height:21px!important;min-height:40px!important;color:#aeb4c0!important;}
+  .widget-toggler :is(a,small){font-size:14px!important;font-weight:500!important;line-height:21px!important;color:#c6cad2!important;}
+  .widget-toggler a{display:inline-flex;align-items:center;min-height:40px;padding-inline:6px;}
+ }
+}
