@@ -6077,6 +6077,9 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
   .v2-copy::after{inset:9px 0 9px 18px!important;border:1px solid #ffffff33;border-radius:4px;pointer-events:none}
   .v2-copy svg{position:absolute!important;right:4px!important;top:14px!important;}
   .v2-buttons{margin-inline:0!important;}
+  .v2-buttons button{gap:1px!important;}
+  .v2-buttons svg{width:12px!important;height:12px!important;}
+  .v2-buttons .v2-more{gap:2px!important;}
   .pt-questions-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;}
   .pt-questions-heading .v2-caption{margin:0!important;}
   .pt-questions-heading .pt-find-payment{font-size:12px;white-space:nowrap;flex:none;}
@@ -6093,6 +6096,9 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
   .ov-copy svg{position:absolute!important;right:4px!important;top:14px!important;}
   .ov-qr{padding-left:18px!important;}
   .ov-buttons{margin-inline:0!important;}
+  .ov-buttons button{gap:1px!important;}
+  .ov-buttons svg{width:12px!important;height:12px!important;}
+  .ov-buttons .ov-more{gap:2px!important;}
   .ov-data-row{border-top-color:#ffffff14!important}
   .pt-wallet-fact,.pt-network-fact{border-bottom-color:#ffffff14!important}
  }
