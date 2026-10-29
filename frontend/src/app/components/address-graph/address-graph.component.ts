@@ -209,6 +209,7 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
     const graphicElements = this.graphicElements();
 
     this.chartOptions = {
+      ...(this.isMobile() ? {textStyle:{fontFamily:'-apple-system, BlinkMacSystemFont, Inter, Segoe UI, Roboto, sans-serif',color:'#c6cad2'}} : {}),
       color: [
         new echarts.graphic.LinearGradient(0, 0, 0, 1, [
           { offset: 0, color: '#FDD835' },
@@ -229,7 +230,8 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
             name: $localize`:@@7e69426bd97a606d8ae6026762858e6e7c86a1fd:Balance`,
             inactiveColor: 'var(--grey)',
             textStyle: {
-              color: 'var(--fg)',
+              color: this.isMobile() ? '#c6cad2' : 'var(--fg)',
+              ...(this.isMobile() ? {fontSize:14, fontWeight:500} : {}),
             },
             icon: 'roundRect',
           },
@@ -237,7 +239,8 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
             name: 'Fiat',
             inactiveColor: 'var(--grey)',
             textStyle: {
-              color: 'var(--fg)',
+              color: this.isMobile() ? '#c6cad2' : 'var(--fg)',
+              ...(this.isMobile() ? {fontSize:14, fontWeight:500} : {}),
             },
             icon: 'roundRect',
           }
@@ -257,7 +260,8 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
         borderRadius: 4,
         shadowColor: 'rgba(0, 0, 0, 0.5)',
         textStyle: {
-          color: '#b1b1b1',
+          color: this.isMobile() ? '#d4d8e0' : '#b1b1b1',
+          ...(this.isMobile() ? {fontSize:16, lineHeight:24} : {}),
           align: 'left',
         },
         borderColor: '#000',
@@ -326,6 +330,7 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
         type: 'time',
         splitNumber: this.isMobile() ? 5 : 10,
         axisLabel: {
+          ...(this.isMobile() ? {fontSize:12, color:'#aeb4c0', fontWeight:400} : {}),
           hideOverlap: true,
         }
       },
@@ -335,10 +340,10 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
           position: 'left',
           splitNumber: this.isMobile() ? 3 : 5,
           axisLabel: {
-            fontSize: this.isMobile() ? 10 : 12,
+            fontSize: this.isMobile() ? 12 : 12,
             hideOverlap: true,
             show: this.showYAxis,
-            color: '#a1a1aa',
+            color: this.isMobile() ? '#aeb4c0' : '#a1a1aa',
             formatter: (val): string => {
               const span = maxValue - (this.period === 'all' ? 0 : minValue);
               if (Math.abs(maxValue) >= 100_000_000) {
@@ -358,10 +363,10 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
           type: 'value',
           splitNumber: this.isMobile() ? 3 : 5,
           axisLabel: {
-            fontSize: this.isMobile() ? 10 : 12,
+            fontSize: this.isMobile() ? 12 : 12,
             hideOverlap: true,
             show: this.showYAxis,
-            color: '#a1a1aa',
+            color: this.isMobile() ? '#aeb4c0' : '#a1a1aa',
             formatter: function(val) {
               return `$${this.amountShortenerPipe.transform(val, 3, undefined, true, true)}`;
             }.bind(this)
@@ -421,7 +426,8 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
         right: this.adjustedRight,
         selectedDataBackground: {
           lineStyle: {
-            color: 'var(--fg)',
+            color: this.isMobile() ? '#c6cad2' : 'var(--fg)',
+              ...(this.isMobile() ? {fontSize:14, fontWeight:500} : {}),
             opacity: 0.45,
           },
         },
@@ -483,7 +489,7 @@ export class AddressGraphComponent implements OnChanges, OnDestroy {
           this.chartResizeFrame = requestAnimationFrame(() => {
             if (ec.isDisposed()) return;
             const mobile = this.isMobile();
-            ec.setOption({grid:this.chartGrid(), yAxis:[{splitNumber:mobile ? 3 : 5, axisLabel:{fontSize:mobile ? 10 : 12}}, {splitNumber:mobile ? 3 : 5, axisLabel:{fontSize:mobile ? 10 : 12}}]});
+            ec.setOption({grid:this.chartGrid(), yAxis:[{splitNumber:mobile ? 3 : 5, axisLabel:{fontSize:mobile ? 12 : 12}}, {splitNumber:mobile ? 3 : 5, axisLabel:{fontSize:mobile ? 12 : 12}}]});
             ec.resize();
           });
         });
