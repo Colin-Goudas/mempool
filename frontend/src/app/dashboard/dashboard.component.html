@@ -131,7 +131,7 @@
       <div class="card graph-card">
         <div class="card-body">
           <ng-container *ngTemplateOutlet="mempoolTable; context: { $implicit: mempoolInfoData }"></ng-container>
-            <h5 class="card-title mt-3" i18n="dashboard.incoming-transactions">Incoming Transactions</h5><p *ngIf="showPendingTrackerSnapshot" class="pt-widget-explanation">Incoming virtual bytes per second.</p>
+            <h5 class="card-title mt-3" i18n="dashboard.incoming-transactions">Incoming Transactions</h5><p *ngIf="showPendingTrackerSnapshot" class="pt-widget-explanation">Incoming virtual bytes per second.<span class="pt-mobile-chart-note"> The dashed line is the approximate 1,667 vB/s block-space capacity at ten-minute blocks. Colors compare incoming demand with capacity, not the status of one payment.</span></p>
             <div class="mempool-graph">
               <app-incoming-transactions-graph
                 [height]="incomingGraphHeight"
