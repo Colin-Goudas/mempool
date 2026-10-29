@@ -5989,3 +5989,12 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
   .widget-toggler a{display:inline-flex;align-items:center;min-height:40px;padding-inline:6px;}
  }
 }
+
+@media(max-width:767.98px){
+ body #pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout .graph-card{
+  :is(.card-text,app-fee-rate){font-size:16px!important;font-weight:600!important;line-height:24px!important;color:#f4f5f7!important;}
+  :is(.card-text span,app-fee-rate .symbol,.progress-text .symbol){font-size:14px!important;font-weight:500!important;color:#c6cad2!important;}
+  .progress{min-height:22px;}
+  .progress-text,.progress-text > span{font-size:14px!important;font-weight:500!important;line-height:22px!important;color:#f4f5f7!important;}
+ }
+}
