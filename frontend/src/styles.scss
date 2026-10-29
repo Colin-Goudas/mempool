@@ -6084,7 +6084,7 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
   .pt-questions-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;}
   .pt-questions-heading .v2-caption{margin:0!important;}
   .pt-questions-heading .pt-find-payment{font-size:12px;white-space:nowrap;flex:none;}
-  .v2-identity{min-height:40px!important;margin-top:0!important;margin-bottom:0!important}
+  .v2-identity{min-height:21px!important;height:21px!important;margin-top:0!important;margin-bottom:6px!important}
   .pt-find-payment{font:inherit;font-size:14px;font-weight:500;color:#86c5ea;border:0;background:none;min-height:40px;padding:4px 0}
   .pt-action-feedback{font-size:14px;line-height:21px;color:#c6cad2;margin:8px 0 0}
   .v2-data-row{border-top-color:#ffffff14!important}
