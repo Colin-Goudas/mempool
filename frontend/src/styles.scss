@@ -5681,3 +5681,26 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
 @media(max-width:767.98px){
  body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-mobile-snapshot-v2.v2-confirmed .v2-status-stack .v2-status{padding-inline:0;gap:3px;}
 }
+
+/* Shared smoky surfaces for the remaining mobile explorer sections. */
+@media(max-width:767.98px){
+ body #pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout{
+  .card{background:var(--pt-snapshot-smoke)!important;border:1px solid rgba(255,255,255,.18)!important;border-radius:18px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important;}
+  .card .card-body{background:transparent!important;border-radius:inherit;}
+  .card :is(.table,.table-responsive,thead,tbody,tr,th,td){background:transparent!important;box-shadow:none!important;}
+ }
+ body #pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout{
+  > .box,.pt-wallet-chart-heading + .box,.pt-wallet-history-table,.pt-wallet-raw{
+   background:var(--pt-snapshot-smoke)!important;border:1px solid rgba(255,255,255,.18)!important;border-radius:18px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important;
+  }
+  .pt-wallet-history-table :is(table,thead,tbody,tr,th,td){background:transparent!important;box-shadow:none!important;}
+ }
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout{
+  .pt-flow-unified,.pt-replacement-history{
+   background:var(--pt-snapshot-smoke)!important;border:1px solid rgba(255,255,255,.18)!important;border-radius:18px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important;
+  }
+  .pt-flow-unified :is(.pt-flow-visual,.pt-original-graph,.pt-flow-content,.pt-flow-toolbar,.graph-container,.box,.table-responsive){background:transparent!important;box-shadow:none!important;}
+  .pt-flow-unified .pt-flow-toolbar{border-radius:18px 18px 0 0;}
+  .pt-flow-unified .pt-flow-content{border-radius:0 0 18px 18px;}
+ }
+}
