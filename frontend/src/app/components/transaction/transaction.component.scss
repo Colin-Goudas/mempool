@@ -502,3 +502,11 @@ h2 .cpfp-beta {
   .v2-status i{background:#fff;animation:none;}
  }
 }
+
+/* Scannable lead-ins for the expanded pending summary only. */
+@media(max-width:767.98px){
+ #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-mobile-snapshot-v2:not(.v2-confirmed){
+  .v2-expand .v2-summary-paragraph{padding-top:10px;font-size:14px;line-height:1.55;font-weight:400;color:var(--detail);}
+  .v2-summary-paragraph .v2-summary-leadin{font-size:inherit;font-weight:600;color:var(--fg);}
+ }
+}
