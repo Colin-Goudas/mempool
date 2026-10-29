@@ -62,3 +62,10 @@ app-mobile-overview-snapshot{display:none}
   .ov-data-label>span,.ov-value{font-size:16px!important;font-weight:700!important;line-height:20px;color:#f4f5f7;}
  }
 }
+
+@media(max-width:767.98px){
+ body :is(#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout) app-mobile-overview-snapshot .pt-overview-v2{
+  .ov-expand p{padding-top:10px;font-size:14px!important;line-height:1.55!important;font-weight:400;color:var(--ov-detail);}
+  .ov-expand .ov-summary-leadin{font-size:inherit;font-weight:600;color:var(--ov-fg);}
+ }
+}
