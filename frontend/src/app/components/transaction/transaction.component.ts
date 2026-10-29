@@ -125,7 +125,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   get snapshotButtons() {
     return this.tx?.status.confirmed ? [
-      {id:'final',label:'Is it final?',icon:'question'}, {id:'share',label:'Share receipt',icon:'share'}, this.confirmationCount >= 3 ? {id:'block',label:'View block',icon:'layers'} : {id:'notify',label:'Notify at 3',icon:'bell'}
+      {id:'final',label:'Is it final?',icon:'question'}, {id:'share',label:'Share',icon:'share'}, this.confirmationCount >= 3 ? {id:'block',label:'View block',icon:'layers'} : {id:'notify',label:'Notify at 3',icon:'bell'}
     ] : [{id:'pending',label:'Why pending?',icon:'question'},{id:'speed',label:'Speed up',icon:'lightning'},{id:'notify',label:'Notify me',icon:'bell'}];
   }
   get snapshotMoreButtons() {
