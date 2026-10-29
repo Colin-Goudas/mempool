@@ -5855,4 +5855,14 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
  }
 }
 
-
+/* Compact mobile identity rows, with clear space below the tracking rail. */
+@media(max-width:767.98px){
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout:has(.pt-mobile-snapshot-v2){
+  .v2-pending-header{padding-top:12px!important;margin:0!important;align-items:center;}
+  .v2-status-stack .v2-status{height:20px!important;min-height:20px!important;border-radius:4px!important;line-height:18px!important;}
+  .v2-pending-identity{min-height:21px!important;height:21px;margin:0 12px 6px!important;gap:6px;}
+  .v2-pending-identity code{line-height:21px!important;}
+  .v2-pending-identity .v2-copy{width:18px!important;height:18px!important;min-height:18px!important;padding:0!important;border-radius:4px!important;}
+  .v2-pending-identity .v2-copy svg{width:12px!important;height:12px!important;}
+ }
+}
