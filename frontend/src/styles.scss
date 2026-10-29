@@ -6066,16 +6066,17 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
  .pt-flow-content tr:has(>.address-cell):has(>.amount):not(:has(>.sig-td))>.amount{grid-column:2;grid-row:2;display:block!important;width:auto!important;min-width:0!important;text-align:right!important;white-space:normal!important;padding-block:0!important}
  .pt-flow-content tr:has(>.address-cell):has(>.amount):not(:has(>.sig-td))>.arrow-td{grid-column:1;grid-row:1/3;width:24px!important}
  body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout{
-  .v2-header.v2-pending-header{display:flex!important;flex-wrap:wrap!important;gap:4px 10px!important;align-items:baseline!important}
-  .v2-header h1{font-size:24px!important;font-weight:600!important;line-height:30px!important;flex:1 0 230px!important;white-space:nowrap!important}
-  .v2-status-stack{margin-left:auto!important}
-  .v2-status{font-size:12px!important;line-height:18px!important;min-height:24px!important;height:auto!important;padding:2px 8px!important;background:#d5a04c16!important;border:1px solid #d5a04c66!important;color:#e0bd78!important}
+  .v2-header.v2-pending-header{display:flex!important;flex-wrap:nowrap!important;gap:2px!important;align-items:center!important}
+  .v2-header h1{font-size:24px!important;font-weight:600!important;line-height:30px!important;flex:1 1 auto!important;min-width:0!important;white-space:nowrap!important}
+  .v2-status-stack{margin-left:auto!important;flex:none!important}
+  .v2-status{font-size:11px!important;line-height:18px!important;min-height:20px!important;height:20px!important;padding:0!important;background:#d5a04c16!important;border:1px solid #d5a04c66!important;color:#e0bd78!important}
   .v2-status i{background:currentColor!important}
-  .v2-confirmed .v2-status{background:#245f85!important;border-color:#86c5ea55!important;color:#fff!important}
+  .v2-confirmed .v2-status{font-size:10px!important;background:#245f85!important;border-color:#86c5ea55!important;color:#fff!important}
   .v2-attention .v2-status{background:#9c2f3b!important;border-color:#bb596355!important;color:#fff!important}
-  .v2-copy{flex:0 0 40px!important;width:40px!important;height:40px!important;min-height:40px!important;border:0!important;border-radius:8px!important;position:relative!important}
-  .v2-copy::after{inset:9px 0 9px 18px!important;border:1px solid #ffffff33;border-radius:4px;pointer-events:none}
-  .v2-copy svg{position:absolute!important;right:4px!important;top:14px!important;}
+  .v2-copy{flex:0 0 40px!important;width:40px!important;height:21px!important;min-height:21px!important;border:0!important;border-radius:8px!important;position:relative!important}
+  .v2-copy::before{content:"";position:absolute;inset:-9.5px 0;}
+  .v2-copy::after{inset:1.5px 0 1.5px 22px!important;border:1px solid #ffffff33;border-radius:4px;pointer-events:none}
+  .v2-copy svg{position:absolute!important;right:3px!important;top:4.5px!important;}
   .v2-buttons{margin-inline:0!important;}
   .v2-buttons button{gap:1px!important;}
   .v2-buttons svg{width:12px!important;height:12px!important;}
