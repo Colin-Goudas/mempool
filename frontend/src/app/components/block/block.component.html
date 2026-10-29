@@ -110,7 +110,7 @@
             <ng-container *ngTemplateOutlet="restOfTable"></ng-container>
           </tbody>
         </table>
-        <div class="col-sm chart-container block-graph-wrapper" *ngIf="webGlEnabled && !showComparison">
+        <div class="col-sm chart-container block-graph-wrapper" *ngIf="webGlEnabled && !showComparison"><app-mobile-section-help helpId="pt-block-map-help" heading="Block transactions"><p>This map shows transactions included in the mined block. Each tile represents a transaction, with area based on its virtual size.</p><p>Tap a tile to inspect that transaction. Filters highlight transaction features; they do not change the block’s contents.</p></app-mobile-section-help>
           <app-block-overview-graph
             #blockGraphActual
             [isLoading]="!stateService.isBrowser || isLoadingOverview"
@@ -276,7 +276,7 @@
         } @else {
           <h3 class="block-subtitle" *ngIf="!isMobile"><ng-container i18n="block.expected-block">Expected Block</ng-container></h3>
         }
-        <div class="block-graph-wrapper">
+        <div class="block-graph-wrapper pt-block-help-added"><app-mobile-section-help helpId="pt-expected-block-help" heading="Expected block"><p>This is the provider’s reconstruction of what it expected before the block was mined. Compare it with the actual block to see differences.</p><p>Differences can reflect fee policies, transaction arrival times or information the provider did not observe.</p></app-mobile-section-help>
           <app-block-overview-graph #blockGraphProjected [isLoading]="!stateService.isBrowser || isLoadingOverview" [resolution]="86"
             [blockLimit]="stateService.blockVSize" [orientation]="'top'" [flip]="false" [mirrorTxid]="hoverTx" [auditHighlighting]="showComparison"
             (txClickEvent)="onTxClick($event)" (txHoverEvent)="onTxHover($event)" [unavailable]="!isMobile && !showAudit && !block?.stale"
@@ -311,7 +311,7 @@
             <a class="info-link" [routerLink]="['/docs/faq' | relativeUrl ]" fragment="how-do-block-audits-work"><fa-icon [icon]="['fas', 'info-circle']" [fixedWidth]="true"></fa-icon></a>
           }
         </h3>
-        <div class="block-graph-wrapper">
+        <div class="block-graph-wrapper pt-block-help-added"><app-mobile-section-help helpId="pt-actual-block-help" heading="Actual block"><p>This map shows transactions in the actual mined block. Tile area reflects virtual size. Select a transaction for its details.</p><p>The comparison highlights differences from the provider’s expected block; a difference alone does not explain a miner’s decision.</p></app-mobile-section-help>
           <app-block-overview-graph #blockGraphActual [isLoading]="!stateService.isBrowser || isLoadingOverview" [resolution]="86"
             [blockLimit]="stateService.blockVSize" [orientation]="'top'" [flip]="false" [mirrorTxid]="hoverTx" mode="mined"  [auditHighlighting]="showComparison"
             (txClickEvent)="onTxClick($event)" (txHoverEvent)="onTxHover($event)" [unavailable]="isMobile && !showAudit && !block?.stale"
