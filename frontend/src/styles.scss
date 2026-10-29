@@ -5888,3 +5888,57 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
  }
  body:has(#pt-transaction-layout .pt-mobile-snapshot-v2:not(.v2-confirmed)) app-global-footer :is(app-theme-selector,.version){display:none!important;}
 }
+
+/* Share the finished transaction audit with confirmed mobile transactions. */
+@media(max-width:767.98px){
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout:has(.pt-mobile-snapshot-v2){
+  .v2-header.v2-pending-header{gap:2px!important;}
+  .v2-header.v2-pending-header h1{letter-spacing:-.025em!important;}
+  .v2-status-stack .v2-status{padding-inline:0!important;gap:2px!important;}
+  .v2-status-stack .v2-status i{width:4px!important;height:4px!important;}
+  .v2-summary-heading .v2-live{font-size:12px!important;color:#aeb4c0!important;}
+  .v2-buttons .v2-more{gap:3px!important;}
+  :is(.v2-explain,.pt-summary-expand-toggle){text-decoration:none!important;}
+  .pt-summary-expand-toggle{position:relative;}
+  .pt-summary-expand-toggle::after{content:"";position:absolute;inset:-9px -2px;}
+  .pt-flow-mobile-subtitle{display:none!important;}
+  .pt-flow-unified button{font-size:14px!important;font-weight:500!important;line-height:21px!important;min-height:40px!important;border-radius:8px!important;}
+  .pt-flow-unified :is(.pt-flow-control,.pt-address-find button,.btn){border:1px solid rgba(255,255,255,.2)!important;padding:6px 10px!important;background:rgba(255,255,255,.035)!important;color:#c6cad2!important;text-decoration:none!important;box-shadow:none!important;}
+  .pt-flow-toolbar{gap:8px!important;}
+  .pt-advanced-mobile .pt-snapshot-fact{display:grid!important;grid-template-columns:minmax(0,44fr) minmax(0,56fr)!important;width:100%!important;}
+  .pt-advanced-mobile .pt-snapshot-fact > strong{justify-self:stretch!important;text-align:right!important;font-weight:700!important;}
+ }
+ body:has(#pt-transaction-layout .pt-mobile-snapshot-v2) app-global-footer :is(app-theme-selector,.version){display:none!important;}
+}
+
+@media(max-width:767.98px){
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .v2-confirmed{
+  .v2-status-stack .v2-status{font-size:10px!important;letter-spacing:-.03em;gap:1px!important;}
+  .v2-status-stack .v2-status i{width:3px!important;height:3px!important;}
+ }
+ body :is(#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout){
+  .pt-overview-v2{--ov-body:#d4d8e0;--ov-detail:#d4d8e0;--ov-mute:#aeb4c0;}
+  :is(.ov-lead,.ov-expand p,.ov-answer p,.ov-popover p,
+      .pt-wallet-deeper .pt-summary-narrative,.pt-network-deeper .pt-summary-narrative,
+      .pt-wallet-popover p,.pt-network-popover p){
+   font-size:16px!important;font-weight:400!important;line-height:24px!important;color:#d4d8e0!important;
+  }
+  :is(.ov-expand strong,.ov-answer-heading strong,.pt-wallet-popup-heading strong,.pt-network-popup-heading strong){font-size:16px!important;font-weight:600!important;line-height:24px!important;color:#f4f5f7!important;}
+  .ov-summary-heading .ov-live{font-size:12px!important;color:#aeb4c0!important;}
+  .ov-caption{font-size:14px!important;font-weight:400!important;line-height:21px!important;color:#aeb4c0!important;}
+  :is(.ov-read,.ov-explain,.pt-summary-expand-toggle){font-size:14px!important;font-weight:500!important;line-height:21px!important;text-decoration:none!important;}
+  :is(.ov-explain,.pt-summary-expand-toggle){color:#aeb4c0!important;}
+  :is(.ov-value small,.pt-crosspage-unit,.pt-wallet-fact-line .symbol){font-size:14px!important;font-weight:500!important;line-height:20px!important;color:#c6cad2!important;}
+  .ov-buttons button{font-size:12px!important;min-height:40px!important;padding-inline:1px!important;gap:2px!important;}
+  .ov-buttons .ov-more{gap:3px!important;}
+  .ov-header{margin-bottom:0!important;}
+  .ov-identity{min-height:21px!important;margin:0 12px 6px!important;}
+  .ov-copy{width:18px!important;height:18px!important;min-height:18px!important;border-radius:4px!important;}
+  .ov-copy svg{width:12px!important;height:12px!important;}
+  .pt-summary-expand-toggle{position:relative;}
+  .pt-summary-expand-toggle::after{content:"";position:absolute;inset:-9px -2px;}
+  :is(.pt-mobile-deeper-summary,.pt-network-section-heading h2,.pt-wallet-section-heading h2){font-size:24px!important;font-weight:600!important;line-height:30px!important;letter-spacing:-.025em!important;color:#f4f5f7!important;}
+  .pt-wallet-fact-line > strong app-amount{font-size:16px!important;font-weight:700!important;color:#f4f5f7!important;}
+ }
+ body app-global-footer :is(app-theme-selector,.version){display:none!important;}
+}
