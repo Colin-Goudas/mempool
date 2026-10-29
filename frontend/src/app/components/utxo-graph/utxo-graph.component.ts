@@ -303,12 +303,15 @@ export class UtxoGraphComponent implements OnChanges, OnDestroy {
               }
             },
           ];
-          const labelFontSize = this.isMobile() ? Math.min(16, r * scale * 1.85 / Math.max(1, valueStr.length * 0.56)) : Math.min(36, r * scale * 0.3);
-          if ((this.isMobile() ? labelFontSize >= 12 : labelFontSize > 8) && (!this.isMobile() || valueStr.length * labelFontSize * 0.56 <= r * scale * 1.85)) {
+          const labelText = this.isMobile() ? valueStr.replace(/\s+(sats?|BTC)$/i, '\n$1') : valueStr;
+          const labelLength = Math.max(...labelText.split('\n').map(line => line.length));
+          const labelFontSize = this.isMobile() ? Math.min(16, r * scale * 1.65 / Math.max(1, labelLength * 0.56)) : Math.min(36, r * scale * 0.3);
+          if ((this.isMobile() ? labelFontSize >= 12 : labelFontSize > 8) && (!this.isMobile() || labelLength * labelFontSize * 0.56 <= r * scale * 1.85)) {
             elements.push({
               type: 'text',
               style: {
-                text: valueStr,
+                text: labelText,
+                lineHeight: this.isMobile() ? labelFontSize * 1.15 : undefined,
                 fontSize: labelFontSize,
                 ...(this.isMobile() ? {fontWeight:600,fontFamily:'-apple-system, BlinkMacSystemFont, Inter, Segoe UI, sans-serif'} : {}),
                 fill: '#fff',
