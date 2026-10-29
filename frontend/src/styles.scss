@@ -5866,3 +5866,25 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
   .v2-pending-identity .v2-copy svg{width:12px!important;height:12px!important;}
  }
 }
+
+/* Finish the mobile pending-page typography and control audit. */
+@media(max-width:767.98px){
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout:has(.pt-mobile-snapshot-v2:not(.v2-confirmed)){
+  .v2-header.v2-pending-header{gap:2px!important;}
+  .v2-header.v2-pending-header h1{letter-spacing:-.025em!important;}
+  .v2-status-stack .v2-status{padding-inline:0!important;gap:2px!important;}
+  .v2-status-stack .v2-status i{width:4px!important;height:4px!important;}
+  .v2-summary-heading .v2-live{font-size:12px!important;color:#aeb4c0!important;}
+  .v2-buttons .v2-more{gap:3px!important;}
+  :is(.v2-explain,.pt-summary-expand-toggle){text-decoration:none!important;}
+  .pt-summary-expand-toggle{position:relative;}
+  .pt-summary-expand-toggle::after{content:"";position:absolute;inset:-9px -2px;}
+  .pt-flow-mobile-subtitle{display:none!important;}
+  .pt-flow-unified button{font-size:14px!important;font-weight:500!important;line-height:21px!important;min-height:40px!important;border-radius:8px!important;}
+  .pt-flow-unified :is(.pt-flow-control,.pt-address-find button,.btn){border:1px solid rgba(255,255,255,.2)!important;padding:6px 10px!important;background:rgba(255,255,255,.035)!important;color:#c6cad2!important;text-decoration:none!important;box-shadow:none!important;}
+  .pt-flow-toolbar{gap:8px!important;}
+  .pt-advanced-mobile .pt-snapshot-fact{display:grid!important;grid-template-columns:minmax(0,44fr) minmax(0,56fr)!important;width:100%!important;}
+  .pt-advanced-mobile .pt-snapshot-fact > strong{justify-self:stretch!important;text-align:right!important;font-weight:700!important;}
+ }
+ body:has(#pt-transaction-layout .pt-mobile-snapshot-v2:not(.v2-confirmed)) app-global-footer :is(app-theme-selector,.version){display:none!important;}
+}
