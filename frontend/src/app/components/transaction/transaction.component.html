@@ -39,7 +39,6 @@
         }
       </div>
     </div>
-    <p class="v2-footer">Estimates are not guarantees and can change as the network gets busier or quieter. Not financial advice.</p>
     <div id="pt-v2-notify" class="v2-popover" popover="auto" (toggle)="positionMobilePopover($event)"><div class="v2-answer-heading"><strong>Track confirmations</strong><button type="button" popovertarget="pt-v2-notify" popovertargetaction="hide" aria-label="Close notification settings">×</button></div><p>Current: {{ confirmationCount }} confirmations. Alert target: {{ confirmationTarget }}.</p><p>Alerts require browser permission and this page to stay open and connected. They stop when you leave or reload.</p><button type="button" class="v2-alert-enable" [disabled]="confirmationCount >= confirmationTarget || alertRequestPending" (click)="enableConfirmationAlert()">{{ confirmationCount >= confirmationTarget ? 'Target already reached' : alertRequestPending ? 'Requesting permission…' : 'Enable confirmation alert' }}</button><button *ngIf="alertTxid === txId" type="button" (click)="cancelConfirmationAlert()">Turn off alert</button><p role="status">{{ alertMessage }}</p></div>
   </section>
 }
@@ -440,7 +439,7 @@
           @for (fact of technicalFacts; track fact.label) {
             @if (fact.label === 'Size' || fact.label === 'Virtual size' || fact.label === 'Adjusted vsize' || fact.label === 'Weight' || fact.label === 'Version' || fact.label === 'Locktime' || fact.label === 'Sigops' || fact.label === 'Transaction hex' || fact.label === 'Miner attribution' || fact.label === 'Observed confirmation duration' || fact.label === 'Fee replacement' || fact.label === 'Transaction features' || fact.label === 'Transaction tags' || fact.label === 'Block audit') {
             <div class="pt-snapshot-row pt-metric-card" [style.anchor-name]="'--pt-deeper-card-' + $index">
-              <div class="pt-snapshot-fact" ptMobileFitAmount><span class="pt-card-label">{{ fact.label }}</span><strong>{{ detailMainValue(fact.value) }}<small class="pt-card-value-unit">{{ detailValueUnit(fact.value) }}</small></strong></div>
+              <div class="pt-snapshot-fact" ptMobileFitAmount><span class="pt-card-label">{{ fact.label }}</span><strong>{{ detailMainValue(phoneLayout && fact.label === 'Transaction features' ? fact.value.split('SegWit witness data').join('SegWit').split('Signals replaceability (RBF)').join('RBF').split('Spends Taproot outputs').join('Taproot') : fact.value) }}<small class="pt-card-value-unit">{{ detailValueUnit(fact.value) }}</small></strong></div>
               <div class="pt-snapshot-meaning pt-deeper-inline-meaning"><app-summary-disclosure [resetKey]="txId" [maxLines]="2" labelText="" moreLabel="Explain more" [alwaysShowAction]="true" [popoverTarget]="'pt-deeper-detail-' + $index">{{ fact.meaning }}</app-summary-disclosure></div>
               <div class="pt-snapshot-detail-popover" [style.position-anchor]="'--pt-deeper-card-' + $index" [id]="'pt-deeper-detail-' + $index" popover="auto" (toggle)="positionMobilePopover($event)">
                 <div class="pt-snapshot-popover-heading"><strong>Understanding {{ fact.label }}</strong><button type="button" [attr.popovertarget]="'pt-deeper-detail-' + $index" popovertargetaction="hide" aria-label="Close explanation">×</button></div>
