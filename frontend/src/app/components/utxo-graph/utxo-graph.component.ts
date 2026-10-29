@@ -303,7 +303,7 @@ export class UtxoGraphComponent implements OnChanges, OnDestroy {
               }
             },
           ];
-          const labelFontSize = Math.min(this.isMobile() ? 16 : 36, r * scale * 0.3);
+          const labelFontSize = this.isMobile() ? Math.min(16, r * scale * 1.85 / Math.max(1, valueStr.length * 0.56)) : Math.min(36, r * scale * 0.3);
           if ((this.isMobile() ? labelFontSize >= 12 : labelFontSize > 8) && (!this.isMobile() || valueStr.length * labelFontSize * 0.56 <= r * scale * 1.85)) {
             elements.push({
               type: 'text',
