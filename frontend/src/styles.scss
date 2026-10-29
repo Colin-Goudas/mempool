@@ -5837,7 +5837,7 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
    .pt-flow-heading-half span:last-child{font-size:14px!important;font-weight:500!important;color:#c6cad2!important;}
    :is(.pt-flow-control,.pt-address-find button){font-size:14px!important;font-weight:500!important;line-height:21px!important;color:#c6cad2!important;min-height:40px;}
    .pt-address-find input{font-size:16px!important;line-height:24px!important;}
-   .pt-flow-visual .labels span{font-size:16px!important;font-weight:600!important;}
+   .pt-flow-visual .pt-graph-direction-labels span{font-size:16px!important;font-weight:600!important;}
    .pt-flow-content :is(app-amount,app-amount > span:not(.symbol)){font-size:16px!important;font-weight:600!important;line-height:24px!important;color:#f4f5f7!important;font-variant-numeric:tabular-nums;}
    .pt-flow-content app-amount .symbol{font-size:14px!important;font-weight:500!important;line-height:20px!important;color:#c6cad2!important;}
    .pt-flow-content app-address-text :is(a,.first,.last-four){font-size:14px!important;font-weight:400!important;line-height:21px!important;color:#86c5ea!important;}
