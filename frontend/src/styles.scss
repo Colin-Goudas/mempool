@@ -5734,3 +5734,34 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
   > h2{margin-top:0;}
  }
 }
+
+/* Mobile cleanup: unframed snapshots and consistent section rhythm. */
+@media(max-width:767.98px){
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout .pt-mobile-snapshot-v2{
+  border:0!important;box-shadow:none!important;padding-top:0!important;padding-bottom:0!important;
+  &::before,&::after{content:none!important;display:none!important;}
+ }
+ body #pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout{
+  margin-bottom:0!important;padding-bottom:0!important;
+  .pt-flow-section,.pt-dive-deeper-toggle{margin-top:24px!important;margin-bottom:0!important;padding-top:0!important;padding-bottom:0!important;}
+  .pt-flow-header{margin:0 0 8px!important;padding-top:0!important;padding-bottom:0!important;}
+  .pt-dive-deeper-toggle>summary{margin:0!important;padding:0 12px 8px!important;}
+  .pt-deeper-snapshot{margin-bottom:0!important;}
+ }
+ body:has(#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout) app-transaction{min-height:0!important;}
+ body:has(#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout) app-global-footer footer{margin-top:24px!important;border-top:0!important;}
+ body:has(#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout#pt-transaction-layout) app-global-footer footer .row.main{padding-top:0!important;margin-top:0!important;}
+ body #pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout{
+  app-mobile-overview-snapshot .pt-overview-v2{border:0!important;box-shadow:none!important;padding-top:0!important;padding-bottom:0!important;margin-bottom:0!important;}
+  app-mobile-overview-snapshot .pt-overview-v2::before,app-mobile-overview-snapshot .pt-overview-v2::after{content:none!important;display:none!important;}
+  app-mobile-overview-snapshot .ov-header{margin-bottom:5px!important;}
+  app-mobile-overview-snapshot .ov-footer{margin-top:10px!important;}
+  app-mobile-overview-snapshot .ov-footer label{margin-top:0!important;}
+  > .row{margin-top:24px!important;row-gap:24px!important;}
+  > .row > .col{margin-top:0!important;margin-bottom:0!important;padding-top:0!important;padding-bottom:0!important;}
+  > .row > .pt-network-section-heading{margin-top:0!important;margin-bottom:-16px!important;padding-top:0!important;padding-bottom:0!important;}
+  .pt-network-deeper{margin-top:0!important;margin-bottom:0!important;padding-top:0!important;padding-bottom:0!important;}
+  .pt-network-deeper > .pt-network-section-heading{margin:0 0 8px!important;padding:0!important;}
+  .pt-network-section-heading h2{margin-top:0!important;margin-bottom:0!important;}
+ }
+}
