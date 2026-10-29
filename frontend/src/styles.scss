@@ -6074,7 +6074,12 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
   .v2-confirmed .v2-status{background:#245f85!important;border-color:#86c5ea55!important;color:#fff!important}
   .v2-attention .v2-status{background:#9c2f3b!important;border-color:#bb596355!important;color:#fff!important}
   .v2-copy{flex:0 0 40px!important;width:40px!important;height:40px!important;min-height:40px!important;border:0!important;border-radius:8px!important;position:relative!important}
-  .v2-copy::after{inset:9px!important;border:1px solid #ffffff33;border-radius:4px;pointer-events:none}
+  .v2-copy::after{inset:9px 0 9px 18px!important;border:1px solid #ffffff33;border-radius:4px;pointer-events:none}
+  .v2-copy svg{position:absolute!important;right:4px!important;top:14px!important;}
+  .v2-buttons{margin-inline:0!important;}
+  .pt-questions-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;}
+  .pt-questions-heading .v2-caption{margin:0!important;}
+  .pt-questions-heading .pt-find-payment{font-size:12px;white-space:nowrap;flex:none;}
   .v2-identity{min-height:40px!important;margin-top:0!important;margin-bottom:0!important}
   .pt-find-payment{font:inherit;font-size:14px;font-weight:500;color:#86c5ea;border:0;background:none;min-height:40px;padding:4px 0}
   .pt-action-feedback{font-size:14px;line-height:21px;color:#c6cad2;margin:8px 0 0}
@@ -6084,7 +6089,10 @@ body:is(:has(#pt-transaction-layout),:has(#pt-wallet-layout),:has(#pt-network-la
  body :is(#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout#pt-wallet-layout,#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout#pt-network-layout){
   .ov-identity{gap:2px!important;min-height:40px!important;margin-bottom:0!important}
   .ov-copy{width:40px!important;flex:0 0 40px!important;height:40px!important;min-height:40px!important;border:0!important;position:relative!important}
-  .ov-copy::after{inset:9px!important;border:1px solid #ffffff33;border-radius:4px;pointer-events:none}
+  .ov-copy::after{inset:9px 0 9px 18px!important;border:1px solid #ffffff33;border-radius:4px;pointer-events:none}
+  .ov-copy svg{position:absolute!important;right:4px!important;top:14px!important;}
+  .ov-qr{padding-left:18px!important;}
+  .ov-buttons{margin-inline:0!important;}
   .ov-data-row{border-top-color:#ffffff14!important}
   .pt-wallet-fact,.pt-network-fact{border-bottom-color:#ffffff14!important}
  }
