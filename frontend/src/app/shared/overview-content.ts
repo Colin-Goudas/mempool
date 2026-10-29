@@ -2,6 +2,7 @@ import type { OverviewFact, OverviewQuestion } from './mobile-overview-snapshot.
 import type { NetworkSnapshot } from '@app/dashboard/network-snapshot';
 import { walletView } from '@components/address/wallet-view';
 const fmt=(n:number)=>n.toLocaleString('en-US',{maximumFractionDigits:8});
+const feeFmt=(n:number)=>n.toLocaleString('en-US',{maximumFractionDigits:2});
 const btc=(n:number)=>fmt(n/100000000)+' BTC';
 const q=(id:string,label:string,title:string,text:string,icon='question'):OverviewQuestion=>({id,label,title,text,icon});
 export function walletOverview(view:ReturnType<typeof walletView>){
@@ -26,10 +27,10 @@ export function walletOverview(view:ReturnType<typeof walletView>){
 }
 export function networkOverview(snapshot:NetworkSnapshot){
  const fast=snapshot.sending[0]?.rate;const economy=snapshot.sending[1]?.rate;
- const lead=snapshot.reconnecting?'Reconnecting to live network data.':fast===null||fast===undefined?'Current fee estimates are unavailable.':snapshot.summaryLead.split('. ')[0]+'.';
- const body=snapshot.reconnecting?'Retained values may be out of date.':fast===null||fast===undefined?'Wait for the live fee feed before comparing confirmation targets.':`The next-block recommendation is ${fmt(fast)} sat/vB${economy===null||economy===undefined?'.':`, or ${fmt(economy)} sat/vB at economy priority if there is no deadline.`}`;
+ const lead=snapshot.reconnecting?'Reconnecting to live network data.':fast===null||fast===undefined?'Current fee estimates are unavailable.':`Next-block fee: ${feeFmt(fast)} sat/vB.`;
+ const body=snapshot.reconnecting?'Retained values may be out of date.':fast===null||fast===undefined?'Wait for the live fee feed before comparing confirmation targets.':`Economy priority: ${economy===null||economy===undefined?'unavailable':feeFmt(economy)+' sat/vB'}. Check the sending wallet before broadcasting; timing is not guaranteed.`;
  const questions=[
-  q('fee','What fee?','Which fee should I choose?',snapshot.reconnecting?'The live feed is reconnecting, so retained estimates may be stale. Wait for fresh data and check the sending wallet before broadcasting.':`For urgency, the current next-block recommendation is ${fast===null||fast===undefined?'unavailable':fmt(fast)+' sat/vB'}. Economy priority is ${economy===null||economy===undefined?'unavailable':fmt(economy)+' sat/vB'} and has no fixed deadline. Use the sending wallet’s current estimate and review the total before sending. A fee recommendation is not a confirmation guarantee.`,'wallet'),
+  q('fee','What fee?','Which fee should I choose?',snapshot.reconnecting?'The live feed is reconnecting, so retained estimates may be stale. Wait for fresh data and check the sending wallet before broadcasting.':`For urgency, the current next-block recommendation is ${fast===null||fast===undefined?'unavailable':feeFmt(fast)+' sat/vB'}. Economy priority is ${economy===null||economy===undefined?'unavailable':feeFmt(economy)+' sat/vB'} and has no fixed deadline. Use the sending wallet’s current estimate and review the total before sending. A fee recommendation is not a confirmation guarantee.`,'wallet'),
   q('busy','How busy?','How busy is the network?',snapshot.questions.find(v=>v.id==='busy')!.text,'chart'),
   q('timing','Timing?','How long could a payment take?',snapshot.questions.find(v=>v.id==='timing')!.text,'clock'),
   q('total','Fee total?','How much is the total fee?','Multiply the fee rate in sat/vB by the transaction’s virtual size. The fee pays for block space, not a percentage of the amount sent. The calculator below is illustrative; use the sending wallet’s actual size and review any separate exchange withdrawal charge.','wallet'),
@@ -42,6 +43,6 @@ export function networkOverview(snapshot:NetworkSnapshot){
   `${snapshot.rows.find(r=>r.label==='Awaiting confirmation')?.value||'An unavailable number of'} transactions are shown in this provider’s pending queue. Queue counts alone do not show how much a fast payment needs to pay; fee rates and block-space demand matter.`,
   'For a payment already sent, search its transaction ID for status, confirmations and fee-bump guidance. Projected blocks above are estimates; mined blocks are confirmed history.'
  ];
- const facts:OverviewFact[]=snapshot.rows.map(f=>{const m=f.value.match(/^(.*?)\s+(sat\/vB|sats|vMB|blocks|minutes)$/);return {label:f.label,value:m?m[1]:f.value,unit:m?m[2]:'',fiatSats:f.fiatSats,meaning:f.meaning,details:f.details,accent:f.label==='Next-block fee'};});
+ const facts:OverviewFact[]=snapshot.rows.map(f=>{const m=f.value.match(/^(.*?)\s+(sat\/vB|sats|vMB|blocks|minutes)$/);return {label:f.label,value:m?(m[2]==='sat/vB' && Number.isFinite(Number(m[1]))?feeFmt(Number(m[1])):m[1]):f.value,unit:m?m[2]:'',fiatSats:f.fiatSats,meaning:f.meaning,details:f.details,accent:f.label==='Next-block fee'};});
  return {lead,body,paragraphs,questions,facts};
 }
