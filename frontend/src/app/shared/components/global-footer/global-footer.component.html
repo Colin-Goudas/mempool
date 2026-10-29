@@ -28,6 +28,7 @@
             }
           </p>
         }
+        <details class="pt-display-settings" [open]="!mobileFooter"><summary>Display settings</summary>
         <div class="site-options language-selector d-flex justify-content-center align-items-center" [class]="{'services': isServicesPage}">
           <div class="selector">
             <app-language-selector></app-language-selector>
@@ -54,6 +55,7 @@
             <app-theme-selector class="add-margin"></app-theme-selector>
           </div>
         }
+        </details>
         @if (!enterpriseInfo?.footer_img) {
           <ng-container *ngTemplateOutlet="servicesCta; context: { classes: isServicesPage ? 'd-flex d-lg-none ms-auto me-auto mt-0 mb-2' : 'd-flex d-md-none ms-auto me-auto mt-0 mb-2' }"></ng-container>
           <p class="explore-tagline-desktop">
