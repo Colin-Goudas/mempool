@@ -1,4 +1,4 @@
-import { Input, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, OnChanges, SimpleChanges, Inject, LOCALE_ID, OnDestroy } from '@angular/core';
+import { HostListener, Input, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, OnChanges, SimpleChanges, Inject, LOCALE_ID, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, merge, of, Subject, Subscription } from 'rxjs';
 import { tap, takeUntil } from 'rxjs/operators';
@@ -19,6 +19,8 @@ import { SERVICES_POPUP_ACTION } from '@app/shared/services-popup-action.token';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GlobalFooterComponent implements OnInit, OnDestroy, OnChanges {
+  mobileFooter = window.innerWidth <= 767.98;
+  @HostListener('window:resize') updateFooterWidth(): void { this.mobileFooter = window.innerWidth <= 767.98; }
   @Input() user: any = undefined;
 
   private destroy$: Subject<any> = new Subject<any>();
