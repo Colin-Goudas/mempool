@@ -179,6 +179,7 @@ export class IncomingTransactionsGraphComponent implements OnInit, OnChanges, On
     }
 
     this.mempoolStatsChartOption = {
+      ...(this.isMobile() ? {textStyle:{fontFamily:'-apple-system, BlinkMacSystemFont, Inter, Segoe UI, Roboto, sans-serif',color:'#c6cad2'}} : {}),
       grid: {
         height: this.height,
         right: this.right,
@@ -255,8 +256,9 @@ export class IncomingTransactionsGraphComponent implements OnInit, OnChanges, On
           axisLabel: {
             margin: 20,
             align: 'center',
-            fontSize: 11,
-            lineHeight: 12,
+            fontSize: this.isMobile() ? 12 : 11,
+            ...(this.isMobile() ? {color:'#aeb4c0',fontWeight:400} : {}),
+            lineHeight: this.isMobile() ? 18 : 12,
             hideOverlap: true,
             padding: [0, 5],
           },
@@ -273,7 +275,8 @@ export class IncomingTransactionsGraphComponent implements OnInit, OnChanges, On
         },
         type: 'value',
         axisLabel: {
-          fontSize: 11,
+          fontSize: this.isMobile() ? 12 : 11,
+            ...(this.isMobile() ? {color:'#aeb4c0',fontWeight:400} : {}),
           formatter: (value): string => {
             return this.weightMode ? (value * 4).toString() : value.toString();
           }
