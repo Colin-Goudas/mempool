@@ -43,9 +43,11 @@
             </tr>
           </tbody>
         </table>
+        <app-mobile-section-help helpId="pt-projected-fees-help" heading="Fee distribution"><p>This chart groups the projected block’s transactions by fee rate. It shows how much block space sits at each rate, not how much Bitcoin is being paid to recipients.</p><p>The block is a projection based on this provider’s queue. New transactions and miner choices can change it.</p></app-mobile-section-help>
         <app-fee-distribution-graph *ngIf="webGlEnabled" [transactions]="mempoolBlockTransactions$ | async" [feeRange]="mempoolBlock.isStack ? mempoolBlock.feeRange : []" [vsize]="mempoolBlock.blockVSize" ></app-fee-distribution-graph>
       </div>
       <div class="col-md chart-container">
+        <app-mobile-section-help helpId="pt-projected-map-help" heading="Projected block transactions"><p>These transactions are currently projected for this block or group of blocks. The visual map uses tile area to represent virtual size.</p><p>Use its filters to inspect transaction features, or select a transaction to inspect it. Projected inclusion and timing can change.</p></app-mobile-section-help>
         <div class="block-with-filters" *ngIf="webGlEnabled">
           <app-mempool-block-overview [index]="mempoolBlockIndex" (txPreviewEvent)="setTxPreview($event)" [showFilters]="true"></app-mempool-block-overview>
         </div>
